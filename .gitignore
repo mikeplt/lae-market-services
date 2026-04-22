@@ -1,0 +1,22 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs
+*.log
+
+# Lokale Outputs (werden von GitHub Actions neu erstellt)
+outputs/portal/
+outputs/cot-report/run.log
+outputs/weekly-note/run.log
+
+# Referenzmaterial (bleibt lokal)
+reference/
+
+# Batch-Dateien (nur lokal relevant)
+skills/cot-report/scripts/run_cot.bat
+skills/weekly-note/run_weekly_note.bat
