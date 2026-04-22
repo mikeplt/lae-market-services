@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard – LAE Market Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <!-- ── Sidebar Overlay (Mobile) ── -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+  <div class="portal-shell">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">
+          <svg width="28" height="28" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+            <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="sidebar-logo-text">
+          <span class="lae">LAE</span><span class="ms"> – Portal</span>
+        </div>
+        <button class="sidebar-toggle" onclick="toggleSidebarCollapse()" title="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">Main Menu</div>
+        <a href="dashboard.html" class="nav-link active" data-page="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+          </svg>
+          <span class="nav-text">Dashboard</span>
+        </a>
+
+        <div class="nav-section-label">Products</div>
+        <a href="products/market-overview.html" class="nav-link" data-page="market-overview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+          <span class="nav-text">Market Overview</span>
+        </a>
+        <a href="products/macro-analysis.html" class="nav-link" data-page="macro-analysis">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <span class="nav-text">Macro Analysis</span>
+        </a>
+        <a href="products/weekly-note.html" class="nav-link" data-page="weekly-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span class="nav-text">Weekly Note</span>
+        </a>
+        <a href="products/cot-report.html" class="nav-link" data-page="cot-report">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          <span class="nav-text">COT Report</span>
+        </a>
+        <a href="products/earnings.html" class="nav-link" data-page="earnings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <span class="nav-text">Earnings Reports</span>
+        </a>
+
+        <div class="nav-section-label">Account</div>
+        <a href="#" class="nav-link" data-page="konto">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span class="nav-text">Profile</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="logout()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          <span class="nav-text">Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ── Main ── -->
+    <div class="main-content">
+
+      <!-- Top Bar (Mobile only) -->
+      <div class="topbar">
+        <div class="topbar-logo">
+          <svg width="22" height="22" viewBox="0 0 60 60" fill="none">
+            <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+            <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span><span class="lae">LAE</span><span class="ms"> – Portal</span></span>
+        </div>
+        <button class="hamburger" onclick="toggleSidebar()" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <!-- Page Content -->
+      <div class="page-content">
+
+        <!-- Header -->
+        <div class="page-header">
+          <div class="page-header-meta" id="current-date">—</div>
+          <h1 class="page-title">Welcome back</h1>
+          <p class="page-subtitle">Here you'll find all your content and analyses at a glance.</p>
+        </div>
+
+        <!-- Deine Produkte -->
+        <h2 style="margin-bottom: 16px; font-size: 0.7rem; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em;">Your Products</h2>
+        <div class="products-grid" style="grid-template-columns: repeat(5, 1fr); margin-bottom: 28px;">
+
+          <a href="products/market-overview.html" class="product-card" style="text-decoration:none; padding: 16px; gap: 8px; position:relative;">
+            <div class="product-badge badge-new" style="position:absolute; top:12px; right:12px;">● LIVE</div>
+            <div class="product-icon" style="width:32px; height:32px; font-size:0.9rem;">📊</div>
+            <div class="product-name" style="font-size:0.85rem;">Market Overview</div>
+            <div class="product-desc" style="font-size:0.75rem;">Live quotes, charts and market data via TradingView.</div>
+            <div class="product-cta" style="font-size:0.78rem;">Open now →</div>
+          </a>
+
+          <a href="products/macro-analysis.html" class="product-card" style="text-decoration:none; padding: 16px; gap: 8px; position:relative;">
+            <div class="product-badge badge-new" style="position:absolute; top:12px; right:12px;">● NEW</div>
+            <div class="product-icon" style="width:32px; height:32px; font-size:0.9rem;">🌐</div>
+            <div class="product-name" style="font-size:0.85rem;">Macro Analysis</div>
+            <div class="product-desc" style="font-size:0.75rem;">US macro analysis – inflation, interest rates, growth &amp; market structure.</div>
+            <div class="product-cta" style="font-size:0.78rem;">Open analysis →</div>
+          </a>
+
+          <a href="products/weekly-note.html" class="product-card" style="text-decoration:none; padding: 16px; gap: 8px; position:relative;">
+            <div class="product-badge badge-new" style="position:absolute; top:12px; right:12px;">● NEW</div>
+            <div class="product-icon" style="width:32px; height:32px; font-size:0.9rem;">📅</div>
+            <div class="product-name" style="font-size:0.85rem;">Weekly Note</div>
+            <div class="product-desc" style="font-size:0.75rem;">Weekly market briefing – earnings, narrative and outlook.</div>
+            <div class="product-cta" style="font-size:0.78rem;">Read now →</div>
+          </a>
+
+          <a href="products/cot-report.html" class="product-card" style="text-decoration:none; padding: 16px; gap: 8px; position:relative;">
+            <div class="product-badge badge-new" style="position:absolute; top:12px; right:12px;">● NEW</div>
+            <div class="product-icon" style="width:32px; height:32px; font-size:0.9rem;">📉</div>
+            <div class="product-name" style="font-size:0.85rem;">COT Report</div>
+            <div class="product-desc" style="font-size:0.75rem;">Futures positioning – institutional positioning &amp; signals.</div>
+            <div class="product-cta" style="font-size:0.78rem;">Open report →</div>
+          </a>
+
+          <a href="products/earnings.html" class="product-card" style="text-decoration:none; padding: 16px; gap: 8px; position:relative;">
+            <div class="product-badge badge-new" style="position:absolute; top:12px; right:12px;">● NEW</div>
+            <div class="product-icon" style="width:32px; height:32px; font-size:0.9rem;">📄</div>
+            <div class="product-name" style="font-size:0.85rem;">Earnings Reports</div>
+            <div class="product-desc" style="font-size:0.75rem;">Earnings previews, reports &amp; valuation estimates.</div>
+            <div class="product-cta" style="font-size:0.78rem;">View reports →</div>
+          </a>
+
+        </div>
+
+        <!-- Kennzahlen-Kacheln -->
+        <div class="metrics-grid">
+          <div class="metric-tile">
+            <div class="metric-icon">📊</div>
+            <div class="metric-label">Market Sentiment</div>
+            <div class="metric-value mono">—</div>
+            <div class="metric-sub">Coming soon</div>
+          </div>
+          <div class="metric-tile">
+            <div class="metric-icon">📈</div>
+            <div class="metric-label">Market Situation</div>
+            <div class="metric-value mono">—</div>
+            <div class="metric-sub">Coming soon</div>
+          </div>
+          <div class="metric-tile">
+            <div class="metric-icon">⚡</div>
+            <div class="metric-label">Top Mover</div>
+            <div class="metric-value mono">—</div>
+            <div class="metric-sub">Coming soon</div>
+          </div>
+          <div class="metric-tile">
+            <div class="metric-icon">🗓</div>
+            <div class="metric-label">Next Event</div>
+            <div class="metric-value mono">—</div>
+            <div class="metric-sub">Coming soon</div>
+          </div>
+        </div>
+
+        <!-- News + Letzte Updates -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+
+          <!-- News -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Latest News</span>
+            </div>
+            <div class="news-list">
+              <div class="news-item">
+                <div class="news-dot"></div>
+                <div>
+                  <div class="news-item-title">Market Update: Fed Decision Expected</div>
+                  <div class="news-item-meta">Apr 15, 2026 · 09:30</div>
+                </div>
+              </div>
+              <div class="news-item">
+                <div class="news-dot"></div>
+                <div>
+                  <div class="news-item-title">S&amp;P 500 Holds Key Support</div>
+                  <div class="news-item-meta">Apr 15, 2026 · 08:15</div>
+                </div>
+              </div>
+              <div class="news-item">
+                <div class="news-dot"></div>
+                <div>
+                  <div class="news-item-title">COT Data: Institutions Remain Long</div>
+                  <div class="news-item-meta">Apr 14, 2026 · 20:00</div>
+                </div>
+              </div>
+              <div class="news-item">
+                <div class="news-dot"></div>
+                <div>
+                  <div class="news-item-title">Earnings Season Kicks Off Strong</div>
+                  <div class="news-item-meta">Apr 14, 2026 · 17:45</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Letzte Updates -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Latest Updates</span>
+            </div>
+            <div class="archive-list">
+              <div class="archive-item" onclick="window.location.href='products/weekly-note.html'" style="cursor:pointer;">
+                <div>
+                  <div class="archive-item-title">Weekly Note</div>
+                  <div class="archive-item-date">Apr 15, 2026</div>
+                </div>
+                <span class="archive-item-arrow">→</span>
+              </div>
+              <div class="archive-item" onclick="window.location.href='products/cot-report.html'" style="cursor:pointer;">
+                <div>
+                  <div class="archive-item-title">COT Report Week 15</div>
+                  <div class="archive-item-date">Apr 14, 2026</div>
+                </div>
+                <span class="archive-item-arrow">→</span>
+              </div>
+              <div class="archive-item" onclick="window.location.href='products/earnings.html'" style="cursor:pointer;">
+                <div>
+                  <div class="archive-item-title">Earnings Preview Q1</div>
+                  <div class="archive-item-date">Apr 13, 2026</div>
+                </div>
+                <span class="archive-item-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div><!-- /page-content -->
+    </div><!-- /main-content -->
+  </div><!-- /portal-shell -->
+
+  <script>
+    // Auth guard
+    if (sessionStorage.getItem('lae_auth') !== 'true') {
+      window.location.replace('index.html');
+    }
+
+    // Sidebar collapse
+    if (localStorage.getItem('lae-sidebar') === 'collapsed') {
+      document.body.classList.add('sidebar-collapsed');
+    }
+
+    function toggleSidebarCollapse() {
+      const collapsed = document.body.classList.toggle('sidebar-collapsed');
+      localStorage.setItem('lae-sidebar', collapsed ? 'collapsed' : 'expanded');
+    }
+
+    // Set current date
+    const dateEl = document.getElementById('current-date');
+    if (dateEl) {
+      const now = new Date();
+      dateEl.textContent = now.toLocaleDateString('en-US', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+    }
+
+    // Sidebar toggle (mobile)
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebar-overlay').classList.toggle('active');
+    }
+
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebar-overlay').classList.remove('active');
+    }
+
+    // Logout
+    function logout() {
+      sessionStorage.removeItem('lae_auth');
+      sessionStorage.removeItem('lae_user');
+      window.location.replace('index.html');
+    }
+
+    // Disable browser back after logout
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', function() {
+      if (sessionStorage.getItem('lae_auth') !== 'true') {
+        window.location.replace('index.html');
+      }
+    });
+  </script>
+
+</body>
+</html>

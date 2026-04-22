@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LAE Market Services – Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #090c11;
+      --bg2:          #0d111a;
+      --bg3:          #111720;
+      --green:        #39ff14;
+      --green-glow:   rgba(57, 255, 20, 0.08);
+      --green-border: rgba(57, 255, 20, 0.2);
+      --white:        #f0f4f8;
+      --gray:         #7a8899;
+      --border:       rgba(255, 255, 255, 0.07);
+      --font-body:    'Inter', sans-serif;
+      --font-mono:    'JetBrains Mono', monospace;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Background grid texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(57,255,20,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(57,255,20,0.025) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .login-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 56px;
+      height: 56px;
+    }
+
+    .logo-wordmark {
+      font-family: var(--font-mono);
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .logo-wordmark .lae { color: var(--green); }
+    .logo-wordmark .ms  { color: var(--white); }
+
+    .logo-claim {
+      font-size: 0.78rem;
+      color: var(--gray);
+      letter-spacing: 0.04em;
+    }
+
+    /* Card */
+    .login-card {
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+    }
+
+    .login-card h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .login-card p {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-bottom: 28px;
+    }
+
+    /* Form */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .form-group input {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.15s;
+      width: 100%;
+    }
+
+    .form-group input::placeholder {
+      color: rgba(122, 136, 153, 0.5);
+    }
+
+    .form-group input:focus {
+      border-color: rgba(57, 255, 20, 0.4);
+      box-shadow: 0 0 0 3px rgba(57, 255, 20, 0.06);
+    }
+
+    /* Error */
+    .error-msg {
+      display: none;
+      background: rgba(255, 80, 80, 0.08);
+      border: 1px solid rgba(255, 80, 80, 0.2);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.83rem;
+      color: #ff6b6b;
+      margin-bottom: 16px;
+    }
+
+    .error-msg.visible {
+      display: block;
+    }
+
+    /* Submit button */
+    .btn-login {
+      width: 100%;
+      background: var(--green);
+      color: #090c11;
+      border: none;
+      border-radius: 8px;
+      padding: 13px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s;
+      margin-top: 8px;
+    }
+
+    .btn-login:hover {
+      background: #4dff2b;
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.25);
+    }
+
+    .btn-login:active {
+      transform: scale(0.99);
+    }
+
+    /* Footer */
+    .login-footer {
+      font-size: 0.75rem;
+      color: var(--gray);
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .login-footer a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-wrap">
+
+    <!-- Logo -->
+    <div class="logo">
+      <svg class="logo-icon" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+        <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="logo-wordmark"><span class="lae">LAE</span><span class="ms"> Market Services</span></div>
+      <div class="logo-claim">Learn. Analyze. Execute.</div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-card">
+      <h2>Member Area</h2>
+      <p>Sign in to access your content.</p>
+
+      <div id="error-msg" class="error-msg">
+        Email or password is incorrect. Please try again.
+      </div>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="your@email.com" autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
+        </div>
+        <button type="submit" class="btn-login">Sign In</button>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="login-footer">
+      Not a member yet? <a href="#">Join Now</a><br />
+      &copy; 2026 LAE Market Services · Hannover
+    </div>
+
+  </div>
+
+  <script>
+    // Redirect if already logged in
+    if (sessionStorage.getItem('lae_auth') === 'true') {
+      window.location.href = 'dashboard.html';
+    }
+
+    const DEMO_EMAIL    = 'mitglied@lae.de';
+    const DEMO_PASSWORD = 'lae2026';
+
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const errEl    = document.getElementById('error-msg');
+
+      if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
+        sessionStorage.setItem('lae_auth', 'true');
+        sessionStorage.setItem('lae_user', email);
+        window.location.href = 'dashboard.html';
+      } else {
+        errEl.classList.add('visible');
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
+      }
+    });
+
+    // Hide error on input
+    document.getElementById('email').addEventListener('input', () => {
+      document.getElementById('error-msg').classList.remove('visible');
+    });
+    document.getElementById('password').addEventListener('input', () => {
+      document.getElementById('error-msg').classList.remove('visible');
+    });
+  </script>
+
+</body>
+</html>
