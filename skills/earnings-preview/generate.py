@@ -1,24 +1,24 @@
 """
 LAE Earnings Preview – HTML Generator
 Usage: python generate.py  (from the skills/earnings-preview folder)
-Output: ../../outputs/earnings-preview/earnings-preview-TSLA-Q1-FY2026.html
+Output: ../../outputs/earnings-preview/earnings-preview-V-Q2-FY2026.html
 """
 from pathlib import Path
 
 # ── HEADER ────────────────────────────────────────────────────────────────────
 DATA = {
-    "DATUM":        "April 19, 2026",
-    "TICKER":       "TSLA",
-    "COMPANY_NAME": "Tesla, Inc.",
-    "QUARTER":      "Q1 FY2026",
-    "REPORT_DATE":  "April 22, 2026",
+    "DATUM":        "April 27, 2026",
+    "TICKER":       "V",
+    "COMPANY_NAME": "Visa Inc.",
+    "QUARTER":      "Q2 FY2026",
+    "REPORT_DATE":  "April 28, 2026",
     "REPORT_TIME":  "After Close",
-    "STOCK_DATE":   "Apr. 18",
-    "STOCK_PRICE":  "$ 400.62",
-    "IMPLIED_MOVE": "± 6.92%",
+    "STOCK_DATE":   "Apr. 25",
+    "STOCK_PRICE":  "$ 309.10",
+    "IMPLIED_MOVE": "± 3.5%",
     "TV_IFRAME_SRC": (
         "https://www.tradingview.com/embed-widget/mini-symbol-overview/"
-        "?symbol=NASDAQ%3ATSLA&locale=en&dateRange=12M&colorTheme=dark"
+        "?symbol=NYSE%3AV&locale=en&dateRange=12M&colorTheme=dark"
         "&trendLineColor=%2339ff14&underLineColor=rgba(57%2C255%2C20%2C0.15)"
         "&underLineBottomColor=rgba(57%2C255%2C20%2C0)&isTransparent=true&autosize=true"
     ),
@@ -27,80 +27,81 @@ DATA = {
 # ── CONSENSUS ESTIMATES ───────────────────────────────────────────────────────
 # Format: (Metric, Consensus, Prior Year, YoY, yoy_class)
 ESTIMATES = [
-    ("Revenue (total)",           "$ 21.4B",   "$ 19.34B",  "▲ 10.7%",  "pos"),
-    ("Automotive Revenue",        "$ 14.5B",   "$ 13.7B",   "▲ 5.8%",   "pos"),
-    ("Energy & Storage Revenue",  "$ 3.5B",    "$ 2.73B",   "▲ 28.2%",  "pos"),
-    ("Gross Margin",              "16.5%",     "16.3%",     "▲ 20 bps", "pos"),
-    ("Automotive Gross Margin",   "16.0%",     "15.0%",     "▲ 100 bps","pos"),
-    ("EPS (adj.)",                "$ 0.37",    "$ 0.27",    "▲ 37.0%",  "pos"),
+    ("Revenue (total)",           "$ 10.7B",  "$ 9.6B",   "▲ 11.5%",  "pos"),
+    ("Service Revenue",           "$ 4.91B",  "$ 4.40B",  "▲ 11.6%",  "pos"),
+    ("Data Processing Revenue",   "$ 5.30B",  "$ 4.70B",  "▲ 12.8%",  "pos"),
+    ("EPS (adj.)",                "$ 3.09",   "$ 2.76",   "▲ 12.0%",  "pos"),
 ]
 
 # ── KEY METRICS TO WATCH ──────────────────────────────────────────────────────
 # Format: (Rank, Title, Description)
 METRICS = [
-    ("1", "Automotive Gross Margin",
-     "Consensus expects 16.0% (vs. 15.0% prior year). Tariff headwinds and price cuts make "
-     "the margin outlook the key metric for H2 guidance."),
-    ("2", "Energy & Storage Revenue",
-     "The growth segment generates ~30% margin – more than twice the automotive business. "
-     "A beat supports the AI/energy infrastructure narrative."),
-    ("3", "FSD & Robotaxi Roadmap",
-     "A concrete Cybercab timeline (H2 2026?) is the most important re-rating catalyst. "
-     "The market is increasingly pricing in AI value – management must deliver with data."),
-    ("4", "Deliveries & Q2 Outlook",
-     "Q1 expected: 365,645 vehicles (▲ 8.6% YoY). The Q2 outlook shows whether demand "
-     "recovery is sustainable or disappoints again."),
+    ("1", "Cross-Border Volume (ex. intra-Europe)",
+     "Q2 FY2025: +13% YoY. Consensus expects ~+12%. This is Visa's highest-margin "
+     "business line – driven by international travel and cross-border e-commerce."),
+    ("2", "Total Payment Volume",
+     "Q2 FY2025: ~+8% constant currency. Consensus expects ~+9% YoY. "
+     "A beat signals US consumer resilience and global spending momentum."),
+    ("3", "FY2026 Guidance Update",
+     "Full-year EPS consensus: $12.84. Any guidance revision is the key re-rating catalyst. "
+     "Management tone on consumer spending and macro outlook drives the post-print move."),
+    ("4", "Net Revenue (Constant Currency)",
+     "Q2 FY2025: +11% in constant currency. USD strength may create a headwind – "
+     "constant-currency growth gives the cleanest read of underlying business momentum."),
 ]
 
 # ── SCENARIOS ─────────────────────────────────────────────────────────────────
 # Format: (class, tag, reaction, revenue, eps, driver, description)
 SCENARIOS = [
-    ("bull", "Bull", "+15–20%",
-     "> $ 22.0B", "> $ 0.43",
-     "Energy Beat + Margin Surprise",
-     "Energy revenue above $ 4.0B, Automotive Gross Margin at 17% or higher. "
-     "A clear Robotaxi timeline triggers an AI re-rating. Management raises FY2026 guidance."),
-    ("base", "Base", "± 3–7%",
-     "~ $ 21.4B", "~ $ 0.37",
-     "In-line, Positive Outlook",
-     "Results meet consensus. Margin stable, Energy grows on plan. "
-     "FSD update without major surprise – stock moves sideways to slightly positive."),
-    ("bear", "Bear", "− 12–18%",
-     "< $ 20.5B", "< $ 0.28",
-     "Demand Miss + Margin Pressure",
-     "Delivery numbers disappoint, tariff headwinds push Automotive Gross Margin below 14%. "
-     "No concrete Robotaxi timeline – recent gains are given back."),
+    ("bull", "Bull", "+8–12%",
+     "> $ 11.0B", "> $ 3.15",
+     "Cross-Border Beat + Guidance Raise",
+     "Cross-border volume grows above 15%, total payment volume exceeds $4.3T. "
+     "Management raises FY2026 EPS guidance above $13.00. Strong international travel "
+     "and consumer spending confirm demand resilience despite macro headwinds."),
+    ("base", "Base", "± 2–4%",
+     "~ $ 10.7B", "~ $ 3.09",
+     "Consensus Met, Guidance Stable",
+     "Results meet expectations. Payment volume grows ~9% YoY, cross-border at ~12%. "
+     "FY2026 guidance maintained. Strong business fundamentals – "
+     "stock moves sideways to slightly positive."),
+    ("bear", "Bear", "− 7–12%",
+     "< $ 10.3B", "< $ 2.90",
+     "Volume Miss + Guidance Cut",
+     "Payment volumes disappoint amid macro uncertainty and consumer slowdown. "
+     "Cross-border decelerates below 10%. Management lowers Q3/FY2026 guidance – "
+     "the recent recovery in the stock is fully reversed."),
 ]
 
 # ── CATALYST CHECKLIST ────────────────────────────────────────────────────────
 # Format: (Number, Title, Description)
 CATALYSTS = [
-    ("01", "Automotive Gross Margin",
-     "Consensus: 16.0%. Every positive basis point signals pricing power despite tariff headwinds. "
-     "Management commentary on H2 2026 guidance is decisive."),
-    ("02", "Energy & Storage Revenue",
-     "If the segment beats the $ 3.5B estimate, the valuation as an energy infrastructure "
-     "company rises significantly. The ~30% segment margin is the core re-rating argument."),
-    ("03", "FSD Update & Cybercab Timeline",
-     "Concrete data on the Cybercab launch (H2 2026?) is the most important catalyst. "
-     "The AI narrative supports the current valuation – management must deliver here."),
-    ("04", "Q2 Delivery Guidance",
-     "Q1: 365,645 vehicles expected. Raising guidance above 400,000 for Q2 would be "
-     "a strong buy signal and confirms sustainable demand recovery."),
-    ("05", "Free Cash Flow",
-     "After negative FCF in Q4 2025: a return to positive territory strengthens the "
-     "balance sheet story and reduces structural downside risks."),
+    ("01", "Cross-Border Volume (ex. intra-Europe)",
+     "Q2 FY2025: +13% YoY. Every 100 bps above consensus signals premium travel "
+     "and international spending demand – Visa's highest-margin business line."),
+    ("02", "Total Payment Volume",
+     "Q2 FY2025: ~$3.93T (+8% constant currency). A beat above $4.3T (+10% YoY) "
+     "confirms US consumer resilience despite tariff uncertainty."),
+    ("03", "FY2026 EPS Guidance",
+     "Full-year consensus at $12.84 (+11.9% YoY). Any revision higher triggers an "
+     "immediate re-rating. A cut – even modest – drives sharp downside given current valuation."),
+    ("04", "Processed Transactions",
+     "Q2 FY2025: +9% YoY. An acceleration signals strong everyday spending "
+     "and continued digital payment adoption across global markets."),
+    ("05", "Capital Return Program",
+     "Visa announced a $30B buyback in Q2 FY2025. Any new buyback authorization "
+     "or dividend increase would be an additional positive surprise for shareholders."),
 ]
 
 # ── TRADING SETUP ─────────────────────────────────────────────────────────────
 # Format: (Label, Value, class)  class: "red" | "green" | ""
 TRADING = [
-    ("Price (Apr. 18)",             "$ 400.62",          ""),
-    ("52-Week Range",               "$ 222 – 499",       ""),
-    ("YTD Performance",             "▲ 14.5%",           "green"),
-    ("Avg. Earnings Reaction",      "± 9.8%",            ""),
-    ("Implied Move (Options)",      "± 6.92%",           "red"),
-    ("Analyst Consensus",           "Buy / 32 analysts", ""),
+    ("Price (Apr. 25)",             "$ 309.10",          ""),
+    ("52-Week Range",               "$ 293 – 376",       ""),
+    ("YTD Performance",             "▼ 8.5%",            "red"),
+    ("Avg. Earnings Reaction",      "± 4.2%",            ""),
+    ("Implied Move (Options)",      "± 3.5%",            "red"),
+    ("Analyst Consensus",           "Buy / 31 analysts", ""),
 ]
 
 # ── HTML BUILD ────────────────────────────────────────────────────────────────
