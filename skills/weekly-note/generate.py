@@ -268,7 +268,7 @@ def generate_html(data: dict) -> str:
     <div class="card">
       <div class="card-title">Technical Orientation</div>
       <div class="tech-item">
-        <div class="tech-label">ES (S&P Futures)</div>
+        <div class="tech-label">{data['technisch']['es']['label']}</div>
         <div class="tech-bias">{data['technisch']['es']['bias']}</div>
         <div class="tech-levels">
           <span class="sup">▲ {data['technisch']['es']['support']}</span>
@@ -277,7 +277,7 @@ def generate_html(data: dict) -> str:
         </div>
       </div>
       <div class="tech-item">
-        <div class="tech-label">NQ (Nasdaq Futures)</div>
+        <div class="tech-label">{data['technisch']['nq']['label']}</div>
         <div class="tech-bias">{data['technisch']['nq']['bias']}</div>
         <div class="tech-levels">
           <span class="sup">▲ {data['technisch']['nq']['support']}</span>
