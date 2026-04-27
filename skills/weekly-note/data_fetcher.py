@@ -96,8 +96,10 @@ def get_sector_performance() -> tuple[list, list]:
     """Top-2 and Flop-2 sectors via Alpha Vantage SECTOR endpoint (5-day = weekly)."""
     try:
         data = _get({"function": "SECTOR"})
+        print(f"    Sector API keys: {list(data.keys())}")
         week_perf = data.get("Rank C: 5 Day Performance", {})
         if not week_perf:
+            print(f"    Warning: 'Rank C: 5 Day Performance' not found in response")
             return [], []
 
         performances = []
