@@ -1,24 +1,24 @@
 """
 LAE Earnings Preview – HTML Generator
 Usage: python generate.py  (from the skills/earnings-preview folder)
-Output: ../../outputs/earnings-preview/earnings-preview-V-Q2-FY2026.html
+Output: ../../outputs/earnings-preview/earnings-preview-KO-Q1-FY2026.html
 """
 from pathlib import Path
 
 # ── HEADER ────────────────────────────────────────────────────────────────────
 DATA = {
     "DATUM":        "April 27, 2026",
-    "TICKER":       "V",
-    "COMPANY_NAME": "Visa Inc.",
-    "QUARTER":      "Q2 FY2026",
+    "TICKER":       "KO",
+    "COMPANY_NAME": "The Coca-Cola Company",
+    "QUARTER":      "Q1 FY2026",
     "REPORT_DATE":  "April 28, 2026",
-    "REPORT_TIME":  "After Close",
+    "REPORT_TIME":  "Before Open",
     "STOCK_DATE":   "Apr. 25",
-    "STOCK_PRICE":  "$ 309.10",
-    "IMPLIED_MOVE": "± 3.5%",
+    "STOCK_PRICE":  "$ 76.31",
+    "IMPLIED_MOVE": "± 2.5%",
     "TV_IFRAME_SRC": (
         "https://www.tradingview.com/embed-widget/mini-symbol-overview/"
-        "?symbol=NYSE%3AV&locale=en&dateRange=12M&colorTheme=dark"
+        "?symbol=NYSE%3AKO&locale=en&dateRange=12M&colorTheme=dark"
         "&trendLineColor=%2339ff14&underLineColor=rgba(57%2C255%2C20%2C0.15)"
         "&underLineBottomColor=rgba(57%2C255%2C20%2C0)&isTransparent=true&autosize=true"
     ),
@@ -27,81 +27,81 @@ DATA = {
 # ── CONSENSUS ESTIMATES ───────────────────────────────────────────────────────
 # Format: (Metric, Consensus, Prior Year, YoY, yoy_class)
 ESTIMATES = [
-    ("Revenue (total)",           "$ 10.7B",  "$ 9.6B",   "▲ 11.5%",  "pos"),
-    ("Service Revenue",           "$ 4.91B",  "$ 4.40B",  "▲ 11.6%",  "pos"),
-    ("Data Processing Revenue",   "$ 5.30B",  "$ 4.70B",  "▲ 12.8%",  "pos"),
-    ("EPS (adj.)",                "$ 3.09",   "$ 2.76",   "▲ 12.0%",  "pos"),
+    ("Revenue (total)",       "$ 12.2B",  "$ 11.1B",  "▲ 9.9%",   "pos"),
+    ("Organic Revenue Growth","~ +5.5%",  "6.0%",     "▼ 50 bps", "neg"),
+    ("EPS (adj.)",            "$ 0.81",   "$ 0.73",   "▲ 11.0%",  "pos"),
+    ("Unit Case Volume",      "~ +2%",    "+2%",      "→ stable",  ""),
 ]
 
 # ── KEY METRICS TO WATCH ──────────────────────────────────────────────────────
 # Format: (Rank, Title, Description)
 METRICS = [
-    ("1", "Cross-Border Volume (ex. intra-Europe)",
-     "Q2 FY2025: +13% YoY. Consensus expects ~+12%. This is Visa's highest-margin "
-     "business line – driven by international travel and cross-border e-commerce."),
-    ("2", "Total Payment Volume",
-     "Q2 FY2025: ~+8% constant currency. Consensus expects ~+9% YoY. "
-     "A beat signals US consumer resilience and global spending momentum."),
-    ("3", "FY2026 Guidance Update",
-     "Full-year EPS consensus: $12.84. Any guidance revision is the key re-rating catalyst. "
-     "Management tone on consumer spending and macro outlook drives the post-print move."),
-    ("4", "Net Revenue (Constant Currency)",
-     "Q2 FY2025: +11% in constant currency. USD strength may create a headwind – "
-     "constant-currency growth gives the cleanest read of underlying business momentum."),
+    ("1", "Organic Revenue Growth",
+     "Q1 2025: +6% (5% price/mix + 1% volume). Consensus expects ~+5.5% for Q1 2026. "
+     "This is the cleanest measure of business momentum – FX-neutral and divestiture-adjusted."),
+    ("2", "Unit Case Volume",
+     "Q1 2025: +2% globally (driven by India, China, Brazil). "
+     "A beat above +3% confirms sustainable demand recovery across emerging markets."),
+    ("3", "FY2026 Guidance",
+     "Management guided 4–5% organic revenue growth and 7–8% EPS growth for FY2026. "
+     "Any upward revision is the primary re-rating catalyst – especially on EPS."),
+    ("4", "New CEO Henrique Braun – First Earnings",
+     "First report under new CEO. Market watching for strategic direction: "
+     "AI integration in marketing/pricing, brand portfolio focus, and capital allocation priorities."),
 ]
 
 # ── SCENARIOS ─────────────────────────────────────────────────────────────────
 # Format: (class, tag, reaction, revenue, eps, driver, description)
 SCENARIOS = [
-    ("bull", "Bull", "+8–12%",
-     "> $ 11.0B", "> $ 3.15",
-     "Cross-Border Beat + Guidance Raise",
-     "Cross-border volume grows above 15%, total payment volume exceeds $4.3T. "
-     "Management raises FY2026 EPS guidance above $13.00. Strong international travel "
-     "and consumer spending confirm demand resilience despite macro headwinds."),
-    ("base", "Base", "± 2–4%",
-     "~ $ 10.7B", "~ $ 3.09",
-     "Consensus Met, Guidance Stable",
-     "Results meet expectations. Payment volume grows ~9% YoY, cross-border at ~12%. "
-     "FY2026 guidance maintained. Strong business fundamentals – "
-     "stock moves sideways to slightly positive."),
-    ("bear", "Bear", "− 7–12%",
-     "< $ 10.3B", "< $ 2.90",
+    ("bull", "Bull", "+5–8%",
+     "> $ 12.5B", "> $ 0.85",
+     "Organic Acceleration + Guidance Raise",
+     "Organic revenue growth above 7%, unit case volume above +3%. "
+     "New CEO Braun raises FY2026 EPS guidance to top end or above the 7–8% range. "
+     "Pricing power confirmed despite tariff environment – Buffett-stock premium re-rates."),
+    ("base", "Base", "± 1–3%",
+     "~ $ 12.2B", "~ $ 0.81",
+     "Consensus Met, Guidance Maintained",
+     "Results in line with expectations. Organic growth ~+5.5%, volumes steady at +2%. "
+     "FY2026 guidance unchanged. KO remains the defensive safe-haven – "
+     "stock drifts sideways to slightly positive."),
+    ("bear", "Bear", "− 5–8%",
+     "< $ 11.8B", "< $ 0.76",
      "Volume Miss + Guidance Cut",
-     "Payment volumes disappoint amid macro uncertainty and consumer slowdown. "
-     "Cross-border decelerates below 10%. Management lowers Q3/FY2026 guidance – "
-     "the recent recovery in the stock is fully reversed."),
+     "Unit case volumes disappoint, organic growth decelerates below 4%. "
+     "Tariff headwinds pressure margins. Management lowers full-year EPS guidance – "
+     "the 2026 YTD gains are partially reversed."),
 ]
 
 # ── CATALYST CHECKLIST ────────────────────────────────────────────────────────
 # Format: (Number, Title, Description)
 CATALYSTS = [
-    ("01", "Cross-Border Volume (ex. intra-Europe)",
-     "Q2 FY2025: +13% YoY. Every 100 bps above consensus signals premium travel "
-     "and international spending demand – Visa's highest-margin business line."),
-    ("02", "Total Payment Volume",
-     "Q2 FY2025: ~$3.93T (+8% constant currency). A beat above $4.3T (+10% YoY) "
-     "confirms US consumer resilience despite tariff uncertainty."),
+    ("01", "Organic Revenue Growth",
+     "Q1 2025: +6%. Every 50 bps above consensus signals pricing power – "
+     "the most important currency-neutral indicator of Coca-Cola's business health."),
+    ("02", "Unit Case Volume",
+     "Q1 2025: +2% globally. Growth in emerging markets (India, China, Brazil) "
+     "is the structural long-term thesis – any acceleration strengthens the bull case."),
     ("03", "FY2026 EPS Guidance",
-     "Full-year consensus at $12.84 (+11.9% YoY). Any revision higher triggers an "
-     "immediate re-rating. A cut – even modest – drives sharp downside given current valuation."),
-    ("04", "Processed Transactions",
-     "Q2 FY2025: +9% YoY. An acceleration signals strong everyday spending "
-     "and continued digital payment adoption across global markets."),
-    ("05", "Capital Return Program",
-     "Visa announced a $30B buyback in Q2 FY2025. Any new buyback authorization "
-     "or dividend increase would be an additional positive surprise for shareholders."),
+     "Guidance range: 7–8% EPS growth. A raise to the top end or above signals "
+     "confidence in pricing power despite tariffs and FX headwinds."),
+    ("04", "New CEO Braun – Strategic Commentary",
+     "First earnings call as CEO. Investors watching for updates on AI integration, "
+     "brand portfolio strategy, and how Braun plans to sustain Coca-Cola's pricing moat."),
+    ("05", "Currency Headwinds",
+     "Q1 2025: 5-point FX headwind on comparable EPS. USD strength in Q1 2026 "
+     "may repeat – constant-currency commentary is crucial for interpretation."),
 ]
 
 # ── TRADING SETUP ─────────────────────────────────────────────────────────────
 # Format: (Label, Value, class)  class: "red" | "green" | ""
 TRADING = [
-    ("Price (Apr. 25)",             "$ 309.10",          ""),
-    ("52-Week Range",               "$ 293 – 376",       ""),
-    ("YTD Performance",             "▼ 8.5%",            "red"),
-    ("Avg. Earnings Reaction",      "± 4.2%",            ""),
-    ("Implied Move (Options)",      "± 3.5%",            "red"),
-    ("Analyst Consensus",           "Buy / 31 analysts", ""),
+    ("Price (Apr. 25)",             "$ 76.31",           ""),
+    ("52-Week Range",               "$ 65 – 82",         ""),
+    ("YTD Performance",             "▲ 9.9%",            "green"),
+    ("Avg. Earnings Reaction",      "± 2.8%",            ""),
+    ("Implied Move (Options)",      "± 2.5%",            "red"),
+    ("Analyst Consensus",           "Buy / 26 analysts", ""),
 ]
 
 # ── HTML BUILD ────────────────────────────────────────────────────────────────
