@@ -1,17 +1,19 @@
 """
 LAE Market Services – Weekly Note Data Fetcher
-Ruft alle Marktdaten automatisch ab und gibt sie im generate.py-Format zurück.
+Fetches all market data automatically and returns it in generate.py format.
 """
 
 import os
 import math
+import time
+import requests
 from datetime import datetime, timedelta
 
 import yfinance as yf
 from google import genai
 
 
-# ── Konfiguration ─────────────────────────────────────────────────────────────
+# ── Configuration ─────────────────────────────────────────────────────────────
 
 INDEX_TICKERS = {
     "sp500":   ("^GSPC",   "S&P 500"),
@@ -21,16 +23,16 @@ INDEX_TICKERS = {
 }
 
 SECTOR_ETFS = {
-    "XLK":  "Technologie",
-    "XLE":  "Energie",
-    "XLF":  "Finanzen",
-    "XLY":  "Konsum Zyklisch",
-    "XLP":  "Konsum Defensiv",
-    "XLV":  "Gesundheit",
-    "XLU":  "Versorger",
-    "XLB":  "Materialien",
-    "XLI":  "Industrie",
-    "XLRE": "Immobilien",
+    "XLK":  "Technology",
+    "XLE":  "Energy",
+    "XLF":  "Financials",
+    "XLY":  "Cons. Discretionary",
+    "XLP":  "Cons. Staples",
+    "XLV":  "Health Care",
+    "XLU":  "Utilities",
+    "XLB":  "Materials",
+    "XLI":  "Industrials",
+    "XLRE": "Real Estate",
 }
 
 FUTURES = {
@@ -43,11 +45,25 @@ TOP_EARNINGS_TICKERS = [
     "JPM", "UNH", "V", "XOM", "JNJ", "PG", "MA", "HD", "COST", "LLY",
     "AVGO", "ABBV", "MRK", "KO", "PEP", "ADBE", "CRM", "AMD", "ORCL",
     "CSCO", "IBM", "INTC", "NOW", "QCOM", "TXN", "AMAT", "MU", "LRCX",
-    "GS", "MS", "BAC", "WFC", "C", "SPY", "QQQ",
+    "GS", "MS", "BAC", "WFC", "C",
 ]
 
+_DAY_EN = {0: "Mon", 1: "Tue", 2: "Wed", 3: "Thu", 4: "Fri", 5: "Sat", 6: "Sun"}
 
-# ── Hilfsfunktionen ───────────────────────────────────────────────────────────
+# Browser-like session to reduce Yahoo Finance blocking on CI/CD environments
+_SESSION = requests.Session()
+_SESSION.headers.update({
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.5",
+})
+
+
+# ── Helper functions ───────────────────────────────────────────────────────────
 
 def _pct(new_val: float, old_val: float) -> str:
     if old_val == 0:
@@ -58,10 +74,9 @@ def _pct(new_val: float, old_val: float) -> str:
 
 
 def _woche_start_ende() -> tuple[datetime, datetime]:
-    """Gibt Start und Ende der vergangenen Handelswoche zurück (Mo–Fr)."""
+    """Returns start and end of the last trading week (Mon–Fri)."""
     today = datetime.now()
-    weekday = today.weekday()  # 0=Mo, 6=So
-    # Letzten Freitag finden
+    weekday = today.weekday()  # 0=Mon, 6=Sun
     days_since_friday = (weekday - 4) % 7
     last_friday = today - timedelta(days=days_since_friday)
     last_monday = last_friday - timedelta(days=4)
@@ -69,7 +84,7 @@ def _woche_start_ende() -> tuple[datetime, datetime]:
 
 
 def _next_week_range() -> tuple[datetime, datetime]:
-    """Nächste Handelswoche Mo–Fr."""
+    """Next trading week Mon–Fri."""
     today = datetime.now()
     weekday = today.weekday()
     days_until_monday = (7 - weekday) % 7 or 7
@@ -79,32 +94,48 @@ def _next_week_range() -> tuple[datetime, datetime]:
 
 
 def _format_level(val: float, ticker: str) -> str:
-    """Formatiert Preisniveaus passend zur Größenordnung."""
-    if val >= 10000:
-        return f"{val:,.0f}"
     if val >= 1000:
         return f"{val:,.0f}"
     return f"{val:,.2f}"
 
 
-# ── Indexperformance ──────────────────────────────────────────────────────────
+def _download_with_retry(ticker: str, start: str, end: str, retries: int = 3) -> object:
+    """Downloads yfinance data with retries and exponential backoff."""
+    for attempt in range(retries):
+        try:
+            df = yf.download(
+                ticker,
+                start=start,
+                end=end,
+                progress=False,
+                auto_adjust=True,
+                session=_SESSION,
+            )
+            if not df.empty:
+                return df
+        except Exception:
+            pass
+        if attempt < retries - 1:
+            time.sleep(2 ** attempt)  # 1s, 2s, 4s
+    return None
+
+
+# ── Index performance ──────────────────────────────────────────────────────────
 
 def get_index_performance() -> dict:
-    """Wöchentliche Performance der vier Hauptindizes."""
+    """Weekly performance of the four main indices."""
     result = {}
     _, last_fri = _woche_start_ende()
 
-    # 10 Tage Puffer für Handelstage
     start = (last_fri - timedelta(days=10)).strftime("%Y-%m-%d")
     end   = (last_fri + timedelta(days=1)).strftime("%Y-%m-%d")
 
     for key, (ticker, name) in INDEX_TICKERS.items():
+        df = _download_with_retry(ticker, start, end)
+        if df is None or len(df) < 2:
+            result[key] = {"name": name, "woche": "n/a", "positiv": True}
+            continue
         try:
-            df = yf.download(ticker, start=start, end=end, progress=False, auto_adjust=True)
-            if df.empty or len(df) < 2:
-                result[key] = {"name": name, "woche": "n/a", "positiv": True}
-                continue
-            # Letzter und vorletzter Wochenschluss
             close_now  = float(df["Close"].iloc[-1])
             close_prev = float(df["Close"].iloc[-6]) if len(df) >= 6 else float(df["Close"].iloc[0])
             perf = _pct(close_now, close_prev)
@@ -119,20 +150,20 @@ def get_index_performance() -> dict:
     return result
 
 
-# ── Sektorperformance ─────────────────────────────────────────────────────────
+# ── Sector performance ────────────────────────────────────────────────────────
 
 def get_sector_performance() -> tuple[list, list]:
-    """Gibt Top-2 und Flop-2 Sektoren der letzten Woche zurück."""
+    """Returns Top-2 and Flop-2 sectors of the last week."""
     _, last_fri = _woche_start_ende()
     start = (last_fri - timedelta(days=10)).strftime("%Y-%m-%d")
     end   = (last_fri + timedelta(days=1)).strftime("%Y-%m-%d")
 
     performances = []
     for etf, name in SECTOR_ETFS.items():
+        df = _download_with_retry(etf, start, end)
+        if df is None or len(df) < 2:
+            continue
         try:
-            df = yf.download(etf, start=start, end=end, progress=False, auto_adjust=True)
-            if df.empty or len(df) < 2:
-                continue
             close_now  = float(df["Close"].iloc[-1])
             close_prev = float(df["Close"].iloc[-6]) if len(df) >= 6 else float(df["Close"].iloc[0])
             pct = (close_now - close_prev) / close_prev * 100
@@ -152,27 +183,24 @@ def get_sector_performance() -> tuple[list, list]:
     return top, flop
 
 
-# ── Technische Niveaus ────────────────────────────────────────────────────────
+# ── Technical levels ──────────────────────────────────────────────────────────
 
 def get_technical_levels() -> dict:
-    """Berechnet Bias, Support und Resistance für ES und NQ aus Preishistorie."""
+    """Calculates bias, support and resistance for ES and NQ from price history."""
     result = {}
     end_dt   = datetime.now()
     start_dt = end_dt - timedelta(days=60)
 
     for key, (ticker, label) in FUTURES.items():
+        df = _download_with_retry(
+            ticker,
+            start_dt.strftime("%Y-%m-%d"),
+            (end_dt + timedelta(days=1)).strftime("%Y-%m-%d"),
+        )
+        if df is None or len(df) < 10:
+            result[key] = {"bias": "n/a", "support": "n/a", "resistance": "n/a"}
+            continue
         try:
-            df = yf.download(
-                ticker,
-                start=start_dt.strftime("%Y-%m-%d"),
-                end=(end_dt + timedelta(days=1)).strftime("%Y-%m-%d"),
-                progress=False,
-                auto_adjust=True,
-            )
-            if df.empty or len(df) < 10:
-                result[key] = {"bias": "n/a", "support": "n/a", "resistance": "n/a"}
-                continue
-
             close = df["Close"]
             low   = df["Low"]
             high  = df["High"]
@@ -180,12 +208,10 @@ def get_technical_levels() -> dict:
             current = float(close.iloc[-1])
             ma20    = float(close.rolling(20).mean().iloc[-1])
 
-            # Support: niedrigstes Tief der letzten 14 Tage
-            support = float(low.iloc[-14:].min())
-            # Resistance: höchstes Hoch der letzten 14 Tage
+            support    = float(low.iloc[-14:].min())
             resistance = float(high.iloc[-14:].max())
 
-            bias = "Aufwärtstrend" if current > ma20 else "Abwärtstrend"
+            bias = "Uptrend" if current > ma20 else "Downtrend"
 
             result[key] = {
                 "bias":       bias,
@@ -198,42 +224,31 @@ def get_technical_levels() -> dict:
     return result
 
 
-# ── Earnings Kalender ─────────────────────────────────────────────────────────
-
-_DAY_DE = {0: "Mo", 1: "Di", 2: "Mi", 3: "Do", 4: "Fr", 5: "Sa", 6: "So"}
-_MONATE = {1:"Jan",2:"Feb",3:"Mär",4:"Apr",5:"Mai",6:"Jun",
-           7:"Jul",8:"Aug",9:"Sep",10:"Okt",11:"Nov",12:"Dez"}
-
+# ── Earnings calendar ─────────────────────────────────────────────────────────
 
 def get_earnings_calendar() -> list:
-    """Findet Earnings-Termine für die nächste Woche aus einer Top-Ticker-Liste."""
+    """Finds earnings dates for next week from a top-ticker list."""
     next_mon, next_fri = _next_week_range()
     earnings_next_week = []
 
     for symbol in TOP_EARNINGS_TICKERS:
         try:
-            t = yf.Ticker(symbol)
+            t = yf.Ticker(symbol, session=_SESSION)
             cal = t.calendar
             if cal is None:
                 continue
 
-            # yfinance gibt calendar als dict zurück
             dates = cal.get("Earnings Date", [])
             if not dates:
                 continue
 
-            # Erster Earnings-Termin
-            if hasattr(dates, "__iter__") and not isinstance(dates, str):
-                date_list = list(dates)
-            else:
-                date_list = [dates]
+            date_list = list(dates) if hasattr(dates, "__iter__") and not isinstance(dates, str) else [dates]
 
             for ed in date_list:
                 if ed is None:
                     continue
-                # Zu datetime konvertieren
                 if hasattr(ed, "date"):
-                    ed_date = ed.date() if hasattr(ed, "date") else ed
+                    ed_date = ed.date()
                 else:
                     try:
                         ed_date = datetime.strptime(str(ed)[:10], "%Y-%m-%d").date()
@@ -241,50 +256,39 @@ def get_earnings_calendar() -> list:
                         continue
 
                 if next_mon.date() <= ed_date <= next_fri.date():
-                    # EPS-Schätzung holen
                     eps_erw = cal.get("Earnings Average", "n/a")
-                    eps_low = cal.get("Earnings Low", "")
-                    eps_high = cal.get("Earnings High", "")
-
                     if isinstance(eps_erw, (int, float)) and not math.isnan(float(eps_erw)):
                         eps_str = f"{float(eps_erw):.2f}"
                     else:
                         eps_str = "n/a"
 
-                    # BMO / AMC heuristisch (ohne offizielle Quelle immer "TBC")
-                    zeit = "n/a"
-
                     earnings_next_week.append({
                         "ticker":  symbol,
                         "name":    t.info.get("shortName", symbol) if hasattr(t, "info") else symbol,
-                        "tag":     _DAY_DE.get(ed_date.weekday(), "?"),
-                        "zeit":    zeit,
+                        "tag":     _DAY_EN.get(ed_date.weekday(), "?"),
                         "eps_erw": eps_str,
-                        "eps_vj":  "n/a",
                         "datum":   ed_date,
                     })
-                    break  # Nur erster Termin pro Ticker
+                    break
         except Exception:
             continue
 
-    # Sortieren nach Datum, max. 5 Ergebnisse
     earnings_next_week.sort(key=lambda x: x["datum"])
-    # Datum-Feld entfernen (wird im Template nicht gebraucht)
     for e in earnings_next_week:
         e.pop("datum", None)
 
     if not earnings_next_week:
-        earnings_next_week = [{"ticker": "n/a", "name": "Keine Daten gefunden", "tag": "-", "zeit": "-", "eps_erw": "-", "eps_vj": "-"}]
+        earnings_next_week = [{"ticker": "n/a", "name": "No data available", "tag": "-", "eps_erw": "-"}]
 
     return earnings_next_week[:5]
 
 
-# ── Makro-Kalender ────────────────────────────────────────────────────────────
+# ── Macro calendar ────────────────────────────────────────────────────────────
 
 def get_macro_calendar() -> list:
     """
-    Generiert einen heuristischen Makro-Kalender für die nächste Woche.
-    Basiert auf bekannten, wiederkehrenden US-Wirtschaftsdatenveröffentlichungen.
+    Generates a heuristic macro calendar for next week based on known
+    recurring US economic data releases.
     """
     next_mon, next_fri = _next_week_range()
     events = []
@@ -292,51 +296,47 @@ def get_macro_calendar() -> list:
     day = next_mon
     while day <= next_fri:
         wd  = day.weekday()
-        dom = day.day  # Tag im Monat
+        dom = day.day
 
-        # Donnerstag: Erstanträge Arbeitslosenhilfe (immer)
         if wd == 3:
             events.append({
-                "tag":     "Do",
-                "event":   "Erstanträge Arbeitslosenhilfe",
+                "tag":     "Thu",
+                "event":   "Initial Jobless Claims",
                 "uhrzeit": "08:30",
             })
 
-        # Erster Freitag im Monat: Arbeitsmarktbericht (NFP)
         if wd == 4 and dom <= 7:
             events.append({
-                "tag":     "Fr",
-                "event":   "Arbeitsmarktbericht (NFP) – Beschäftigung & Arbeitslosenquote",
+                "tag":     "Fri",
+                "event":   "Nonfarm Payrolls (NFP) – Employment & Unemployment Rate",
                 "uhrzeit": "08:30",
             })
 
-        # 2. Dienstag im Monat: typisch CPI
         if wd == 1 and 8 <= dom <= 14:
             events.append({
-                "tag":     "Di",
-                "event":   "Verbraucherpreisindex (CPI)",
+                "tag":     "Tue",
+                "event":   "Consumer Price Index (CPI)",
                 "uhrzeit": "08:30",
             })
 
-        # 2. Mittwoch im Monat: typisch PPI oder Retail Sales
         if wd == 2 and 8 <= dom <= 15:
             events.append({
-                "tag":     "Mi",
-                "event":   "Erzeugerpreisindex (PPI) / Einzelhandelsumsätze",
+                "tag":     "Wed",
+                "event":   "Producer Price Index (PPI) / Retail Sales",
                 "uhrzeit": "08:30",
             })
 
-        # 3. Woche Donnerstag: Philly Fed + Flash PMI (~Do/Fr)
         if wd == 3 and 15 <= dom <= 21:
             events.append({
-                "tag":     "Do",
+                "tag":     "Thu",
                 "event":   "Philly Fed Manufacturing Index",
                 "uhrzeit": "08:30",
             })
+
         if wd == 4 and 15 <= dom <= 21:
             events.append({
-                "tag":     "Fr",
-                "event":   "Flash PMI (Verarb. Gewerbe & Dienstleistungen)",
+                "tag":     "Fri",
+                "event":   "Flash PMI (Manufacturing & Services)",
                 "uhrzeit": "09:45",
             })
 
@@ -345,22 +345,22 @@ def get_macro_calendar() -> list:
     if not events:
         events.append({
             "tag":     "-",
-            "event":   "Keine Hauptdaten diese Woche (prüfe Kalender)",
+            "event":   "No major data releases this week",
             "uhrzeit": "-",
         })
 
     return events[:5]
 
 
-# ── Narrativ via Claude API ───────────────────────────────────────────────────
+# ── Narrative via Gemini API ──────────────────────────────────────────────────
 
 def generate_narrative(data: dict) -> dict:
-    """Generiert Headline und Marktkommentar via Google Gemini (kostenlos)."""
+    """Generates headline and market commentary via Google Gemini."""
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         return {
-            "headline": "Wochenrückblick – bitte GEMINI_API_KEY setzen",
-            "body":     "Kein API-Key gefunden. Setze die Umgebungsvariable GEMINI_API_KEY, um die automatische Narrativ-Generierung zu aktivieren.",
+            "headline": "Weekly Review – set GEMINI_API_KEY to enable",
+            "body":     "No API key found. Set the GEMINI_API_KEY environment variable to enable automatic narrative generation.",
         }
 
     try:
@@ -372,25 +372,25 @@ def generate_narrative(data: dict) -> dict:
         earn_lines  = ", ".join(f"{e['ticker']} ({e['tag']})" for e in data["earnings"][:3])
         macro_lines = ", ".join(f"{m['event']} ({m['tag']})" for m in data["makro"][:3])
 
-        prompt = f"""Du bist ein professioneller Marktanalyst für LAE Market Services.
-Schreibe einen kurzen deutschen Wochenrückblick für die KW {data['kw']}.
+        prompt = f"""You are a professional market analyst for LAE Market Services.
+Write a concise English weekly market review for CW {data['kw']}.
 
-Marktdaten der letzten Woche:
-Indizes:
+Last week's market data:
+Indices:
 {idx_lines}
 
-Beste Sektoren: {top_lines}
-Schwächste Sektoren: {flop_lines}
+Top sectors: {top_lines}
+Weakest sectors: {flop_lines}
 
-Nächste Woche:
-Earnings: {earn_lines if earn_lines else 'keine relevanten'}
-Makro: {macro_lines if macro_lines else 'keine Hauptdaten'}
+Next week:
+Earnings: {earn_lines if earn_lines else 'no major releases'}
+Macro: {macro_lines if macro_lines else 'no major data'}
 
-Erstelle:
-1. Eine prägnante Headline (max. 12 Wörter, keine Anführungszeichen)
-2. Einen Marktkommentar (4–5 Sätze, sachlich, professionell, auf Deutsch, Ton: direkt und klar)
+Create:
+1. A punchy headline (max 12 words, no quotes)
+2. A market commentary (4–5 sentences, factual, professional, in English, tone: direct and clear)
 
-Format – antworte NUR in diesem JSON-Format ohne Markdown-Blöcke:
+Format – reply ONLY in this JSON format without markdown blocks:
 {{"headline": "...", "body": "..."}}"""
 
         response = client.models.generate_content(
@@ -406,40 +406,40 @@ Format – antworte NUR in diesem JSON-Format ohne Markdown-Blöcke:
                 text = text[4:]
         parsed = json.loads(text)
         return {
-            "headline": parsed.get("headline", "Wochenrückblick"),
+            "headline": parsed.get("headline", "Weekly Review"),
             "body":     parsed.get("body", ""),
         }
 
     except Exception as e:
         return {
-            "headline": f"Wochenrückblick KW {data['kw']}",
-            "body":     f"Narrativ konnte nicht generiert werden: {e}",
+            "headline": f"Weekly Review CW {data['kw']}",
+            "body":     f"Narrative could not be generated: {e}",
         }
 
 
-# ── Hauptfunktion ─────────────────────────────────────────────────────────────
+# ── Main function ─────────────────────────────────────────────────────────────
 
 def fetch_all() -> dict:
-    """Aggregiert alle Daten und gibt das fertige data-Dict zurück."""
+    """Aggregates all data and returns the complete data dict."""
     now = datetime.now()
     kw  = now.isocalendar()[1]
-    monate_de = {1:"Januar",2:"Februar",3:"März",4:"April",5:"Mai",6:"Juni",
-                 7:"Juli",8:"August",9:"September",10:"Oktober",11:"November",12:"Dezember"}
-    datum_str = f"{now.day}. {monate_de[now.month]} {now.year}"
+    months_en = {1:"January",2:"February",3:"March",4:"April",5:"May",6:"June",
+                 7:"July",8:"August",9:"September",10:"October",11:"November",12:"December"}
+    datum_str = f"{months_en[now.month]} {now.day}, {now.year}"
 
-    print("  [1/5] Index-Performance wird abgerufen ...")
+    print("  [1/5] Fetching index performance ...")
     indizes = get_index_performance()
 
-    print("  [2/5] Sektor-Performance wird abgerufen ...")
+    print("  [2/5] Fetching sector performance ...")
     sektor_top, sektor_flop = get_sector_performance()
 
-    print("  [3/5] Technische Niveaus werden berechnet ...")
+    print("  [3/5] Calculating technical levels ...")
     technisch = get_technical_levels()
 
-    print("  [4/5] Earnings-Kalender wird abgerufen ...")
+    print("  [4/5] Fetching earnings calendar ...")
     earnings = get_earnings_calendar()
 
-    print("  [5/6] Makro-Kalender wird erstellt ...")
+    print("  [5/6] Building macro calendar ...")
     makro = get_macro_calendar()
 
     data = {
@@ -453,7 +453,7 @@ def fetch_all() -> dict:
         "makro":       makro,
     }
 
-    print("  [6/6] Narrativ wird via Claude API generiert ...")
+    print("  [6/6] Generating narrative via Gemini API ...")
     data["narrative"] = generate_narrative(data)
 
     return data

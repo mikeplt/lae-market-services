@@ -34,9 +34,8 @@ def earnings_rows(earnings):
         <tr>
           <td class="mono green">{e['ticker']}</td>
           <td>{e['name']}</td>
-          <td class="mono">{e['tag']} {e['zeit']}</td>
+          <td class="mono">{e['tag']}</td>
           <td class="mono">{e['eps_erw']}</td>
-          <td class="mono gray">{e['eps_vj']}</td>
         </tr>"""
     return rows
 
@@ -315,9 +314,8 @@ def generate_html(data: dict) -> str:
         <tr style="border-bottom:1px solid rgba(255,255,255,0.07)">
           <td class="gray" style="font-size:10px">Ticker</td>
           <td class="gray" style="font-size:10px">Company</td>
-          <td class="gray" style="font-size:10px">Time</td>
+          <td class="gray" style="font-size:10px">Day</td>
           <td class="gray" style="font-size:10px">EPS Est.</td>
-          <td class="gray" style="font-size:10px">EPS Prior Yr.</td>
         </tr>
         {earnings_rows(data['earnings'])}
       </table>
