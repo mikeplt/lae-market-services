@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LAE Earnings Preview – {{TICKER}} {{QUARTER}}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:           #090c11;
+    --bg2:          #0d111a;
+    --bg3:          #111720;
+    --green:        #39ff14;
+    --green-border: rgba(57,255,20,0.25);
+    --green-dim:    rgba(57,255,20,0.10);
+    --white:        #f0f4f8;
+    --gray:         #7a8899;
+    --red:          #e05252;
+    --yellow:       #f5a623;
+    --border:       rgba(255,255,255,0.07);
+  }
+
+  html {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 36px 40px 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 10px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1.5px solid var(--green);
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .logo-text .lae  { color: var(--green); }
+  .logo-text .rest { color: var(--white); }
+  .header-right { text-align: right; }
+  .header-right .title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--white);
+  }
+  .header-right .date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+
+  /* ── COMPANY BANNER ── */
+  .company-banner {
+    background: var(--bg2);
+    border: 1px solid var(--green-border);
+    border-left: 4px solid var(--green);
+    border-radius: 10px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .company-left { display: flex; align-items: baseline; gap: 14px; }
+  .company-ticker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .company-name { font-size: 15px; font-weight: 600; color: var(--white); }
+  .company-meta { display: flex; gap: 28px; flex-wrap: wrap; }
+  .meta-item { text-align: right; }
+  .meta-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .meta-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    margin-top: 3px;
+  }
+  .meta-value.green { color: var(--green); }
+  .meta-value.red   { color: var(--red); }
+
+  /* ── BODY TOP: ESTIMATES + KEY METRICS ── */
+  .body-top {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* CONSENSUS TABLE */
+  .estimates-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .estimates-table th {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: left;
+    padding: 0 10px 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .estimates-table th.th-num  { text-align: right; }
+  .estimates-table th.th-yoy  { text-align: right; padding-right: 14px; }
+  .estimates-table td {
+    font-size: 13px;
+    padding: 11px 10px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .estimates-table tr:first-child td:first-child { border-radius: 8px 0 0 0; }
+  .estimates-table tr:first-child td:last-child  { border-radius: 0 8px 0 0; }
+  .estimates-table tr:last-child td              { border-bottom: none; }
+  .estimates-table tr:last-child td:first-child  { border-radius: 0 0 0 8px; }
+  .estimates-table tr:last-child td:last-child   { border-radius: 0 0 8px 0; }
+  .td-label {
+    font-weight: 600;
+    color: var(--white);
+    padding-left: 14px;
+  }
+  .td-num {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .td-prev { color: var(--gray); }
+  .td-yoy  {
+    text-align: right;
+    padding-right: 14px;
+    white-space: nowrap;
+  }
+  .yoy-pill {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+  .td-yoy.neg .yoy-pill { background: rgba(224,82,82,0.15);  color: var(--red); }
+  .td-yoy.pos .yoy-pill { background: rgba(57,255,20,0.12);  color: var(--green); }
+
+  /* KEY METRICS */
+  .metrics-list { display: flex; flex-direction: column; gap: 8px; }
+  .metric-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .metric-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    width: 20px;
+  }
+  .metric-text { display: flex; flex-direction: column; gap: 3px; }
+  .metric-text strong {
+    font-size: 13px;
+    color: var(--white);
+    font-weight: 600;
+  }
+  .metric-text span {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  /* ── SCENARIOS ROW ── */
+  .scenarios-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .scenario-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    border-top: 4px solid transparent;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .scenario-card.bull { border-top-color: var(--green); }
+  .scenario-card.base { border-top-color: var(--yellow); }
+  .scenario-card.bear { border-top-color: var(--red); }
+
+  .scenario-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    padding: 3px 9px;
+    border-radius: 4px;
+  }
+  .bull .scenario-tag { background: rgba(57,255,20,0.15);  color: var(--green); }
+  .base .scenario-tag { background: rgba(245,166,35,0.15); color: var(--yellow); }
+  .bear .scenario-tag { background: rgba(224,82,82,0.15);  color: var(--red); }
+
+  .scenario-reaction {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .bull .scenario-reaction { color: var(--green); }
+  .base .scenario-reaction { color: var(--yellow); }
+  .bear .scenario-reaction { color: var(--red); }
+
+  .scenario-driver {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .scenario-nums {
+    display: flex;
+    gap: 20px;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .scenario-num .lbl {
+    font-size: 9px;
+    color: var(--gray);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 3px;
+  }
+  .scenario-num .val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .scenario-body {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* ── BODY BOTTOM: CATALYSTS + TRADING ── */
+  .body-bottom {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  .catalyst-list { display: flex; flex-direction: column; gap: 8px; }
+  .catalyst-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .catalyst-num {
+    background: var(--green);
+    color: var(--bg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .catalyst-text { display: flex; flex-direction: column; gap: 3px; }
+  .catalyst-text strong {
+    font-size: 13px;
+    color: var(--white);
+    font-weight: 600;
+  }
+  .catalyst-text span {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  .trading-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .trading-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .trading-card .lbl {
+    font-size: 9px;
+    color: var(--gray);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .trading-card .val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .trading-card .val.red   { color: var(--red); }
+  .trading-card .val.green { color: var(--green); }
+
+  .chart-wrap {
+    margin-top: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .chart-wrap iframe {
+    display: block;
+    width: 100%;
+    height: 220px;
+    border: none;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .footer-left {
+    font-size: 11px;
+    color: var(--gray);
+  }
+  .footer-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+      <svg width="32" height="32" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,0.08)" stroke="#39ff14" stroke-width="1.8"/>
+        <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="logo-text"><span class="lae">LAE</span><span class="rest"> Market Services</span></div>
+    </div>
+    <div class="header-right">
+      <div class="title">Earnings Preview</div>
+      <div class="date">{{DATUM}}</div>
+    </div>
+  </header>
+
+  <!-- COMPANY BANNER -->
+  <div class="company-banner">
+    <div class="company-left">
+      <div class="company-ticker">{{TICKER}}</div>
+      <div class="company-name">{{COMPANY_NAME}}</div>
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Quarter</div>
+        <div class="meta-value">{{QUARTER}}</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Report</div>
+        <div class="meta-value green">{{REPORT_DATE}}</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Time</div>
+        <div class="meta-value">{{REPORT_TIME}}</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Price ({{STOCK_DATE}})</div>
+        <div class="meta-value">{{STOCK_PRICE}}</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Implied Move</div>
+        <div class="meta-value red">{{IMPLIED_MOVE}}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP ROW: ESTIMATES + KEY METRICS -->
+  <div class="body-top">
+
+    <div>
+      <div class="section-label">Consensus Estimates – {{QUARTER}}</div>
+      <table class="estimates-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="th-num">Consensus</th>
+            <th class="th-num">Prior Year</th>
+            <th class="th-yoy">YoY</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ESTIMATE_ROWS}}
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <div class="section-label">Key Metrics to Watch</div>
+      <div class="metrics-list">
+        {{METRIC_ITEMS}}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SCENARIOS ROW -->
+  <div>
+    <div class="section-label">Scenarios</div>
+    <div class="scenarios-row">
+      {{SCENARIO_CARDS}}
+    </div>
+  </div>
+
+  <!-- BOTTOM ROW: CATALYSTS + TRADING -->
+  <div class="body-bottom">
+
+    <div>
+      <div class="section-label">Catalyst Checklist</div>
+      <div class="catalyst-list">
+        {{CATALYST_ITEMS}}
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">Trading Setup</div>
+      <div class="trading-grid">
+        {{TRADING_CARDS}}
+      </div>
+      <div class="chart-wrap">
+        <iframe src="{{TV_IFRAME_SRC}}" scrolling="no" allowtransparency="true"></iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">LAE Market Services &nbsp;|&nbsp; Learn. Analyze. Execute. &nbsp;|&nbsp; For internal use only – not investment advice</div>
+    <div class="footer-right">lae-market-services.de</div>
+  </footer>
+
+</div>
+</body>
+</html>
