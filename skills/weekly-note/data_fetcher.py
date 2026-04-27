@@ -23,6 +23,15 @@ INDEX_TICKERS = {
     "russell": ("IWM", "Russell 2000"),
 }
 
+SECTOR_ETFS = {
+    "XLK":  "Technology",
+    "XLE":  "Energy",
+    "XLF":  "Financials",
+    "XLV":  "Health Care",
+    "XLI":  "Industrials",
+    "XLP":  "Cons. Staples",
+}
+
 TECH_TICKERS = {
     "es": ("SPY", "S&P 500 (SPY)"),
     "nq": ("QQQ", "Nasdaq 100 (QQQ)"),
@@ -93,31 +102,30 @@ def get_index_performance() -> dict:
 # ── Sector performance ────────────────────────────────────────────────────────
 
 def get_sector_performance() -> tuple[list, list]:
-    """Top-2 and Flop-2 sectors via Alpha Vantage SECTOR endpoint (5-day = weekly)."""
-    try:
-        data = _get({"function": "SECTOR"})
-        print(f"    Sector API keys: {list(data.keys())}")
-        week_perf = data.get("Rank C: 5 Day Performance", {})
-        if not week_perf:
-            print(f"    Warning: 'Rank C: 5 Day Performance' not found in response")
-            return [], []
-
-        performances = []
-        for name, pct_str in week_perf.items():
-            try:
-                pct = float(pct_str.replace("%", ""))
-                sign = "+" if pct >= 0 else ""
-                performances.append({"name": name, "kuerzel": "", "perf": f"{sign}{pct:.1f}%", "pct": pct})
-            except Exception:
+    """Top-2 and Flop-2 sectors via TIME_SERIES_WEEKLY for key sector ETFs."""
+    performances = []
+    for etf, name in SECTOR_ETFS.items():
+        try:
+            data = _get({"function": "TIME_SERIES_WEEKLY", "symbol": etf})
+            series = data.get("Weekly Time Series", {})
+            if not series:
                 continue
+            dates = sorted(series.keys(), reverse=True)
+            close_now  = float(series[dates[0]]["4. close"])
+            close_prev = float(series[dates[1]]["4. close"])
+            pct = (close_now - close_prev) / close_prev * 100
+            sign = "+" if pct >= 0 else ""
+            performances.append({"name": name, "kuerzel": etf, "perf": f"{sign}{pct:.1f}%", "pct": pct})
+        except Exception as e:
+            print(f"    Warning [{etf}]: {e}")
+            continue
 
-        performances.sort(key=lambda x: x["pct"], reverse=True)
-        top  = [{"name": s["name"], "kuerzel": s["kuerzel"], "perf": s["perf"]} for s in performances[:2]]
-        flop = [{"name": s["name"], "kuerzel": s["kuerzel"], "perf": s["perf"]} for s in performances[-2:]]
-        return top, flop
-    except Exception as e:
-        print(f"    Warning [SECTOR]: {e}")
+    if not performances:
         return [], []
+    performances.sort(key=lambda x: x["pct"], reverse=True)
+    top  = [{"name": s["name"], "kuerzel": s["kuerzel"], "perf": s["perf"]} for s in performances[:2]]
+    flop = [{"name": s["name"], "kuerzel": s["kuerzel"], "perf": s["perf"]} for s in performances[-2:]]
+    return top, flop
 
 
 # ── Technical levels ──────────────────────────────────────────────────────────
