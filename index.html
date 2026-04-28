@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LAE Market Services – Learn. Analyze. Execute.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #090c11;
+      --bg2:      #0d111a;
+      --bg3:      #111720;
+      --green:    #39ff14;
+      --green-dim: rgba(57,255,20,.15);
+      --green-glow: rgba(57,255,20,.08);
+      --white:    #f0f4f8;
+      --gray:     #7a8899;
+      --border:   rgba(255,255,255,.07);
+      --border-g: rgba(57,255,20,.2);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4rem; height: 64px;
+      border-bottom: 1px solid transparent;
+      transition: background .3s, border-color .3s;
+    }
+    nav.scrolled {
+      background: rgba(9,12,17,.92);
+      backdrop-filter: blur(16px);
+      border-color: var(--border);
+    }
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .95rem; font-weight: 700;
+      color: var(--white); text-decoration: none;
+    }
+    .logo span { color: var(--green); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: .85rem; font-weight: 500;
+      color: var(--gray); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .btn-nav {
+      font-size: .82rem; font-weight: 700;
+      color: var(--bg);
+      background: var(--green);
+      padding: .5rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity .2s, box-shadow .2s;
+    }
+    .btn-nav:hover {
+      opacity: .88;
+      box-shadow: 0 0 20px var(--green-dim);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      padding: 10rem 4rem 7rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .hero-image {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      opacity: 0; animation: up .8s .7s forwards;
+      position: relative;
+    }
+    .hero-image img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      border-radius: 16px;
+    }
+    .hero-image-placeholder {
+      width: 100%; aspect-ratio: 4/3;
+      background: var(--bg2);
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 16px;
+      position: relative; overflow: hidden;
+    }
+    .hero-image-placeholder::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(57,255,20,.04) 0%, transparent 60%);
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--green-glow) 1px, transparent 1px),
+        linear-gradient(90deg, var(--green-glow) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 60% 70% at 50% 30%, black, transparent);
+    }
+    .hero-glow {
+      position: absolute; top: -80px; right: -100px;
+      width: 600px; height: 500px; pointer-events: none;
+      background: radial-gradient(ellipse, rgba(57,255,20,.07) 0%, transparent 65%);
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1.6rem;
+      opacity: 0; animation: up .6s .1s forwards;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 5rem);
+      font-weight: 900; letter-spacing: -.04em; line-height: 1;
+      opacity: 0; animation: up .7s .25s forwards;
+    }
+    h1 .hl {
+      color: var(--green);
+      text-shadow: 0 0 40px rgba(57,255,20,.3);
+    }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 1.05rem; color: var(--gray);
+      max-width: 480px; line-height: 1.7;
+      opacity: 0; animation: up .7s .4s forwards;
+    }
+    .hero-actions {
+      margin-top: 2.2rem; display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: up .7s .55s forwards;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--green); color: var(--bg);
+      font-size: .88rem; font-weight: 800;
+      padding: .8rem 1.8rem; border-radius: 7px;
+      text-decoration: none;
+      transition: opacity .2s, box-shadow .2s, transform .2s;
+    }
+    .btn-primary:hover {
+      opacity: .88;
+      box-shadow: 0 6px 30px var(--green-dim);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      color: var(--gray); font-size: .88rem; font-weight: 600;
+      border: 1px solid var(--border); border-radius: 7px;
+      padding: .8rem 1.8rem; text-decoration: none;
+      transition: color .2s, border-color .2s;
+    }
+    .btn-secondary:hover { color: var(--white); border-color: var(--gray); }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes drawChart {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes dotPop {
+      to { opacity: 1; }
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px; background: var(--border);
+      margin: 0 4rem;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 4rem; }
+
+    .sec-label {
+      display: flex; align-items: center; gap: .8rem;
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 1.2rem;
+    }
+    .sec-label::before {
+      content: ''; display: block;
+      width: 20px; height: 1px; background: var(--green);
+    }
+    h2 {
+      font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+      font-weight: 800; letter-spacing: -.03em; line-height: 1.1;
+      margin-bottom: .8rem;
+    }
+    .sec-desc {
+      font-size: .98rem; color: var(--gray);
+      max-width: 500px; line-height: 1.7;
+    }
+
+    /* ── MISSION ── */
+    #mission {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .mission-grid {
+      display: grid; grid-template-columns: 120px 1fr 1fr;
+      gap: 3.5rem; align-items: center;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .mission-compass {
+      display: flex; align-items: center; justify-content: center;
+      align-self: center;
+    }
+    .lae-rows { display: flex; flex-direction: column; gap: 0; }
+    .lae-row {
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 1.4rem 1.6rem;
+      border: 1px solid var(--border);
+      border-bottom: none;
+      background: var(--bg3);
+      transition: background .2s, border-color .2s;
+    }
+    .lae-row:first-child { border-radius: 10px 10px 0 0; }
+    .lae-row:last-child  { border-bottom: 1px solid var(--border); border-radius: 0 0 10px 10px; }
+    .lae-row:hover { background: #151d2a; border-color: var(--border-g); }
+    .lae-letter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.8rem; font-weight: 700; color: var(--green);
+      width: 44px; flex-shrink: 0; line-height: 1;
+    }
+    .lae-word  { font-size: .98rem; font-weight: 700; margin-bottom: .15rem; }
+    .lae-desc  { font-size: .85rem; color: var(--gray); }
+
+    /* ── SERVICES ── */
+    #services { background: var(--bg); }
+    .svc-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+      margin-top: 3rem;
+    }
+    .svc-card {
+      background: var(--bg2); padding: 2.2rem;
+      position: relative; transition: background .2s;
+    }
+    .svc-card:hover { background: var(--bg3); }
+    .svc-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .7rem; font-weight: 700;
+      color: var(--green); margin-bottom: 1rem;
+    }
+    .svc-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .5rem; }
+    .svc-card p  { font-size: .88rem; color: var(--gray); line-height: 1.6; }
+    .svc-tags {
+      display: flex; gap: .35rem; flex-wrap: wrap; margin-top: 1.2rem;
+    }
+    .tag {
+      font-size: .65rem; font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase;
+      color: var(--gray); background: rgba(255,255,255,.04);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: .18rem .55rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .contact-info p {
+      font-size: .98rem; color: var(--gray); line-height: 1.7; margin-bottom: 1.5rem;
+    }
+    .info-detail {
+      display: flex; align-items: center; gap: .7rem;
+      font-size: .88rem; color: var(--gray);
+      margin-bottom: .6rem;
+    }
+    .info-detail span { color: var(--green); font-size: .9rem; }
+
+    .contact-form {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 2rem;
+    }
+    .contact-form h3 { font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; }
+    .form { display: flex; flex-direction: column; gap: .9rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+    .field { display: flex; flex-direction: column; gap: .35rem; }
+    .field label {
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--gray);
+    }
+    .field input, .field textarea, .field select {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 7px; color: var(--white);
+      font-family: 'Inter', sans-serif; font-size: .88rem;
+      padding: .7rem .9rem; outline: none; resize: none;
+      transition: border-color .2s; appearance: none;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      border-color: var(--border-g);
+    }
+    .field textarea { min-height: 100px; }
+    .btn-submit {
+      background: var(--green); color: var(--bg);
+      font-size: .88rem; font-weight: 800;
+      padding: .8rem; border-radius: 7px;
+      border: none; cursor: pointer; width: 100%;
+      margin-top: .3rem;
+      transition: opacity .2s, box-shadow .2s;
+    }
+    .btn-submit:hover {
+      opacity: .88;
+      box-shadow: 0 0 24px var(--green-dim);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .88rem; font-weight: 700; color: var(--white);
+    }
+    .footer-logo span { color: var(--green); }
+    .footer-meta { font-size: .78rem; color: var(--gray); text-align: center; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-size: .78rem; color: var(--gray);
+      text-decoration: none; transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    /* ── LANG TOGGLE ── */
+    .nav-right {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .lang-toggle {
+      display: flex; align-items: center; gap: 2px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .72rem; font-weight: 700;
+    }
+    .lang-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--gray); padding: .28rem .5rem;
+      border-radius: 4px;
+      transition: color .2s, background .2s;
+      font-family: inherit; font-size: inherit; font-weight: inherit;
+    }
+    .lang-btn:hover { color: var(--white); }
+    .lang-btn.active { color: var(--green); background: rgba(57,255,20,.1); }
+    .lang-sep { color: var(--border); font-size: .8rem; }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s; }
+    .d2 { transition-delay: .2s; }
+    .d3 { transition-delay: .3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 880px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 3.5rem 1.5rem; }
+      #hero { padding: 7rem 1.5rem 4rem; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-image { display: none; }
+      .divider { margin: 0 1.5rem; }
+      .mission-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .mission-compass { display: none; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="logo" style="display:flex;align-items:center;gap:.7rem">
+      <svg width="28" height="28" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+        <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>LAE</span> Market Services
+    </a>
+    <ul class="nav-links">
+      <li><a href="#mission">Mission</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Kontakt</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('de')">DE</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="outputs/portal/index.html" class="btn-nav" data-i18n="nav.login">Mitglieder-Login</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="hero.eyebrow">Marktanalyse · Reports & Briefings · Beratung</span></div>
+        <h1 data-i18n-html="hero.h1">Märkte verstehen.<br><span class="hl">Chancen</span> nutzen.</h1>
+        <p class="hero-sub" data-i18n="hero.sub">
+          LAE Market Services – fundierte Marktanalyse, Reports & Briefings
+          und individuelle Beratung. Ohne Hype. Mit System.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary" data-i18n="hero.cta1">Kontakt aufnehmen →</a>
+          <a href="#services" class="btn-secondary" data-i18n="hero.cta2">Services ansehen</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-image-placeholder">
+          <!-- LAE Market Services Logo -->
+          <svg viewBox="0 0 480 380" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <defs>
+              <linearGradient id="logoGreen" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#39ff14"/>
+                <stop offset="100%" stop-color="#22c55e"/>
+              </linearGradient>
+              <linearGradient id="glowGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="rgba(57,255,20,.18)"/>
+                <stop offset="100%" stop-color="rgba(57,255,20,0)"/>
+              </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="6" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <filter id="softglow">
+                <feGaussianBlur stdDeviation="14" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <!-- Subtle grid background -->
+            <rect width="480" height="380" fill="#0d111a"/>
+            <line x1="0"   y1="76"  x2="480" y2="76"  stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+            <line x1="0"   y1="152" x2="480" y2="152" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+            <line x1="0"   y1="228" x2="480" y2="228" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+            <line x1="0"   y1="304" x2="480" y2="304" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+            <line x1="96"  y1="0"   x2="96"  y2="380" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+            <line x1="192" y1="0"   x2="192" y2="380" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+            <line x1="288" y1="0"   x2="288" y2="380" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+            <line x1="384" y1="0"   x2="384" y2="380" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+
+            <!-- Glow blob behind logo mark -->
+            <ellipse cx="240" cy="155" rx="120" ry="90" fill="rgba(57,255,20,.06)"/>
+
+            <!-- Logo mark: Hexagon shape -->
+            <path d="M240,72 L290,100 L290,156 L240,184 L190,156 L190,100 Z"
+              fill="rgba(57,255,20,.06)" stroke="url(#logoGreen)" stroke-width="1.5" filter="url(#glow)"/>
+            <!-- Inner hex line -->
+            <path d="M240,85 L278,107 L278,151 L240,173 L202,151 L202,107 Z"
+              fill="none" stroke="rgba(57,255,20,.2)" stroke-width="1"/>
+
+            <!-- Arrow / chart signal inside hex -->
+            <polyline points="211,150 228,124 240,135 261,102"
+              fill="none" stroke="url(#logoGreen)" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+            <polyline points="261,117 261,102 248,109"
+              fill="none" stroke="url(#logoGreen)" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- LAE wordmark -->
+            <text x="240" y="222"
+              font-family="Inter,sans-serif" font-size="52" font-weight="900"
+              fill="url(#logoGreen)" text-anchor="middle"
+              letter-spacing="-2" filter="url(#softglow)">LAE</text>
+
+            <!-- Tagline -->
+            <text x="240" y="252"
+              font-family="JetBrains Mono,monospace" font-size="11" font-weight="400"
+              fill="rgba(255,255,255,.35)" text-anchor="middle" letter-spacing="4">MARKET SERVICES</text>
+
+            <!-- Decorative separator -->
+            <line x1="195" y1="268" x2="285" y2="268" stroke="rgba(57,255,20,.25)" stroke-width="1"/>
+            <circle cx="240" cy="268" r="2" fill="#39ff14" opacity=".5"/>
+
+            <!-- Sub tagline -->
+            <text x="240" y="290"
+              font-family="JetBrains Mono,monospace" font-size="9" font-weight="400"
+              fill="rgba(255,255,255,.2)" text-anchor="middle" letter-spacing="3">LEARN · ANALYZE · EXECUTE</text>
+
+            <!-- Corner decorations -->
+            <path d="M16,16 L40,16 M16,16 L16,40" stroke="rgba(57,255,20,.2)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M464,16 L440,16 M464,16 L464,40" stroke="rgba(57,255,20,.2)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M16,364 L40,364 M16,364 L16,340" stroke="rgba(57,255,20,.2)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M464,364 L440,364 M464,364 L464,340" stroke="rgba(57,255,20,.2)" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- MISSION -->
+  <section id="mission">
+    <div class="mission-grid">
+      <!-- Kompass: eigenständig links -->
+      <div class="mission-compass reveal">
+        <svg width="110" height="110" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="cNeedle" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#39ff14"/>
+              <stop offset="100%" stop-color="#22c55e"/>
+            </linearGradient>
+            <filter id="cGlow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="cRingGlow">
+              <feGaussianBlur stdDeviation="1.5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Äußerer Zierring -->
+          <circle cx="50" cy="50" r="46" stroke="rgba(255,255,255,.08)" stroke-width="1" fill="none"/>
+
+          <!-- Hauptring weiß -->
+          <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,.55)" stroke-width="1.2" fill="none" filter="url(#cRingGlow)"/>
+
+          <!-- Innerer Ring grün -->
+          <circle cx="50" cy="50" r="30" stroke="rgba(57,255,20,.3)" stroke-width="1" fill="none"/>
+
+          <!-- 16 Skalenstriche -->
+          <!-- Hauptstriche (4x) weiß -->
+          <line x1="50" y1="10" x2="50" y2="18" stroke="rgba(255,255,255,.9)" stroke-width="2"   stroke-linecap="round"/>
+          <line x1="50" y1="82" x2="50" y2="90" stroke="rgba(255,255,255,.5)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="10" y1="50" x2="18" y2="50" stroke="rgba(255,255,255,.5)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="82" y1="50" x2="90" y2="50" stroke="rgba(255,255,255,.5)" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Diagonal-Striche (4x) grün -->
+          <line x1="21.7" y1="21.7" x2="27.4" y2="27.4" stroke="rgba(57,255,20,.6)" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="78.3" y1="21.7" x2="72.6" y2="27.4" stroke="rgba(57,255,20,.6)" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="21.7" y1="78.3" x2="27.4" y2="72.6" stroke="rgba(57,255,20,.6)" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="78.3" y1="78.3" x2="72.6" y2="72.6" stroke="rgba(57,255,20,.6)" stroke-width="1.2" stroke-linecap="round"/>
+          <!-- Zwischen-Striche (8x) gedimmt -->
+          <line x1="32.3" y1="12.3" x2="34.8" y2="17.6" stroke="rgba(255,255,255,.2)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="67.7" y1="12.3" x2="65.2" y2="17.6" stroke="rgba(255,255,255,.2)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="12.3" y1="32.3" x2="17.6" y2="34.8" stroke="rgba(255,255,255,.2)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="12.3" y1="67.7" x2="17.6" y2="65.2" stroke="rgba(255,255,255,.2)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="87.7" y1="32.3" x2="82.4" y2="34.8" stroke="rgba(255,255,255,.2)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="87.7" y1="67.7" x2="82.4" y2="65.2" stroke="rgba(255,255,255,.2)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="32.3" y1="87.7" x2="34.8" y2="82.4" stroke="rgba(255,255,255,.2)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="67.7" y1="87.7" x2="65.2" y2="82.4" stroke="rgba(255,255,255,.2)" stroke-width="1" stroke-linecap="round"/>
+
+          <!-- Nadel Nord: grün-weiß -->
+          <polygon points="50,20 46.5,50 50,46 53.5,50" fill="url(#cNeedle)" filter="url(#cGlow)"/>
+          <!-- Nadel Süd: weiß gedimmt -->
+          <polygon points="50,80 46.5,50 50,54 53.5,50" fill="rgba(255,255,255,.18)"/>
+
+          <!-- Mittelpunkt -->
+          <circle cx="50" cy="50" r="4"   fill="rgba(57,255,20,.2)" stroke="rgba(255,255,255,.4)" stroke-width="1"/>
+          <circle cx="50" cy="50" r="2.2" fill="#39ff14" filter="url(#cGlow)"/>
+          <circle cx="50" cy="50" r="1"   fill="#0d111a"/>
+        </svg>
+      </div>
+
+      <!-- Text -->
+      <div class="reveal">
+        <div class="sec-label" data-i18n="mission.label">Mission</div>
+        <h2 data-i18n="mission.h2">Das LAE-Prinzip</h2>
+        <p class="sec-desc" data-i18n="mission.desc">
+          Drei Worte, ein Kompass. Alles was wir tun, folgt diesem Grundsatz –
+          für uns und für unsere Kunden.
+        </p>
+      </div>
+      <div class="lae-rows reveal d1">
+        <div class="lae-row">
+          <span class="lae-letter">L</span>
+          <div>
+            <div class="lae-word">Learn</div>
+            <div class="lae-desc" data-i18n="mission.learn">Märkte von Grund auf verstehen – Struktur, Mechanismen, Kontext.</div>
+          </div>
+        </div>
+        <div class="lae-row">
+          <span class="lae-letter">A</span>
+          <div>
+            <div class="lae-word">Analyze</div>
+            <div class="lae-desc" data-i18n="mission.analyze">Daten systematisch auswerten und Chancen vor der Masse erkennen.</div>
+          </div>
+        </div>
+        <div class="lae-row">
+          <span class="lae-letter">E</span>
+          <div>
+            <div class="lae-word">Execute</div>
+            <div class="lae-desc" data-i18n="mission.execute">Nach Plan handeln – konsequent, diszipliniert, verantwortungsbewusst.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="reveal">
+      <div class="sec-label" data-i18n="services.label">Services</div>
+      <h2 data-i18n="services.h2">Was wir anbieten</h2>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card reveal">
+        <div class="svc-num">01 /</div>
+        <h3 data-i18n="services.01.title">Marktanalyse</h3>
+        <p data-i18n="services.01.desc">Systematische Fundamentaldaten-Analyse von Futures und Aktien – für klare Markteinschätzungen und bessere Handelsentscheidungen.</p>
+        <div class="svc-tags">
+          <span class="tag" data-i18n="services.01.tag1">Fundamentaldaten</span>
+          <span class="tag" data-i18n="services.01.tag2">Futures</span>
+          <span class="tag" data-i18n="services.01.tag3">Aktien</span>
+        </div>
+      </div>
+      <div class="svc-card reveal d1">
+        <div class="svc-num">02 /</div>
+        <h3 data-i18n="services.02.title">Reports & Briefings</h3>
+        <p data-i18n="services.02.desc">Regelmäßige Marktberichte und strukturierte Briefings – als Daily Notes, Weekly Notes und visuelle Dashboards für den effizienten Überblick.</p>
+        <div class="svc-tags">
+          <span class="tag" data-i18n="services.02.tag1">Daily Notes</span>
+          <span class="tag" data-i18n="services.02.tag2">Weekly Notes</span>
+          <span class="tag" data-i18n="services.02.tag3">Insights</span>
+        </div>
+      </div>
+      <div class="svc-card reveal d2">
+        <div class="svc-num">03 /</div>
+        <h3 data-i18n="services.03.title">Beratung</h3>
+        <p data-i18n="services.03.desc">Individuelle Beratung und Qualifizierung – maßgeschneidert auf deine Situation, deine Ziele und deine Strategie.</p>
+        <div class="svc-tags">
+          <span class="tag" data-i18n="services.03.tag1">Individuell</span>
+          <span class="tag" data-i18n="services.03.tag2">Qualifizierung</span>
+          <span class="tag" data-i18n="services.03.tag3">Strategie</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="sec-label" data-i18n="contact.label">Kontakt</div>
+        <h2 data-i18n="contact.h2">Lass uns sprechen.</h2>
+        <p data-i18n="contact.p">
+          Kein Verkaufsgespräch – ein ehrliches Erstgespräch.
+          Wir schauen gemeinsam, wo Du stehst und wie wir helfen können.
+        </p>
+        <div class="info-detail"><span>→</span> <span data-i18n="contact.detail1">30 Min · kostenlos · unverbindlich</span></div>
+        <div class="info-detail"><span>→</span> info@lae-market.de</div>
+      </div>
+      <div class="contact-form reveal d1">
+        <h3 data-i18n="contact.form.title">Nachricht senden</h3>
+        <form class="form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="field">
+              <label data-i18n="contact.form.firstname">Vorname</label>
+              <input type="text" data-i18n-placeholder="contact.form.ph.firstname" placeholder="Max" required />
+            </div>
+            <div class="field">
+              <label data-i18n="contact.form.lastname">Nachname</label>
+              <input type="text" data-i18n-placeholder="contact.form.ph.lastname" placeholder="Mustermann" required />
+            </div>
+          </div>
+          <div class="field">
+            <label data-i18n="contact.form.email">E-Mail</label>
+            <input type="email" placeholder="max@example.com" required />
+          </div>
+          <div class="field">
+            <label data-i18n="contact.form.topic">Thema</label>
+            <select>
+              <option value="" data-i18n="contact.form.topic.placeholder">Bitte wählen …</option>
+              <option data-i18n="contact.form.opt1">Marktanalyse</option>
+              <option data-i18n="contact.form.opt2">Reports & Briefings</option>
+              <option data-i18n="contact.form.opt3">Beratung</option>
+              <option data-i18n="contact.form.opt4">Sonstiges</option>
+            </select>
+          </div>
+          <div class="field">
+            <label data-i18n="contact.form.message">Nachricht</label>
+            <textarea data-i18n-placeholder="contact.form.ph.message" placeholder="Wo stehst Du gerade? Was ist Dein Ziel?"></textarea>
+          </div>
+          <button type="submit" class="btn-submit" data-i18n="contact.form.submit">Nachricht senden →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo" style="display:flex;align-items:center;gap:.6rem">
+      <svg width="22" height="22" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+        <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>LAE</span> Market Services
+    </span>
+    <span class="footer-meta">© LAE Market Services · Learn. Analyze. Execute.</span>
+    <div class="footer-links">
+      <a href="#" data-i18n="footer.impressum">Impressum</a>
+      <a href="#" data-i18n="footer.datenschutz">Datenschutz</a>
+      <a href="#" data-i18n="footer.disclaimer">Disclaimer</a>
+    </div>
+  </footer>
+
+  <script>
+    // ── NAV SCROLL ──
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // ── SCROLL REVEAL ──
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // ── TRANSLATIONS ──
+    const translations = {
+      de: {
+        'nav.contact':                  'Kontakt',
+        'nav.login':                    'Mitglieder-Login',
+        'hero.eyebrow':                 'Marktanalyse · Reports & Briefings · Beratung',
+        'hero.h1':                      'Märkte verstehen.<br><span class="hl">Chancen</span> nutzen.',
+        'hero.sub':                     'LAE Market Services – fundierte Marktanalyse, Reports & Briefings und individuelle Beratung. Ohne Hype. Mit System.',
+        'hero.cta1':                    'Kontakt aufnehmen →',
+        'hero.cta2':                    'Services ansehen',
+        'mission.label':                'Mission',
+        'mission.h2':                   'Das LAE-Prinzip',
+        'mission.desc':                 'Drei Worte, ein Kompass. Alles was wir tun, folgt diesem Grundsatz – für uns und für unsere Kunden.',
+        'mission.learn':                'Märkte von Grund auf verstehen – Struktur, Mechanismen, Kontext.',
+        'mission.analyze':              'Daten systematisch auswerten und Chancen vor der Masse erkennen.',
+        'mission.execute':              'Nach Plan handeln – konsequent, diszipliniert, verantwortungsbewusst.',
+        'services.label':               'Services',
+        'services.h2':                  'Was wir anbieten',
+        'services.01.title':            'Marktanalyse',
+        'services.01.desc':             'Systematische Fundamentaldaten-Analyse von Futures und Aktien – für klare Markteinschätzungen und bessere Handelsentscheidungen.',
+        'services.01.tag1':             'Fundamentaldaten',
+        'services.01.tag2':             'Futures',
+        'services.01.tag3':             'Aktien',
+        'services.02.title':            'Reports & Briefings',
+        'services.02.desc':             'Regelmäßige Marktberichte und strukturierte Briefings – als Daily Notes, Weekly Notes und visuelle Dashboards für den effizienten Überblick.',
+        'services.02.tag1':             'Daily Notes',
+        'services.02.tag2':             'Weekly Notes',
+        'services.02.tag3':             'Insights',
+        'services.03.title':            'Beratung',
+        'services.03.desc':             'Individuelle Beratung und Qualifizierung – maßgeschneidert auf deine Situation, deine Ziele und deine Strategie.',
+        'services.03.tag1':             'Individuell',
+        'services.03.tag2':             'Qualifizierung',
+        'services.03.tag3':             'Strategie',
+        'contact.label':                'Kontakt',
+        'contact.h2':                   'Lass uns sprechen.',
+        'contact.p':                    'Kein Verkaufsgespräch – ein ehrliches Erstgespräch. Wir schauen gemeinsam, wo Du stehst und wie wir helfen können.',
+        'contact.detail1':              '30 Min · kostenlos · unverbindlich',
+        'contact.form.title':           'Nachricht senden',
+        'contact.form.firstname':       'Vorname',
+        'contact.form.ph.firstname':    'Max',
+        'contact.form.lastname':        'Nachname',
+        'contact.form.ph.lastname':     'Mustermann',
+        'contact.form.email':           'E-Mail',
+        'contact.form.topic':           'Thema',
+        'contact.form.topic.placeholder':'Bitte wählen …',
+        'contact.form.opt1':            'Marktanalyse',
+        'contact.form.opt2':            'Reports & Briefings',
+        'contact.form.opt3':            'Beratung',
+        'contact.form.opt4':            'Sonstiges',
+        'contact.form.message':         'Nachricht',
+        'contact.form.ph.message':      'Wo stehst Du gerade? Was ist Dein Ziel?',
+        'contact.form.submit':          'Nachricht senden →',
+        'contact.form.success':         '✓ Gesendet – wir melden uns!',
+        'footer.impressum':             'Impressum',
+        'footer.datenschutz':           'Datenschutz',
+        'footer.disclaimer':            'Disclaimer',
+      },
+      en: {
+        'nav.contact':                  'Contact',
+        'nav.login':                    'Member Login',
+        'hero.eyebrow':                 'Market Analysis · Reports & Briefings · Consulting',
+        'hero.h1':                      'Understand Markets.<br><span class="hl">Seize</span> Opportunities.',
+        'hero.sub':                     'LAE Market Services – solid market analysis, reports & briefings and individual consulting. No hype. With system.',
+        'hero.cta1':                    'Get in touch →',
+        'hero.cta2':                    'View Services',
+        'mission.label':                'Mission',
+        'mission.h2':                   'The LAE Principle',
+        'mission.desc':                 'Three words, one compass. Everything we do follows this principle – for us and for our clients.',
+        'mission.learn':                'Understanding markets from the ground up – structure, mechanics, context.',
+        'mission.analyze':              'Systematically evaluating data and identifying opportunities ahead of the crowd.',
+        'mission.execute':              'Acting on a plan – consistently, disciplined, responsibly.',
+        'services.label':               'Services',
+        'services.h2':                  'What we offer',
+        'services.01.title':            'Market Analysis',
+        'services.01.desc':             'Systematic fundamental analysis of futures and equities – for clear market assessments and better trading decisions.',
+        'services.01.tag1':             'Fundamentals',
+        'services.01.tag2':             'Futures',
+        'services.01.tag3':             'Equities',
+        'services.02.title':            'Reports & Briefings',
+        'services.02.desc':             'Regular market reports and structured briefings – as Daily Notes, Weekly Notes and visual dashboards for an efficient overview.',
+        'services.02.tag1':             'Daily Notes',
+        'services.02.tag2':             'Weekly Notes',
+        'services.02.tag3':             'Insights',
+        'services.03.title':            'Consulting',
+        'services.03.desc':             'Individual consulting and education – tailored to your situation, your goals and your strategy.',
+        'services.03.tag1':             'Individual',
+        'services.03.tag2':             'Education',
+        'services.03.tag3':             'Strategy',
+        'contact.label':                'Contact',
+        'contact.h2':                   "Let's talk.",
+        'contact.p':                    "No sales pitch – an honest first conversation. We'll look together at where you are and how we can help.",
+        'contact.detail1':              '30 min · free · no obligation',
+        'contact.form.title':           'Send a message',
+        'contact.form.firstname':       'First name',
+        'contact.form.ph.firstname':    'John',
+        'contact.form.lastname':        'Last name',
+        'contact.form.ph.lastname':     'Doe',
+        'contact.form.email':           'Email',
+        'contact.form.topic':           'Topic',
+        'contact.form.topic.placeholder':'Please select …',
+        'contact.form.opt1':            'Market Analysis',
+        'contact.form.opt2':            'Reports & Briefings',
+        'contact.form.opt3':            'Consulting',
+        'contact.form.opt4':            'Other',
+        'contact.form.message':         'Message',
+        'contact.form.ph.message':      'Where are you right now? What is your goal?',
+        'contact.form.submit':          'Send message →',
+        'contact.form.success':         '✓ Sent – we will get back to you!',
+        'footer.impressum':             'Legal Notice',
+        'footer.datenschutz':           'Privacy Policy',
+        'footer.disclaimer':            'Disclaimer',
+      }
+    };
+
+    let currentLang = localStorage.getItem('lae-lang') || 'de';
+
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('lae-lang', lang);
+      const t = translations[lang];
+
+      // textContent
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+
+      // innerHTML (for elements with HTML like <span> inside)
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+
+      // placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+
+      // lang toggle buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+      });
+
+      // html lang attribute
+      document.documentElement.lang = lang;
+    }
+
+    // Init on load
+    setLang(currentLang);
+
+    // ── FORM ──
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.btn-submit');
+      const successMsg = translations[currentLang]['contact.form.success'];
+      const resetMsg   = translations[currentLang]['contact.form.submit'];
+      btn.textContent = successMsg;
+      btn.style.background = '#22c55e';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = resetMsg;
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 5000);
+    }
+  </script>
+</body>
+</html>

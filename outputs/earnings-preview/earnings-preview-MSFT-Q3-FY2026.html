@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LAE Earnings Preview – MSFT Q3 FY2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:           #090c11;
+    --bg2:          #0d111a;
+    --bg3:          #111720;
+    --green:        #39ff14;
+    --green-border: rgba(57,255,20,0.25);
+    --green-dim:    rgba(57,255,20,0.10);
+    --white:        #f0f4f8;
+    --gray:         #7a8899;
+    --red:          #e05252;
+    --yellow:       #f5a623;
+    --border:       rgba(255,255,255,0.07);
+  }
+
+  html {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 36px 40px 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 10px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1.5px solid var(--green);
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .logo-text .lae  { color: var(--green); }
+  .logo-text .rest { color: var(--white); }
+  .header-right { text-align: right; }
+  .header-right .title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--white);
+  }
+  .header-right .date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+
+  /* ── COMPANY BANNER ── */
+  .company-banner {
+    background: var(--bg2);
+    border: 1px solid var(--green-border);
+    border-left: 4px solid var(--green);
+    border-radius: 10px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .company-left { display: flex; align-items: baseline; gap: 14px; }
+  .company-ticker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .company-name { font-size: 15px; font-weight: 600; color: var(--white); }
+  .company-meta { display: flex; gap: 28px; flex-wrap: wrap; }
+  .meta-item { text-align: right; }
+  .meta-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .meta-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    margin-top: 3px;
+  }
+  .meta-value.green { color: var(--green); }
+  .meta-value.red   { color: var(--red); }
+
+  /* ── BODY TOP: ESTIMATES + KEY METRICS ── */
+  .body-top {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* CONSENSUS TABLE */
+  .estimates-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .estimates-table th {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: left;
+    padding: 0 10px 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .estimates-table th.th-num  { text-align: right; }
+  .estimates-table th.th-yoy  { text-align: right; padding-right: 14px; }
+  .estimates-table td {
+    font-size: 13px;
+    padding: 11px 10px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .estimates-table tr:first-child td:first-child { border-radius: 8px 0 0 0; }
+  .estimates-table tr:first-child td:last-child  { border-radius: 0 8px 0 0; }
+  .estimates-table tr:last-child td              { border-bottom: none; }
+  .estimates-table tr:last-child td:first-child  { border-radius: 0 0 0 8px; }
+  .estimates-table tr:last-child td:last-child   { border-radius: 0 0 8px 0; }
+  .td-label {
+    font-weight: 600;
+    color: var(--white);
+    padding-left: 14px;
+  }
+  .td-num {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .td-prev { color: var(--gray); }
+  .td-yoy  {
+    text-align: right;
+    padding-right: 14px;
+    white-space: nowrap;
+  }
+  .yoy-pill {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+  .td-yoy.neg .yoy-pill { background: rgba(224,82,82,0.15);  color: var(--red); }
+  .td-yoy.pos .yoy-pill { background: rgba(57,255,20,0.12);  color: var(--green); }
+
+  /* KEY METRICS */
+  .metrics-list { display: flex; flex-direction: column; gap: 8px; }
+  .metric-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .metric-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    width: 20px;
+  }
+  .metric-text { display: flex; flex-direction: column; gap: 3px; }
+  .metric-text strong {
+    font-size: 13px;
+    color: var(--white);
+    font-weight: 600;
+  }
+  .metric-text span {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  /* ── SCENARIOS ROW ── */
+  .scenarios-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .scenario-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    border-top: 4px solid transparent;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .scenario-card.bull { border-top-color: var(--green); }
+  .scenario-card.base { border-top-color: var(--yellow); }
+  .scenario-card.bear { border-top-color: var(--red); }
+
+  .scenario-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    padding: 3px 9px;
+    border-radius: 4px;
+  }
+  .bull .scenario-tag { background: rgba(57,255,20,0.15);  color: var(--green); }
+  .base .scenario-tag { background: rgba(245,166,35,0.15); color: var(--yellow); }
+  .bear .scenario-tag { background: rgba(224,82,82,0.15);  color: var(--red); }
+
+  .scenario-reaction {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .bull .scenario-reaction { color: var(--green); }
+  .base .scenario-reaction { color: var(--yellow); }
+  .bear .scenario-reaction { color: var(--red); }
+
+  .scenario-driver {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .scenario-nums {
+    display: flex;
+    gap: 20px;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .scenario-num .lbl {
+    font-size: 9px;
+    color: var(--gray);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 3px;
+  }
+  .scenario-num .val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .scenario-body {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* ── BODY BOTTOM: CATALYSTS + TRADING ── */
+  .body-bottom {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  .catalyst-list { display: flex; flex-direction: column; gap: 8px; }
+  .catalyst-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .catalyst-num {
+    background: var(--green);
+    color: var(--bg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .catalyst-text { display: flex; flex-direction: column; gap: 3px; }
+  .catalyst-text strong {
+    font-size: 13px;
+    color: var(--white);
+    font-weight: 600;
+  }
+  .catalyst-text span {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  .trading-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .trading-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .trading-card .lbl {
+    font-size: 9px;
+    color: var(--gray);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .trading-card .val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .trading-card .val.red   { color: var(--red); }
+  .trading-card .val.green { color: var(--green); }
+
+  .chart-wrap {
+    margin-top: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .chart-wrap iframe {
+    display: block;
+    width: 100%;
+    height: 220px;
+    border: none;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .footer-left {
+    font-size: 11px;
+    color: var(--gray);
+  }
+  .footer-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+      <svg width="32" height="32" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,0.08)" stroke="#39ff14" stroke-width="1.8"/>
+        <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="logo-text"><span class="lae">LAE</span><span class="rest"> Market Services</span></div>
+    </div>
+    <div class="header-right">
+      <div class="title">Earnings Preview</div>
+      <div class="date">April 28, 2026</div>
+    </div>
+  </header>
+
+  <!-- COMPANY BANNER -->
+  <div class="company-banner">
+    <div class="company-left">
+      <div class="company-ticker">MSFT</div>
+      <div class="company-name">Microsoft Corporation</div>
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Quarter</div>
+        <div class="meta-value">Q3 FY2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Report</div>
+        <div class="meta-value green">April 29, 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Time</div>
+        <div class="meta-value">After Close</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Price (Apr. 28)</div>
+        <div class="meta-value">$ 424.82</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Implied Move</div>
+        <div class="meta-value red">± 6.8%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP ROW: ESTIMATES + KEY METRICS -->
+  <div class="body-top">
+
+    <div>
+      <div class="section-label">Consensus Estimates – Q3 FY2026</div>
+      <table class="estimates-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="th-num">Consensus</th>
+            <th class="th-num">Prior Year</th>
+            <th class="th-yoy">YoY</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-label">Revenue (total)</td><td class="td-num">$ 81.3B</td><td class="td-num td-prev">$ 70.1B</td><td class="td-yoy pos"><span class="yoy-pill">▲ 16.0%</span></td></tr>
+<tr><td class="td-label">Intelligent Cloud</td><td class="td-num">~ $ 30.0B</td><td class="td-num td-prev">$ 26.7B</td><td class="td-yoy pos"><span class="yoy-pill">▲ 12.4%</span></td></tr>
+<tr><td class="td-label">Azure Growth (CC)</td><td class="td-num">~ 38%</td><td class="td-num td-prev">~ 33%</td><td class="td-yoy pos"><span class="yoy-pill">▲ 5 pp</span></td></tr>
+<tr><td class="td-label">EPS (adj.)</td><td class="td-num">$ 4.06</td><td class="td-num td-prev">$ 3.46</td><td class="td-yoy pos"><span class="yoy-pill">▲ 17.3%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <div class="section-label">Key Metrics to Watch</div>
+      <div class="metrics-list">
+        <div class="metric-item"><div class="metric-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#39ff14" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="metric-text"><strong>Azure Growth Rate (CC)</strong><span>Q3 FY2025: 33% CC. Guidance Q3 FY2026: 37–38%. The #1 market focus – can Azure re-accelerate after decelerating to 31% in Q2? Every point above or below guidance drives outsized stock reaction.</span></div></div>
+<div class="metric-item"><div class="metric-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#39ff14" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="metric-text"><strong>AI & Copilot Revenue</strong><span>Concrete Copilot ARR data is what the market craves. Seat count growth, enterprise adoption rates, and any mention of a $15B+ ARR milestone will be key signals for the AI investment thesis.</span></div></div>
+<div class="metric-item"><div class="metric-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#39ff14" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="metric-text"><strong>Capital Expenditure Discipline</strong><span>CapEx is expected near $21–22B for Q3. The market wants to see AI infrastructure spending translate into Azure acceleration – not just cost escalation without visible returns.</span></div></div>
+<div class="metric-item"><div class="metric-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#39ff14" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="metric-text"><strong>FY2026 Full-Year Guidance</strong><span>Any revision to revenue or EPS guidance is the key re-rating catalyst. Strong Azure + guidance raise = bull case. Cautious or no-raise outlook = renewed pressure on the stock.</span></div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SCENARIOS ROW -->
+  <div>
+    <div class="section-label">Scenarios</div>
+    <div class="scenarios-row">
+      <div class="scenario-card bull"><div class="scenario-header"><span class="scenario-tag">Bull</span></div><div class="scenario-reaction">+8–12%</div><div class="scenario-driver">Azure Re-Acceleration + Guidance Raise</div><div class="scenario-nums"><div class="scenario-num"><div class="lbl">Revenue</div><div class="val">> $ 83B</div></div><div class="scenario-num"><div class="lbl">EPS (adj.)</div><div class="val">> $ 4.20</div></div></div><div class="scenario-body">Azure grows 40%+ CC, significantly beating guidance. Copilot adoption shows material ARR milestones. Management raises FY2026 revenue and EPS guidance. CapEx narrative shifts from 'cost' to 'return on investment'. Stock reclaims $460+ and targets the $480–500 resistance zone.</div></div>
+<div class="scenario-card base"><div class="scenario-header"><span class="scenario-tag">Base</span></div><div class="scenario-reaction">± 2–4%</div><div class="scenario-driver">Consensus Met, Outlook Stable</div><div class="scenario-nums"><div class="scenario-num"><div class="lbl">Revenue</div><div class="val">~ $ 81.3B</div></div><div class="scenario-num"><div class="lbl">EPS (adj.)</div><div class="val">~ $ 4.06</div></div></div><div class="scenario-body">Azure delivers 37–38% growth, in line with guidance. EPS and revenue meet consensus. Full-year guidance maintained. Market reads the print as solid but without a big surprise – stock reacts mildly positive or flat, within the implied move range.</div></div>
+<div class="scenario-card bear"><div class="scenario-header"><span class="scenario-tag">Bear</span></div><div class="scenario-reaction">− 7–10%</div><div class="scenario-driver">Azure Miss + Guidance Cut</div><div class="scenario-nums"><div class="scenario-num"><div class="lbl">Revenue</div><div class="val">< $ 79B</div></div><div class="scenario-num"><div class="lbl">EPS (adj.)</div><div class="val">< $ 3.90</div></div></div><div class="scenario-body">Azure falls below 36% CC, missing guidance for the second consecutive quarter. CapEx pressures margins further. Management lowers or removes FY2026 guidance. Post-earnings sentiment turns structurally negative – stock risks retesting the $380–390 lows.</div></div>
+    </div>
+  </div>
+
+  <!-- BOTTOM ROW: CATALYSTS + TRADING -->
+  <div class="body-bottom">
+
+    <div>
+      <div class="section-label">Catalyst Checklist</div>
+      <div class="catalyst-list">
+        <div class="catalyst-item"><div class="catalyst-num">01</div><div class="catalyst-text"><strong>Azure Growth Rate (CC)</strong><span>Q3 FY2025: 33% CC. Guidance Q3 FY2026: 37–38%. The #1 market focus – every percentage point above or below guidance drives outsized stock reaction.</span></div></div>
+<div class="catalyst-item"><div class="catalyst-num">02</div><div class="catalyst-text"><strong>AI & Copilot Revenue</strong><span>Seat count growth and ARR milestones for Copilot. A concrete $15B+ ARR figure or strong enterprise adoption data would validate the AI investment thesis.</span></div></div>
+<div class="catalyst-item"><div class="catalyst-num">03</div><div class="catalyst-text"><strong>CapEx Efficiency Commentary</strong><span>Expected CapEx: ~$21–22B. CFO commentary on when AI infrastructure spending will translate into margin expansion is the key swing factor for long-term investors.</span></div></div>
+<div class="catalyst-item"><div class="catalyst-num">04</div><div class="catalyst-text"><strong>OpenAI Partnership Update</strong><span>Microsoft restructured its OpenAI revenue share agreement in April 2026. Any earnings commentary on the financial impact or strategic implications will move the stock.</span></div></div>
+<div class="catalyst-item"><div class="catalyst-num">05</div><div class="catalyst-text"><strong>FY2026 Full-Year Guidance</strong><span>Consensus expects ~14–15% revenue growth for FY2026. A raise confirms Azure re-acceleration. A hold is neutral. Any cut or removal of guidance triggers severe selling pressure.</span></div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">Trading Setup</div>
+      <div class="trading-grid">
+        <div class="trading-card"><div class="lbl">Price (Apr. 28)</div><div class="val ">$ 424.82</div></div>
+<div class="trading-card"><div class="lbl">52-Week Range</div><div class="val ">$ 356 – 555</div></div>
+<div class="trading-card"><div class="lbl">YTD Performance</div><div class="val red">▼ 10.3%</div></div>
+<div class="trading-card"><div class="lbl">Avg. Earnings Reaction</div><div class="val ">± 3.8%</div></div>
+<div class="trading-card"><div class="lbl">Implied Move (Options)</div><div class="val red">± 6.8%</div></div>
+<div class="trading-card"><div class="lbl">Analyst Consensus</div><div class="val ">Strong Buy / 53 Analysten</div></div>
+      </div>
+      <div class="chart-wrap">
+        <iframe src="https://www.tradingview.com/embed-widget/mini-symbol-overview/?symbol=NASDAQ%3AMSFT&locale=en&dateRange=12M&colorTheme=dark&trendLineColor=%2339ff14&underLineColor=rgba(57%2C255%2C20%2C0.15)&underLineBottomColor=rgba(57%2C255%2C20%2C0)&isTransparent=true&autosize=true" scrolling="no" allowtransparency="true"></iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">LAE Market Services &nbsp;|&nbsp; Learn. Analyze. Execute. &nbsp;|&nbsp; For internal use only – not investment advice</div>
+    <div class="footer-right">lae-market-services.de</div>
+  </footer>
+
+</div>
+</body>
+</html>
