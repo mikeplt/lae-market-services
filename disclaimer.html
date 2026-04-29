@@ -33,7 +33,6 @@
       --border:    rgba(255,255,255,.07);
       --border-g:  rgba(57,255,20,.2);
       --warn:      #f59e0b;
-      --warn-glow: rgba(245,158,11,.1);
     }
 
     html { scroll-behavior: smooth; }
@@ -64,8 +63,7 @@
     .nav-right { display: flex; align-items: center; gap: 1.5rem; }
     .btn-back {
       font-size: .82rem; font-weight: 600;
-      color: var(--gray); text-decoration: none;
-      transition: color .2s;
+      color: var(--gray); text-decoration: none; transition: color .2s;
     }
     .btn-back:hover { color: var(--white); }
     .lang-toggle { display: flex; align-items: center; gap: .4rem; }
@@ -93,127 +91,82 @@
     .page-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: .72rem; font-weight: 700; letter-spacing: .12em;
-      color: var(--green); text-transform: uppercase;
-      margin-bottom: .75rem;
+      color: var(--green); text-transform: uppercase; margin-bottom: .75rem;
     }
     .page-header h1 {
       font-size: 2.5rem; font-weight: 800;
-      color: var(--white); line-height: 1.2;
-      margin-bottom: .75rem;
+      color: var(--white); line-height: 1.2; margin-bottom: .75rem;
     }
-    .page-header p {
-      font-size: 1rem; color: var(--gray); max-width: 560px;
-    }
+    .page-header p { font-size: 1rem; color: var(--gray); max-width: 560px; }
 
     /* ── WARNING BADGES ── */
     .warn-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-      padding: 3rem 4rem;
-      background: var(--bg2);
-      border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1rem; padding: 3rem 4rem;
+      background: var(--bg2); border-bottom: 1px solid var(--border);
     }
     .warn-card {
       background: var(--bg);
       border: 1px solid rgba(245,158,11,.25);
-      border-radius: 12px;
-      padding: 1.5rem 1.25rem;
-      text-align: center;
+      border-radius: 12px; padding: 1.5rem 1.25rem; text-align: center;
     }
-    .warn-icon {
-      font-size: 1.6rem;
-      margin-bottom: .75rem;
-      display: block;
-    }
+    .warn-icon { font-size: 1.6rem; margin-bottom: .75rem; display: block; }
     .warn-title {
-      font-size: .82rem; font-weight: 700;
-      color: var(--warn);
-      line-height: 1.4;
+      font-size: .82rem; font-weight: 700; color: var(--warn); line-height: 1.4;
     }
 
     /* ── LEGAL CONTENT ── */
     .legal-wrap {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 4rem 4rem 6rem;
-    }
-    .legal-notice {
-      background: var(--bg2);
-      border: 1px solid var(--border-g);
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-      font-size: .82rem; color: var(--gray);
-      margin-bottom: 3rem;
+      max-width: 800px; margin: 0 auto; padding: 4rem 4rem 6rem;
     }
 
     .legal-section {
-      margin-bottom: 3rem;
-      padding-bottom: 3rem;
+      margin-bottom: 3rem; padding-bottom: 3rem;
       border-bottom: 1px solid var(--border);
     }
-    .legal-section:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-    }
+    .legal-section:last-child { border-bottom: none; margin-bottom: 0; }
+
     .legal-section h2 {
       font-size: 1rem; font-weight: 700;
-      color: var(--green);
-      font-family: 'JetBrains Mono', monospace;
+      color: var(--green); font-family: 'JetBrains Mono', monospace;
       margin-bottom: 1.25rem;
       display: flex; align-items: center; gap: .75rem;
     }
     .legal-section h2::after {
-      content: ''; flex: 1;
-      height: 1px; background: var(--border);
+      content: ''; flex: 1; height: 1px; background: var(--border);
     }
     .legal-section p {
       font-size: .95rem; color: var(--gray);
-      margin-bottom: 1rem;
-      line-height: 1.8;
+      margin-bottom: 1rem; line-height: 1.8;
     }
     .legal-section p:last-child { margin-bottom: 0; }
-    .legal-section ul {
-      list-style: none;
-      margin: .75rem 0 1rem 0;
-    }
+    .legal-section ul { list-style: none; margin: .75rem 0 1rem 0; }
     .legal-section ul li {
       font-size: .95rem; color: var(--gray);
       padding: .35rem 0 .35rem 1.25rem;
-      position: relative;
-      line-height: 1.7;
+      position: relative; line-height: 1.7;
     }
     .legal-section ul li::before {
-      content: '→';
-      position: absolute; left: 0;
+      content: '→'; position: absolute; left: 0;
       color: var(--green); font-size: .8rem;
     }
 
     .highlight-box {
-      background: var(--bg2);
-      border-left: 3px solid var(--warn);
-      border-radius: 0 10px 10px 0;
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1rem;
+      background: var(--bg2); border-left: 3px solid var(--warn);
+      border-radius: 0 10px 10px 0; padding: 1.25rem 1.5rem; margin-bottom: 1rem;
     }
-    .highlight-box p {
-      color: var(--white) !important;
-      font-size: .95rem !important;
-      font-weight: 500;
-    }
+    .highlight-box p { color: var(--white) !important; font-weight: 500; }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
+      background: var(--bg2); border-top: 1px solid var(--border);
       padding: 2rem 4rem;
       display: flex; align-items: center;
       justify-content: space-between; flex-wrap: wrap; gap: 1rem;
     }
     .footer-logo {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .85rem; font-weight: 700;
-      color: var(--white);
+      font-size: .85rem; font-weight: 700; color: var(--white);
       display: flex; align-items: center; gap: .6rem;
     }
     .footer-logo span { color: var(--green); }
@@ -226,14 +179,12 @@
     .footer-links a:hover { color: var(--green); }
     .footer-links a.active { color: var(--green); }
 
-    @media (max-width: 900px) {
-      .warn-grid { grid-template-columns: repeat(2, 1fr); }
-    }
+    @media (max-width: 900px) { .warn-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 768px) {
       nav { padding: 0 1.5rem; }
       .page-header { padding: 6rem 1.5rem 3rem; }
       .page-header h1 { font-size: 1.8rem; }
-      .warn-grid { padding: 2rem 1.5rem; grid-template-columns: repeat(2, 1fr); }
+      .warn-grid { padding: 2rem 1.5rem; }
       .legal-wrap { padding: 3rem 1.5rem 5rem; }
       footer { padding: 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
     }
@@ -291,51 +242,45 @@
   <!-- LEGAL CONTENT -->
   <main class="legal-wrap">
 
-    <div class="legal-notice">
-      <strong style="color:var(--white)" data-i18n="notice.title">Hinweis:</strong>
-      <span data-i18n="notice.text"> Diese Seite ist aus rechtlichen Gründen primär auf Deutsch verfügbar. | This page is primarily available in German for legal reasons.</span>
-    </div>
-
-    <!-- §1 Risikowarnung -->
+    <!-- §1 -->
     <div class="legal-section">
-      <h2>§1 &nbsp;Risikowarnung</h2>
+      <h2 data-i18n="s1.heading">§1 &nbsp;Risikowarnung</h2>
       <div class="highlight-box">
-        <p>Der Handel mit Finanzinstrumenten ist mit erheblichen Risiken verbunden und kann zum vollständigen Verlust des eingesetzten Kapitals führen.</p>
+        <p data-i18n="s1.highlight">Der Handel mit Finanzinstrumenten ist mit erheblichen Risiken verbunden und kann zum vollständigen Verlust des eingesetzten Kapitals führen.</p>
       </div>
-      <p>Der Handel mit Finanzinstrumenten – darunter Aktien, Futures, Optionen, CFDs, Devisen (Forex), Kryptowährungen und andere Derivate – ist hochspekulativ und mit erheblichen Risiken verbunden. Es besteht die Möglichkeit, das gesamte eingesetzte Kapital zu verlieren.</p>
-      <p>Vergangene Wertentwicklungen, Backtests und historische Analysen sind kein verlässlicher Indikator für zukünftige Ergebnisse. Märkte können sich jederzeit und ohne Vorwarnung drastisch verändern.</p>
-      <p>Bevor Sie mit dem Handel beginnen, stellen Sie sicher, dass Sie die damit verbundenen Risiken vollständig verstanden haben und dass diese Risiken mit Ihrer persönlichen finanziellen Situation, Ihren Anlagezielen und Ihrer Risikobereitschaft vereinbar sind. Handeln Sie niemals mit Kapital, dessen Verlust Sie sich nicht leisten können.</p>
+      <p data-i18n="s1.p1">Der Handel mit Finanzinstrumenten – darunter Aktien, Futures, Optionen, CFDs, Devisen (Forex), Kryptowährungen und andere Derivate – ist hochspekulativ und mit erheblichen Risiken verbunden. Es besteht die Möglichkeit, das gesamte eingesetzte Kapital zu verlieren.</p>
+      <p data-i18n="s1.p2">Vergangene Wertentwicklungen, Backtests und historische Analysen sind kein verlässlicher Indikator für zukünftige Ergebnisse. Märkte können sich jederzeit und ohne Vorwarnung drastisch verändern.</p>
+      <p data-i18n="s1.p3">Bevor Sie mit dem Handel beginnen, stellen Sie sicher, dass Sie die damit verbundenen Risiken vollständig verstanden haben und dass diese Risiken mit Ihrer persönlichen finanziellen Situation, Ihren Anlagezielen und Ihrer Risikobereitschaft vereinbar sind. Handeln Sie niemals mit Kapital, dessen Verlust Sie sich nicht leisten können.</p>
     </div>
 
-    <!-- §2 Kein Anlageberatungsvertrag -->
+    <!-- §2 -->
     <div class="legal-section">
-      <h2>§2 &nbsp;Kein Anlageberatungsvertrag</h2>
-      <p>Die auf dieser Website sowie in sämtlichen Produkten, Reports, Briefings, Analysen und sonstigen Materialien von LAE Market Services bereitgestellten Inhalte stellen <strong style="color:var(--white)">keine Anlageberatung</strong> im Sinne des Wertpapierhandelsgesetzes (WpHG) oder des Kreditwesengesetzes (KWG) dar.</p>
-      <p>LAE Market Services ist kein zugelassener Anlageberater, kein Finanzdienstleistungsinstitut und kein Wertpapierdienstleistungsunternehmen im Sinne der einschlägigen deutschen oder europäischen Rechtsvorschriften. Es besteht keine Zulassung der Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin).</p>
-      <p>Durch die Nutzung unserer Inhalte, die Teilnahme an unseren Angeboten oder den Erwerb unserer Produkte kommt <strong style="color:var(--white)">kein Anlageberatungsvertrag</strong> zwischen Ihnen und LAE Market Services zustande.</p>
+      <h2 data-i18n="s2.heading">§2 &nbsp;Kein Anlageberatungsvertrag</h2>
+      <p data-i18n="s2.p1">Die auf dieser Website sowie in sämtlichen Produkten, Reports, Briefings, Analysen und sonstigen Materialien von LAE Market Services bereitgestellten Inhalte stellen keine Anlageberatung im Sinne des Wertpapierhandelsgesetzes (WpHG) oder des Kreditwesengesetzes (KWG) dar.</p>
+      <p data-i18n="s2.p2">LAE Market Services ist kein zugelassener Anlageberater, kein Finanzdienstleistungsinstitut und kein Wertpapierdienstleistungsunternehmen im Sinne der einschlägigen deutschen oder europäischen Rechtsvorschriften. Es besteht keine Zulassung der Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin).</p>
+      <p data-i18n="s2.p3">Durch die Nutzung unserer Inhalte, die Teilnahme an unseren Angeboten oder den Erwerb unserer Produkte kommt kein Anlageberatungsvertrag zwischen Ihnen und LAE Market Services zustande.</p>
     </div>
 
-    <!-- §3 Haftungsausschluss -->
+    <!-- §3 -->
     <div class="legal-section">
-      <h2>§3 &nbsp;Haftungsausschluss</h2>
-      <p>LAE Market Services übernimmt ausdrücklich keine Haftung für:</p>
+      <h2 data-i18n="s3.heading">§3 &nbsp;Haftungsausschluss</h2>
+      <p data-i18n="s3.p1">LAE Market Services übernimmt ausdrücklich keine Haftung für:</p>
       <ul>
-        <li>Handelsentscheidungen, die auf Basis unserer Inhalte, Analysen oder Empfehlungen getroffen werden</li>
-        <li>Direkte oder indirekte finanzielle Verluste jeder Art, die aus der Nutzung unserer Materialien entstehen</li>
-        <li>Die Vollständigkeit, Richtigkeit oder Aktualität der bereitgestellten Informationen und Analysen</li>
-        <li>Technische Fehler, Unterbrechungen oder Ausfälle des Dienstes</li>
-        <li>Entscheidungen, die auf Basis von Marktanalysen, Reports, Briefings oder Kommentaren getroffen werden</li>
-        <li>Schäden durch fehlerhafte Datenbasis oder fehlerhafte Datenquellen Dritter</li>
+        <li data-i18n="s3.li1">Handelsentscheidungen, die auf Basis unserer Inhalte, Analysen oder Kommentare getroffen werden</li>
+        <li data-i18n="s3.li2">Direkte oder indirekte finanzielle Verluste jeder Art, die aus der Nutzung unserer Materialien entstehen</li>
+        <li data-i18n="s3.li3">Die Vollständigkeit, Richtigkeit oder Aktualität der bereitgestellten Informationen und Analysen</li>
+        <li data-i18n="s3.li4">Technische Fehler, Unterbrechungen oder Ausfälle des Dienstes</li>
+        <li data-i18n="s3.li5">Schäden durch fehlerhafte Datenbasis oder fehlerhafte Datenquellen Dritter</li>
       </ul>
-      <p>Alle Informationen werden nach bestem Wissen und Gewissen zusammengestellt, jedoch ohne Gewähr für Richtigkeit, Vollständigkeit oder Aktualität.</p>
+      <p data-i18n="s3.p2">Alle Informationen werden nach bestem Wissen und Gewissen zusammengestellt, jedoch ohne Gewähr für Richtigkeit, Vollständigkeit oder Aktualität.</p>
     </div>
 
-    <!-- §4 Informationszwecke -->
+    <!-- §4 -->
     <div class="legal-section">
-      <h2>§4 &nbsp;Ausschließlich Informations- und Bildungszwecke</h2>
-      <p>Alle Inhalte von LAE Market Services – einschließlich, aber nicht beschränkt auf Marktanalysen, COT-Reports, Weekly Notes, Earnings Previews, Briefings, Dashboards, Kommentare und sonstige Materialien – dienen <strong style="color:var(--white)">ausschließlich Informations- und Bildungszwecken</strong>.</p>
-      <p>Die Inhalte stellen keine Aufforderung zum Kauf oder Verkauf von Wertpapieren oder anderen Finanzinstrumenten dar. Sie ersetzen nicht die individuelle Beratung durch einen zugelassenen Finanzberater, Steuerberater oder Rechtsanwalt, der Ihre persönliche Situation kennt.</p>
-      <p>Wenn Sie professionellen Rat zu Ihrer persönlichen finanziellen Situation, steuerlichen Lage oder rechtlichen Fragen benötigen, empfehlen wir Ihnen ausdrücklich, einen entsprechend qualifizierten und zugelassenen Fachmann zu konsultieren.</p>
+      <h2 data-i18n="s4.heading">§4 &nbsp;Ausschließlich Informations- und Bildungszwecke</h2>
+      <p data-i18n="s4.p1">Alle Inhalte von LAE Market Services – einschließlich Marktanalysen, COT-Reports, Weekly Notes, Earnings Previews, Briefings, Dashboards, Kommentare und sonstige Materialien – dienen ausschließlich Informations- und Bildungszwecken.</p>
+      <p data-i18n="s4.p2">Die Inhalte stellen keine Aufforderung zum Kauf oder Verkauf von Wertpapieren oder anderen Finanzinstrumenten dar. Sie ersetzen nicht die individuelle Beratung durch einen zugelassenen Finanzberater, Steuerberater oder Rechtsanwalt, der Ihre persönliche Situation kennt.</p>
+      <p data-i18n="s4.p3">Wenn Sie professionellen Rat zu Ihrer persönlichen finanziellen Situation, steuerlichen Lage oder rechtlichen Fragen benötigen, empfehlen wir Ihnen ausdrücklich, einen entsprechend qualifizierten und zugelassenen Fachmann zu konsultieren.</p>
     </div>
 
   </main>
@@ -361,31 +306,69 @@
   <script>
     const translations = {
       de: {
-        'nav.back':       '← Startseite',
-        'page.label':     'Rechtliches',
-        'page.title':     'Disclaimer',
-        'page.sub':       'Haftungsausschluss und Risikohinweise für Finanzinhalte',
-        'notice.title':   'Hinweis:',
-        'notice.text':    ' Diese Seite ist aus rechtlichen Gründen primär auf Deutsch verfügbar.',
-        'warn.1':         'Keine Anlageberatung',
-        'warn.2':         'Nur zu Bildungszwecken',
-        'warn.3':         'Kapital ist gefährdet',
-        'warn.4':         'Vergangene Ergebnisse ≠ Zukunft',
+        'nav.back':      '← Startseite',
+        'page.label':    'Rechtliches',
+        'page.title':    'Disclaimer',
+        'page.sub':      'Haftungsausschluss und Risikohinweise für Finanzinhalte',
+        'warn.1':        'Keine Anlageberatung',
+        'warn.2':        'Nur zu Bildungszwecken',
+        'warn.3':        'Kapital ist gefährdet',
+        'warn.4':        'Vergangene Ergebnisse ≠ Zukunft',
+        's1.heading':    '§1  Risikowarnung',
+        's1.highlight':  'Der Handel mit Finanzinstrumenten ist mit erheblichen Risiken verbunden und kann zum vollständigen Verlust des eingesetzten Kapitals führen.',
+        's1.p1':         'Der Handel mit Finanzinstrumenten – darunter Aktien, Futures, Optionen, CFDs, Devisen (Forex), Kryptowährungen und andere Derivate – ist hochspekulativ und mit erheblichen Risiken verbunden. Es besteht die Möglichkeit, das gesamte eingesetzte Kapital zu verlieren.',
+        's1.p2':         'Vergangene Wertentwicklungen, Backtests und historische Analysen sind kein verlässlicher Indikator für zukünftige Ergebnisse. Märkte können sich jederzeit und ohne Vorwarnung drastisch verändern.',
+        's1.p3':         'Bevor Sie mit dem Handel beginnen, stellen Sie sicher, dass Sie die damit verbundenen Risiken vollständig verstanden haben und dass diese Risiken mit Ihrer persönlichen finanziellen Situation, Ihren Anlagezielen und Ihrer Risikobereitschaft vereinbar sind. Handeln Sie niemals mit Kapital, dessen Verlust Sie sich nicht leisten können.',
+        's2.heading':    '§2  Kein Anlageberatungsvertrag',
+        's2.p1':         'Die auf dieser Website sowie in sämtlichen Produkten, Reports, Briefings, Analysen und sonstigen Materialien von LAE Market Services bereitgestellten Inhalte stellen keine Anlageberatung im Sinne des Wertpapierhandelsgesetzes (WpHG) oder des Kreditwesengesetzes (KWG) dar.',
+        's2.p2':         'LAE Market Services ist kein zugelassener Anlageberater, kein Finanzdienstleistungsinstitut und kein Wertpapierdienstleistungsunternehmen im Sinne der einschlägigen deutschen oder europäischen Rechtsvorschriften. Es besteht keine Zulassung der Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin).',
+        's2.p3':         'Durch die Nutzung unserer Inhalte, die Teilnahme an unseren Angeboten oder den Erwerb unserer Produkte kommt kein Anlageberatungsvertrag zwischen Ihnen und LAE Market Services zustande.',
+        's3.heading':    '§3  Haftungsausschluss',
+        's3.p1':         'LAE Market Services übernimmt ausdrücklich keine Haftung für:',
+        's3.li1':        'Handelsentscheidungen, die auf Basis unserer Inhalte, Analysen oder Kommentare getroffen werden',
+        's3.li2':        'Direkte oder indirekte finanzielle Verluste jeder Art, die aus der Nutzung unserer Materialien entstehen',
+        's3.li3':        'Die Vollständigkeit, Richtigkeit oder Aktualität der bereitgestellten Informationen und Analysen',
+        's3.li4':        'Technische Fehler, Unterbrechungen oder Ausfälle des Dienstes',
+        's3.li5':        'Schäden durch fehlerhafte Datenbasis oder fehlerhafte Datenquellen Dritter',
+        's3.p2':         'Alle Informationen werden nach bestem Wissen und Gewissen zusammengestellt, jedoch ohne Gewähr für Richtigkeit, Vollständigkeit oder Aktualität.',
+        's4.heading':    '§4  Ausschließlich Informations- und Bildungszwecke',
+        's4.p1':         'Alle Inhalte von LAE Market Services – einschließlich Marktanalysen, COT-Reports, Weekly Notes, Earnings Previews, Briefings, Dashboards, Kommentare und sonstige Materialien – dienen ausschließlich Informations- und Bildungszwecken.',
+        's4.p2':         'Die Inhalte stellen keine Aufforderung zum Kauf oder Verkauf von Wertpapieren oder anderen Finanzinstrumenten dar. Sie ersetzen nicht die individuelle Beratung durch einen zugelassenen Finanzberater, Steuerberater oder Rechtsanwalt, der Ihre persönliche Situation kennt.',
+        's4.p3':         'Wenn Sie professionellen Rat zu Ihrer persönlichen finanziellen Situation, steuerlichen Lage oder rechtlichen Fragen benötigen, empfehlen wir Ihnen ausdrücklich, einen entsprechend qualifizierten und zugelassenen Fachmann zu konsultieren.',
         'footer.impressum':  'Impressum',
         'footer.datenschutz':'Datenschutz',
         'footer.disclaimer': 'Disclaimer',
       },
       en: {
-        'nav.back':       '← Home',
-        'page.label':     'Legal',
-        'page.title':     'Disclaimer',
-        'page.sub':       'Liability disclaimer and risk notices for financial content',
-        'notice.title':   'Notice:',
-        'notice.text':    ' This page is primarily available in German for legal reasons.',
-        'warn.1':         'No Investment Advice',
-        'warn.2':         'For Educational Purposes Only',
-        'warn.3':         'Capital at Risk',
-        'warn.4':         'Past Results ≠ Future Performance',
+        'nav.back':      '← Home',
+        'page.label':    'Legal',
+        'page.title':    'Disclaimer',
+        'page.sub':      'Liability disclaimer and risk notices for financial content',
+        'warn.1':        'No Investment Advice',
+        'warn.2':        'For Educational Purposes Only',
+        'warn.3':        'Capital at Risk',
+        'warn.4':        'Past Results ≠ Future Performance',
+        's1.heading':    '§1  Risk Warning',
+        's1.highlight':  'Trading financial instruments involves significant risks and may result in the complete loss of invested capital.',
+        's1.p1':         'Trading financial instruments – including equities, futures, options, CFDs, forex, cryptocurrencies and other derivatives – is highly speculative and involves substantial risks. There is a possibility of losing all invested capital.',
+        's1.p2':         'Past performance, backtests and historical analyses are not reliable indicators of future results. Markets can change drastically at any time and without warning.',
+        's1.p3':         'Before you begin trading, ensure that you fully understand the risks involved and that these risks are consistent with your personal financial situation, investment objectives and risk tolerance. Never trade with capital you cannot afford to lose.',
+        's2.heading':    '§2  No Investment Advisory Contract',
+        's2.p1':         'The content provided on this website and in all products, reports, briefings, analyses and other materials of LAE Market Services does not constitute investment advice within the meaning of the German Securities Trading Act (WpHG) or the Banking Act (KWG).',
+        's2.p2':         'LAE Market Services is not a licensed investment advisor, financial services institution or securities services company within the meaning of applicable German or European law. There is no license from the Federal Financial Supervisory Authority (BaFin).',
+        's2.p3':         'By using our content, participating in our offerings or purchasing our products, no investment advisory contract is established between you and LAE Market Services.',
+        's3.heading':    '§3  Liability Disclaimer',
+        's3.p1':         'LAE Market Services expressly accepts no liability for:',
+        's3.li1':        'Trading decisions made on the basis of our content, analyses or commentary',
+        's3.li2':        'Direct or indirect financial losses of any kind arising from the use of our materials',
+        's3.li3':        'The completeness, accuracy or timeliness of the information and analyses provided',
+        's3.li4':        'Technical errors, interruptions or service failures',
+        's3.li5':        'Damages resulting from erroneous data or erroneous third-party data sources',
+        's3.p2':         'All information is compiled to the best of our knowledge and belief, but without guarantee of accuracy, completeness or timeliness.',
+        's4.heading':    '§4  For Information and Educational Purposes Only',
+        's4.p1':         'All content from LAE Market Services – including market analyses, COT reports, weekly notes, earnings previews, briefings, dashboards, commentary and other materials – is for informational and educational purposes only.',
+        's4.p2':         'The content does not constitute a solicitation to buy or sell securities or other financial instruments. It does not replace individual advice from a licensed financial advisor, tax advisor or attorney who knows your personal situation.',
+        's4.p3':         'If you require professional advice regarding your personal financial situation, tax status or legal questions, we strongly recommend that you consult an appropriately qualified and licensed professional.',
         'footer.impressum':  'Legal Notice',
         'footer.datenschutz':'Privacy Policy',
         'footer.disclaimer': 'Disclaimer',
@@ -401,6 +384,10 @@
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (t[key] !== undefined) el.innerHTML = t[key];
       });
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.textContent === lang.toUpperCase());

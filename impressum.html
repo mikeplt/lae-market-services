@@ -109,24 +109,14 @@
       margin: 0 auto;
       padding: 4rem 4rem 6rem;
     }
-    .legal-notice {
-      background: var(--bg2);
-      border: 1px solid var(--border-g);
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-      font-size: .82rem; color: var(--gray);
-      margin-bottom: 3rem;
-    }
 
     .legal-section {
       margin-bottom: 3rem;
       padding-bottom: 3rem;
       border-bottom: 1px solid var(--border);
     }
-    .legal-section:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-    }
+    .legal-section:last-child { border-bottom: none; margin-bottom: 0; }
+
     .legal-section h2 {
       font-size: 1rem; font-weight: 700;
       color: var(--green);
@@ -140,8 +130,7 @@
     }
     .legal-section p {
       font-size: .95rem; color: var(--gray);
-      margin-bottom: 1rem;
-      line-height: 1.8;
+      margin-bottom: 1rem; line-height: 1.8;
     }
     .legal-section p:last-child { margin-bottom: 0; }
 
@@ -153,18 +142,15 @@
       margin-bottom: 1rem;
     }
     .data-row {
-      display: grid; grid-template-columns: 160px 1fr;
+      display: grid; grid-template-columns: 180px 1fr;
       gap: .5rem; padding: .5rem 0;
       border-bottom: 1px solid var(--border);
     }
     .data-row:last-child { border-bottom: none; }
     .data-label {
-      font-size: .82rem; font-weight: 600;
-      color: var(--gray);
+      font-size: .82rem; font-weight: 600; color: var(--gray);
     }
-    .data-value {
-      font-size: .82rem; color: var(--white);
-    }
+    .data-value { font-size: .82rem; color: var(--white); }
     .placeholder {
       color: var(--green);
       font-family: 'JetBrains Mono', monospace;
@@ -185,8 +171,7 @@
     }
     .footer-logo {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .85rem; font-weight: 700;
-      color: var(--white);
+      font-size: .85rem; font-weight: 700; color: var(--white);
       display: flex; align-items: center; gap: .6rem;
     }
     .footer-logo span { color: var(--green); }
@@ -235,47 +220,42 @@
   <header class="page-header">
     <div class="page-label" data-i18n="page.label">Rechtliches</div>
     <h1 data-i18n="page.title">Impressum</h1>
-    <p data-i18n="page.sub">Angaben gemäß § 5 TMG (Telemediengesetz)</p>
+    <p data-i18n="page.sub">Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz)</p>
   </header>
 
   <!-- LEGAL CONTENT -->
   <main class="legal-wrap">
 
-    <div class="legal-notice">
-      <strong style="color:var(--white)" data-i18n="notice.title">Hinweis:</strong>
-      <span data-i18n="notice.text"> Diese Seite ist aus rechtlichen Gründen primär auf Deutsch verfügbar. | This page is primarily available in German for legal reasons.</span>
-    </div>
-
-    <!-- §1 Angaben -->
+    <!-- §1 -->
     <div class="legal-section">
-      <h2>§1 &nbsp;Angaben gemäß § 5 TMG</h2>
+      <h2 data-i18n="s1.heading">§1 &nbsp;Angaben gemäß § 5 DDG</h2>
       <div class="data-block">
         <div class="data-row">
-          <span class="data-label">Inhaber</span>
+          <span class="data-label" data-i18n="row.inhaber">Inhaber</span>
           <span class="data-value"><span class="placeholder">[DEIN VOLLSTÄNDIGER NAME]</span></span>
         </div>
         <div class="data-row">
-          <span class="data-label">Straße</span>
+          <span class="data-label" data-i18n="row.strasse">Straße</span>
           <span class="data-value"><span class="placeholder">[STRASSE UND HAUSNUMMER]</span></span>
         </div>
         <div class="data-row">
-          <span class="data-label">Ort</span>
+          <span class="data-label" data-i18n="row.ort">Ort</span>
           <span class="data-value"><span class="placeholder">[PLZ]</span> Hannover, Deutschland</span>
         </div>
         <div class="data-row">
-          <span class="data-label">Unternehmensform</span>
-          <span class="data-value">Einzelunternehmer</span>
+          <span class="data-label" data-i18n="row.form">Unternehmensform</span>
+          <span class="data-value" data-i18n="row.form.val">Einzelunternehmer</span>
         </div>
         <div class="data-row">
-          <span class="data-label">Steuernummer</span>
-          <span class="data-value"><span class="placeholder">[wird nach Anmeldung ergänzt]</span></span>
+          <span class="data-label" data-i18n="row.steuer">Steuernummer</span>
+          <span class="data-value"><span class="placeholder" data-i18n="row.steuer.val">[wird nach Anmeldung ergänzt]</span></span>
         </div>
       </div>
     </div>
 
-    <!-- §2 Kontakt -->
+    <!-- §2 -->
     <div class="legal-section">
-      <h2>§2 &nbsp;Kontakt</h2>
+      <h2 data-i18n="s2.heading">§2 &nbsp;Kontakt</h2>
       <div class="data-block">
         <div class="data-row">
           <span class="data-label">E-Mail</span>
@@ -284,37 +264,37 @@
       </div>
     </div>
 
-    <!-- §3 Haftung für Inhalte -->
+    <!-- §3 -->
     <div class="legal-section">
-      <h2>§3 &nbsp;Haftung für Inhalte</h2>
-      <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
-      <p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+      <h2 data-i18n="s3.heading">§3 &nbsp;Haftung für Inhalte</h2>
+      <p data-i18n="s3.p1">Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+      <p data-i18n="s3.p2">Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
     </div>
 
-    <!-- §4 Haftung für Links -->
+    <!-- §4 -->
     <div class="legal-section">
-      <h2>§4 &nbsp;Haftung für Links</h2>
-      <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
-      <p>Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+      <h2 data-i18n="s4.heading">§4 &nbsp;Haftung für Links</h2>
+      <p data-i18n="s4.p1">Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+      <p data-i18n="s4.p2">Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
     </div>
 
-    <!-- §5 Urheberrecht -->
+    <!-- §5 -->
     <div class="legal-section">
-      <h2>§5 &nbsp;Urheberrecht</h2>
-      <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
-      <p>Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
+      <h2 data-i18n="s5.heading">§5 &nbsp;Urheberrecht</h2>
+      <p data-i18n="s5.p1">Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+      <p data-i18n="s5.p2">Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
     </div>
 
-    <!-- §6 Redaktionell Verantwortlicher -->
+    <!-- §6 -->
     <div class="legal-section">
-      <h2>§6 &nbsp;Redaktionell Verantwortlicher</h2>
+      <h2 data-i18n="s6.heading">§6 &nbsp;Redaktionell Verantwortlicher</h2>
       <div class="data-block">
         <div class="data-row">
-          <span class="data-label">Name</span>
+          <span class="data-label" data-i18n="row.name">Name</span>
           <span class="data-value"><span class="placeholder">[DEIN VOLLSTÄNDIGER NAME]</span></span>
         </div>
         <div class="data-row">
-          <span class="data-label">Anschrift</span>
+          <span class="data-label" data-i18n="row.anschrift">Anschrift</span>
           <span class="data-value"><span class="placeholder">[STRASSE UND HAUSNUMMER]</span>, <span class="placeholder">[PLZ]</span> Hannover</span>
         </div>
       </div>
@@ -343,26 +323,64 @@
   <script>
     const translations = {
       de: {
-        'nav.back':       '← Startseite',
-        'page.label':     'Rechtliches',
-        'page.title':     'Impressum',
-        'page.sub':       'Angaben gemäß § 5 TMG (Telemediengesetz)',
-        'notice.title':   'Hinweis:',
-        'notice.text':    ' Diese Seite ist aus rechtlichen Gründen primär auf Deutsch verfügbar.',
-        'footer.impressum':  'Impressum',
+        'nav.back':         '← Startseite',
+        'page.label':       'Rechtliches',
+        'page.title':       'Impressum',
+        'page.sub':         'Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz)',
+        's1.heading':       '§1  Angaben gemäß § 5 DDG',
+        'row.inhaber':      'Inhaber',
+        'row.strasse':      'Straße',
+        'row.ort':          'Ort',
+        'row.form':         'Unternehmensform',
+        'row.form.val':     'Einzelunternehmer',
+        'row.steuer':       'Steuernummer',
+        'row.steuer.val':   '[wird nach Anmeldung ergänzt]',
+        's2.heading':       '§2  Kontakt',
+        's3.heading':       '§3  Haftung für Inhalte',
+        's3.p1':            'Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.',
+        's3.p2':            'Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.',
+        's4.heading':       '§4  Haftung für Links',
+        's4.p1':            'Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.',
+        's4.p2':            'Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.',
+        's5.heading':       '§5  Urheberrecht',
+        's5.p1':            'Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.',
+        's5.p2':            'Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.',
+        's6.heading':       '§6  Redaktionell Verantwortlicher',
+        'row.name':         'Name',
+        'row.anschrift':    'Anschrift',
+        'footer.impressum': 'Impressum',
         'footer.datenschutz':'Datenschutz',
-        'footer.disclaimer': 'Disclaimer',
+        'footer.disclaimer':'Disclaimer',
       },
       en: {
-        'nav.back':       '← Home',
-        'page.label':     'Legal',
-        'page.title':     'Legal Notice',
-        'page.sub':       'Information according to § 5 TMG (German Telemedia Act)',
-        'notice.title':   'Notice:',
-        'notice.text':    ' This page is primarily available in German for legal reasons.',
-        'footer.impressum':  'Legal Notice',
+        'nav.back':         '← Home',
+        'page.label':       'Legal',
+        'page.title':       'Legal Notice',
+        'page.sub':         'Information pursuant to § 5 DDG (German Digital Services Act)',
+        's1.heading':       '§1  Information pursuant to § 5 DDG',
+        'row.inhaber':      'Owner',
+        'row.strasse':      'Street',
+        'row.ort':          'City',
+        'row.form':         'Business type',
+        'row.form.val':     'Sole proprietor',
+        'row.steuer':       'Tax number',
+        'row.steuer.val':   '[to be added after registration]',
+        's2.heading':       '§2  Contact',
+        's3.heading':       '§3  Liability for Content',
+        's3.p1':            'As a service provider, we are responsible for our own content on these pages in accordance with § 7 para. 1 DDG and general laws. However, pursuant to §§ 8 to 10 DDG, we are not obligated to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.',
+        's3.p2':            'Obligations to remove or block the use of information under general law remain unaffected. However, liability in this regard is only possible from the time of knowledge of a specific infringement. Upon becoming aware of such violations, we will remove the content immediately.',
+        's4.heading':       '§4  Liability for Links',
+        's4.p1':            'Our website contains links to external third-party websites over whose content we have no control. Therefore, we cannot accept any liability for this external content. The respective provider or operator of the linked pages is always responsible for their content.',
+        's4.p2':            'The linked pages were checked for possible legal violations at the time of linking. No illegal content was apparent at the time of linking. Permanent monitoring of the content of linked pages is not reasonable without concrete evidence of a violation. Upon becoming aware of legal violations, we will remove such links immediately.',
+        's5.heading':       '§5  Copyright',
+        's5.p1':            'The content and works created by the site operators on these pages are subject to German copyright law. Reproduction, editing, distribution and any kind of use outside the limits of copyright require the written consent of the respective author or creator.',
+        's5.p2':            'Downloads and copies of this site are only permitted for private, non-commercial use. Insofar as the content on this site was not created by the operator, the copyrights of third parties are respected. Should you nevertheless become aware of a copyright infringement, please inform us accordingly. Upon becoming aware of legal violations, we will remove such content immediately.',
+        's6.heading':       '§6  Editorially Responsible',
+        'row.name':         'Name',
+        'row.anschrift':    'Address',
+        'footer.impressum': 'Legal Notice',
         'footer.datenschutz':'Privacy Policy',
-        'footer.disclaimer': 'Disclaimer',
+        'footer.disclaimer':'Disclaimer',
       }
     };
 
@@ -375,6 +393,10 @@
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (t[key] !== undefined) el.innerHTML = t[key];
       });
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
