@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impressum – LAE Market Services</title>
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('assets/fonts/inter-variable.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('assets/fonts/jetbrains-mono-variable.woff2') format('woff2');
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #090c11;
+      --bg2:       #0d111a;
+      --bg3:       #111720;
+      --green:     #39ff14;
+      --green-dim: rgba(57,255,20,.15);
+      --green-glow:rgba(57,255,20,.08);
+      --white:     #f0f4f8;
+      --gray:      #7a8899;
+      --border:    rgba(255,255,255,.07);
+      --border-g:  rgba(57,255,20,.2);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4rem; height: 64px;
+      background: rgba(9,12,17,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .95rem; font-weight: 700;
+      color: var(--white); text-decoration: none;
+      display: flex; align-items: center; gap: .7rem;
+    }
+    .logo span { color: var(--green); }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+    .btn-back {
+      font-size: .82rem; font-weight: 600;
+      color: var(--gray); text-decoration: none;
+      transition: color .2s;
+    }
+    .btn-back:hover { color: var(--white); }
+    .lang-toggle { display: flex; align-items: center; gap: .4rem; }
+    .lang-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem; font-weight: 700;
+      color: var(--gray); padding: .2rem .4rem;
+      border-radius: 4px; transition: color .2s, background .2s;
+    }
+    .lang-btn.active { color: var(--green); background: var(--green-glow); }
+    .lang-sep { color: var(--border); font-size: .75rem; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 8rem 4rem 4rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green-dim), transparent);
+    }
+    .page-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+      color: var(--green); text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+    .page-header h1 {
+      font-size: 2.5rem; font-weight: 800;
+      color: var(--white); line-height: 1.2;
+      margin-bottom: .75rem;
+    }
+    .page-header p {
+      font-size: 1rem; color: var(--gray); max-width: 520px;
+    }
+
+    /* ── LEGAL CONTENT ── */
+    .legal-wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 4rem 6rem;
+    }
+    .legal-notice {
+      background: var(--bg2);
+      border: 1px solid var(--border-g);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-size: .82rem; color: var(--gray);
+      margin-bottom: 3rem;
+    }
+
+    .legal-section {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .legal-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    .legal-section h2 {
+      font-size: 1rem; font-weight: 700;
+      color: var(--green);
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .legal-section h2::after {
+      content: ''; flex: 1;
+      height: 1px; background: var(--border);
+    }
+    .legal-section p {
+      font-size: .95rem; color: var(--gray);
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+    .legal-section p:last-child { margin-bottom: 0; }
+
+    .data-block {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .data-row {
+      display: grid; grid-template-columns: 160px 1fr;
+      gap: .5rem; padding: .5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-row:last-child { border-bottom: none; }
+    .data-label {
+      font-size: .82rem; font-weight: 600;
+      color: var(--gray);
+    }
+    .data-value {
+      font-size: .82rem; color: var(--white);
+    }
+    .placeholder {
+      color: var(--green);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .82rem;
+      background: var(--green-glow);
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-g);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .85rem; font-weight: 700;
+      color: var(--white);
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .footer-logo span { color: var(--green); }
+    .footer-meta { font-size: .78rem; color: var(--gray); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-size: .78rem; color: var(--gray);
+      text-decoration: none; transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--green); }
+    .footer-links a.active { color: var(--green); }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .page-header { padding: 6rem 1.5rem 3rem; }
+      .page-header h1 { font-size: 1.8rem; }
+      .legal-wrap { padding: 3rem 1.5rem 5rem; }
+      .data-row { grid-template-columns: 1fr; gap: .2rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="logo">
+      <svg width="28" height="28" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+        <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>LAE</span> Market Services
+    </a>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('de')">DE</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="index.html" class="btn-back" data-i18n="nav.back">← Startseite</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="page-label" data-i18n="page.label">Rechtliches</div>
+    <h1 data-i18n="page.title">Impressum</h1>
+    <p data-i18n="page.sub">Angaben gemäß § 5 TMG (Telemediengesetz)</p>
+  </header>
+
+  <!-- LEGAL CONTENT -->
+  <main class="legal-wrap">
+
+    <div class="legal-notice">
+      <strong style="color:var(--white)" data-i18n="notice.title">Hinweis:</strong>
+      <span data-i18n="notice.text"> Diese Seite ist aus rechtlichen Gründen primär auf Deutsch verfügbar. | This page is primarily available in German for legal reasons.</span>
+    </div>
+
+    <!-- §1 Angaben -->
+    <div class="legal-section">
+      <h2>§1 &nbsp;Angaben gemäß § 5 TMG</h2>
+      <div class="data-block">
+        <div class="data-row">
+          <span class="data-label">Inhaber</span>
+          <span class="data-value"><span class="placeholder">[DEIN VOLLSTÄNDIGER NAME]</span></span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Straße</span>
+          <span class="data-value"><span class="placeholder">[STRASSE UND HAUSNUMMER]</span></span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Ort</span>
+          <span class="data-value"><span class="placeholder">[PLZ]</span> Hannover, Deutschland</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Unternehmensform</span>
+          <span class="data-value">Einzelunternehmer</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Steuernummer</span>
+          <span class="data-value"><span class="placeholder">[wird nach Anmeldung ergänzt]</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- §2 Kontakt -->
+    <div class="legal-section">
+      <h2>§2 &nbsp;Kontakt</h2>
+      <div class="data-block">
+        <div class="data-row">
+          <span class="data-label">E-Mail</span>
+          <span class="data-value"><a href="mailto:info@lae-market.de" style="color:var(--green);text-decoration:none">info@lae-market.de</a></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- §3 Haftung für Inhalte -->
+    <div class="legal-section">
+      <h2>§3 &nbsp;Haftung für Inhalte</h2>
+      <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+      <p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+    </div>
+
+    <!-- §4 Haftung für Links -->
+    <div class="legal-section">
+      <h2>§4 &nbsp;Haftung für Links</h2>
+      <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+      <p>Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+    </div>
+
+    <!-- §5 Urheberrecht -->
+    <div class="legal-section">
+      <h2>§5 &nbsp;Urheberrecht</h2>
+      <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+      <p>Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
+    </div>
+
+    <!-- §6 Redaktionell Verantwortlicher -->
+    <div class="legal-section">
+      <h2>§6 &nbsp;Redaktionell Verantwortlicher</h2>
+      <div class="data-block">
+        <div class="data-row">
+          <span class="data-label">Name</span>
+          <span class="data-value"><span class="placeholder">[DEIN VOLLSTÄNDIGER NAME]</span></span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Anschrift</span>
+          <span class="data-value"><span class="placeholder">[STRASSE UND HAUSNUMMER]</span>, <span class="placeholder">[PLZ]</span> Hannover</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">
+      <svg width="22" height="22" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+        <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>LAE</span> Market Services
+    </span>
+    <span class="footer-meta">© LAE Market Services · Learn. Analyze. Execute.</span>
+    <div class="footer-links">
+      <a href="impressum.html" class="active" data-i18n="footer.impressum">Impressum</a>
+      <a href="datenschutz.html" data-i18n="footer.datenschutz">Datenschutz</a>
+      <a href="disclaimer.html" data-i18n="footer.disclaimer">Disclaimer</a>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      de: {
+        'nav.back':       '← Startseite',
+        'page.label':     'Rechtliches',
+        'page.title':     'Impressum',
+        'page.sub':       'Angaben gemäß § 5 TMG (Telemediengesetz)',
+        'notice.title':   'Hinweis:',
+        'notice.text':    ' Diese Seite ist aus rechtlichen Gründen primär auf Deutsch verfügbar.',
+        'footer.impressum':  'Impressum',
+        'footer.datenschutz':'Datenschutz',
+        'footer.disclaimer': 'Disclaimer',
+      },
+      en: {
+        'nav.back':       '← Home',
+        'page.label':     'Legal',
+        'page.title':     'Legal Notice',
+        'page.sub':       'Information according to § 5 TMG (German Telemedia Act)',
+        'notice.title':   'Notice:',
+        'notice.text':    ' This page is primarily available in German for legal reasons.',
+        'footer.impressum':  'Legal Notice',
+        'footer.datenschutz':'Privacy Policy',
+        'footer.disclaimer': 'Disclaimer',
+      }
+    };
+
+    let currentLang = localStorage.getItem('lae-lang') || 'de';
+
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('lae-lang', lang);
+      const t = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+      });
+      document.documentElement.lang = lang;
+    }
+
+    setLang(currentLang);
+  </script>
+</body>
+</html>

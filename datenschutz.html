@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datenschutz – LAE Market Services</title>
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('assets/fonts/inter-variable.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('assets/fonts/jetbrains-mono-variable.woff2') format('woff2');
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #090c11;
+      --bg2:       #0d111a;
+      --bg3:       #111720;
+      --green:     #39ff14;
+      --green-dim: rgba(57,255,20,.15);
+      --green-glow:rgba(57,255,20,.08);
+      --white:     #f0f4f8;
+      --gray:      #7a8899;
+      --border:    rgba(255,255,255,.07);
+      --border-g:  rgba(57,255,20,.2);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4rem; height: 64px;
+      background: rgba(9,12,17,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .95rem; font-weight: 700;
+      color: var(--white); text-decoration: none;
+      display: flex; align-items: center; gap: .7rem;
+    }
+    .logo span { color: var(--green); }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+    .btn-back {
+      font-size: .82rem; font-weight: 600;
+      color: var(--gray); text-decoration: none;
+      transition: color .2s;
+    }
+    .btn-back:hover { color: var(--white); }
+    .lang-toggle { display: flex; align-items: center; gap: .4rem; }
+    .lang-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem; font-weight: 700;
+      color: var(--gray); padding: .2rem .4rem;
+      border-radius: 4px; transition: color .2s, background .2s;
+    }
+    .lang-btn.active { color: var(--green); background: var(--green-glow); }
+    .lang-sep { color: var(--border); font-size: .75rem; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 8rem 4rem 4rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green-dim), transparent);
+    }
+    .page-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+      color: var(--green); text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+    .page-header h1 {
+      font-size: 2.5rem; font-weight: 800;
+      color: var(--white); line-height: 1.2;
+      margin-bottom: .75rem;
+    }
+    .page-header p {
+      font-size: 1rem; color: var(--gray); max-width: 560px;
+    }
+
+    /* ── LEGAL CONTENT ── */
+    .legal-wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 4rem 6rem;
+    }
+    .legal-notice {
+      background: var(--bg2);
+      border: 1px solid var(--border-g);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-size: .82rem; color: var(--gray);
+      margin-bottom: 3rem;
+    }
+
+    .legal-section {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .legal-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    .legal-section h2 {
+      font-size: 1rem; font-weight: 700;
+      color: var(--green);
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .legal-section h2::after {
+      content: ''; flex: 1;
+      height: 1px; background: var(--border);
+    }
+    .legal-section p {
+      font-size: .95rem; color: var(--gray);
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+    .legal-section p:last-child { margin-bottom: 0; }
+    .legal-section ul {
+      list-style: none;
+      margin: .75rem 0 1rem 0;
+    }
+    .legal-section ul li {
+      font-size: .95rem; color: var(--gray);
+      padding: .35rem 0 .35rem 1.25rem;
+      position: relative;
+      line-height: 1.7;
+    }
+    .legal-section ul li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--green); font-size: .8rem;
+    }
+
+    .data-block {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .data-row {
+      display: grid; grid-template-columns: 180px 1fr;
+      gap: .5rem; padding: .5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-row:last-child { border-bottom: none; }
+    .data-label {
+      font-size: .82rem; font-weight: 600;
+      color: var(--gray);
+    }
+    .data-value {
+      font-size: .82rem; color: var(--white);
+    }
+    .placeholder {
+      color: var(--green);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .82rem;
+      background: var(--green-glow);
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-g);
+    }
+    .tag-no {
+      display: inline-flex; align-items: center; gap: .35rem;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: .2rem .6rem;
+      font-size: .78rem; color: var(--gray);
+    }
+    .tag-no::before { content: '✕'; color: #ef4444; font-size: .7rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .85rem; font-weight: 700;
+      color: var(--white);
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .footer-logo span { color: var(--green); }
+    .footer-meta { font-size: .78rem; color: var(--gray); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-size: .78rem; color: var(--gray);
+      text-decoration: none; transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--green); }
+    .footer-links a.active { color: var(--green); }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1.5rem; }
+      .page-header { padding: 6rem 1.5rem 3rem; }
+      .page-header h1 { font-size: 1.8rem; }
+      .legal-wrap { padding: 3rem 1.5rem 5rem; }
+      .data-row { grid-template-columns: 1fr; gap: .2rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="logo">
+      <svg width="28" height="28" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+        <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>LAE</span> Market Services
+    </a>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('de')">DE</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="index.html" class="btn-back" data-i18n="nav.back">← Startseite</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="page-label" data-i18n="page.label">Rechtliches</div>
+    <h1 data-i18n="page.title">Datenschutzerklärung</h1>
+    <p data-i18n="page.sub">Informationen zur Verarbeitung personenbezogener Daten gemäß DSGVO</p>
+  </header>
+
+  <!-- LEGAL CONTENT -->
+  <main class="legal-wrap">
+
+    <div class="legal-notice">
+      <strong style="color:var(--white)" data-i18n="notice.title">Hinweis:</strong>
+      <span data-i18n="notice.text"> Diese Seite ist aus rechtlichen Gründen primär auf Deutsch verfügbar. | This page is primarily available in German for legal reasons.</span>
+    </div>
+
+    <!-- §1 Verantwortlicher -->
+    <div class="legal-section">
+      <h2>§1 &nbsp;Verantwortlicher</h2>
+      <p>Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:</p>
+      <div class="data-block">
+        <div class="data-row">
+          <span class="data-label">Name</span>
+          <span class="data-value"><span class="placeholder">[DEIN VOLLSTÄNDIGER NAME]</span></span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Anschrift</span>
+          <span class="data-value"><span class="placeholder">[STRASSE UND HAUSNUMMER]</span>, <span class="placeholder">[PLZ]</span> Hannover, Deutschland</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">E-Mail</span>
+          <span class="data-value"><a href="mailto:info@lae-market.de" style="color:var(--green);text-decoration:none">info@lae-market.de</a></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- §2 Allgemeines -->
+    <div class="legal-section">
+      <h2>§2 &nbsp;Allgemeines zur Datenverarbeitung</h2>
+      <p>Wir nehmen den Schutz Ihrer personenbezogenen Daten sehr ernst. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
+      <p>Wir verarbeiten personenbezogene Daten unserer Nutzer grundsätzlich nur, soweit dies zur Bereitstellung einer funktionsfähigen Website sowie unserer Inhalte und Leistungen erforderlich ist. Die Rechtsgrundlagen für die Datenverarbeitung ergeben sich aus Art. 6 Abs. 1 DSGVO.</p>
+    </div>
+
+    <!-- §3 Kontaktformular -->
+    <div class="legal-section">
+      <h2>§3 &nbsp;Kontaktformular</h2>
+      <p>Wenn Sie uns über das Kontaktformular eine Anfrage senden, werden Ihre dort eingegebenen Daten zur Bearbeitung Ihrer Anfrage und für mögliche Rückfragen gespeichert. Diese Daten geben wir ohne Ihre Einwilligung nicht weiter.</p>
+      <div class="data-block">
+        <div class="data-row">
+          <span class="data-label">Verarbeitete Daten</span>
+          <span class="data-value">Vorname, Nachname, E-Mail-Adresse, Thema, Nachricht</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Zweck</span>
+          <span class="data-value">Bearbeitung Ihrer Kontaktanfrage</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Rechtsgrundlage</span>
+          <span class="data-value">Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung / vorvertragliche Maßnahmen)</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Speicherdauer</span>
+          <span class="data-value">Bis zur vollständigen Bearbeitung, danach unverzügliche Löschung</span>
+        </div>
+      </div>
+      <p>Das Kontaktformular übermittelt Ihre Daten derzeit nur lokal (clientseitige Verarbeitung). Eine Speicherung auf unseren Servern findet nur statt, sofern Sie uns direkt per E-Mail kontaktieren.</p>
+    </div>
+
+    <!-- §4 Hosting -->
+    <div class="legal-section">
+      <h2>§4 &nbsp;Hosting (GitHub Pages)</h2>
+      <p>Diese Website wird über GitHub Pages gehostet. Anbieter ist die GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA (ein Unternehmen der Microsoft Corporation).</p>
+      <p>Beim Aufruf unserer Website kann GitHub automatisch sogenannte Serverlogfiles erfassen, die folgende Informationen enthalten können:</p>
+      <ul>
+        <li>IP-Adresse des anfragenden Geräts</li>
+        <li>Datum und Uhrzeit des Zugriffs</li>
+        <li>Aufgerufene URL und übertragene Datenmenge</li>
+        <li>Browsertyp, Betriebssystem und Referrer-URL</li>
+      </ul>
+      <div class="data-block">
+        <div class="data-row">
+          <span class="data-label">Rechtsgrundlage</span>
+          <span class="data-value">Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am sicheren Betrieb der Website)</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Datenschutz GitHub</span>
+          <span class="data-value"><a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer" style="color:var(--green);text-decoration:none">GitHub Privacy Statement →</a></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- §5 Schriftarten -->
+    <div class="legal-section">
+      <h2>§5 &nbsp;Schriftarten (lokal eingebunden)</h2>
+      <p>Diese Website verwendet die Schriftarten <strong style="color:var(--white)">Inter</strong> und <strong style="color:var(--white)">JetBrains Mono</strong>. Beide Schriftarten sind lokal auf unserem Server eingebunden und werden direkt von unserer Website ausgeliefert.</p>
+      <div class="data-block">
+        <div class="data-row">
+          <span class="data-label">Einbindung</span>
+          <span class="data-value">Lokal (self-hosted) – keine Datenübertragung an externe Anbieter</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Übertragung an Dritte</span>
+          <span class="data-value">Keine</span>
+        </div>
+      </div>
+      <p>Es werden durch die Schriftarten-Einbindung keinerlei personenbezogene Daten an Dritte übertragen.</p>
+    </div>
+
+    <!-- §6 Cookies & Tracking -->
+    <div class="legal-section">
+      <h2>§6 &nbsp;Cookies und Tracking</h2>
+      <p>Diese Website verwendet keine Tracking-Cookies, keine Analyse-Tools und kein Webtracking. Es werden keinerlei Nutzerdaten zu Werbe- oder Analysezwecken gesammelt oder weitergegeben.</p>
+      <p>Die einzige lokal gespeicherte Information ist Ihre Sprachpräferenz (DE/EN) im Browser-LocalStorage. Diese Information verbleibt ausschließlich auf Ihrem Gerät und wird nicht an uns übertragen.</p>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.75rem">
+        <span class="tag-no">Analyse-Cookies</span>
+        <span class="tag-no">Werbe-Cookies</span>
+        <span class="tag-no">Google Analytics</span>
+        <span class="tag-no">Facebook Pixel</span>
+        <span class="tag-no">Nutzer-Tracking</span>
+      </div>
+    </div>
+
+    <!-- §7 Ihre Rechte -->
+    <div class="legal-section">
+      <h2>§7 &nbsp;Ihre Rechte als betroffene Person</h2>
+      <p>Sie haben uns gegenüber folgende Rechte hinsichtlich Ihrer personenbezogenen Daten:</p>
+      <ul>
+        <li><strong style="color:var(--white)">Auskunftsrecht</strong> – Sie können Auskunft über Ihre von uns verarbeiteten Daten verlangen (Art. 15 DSGVO)</li>
+        <li><strong style="color:var(--white)">Berichtigungsrecht</strong> – Unrichtige Daten können Sie berichtigen lassen (Art. 16 DSGVO)</li>
+        <li><strong style="color:var(--white)">Löschungsrecht</strong> – Sie können die Löschung Ihrer Daten verlangen (Art. 17 DSGVO)</li>
+        <li><strong style="color:var(--white)">Einschränkungsrecht</strong> – Sie können die Einschränkung der Verarbeitung verlangen (Art. 18 DSGVO)</li>
+        <li><strong style="color:var(--white)">Datenübertragbarkeit</strong> – Sie können Ihre Daten in einem gängigen Format erhalten (Art. 20 DSGVO)</li>
+        <li><strong style="color:var(--white)">Widerspruchsrecht</strong> – Sie können der Verarbeitung auf Basis berechtigter Interessen widersprechen (Art. 21 DSGVO)</li>
+      </ul>
+      <p>Zur Ausübung Ihrer Rechte wenden Sie sich bitte per E-Mail an: <a href="mailto:info@lae-market.de" style="color:var(--green);text-decoration:none">info@lae-market.de</a></p>
+    </div>
+
+    <!-- §8 Aufsichtsbehörde -->
+    <div class="legal-section">
+      <h2>§8 &nbsp;Beschwerderecht bei der Aufsichtsbehörde</h2>
+      <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten durch uns zu beschweren. Die zuständige Aufsichtsbehörde für Niedersachsen ist:</p>
+      <div class="data-block">
+        <div class="data-row">
+          <span class="data-label">Behörde</span>
+          <span class="data-value">Die Landesbeauftragte für den Datenschutz Niedersachsen (LfD)</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Adresse</span>
+          <span class="data-value">Prinzenstraße 5, 30159 Hannover</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">E-Mail</span>
+          <span class="data-value"><a href="mailto:poststelle@lfd.niedersachsen.de" style="color:var(--green);text-decoration:none">poststelle@lfd.niedersachsen.de</a></span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Website</span>
+          <span class="data-value"><a href="https://www.lfd.niedersachsen.de" target="_blank" rel="noopener noreferrer" style="color:var(--green);text-decoration:none">www.lfd.niedersachsen.de →</a></span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">
+      <svg width="22" height="22" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+        <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>LAE</span> Market Services
+    </span>
+    <span class="footer-meta">© LAE Market Services · Learn. Analyze. Execute.</span>
+    <div class="footer-links">
+      <a href="impressum.html" data-i18n="footer.impressum">Impressum</a>
+      <a href="datenschutz.html" class="active" data-i18n="footer.datenschutz">Datenschutz</a>
+      <a href="disclaimer.html" data-i18n="footer.disclaimer">Disclaimer</a>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      de: {
+        'nav.back':       '← Startseite',
+        'page.label':     'Rechtliches',
+        'page.title':     'Datenschutzerklärung',
+        'page.sub':       'Informationen zur Verarbeitung personenbezogener Daten gemäß DSGVO',
+        'notice.title':   'Hinweis:',
+        'notice.text':    ' Diese Seite ist aus rechtlichen Gründen primär auf Deutsch verfügbar.',
+        'footer.impressum':  'Impressum',
+        'footer.datenschutz':'Datenschutz',
+        'footer.disclaimer': 'Disclaimer',
+      },
+      en: {
+        'nav.back':       '← Home',
+        'page.label':     'Legal',
+        'page.title':     'Privacy Policy',
+        'page.sub':       'Information on the processing of personal data pursuant to GDPR',
+        'notice.title':   'Notice:',
+        'notice.text':    ' This page is primarily available in German for legal reasons.',
+        'footer.impressum':  'Legal Notice',
+        'footer.datenschutz':'Privacy Policy',
+        'footer.disclaimer': 'Disclaimer',
+      }
+    };
+
+    let currentLang = localStorage.getItem('lae-lang') || 'de';
+
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('lae-lang', lang);
+      const t = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+      });
+      document.documentElement.lang = lang;
+    }
+
+    setLang(currentLang);
+  </script>
+</body>
+</html>
