@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LAE Earnings Analysis – KO Q1 FY2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: fit-content; }
+
+
+  :root {
+    --bg:           #090c11;
+    --bg2:          #0d111a;
+    --bg3:          #111720;
+    --green:        #39ff14;
+    --green-border: rgba(57,255,20,0.25);
+    --green-dim:    rgba(57,255,20,0.10);
+    --white:        #f0f4f8;
+    --gray:         #7a8899;
+    --red:          #e05252;
+    --yellow:       #f5a623;
+    --border:       rgba(255,255,255,0.07);
+  }
+
+  html {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 36px 40px 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 10px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1.5px solid var(--green);
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .logo-text .lae  { color: var(--green); }
+  .logo-text .rest { color: var(--white); }
+  .header-right { text-align: right; }
+  .header-right .title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--white);
+  }
+  .header-right .date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  /* ── COMPANY BANNER ── */
+  .company-banner {
+    background: var(--bg2);
+    border: 1px solid var(--green-border);
+    border-left: 4px solid var(--green);
+    border-radius: 10px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .company-left { display: flex; align-items: baseline; gap: 14px; }
+  .company-ticker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .company-name { font-size: 15px; font-weight: 600; color: var(--white); }
+  .company-meta { display: flex; gap: 28px; flex-wrap: wrap; }
+  .meta-item { text-align: right; }
+  .meta-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .meta-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    margin-top: 3px;
+  }
+  .meta-value.green { color: var(--green); }
+  .meta-value.red   { color: var(--red); }
+
+  /* ── BODY TOP: RESULTS TABLE + SCENARIO RESULT ── */
+  .body-top {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* RESULTS TABLE */
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .results-table th {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: left;
+    padding: 0 10px 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .results-table th.th-num    { text-align: right; }
+  .results-table th.th-status { text-align: right; padding-right: 14px; }
+  .results-table td {
+    font-size: 13px;
+    padding: 11px 10px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .results-table tr:first-child td:first-child { border-radius: 8px 0 0 0; }
+  .results-table tr:first-child td:last-child  { border-radius: 0 8px 0 0; }
+  .results-table tr:last-child  td             { border-bottom: none; }
+  .results-table tr:last-child  td:first-child { border-radius: 0 0 0 8px; }
+  .results-table tr:last-child  td:last-child  { border-radius: 0 0 8px 0; }
+  .td-label  { font-weight: 600; color: var(--white); padding-left: 14px; }
+  .td-num    { text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gray); }
+  .td-actual { text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: var(--white); }
+  .td-vs     { text-align: right; white-space: nowrap; }
+  .vs-pill {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+  .td-vs.pos .vs-pill     { background: rgba(57,255,20,0.12);  color: var(--green); }
+  .td-vs.neg .vs-pill     { background: rgba(224,82,82,0.15);  color: var(--red); }
+  .td-vs.neutral .vs-pill { background: rgba(245,166,35,0.12); color: var(--yellow); }
+  .td-status { text-align: right; padding-right: 14px; }
+  .status-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .status-badge.beat    { background: rgba(57,255,20,0.15);  color: var(--green); }
+  .status-badge.missed  { background: rgba(224,82,82,0.15);  color: var(--red); }
+  .status-badge.in-line { background: rgba(245,166,35,0.12); color: var(--yellow); }
+
+  /* SCENARIO RESULT CARD */
+  .scenario-result-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    border-top: 4px solid transparent;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .scenario-result-card.bull { border-top-color: var(--green); }
+  .scenario-result-card.base { border-top-color: var(--yellow); }
+  .scenario-result-card.bear { border-top-color: var(--red); }
+
+  .scenario-result-header { display: flex; align-items: center; gap: 10px; }
+  .scenario-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    padding: 3px 9px;
+    border-radius: 4px;
+  }
+  .bull .scenario-tag { background: rgba(57,255,20,0.15);  color: var(--green); }
+  .base .scenario-tag { background: rgba(245,166,35,0.15); color: var(--yellow); }
+  .bear .scenario-tag { background: rgba(224,82,82,0.15);  color: var(--red); }
+
+  .played-out-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .scenario-result-reaction {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .bull .scenario-result-reaction { color: var(--green); }
+  .base .scenario-result-reaction { color: var(--yellow); }
+  .bear .scenario-result-reaction { color: var(--red); }
+
+  .scenario-result-driver { font-size: 13px; font-weight: 600; color: var(--white); }
+
+  .scenario-result-nums {
+    display: flex;
+    gap: 20px;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .scenario-result-num .lbl {
+    font-size: 9px;
+    color: var(--gray);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 3px;
+  }
+  .scenario-result-num .val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .scenario-result-body { font-size: 12px; color: var(--gray); line-height: 1.6; }
+
+  /* ── CATALYST REVIEW ── */
+  .catalyst-review-list { display: flex; flex-direction: column; gap: 8px; }
+  .catalyst-review-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .catalyst-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    font-weight: 700;
+    min-width: 64px;
+    height: 24px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    padding: 0 8px;
+  }
+  .catalyst-badge.triggered { background: rgba(57,255,20,0.15);  color: var(--green); border: 1px solid rgba(57,255,20,0.3); }
+  .catalyst-badge.missed    { background: rgba(224,82,82,0.15);  color: var(--red);   border: 1px solid rgba(224,82,82,0.3); }
+  .catalyst-badge.partial   { background: rgba(245,166,35,0.12); color: var(--yellow);border: 1px solid rgba(245,166,35,0.3); }
+  .catalyst-review-text { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+  .catalyst-review-text strong { font-size: 13px; color: var(--white); font-weight: 600; }
+  .catalyst-review-text span   { font-size: 12px; color: var(--gray); line-height: 1.5; }
+
+  /* ── BODY BOTTOM: GUIDANCE + CHART ── */
+  .body-bottom {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* GUIDANCE TABLE */
+  .guidance-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .guidance-table th {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: left;
+    padding: 0 10px 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .guidance-table th.th-right  { text-align: right; }
+  .guidance-table th.th-change { text-align: right; padding-right: 14px; }
+  .guidance-table td {
+    font-size: 13px;
+    padding: 11px 10px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .guidance-table tr:first-child td:first-child { border-radius: 8px 0 0 0; }
+  .guidance-table tr:first-child td:last-child  { border-radius: 0 8px 0 0; }
+  .guidance-table tr:last-child  td             { border-bottom: none; }
+  .guidance-table tr:last-child  td:first-child { border-radius: 0 0 0 8px; }
+  .guidance-table tr:last-child  td:last-child  { border-radius: 0 0 8px 0; }
+  .td-guidance-label  { font-weight: 600; color: var(--white); padding-left: 14px; }
+  .td-guidance-old    { text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gray); }
+  .td-guidance-new    { text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: var(--white); }
+  .td-guidance-change { text-align: right; padding-right: 14px; }
+  .change-pill {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .td-guidance-change.pos .change-pill     { background: rgba(57,255,20,0.12);  color: var(--green); }
+  .td-guidance-change.neg .change-pill     { background: rgba(224,82,82,0.15);  color: var(--red); }
+  .td-guidance-change.neutral .change-pill { background: rgba(245,166,35,0.12); color: var(--yellow); }
+
+  /* CHART WRAP */
+  .chart-wrap {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .chart-wrap iframe {
+    display: block;
+    width: 100%;
+    height: 220px;
+    border: none;
+  }
+
+  /* ── OUTLOOK ── */
+  .outlook-list { display: flex; flex-direction: column; gap: 8px; }
+  .outlook-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .outlook-num {
+    background: var(--green);
+    color: var(--bg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .outlook-text { display: flex; flex-direction: column; gap: 3px; }
+  .outlook-text strong { font-size: 13px; color: var(--white); font-weight: 600; }
+  .outlook-text span   { font-size: 12px; color: var(--gray); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .footer-left  { font-size: 11px; color: var(--gray); }
+  .footer-right { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--green); white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+      <svg width="32" height="32" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,0.08)" stroke="#39ff14" stroke-width="1.8"/>
+        <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="logo-text"><span class="lae">LAE</span><span class="rest"> Market Services</span></div>
+    </div>
+    <div class="header-right">
+      <div class="title">Earnings Analysis</div>
+      <div class="date">April 29, 2026</div>
+    </div>
+  </header>
+
+  <!-- COMPANY BANNER -->
+  <div class="company-banner">
+    <div class="company-left">
+      <div class="company-ticker">KO</div>
+      <div class="company-name">The Coca-Cola Company</div>
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Quarter</div>
+        <div class="meta-value">Q1 FY2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Report</div>
+        <div class="meta-value">April 28, 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Time</div>
+        <div class="meta-value">Before Open</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Price (Apr. 25)</div>
+        <div class="meta-value">$ 76.31</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Price (Apr. 28)</div>
+        <div class="meta-value green">$ 78.59</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Reaction</div>
+        <div class="meta-value green">▲ 3.0%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP ROW: RESULTS + SCENARIO RESULT -->
+  <div class="body-top">
+
+    <div>
+      <div class="section-label">Actual vs. Estimates – Q1 FY2026</div>
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="th-num">Estimate</th>
+            <th class="th-num">Actual</th>
+            <th class="th-num">vs. Est.</th>
+            <th class="th-status">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-label">Revenue (total)</td><td class="td-num">$ 12.2B</td><td class="td-actual">$ 12.5B</td><td class="td-vs pos"><span class="vs-pill">▲ +$0.3B</span></td><td class="td-status"><span class="status-badge beat">Beat</span></td></tr>
+<tr><td class="td-label">Organic Revenue Growth</td><td class="td-num">~ +5.5%</td><td class="td-actual">+10%</td><td class="td-vs pos"><span class="vs-pill">▲ +4.5 pp</span></td><td class="td-status"><span class="status-badge beat">Beat</span></td></tr>
+<tr><td class="td-label">EPS (adj.)</td><td class="td-num">$ 0.81</td><td class="td-actual">$ 0.86</td><td class="td-vs pos"><span class="vs-pill">▲ +$0.05</span></td><td class="td-status"><span class="status-badge beat">Beat</span></td></tr>
+<tr><td class="td-label">Unit Case Volume</td><td class="td-num">~ +2%</td><td class="td-actual">+3%</td><td class="td-vs pos"><span class="vs-pill">▲ +1 pp</span></td><td class="td-status"><span class="status-badge beat">Beat</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <div class="section-label">Scenario Result</div>
+      <div class="scenario-result-card bull">
+        <div class="scenario-result-header">
+          <span class="scenario-tag">Bull</span>
+          <span class="played-out-label">Played Out</span>
+        </div>
+        <div class="scenario-result-reaction">▲ 3.0%</div>
+        <div class="scenario-result-driver">Organic Growth Surge + Full Beat + Guidance Raise</div>
+        <div class="scenario-result-nums">
+          <div class="scenario-result-num">
+            <div class="lbl">Revenue (Actual)</div>
+            <div class="val">$ 12.5B</div>
+          </div>
+          <div class="scenario-result-num">
+            <div class="lbl">EPS adj. (Actual)</div>
+            <div class="val">$ 0.86</div>
+          </div>
+        </div>
+        <div class="scenario-result-body">Coca-Cola delivered its best organic revenue growth in five quarters at +10%, massively topping the ~+5.5% consensus estimate. Volume, price, and mix all contributed. Management raised full-year EPS guidance to 8–9% growth from the prior 7–8% outlook. The stock surged intraday (+4.49%) before closing up 3.0% at $78.59 – above the implied move of ±2.5%.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CATALYST REVIEW -->
+  <div>
+    <div class="section-label">Catalyst Review</div>
+    <div class="catalyst-review-list">
+      <div class="catalyst-review-item"><div class="catalyst-badge triggered">01 Triggered</div><div class="catalyst-review-text"><strong>Organic Revenue Growth</strong><span>Organic revenue grew +10% – the best result in five quarters and far above the ~+5.5% consensus estimate. Driven by 8% concentrate sales growth and 2% price/mix improvement.</span></div></div>
+<div class="catalyst-review-item"><div class="catalyst-badge triggered">02 Triggered</div><div class="catalyst-review-text"><strong>Unit Case Volume</strong><span>Unit case volume grew +3%, beating the ~+2% estimate. Growth was broad-based across all operating segments, supported by strong brand activation and innovation.</span></div></div>
+<div class="catalyst-review-item"><div class="catalyst-badge triggered">03 Triggered</div><div class="catalyst-review-text"><strong>FY2026 EPS Guidance</strong><span>Full-year comparable EPS growth guidance raised to 8–9% (from 7–8% prior), driven by a lower effective tax rate of 19.9% and stronger underlying business momentum.</span></div></div>
+<div class="catalyst-review-item"><div class="catalyst-badge triggered">04 Triggered</div><div class="catalyst-review-text"><strong>New CEO Braun – Strategic Commentary</strong><span>CEO James Quincey's successor provided constructive commentary on portfolio strategy and volume recovery. Market viewed the tone as confident and execution-focused – no major strategic pivots announced.</span></div></div>
+<div class="catalyst-review-item"><div class="catalyst-badge triggered">05 Triggered</div><div class="catalyst-review-text"><strong>Currency Headwinds</strong><span>A 3% currency tailwind (positive surprise vs. prior headwind expectations) boosted comparable EPS. The FX environment shifted favorably, removing a key bear-case risk heading into H2 2026.</span></div></div>
+    </div>
+  </div>
+
+  <!-- BOTTOM ROW: GUIDANCE + CHART -->
+  <div class="body-bottom">
+
+    <div>
+      <div class="section-label">Forward Guidance</div>
+      <table class="guidance-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="th-right">Prior Guidance</th>
+            <th class="th-right">New Guidance</th>
+            <th class="th-change">Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-guidance-label">Organic Revenue Growth FY2026</td><td class="td-guidance-old">mid-single digits</td><td class="td-guidance-new">4–5%</td><td class="td-guidance-change neutral"><span class="change-pill">—</span></td></tr>
+<tr><td class="td-guidance-label">Comparable EPS Growth FY2026</td><td class="td-guidance-old">+7–8% (vs. $3.00)</td><td class="td-guidance-new">+8–9%</td><td class="td-guidance-change pos"><span class="change-pill">▲</span></td></tr>
+<tr><td class="td-guidance-label">Effective Tax Rate FY2026</td><td class="td-guidance-old">~ 20.5%</td><td class="td-guidance-new">19.9%</td><td class="td-guidance-change pos"><span class="change-pill">▲</span></td></tr>
+<tr><td class="td-guidance-label">Currency Impact</td><td class="td-guidance-old">headwind</td><td class="td-guidance-new">~3% tailwind</td><td class="td-guidance-change pos"><span class="change-pill">▲</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <div class="section-label">Chart</div>
+      <div class="chart-wrap">
+        <iframe src="https://www.tradingview.com/embed-widget/mini-symbol-overview/?symbol=NYSE%3AKO&locale=en&dateRange=12M&colorTheme=dark&trendLineColor=%2339ff14&underLineColor=rgba(57%2C255%2C20%2C0.15)&underLineBottomColor=rgba(57%2C255%2C20%2C0)&isTransparent=true&autosize=true" scrolling="no" allowtransparency="true"></iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- OUTLOOK -->
+  <div>
+    <div class="section-label">Outlook</div>
+    <div class="outlook-list">
+      <div class="outlook-item"><div class="outlook-num">01</div><div class="outlook-text"><strong>Organic Growth Sustainability</strong><span>The +10% organic growth print was the best in five quarters, but the bar is now reset higher. Q2 2026 consensus sits around +5–6% – any deceleration would be scrutinized. Management's 4–5% full-year guidance implies a moderation, keeping expectations in check.</span></div></div>
+<div class="outlook-item"><div class="outlook-num">02</div><div class="outlook-text"><strong>Volume Recovery Trajectory</strong><span>+3% unit case volume marks a meaningful re-acceleration from prior sluggishness. The key question for H2 2026 is whether volume can hold at 2–3% as pricing tailwinds fade. Emerging market performance and North America execution will be the key indicators to watch.</span></div></div>
+<div class="outlook-item"><div class="outlook-num">03</div><div class="outlook-text"><strong>Currency Tailwind Duration</strong><span>The unexpected 3% FX tailwind was a key upside driver for comparable EPS. This is unlikely to persist at this magnitude – if the dollar strengthens in H2, the FX benefit reverses and creates a headwind vs. raised expectations.</span></div></div>
+<div class="outlook-item"><div class="outlook-num">04</div><div class="outlook-text"><strong>Valuation & Price Target</strong><span>KO closed at $78.59 after the print – a fair reward for a strong beat. At these levels the stock trades at a slight premium to historical averages. Key support at $76, resistance at $80–82. Defensive profile remains intact for risk-off environments.</span></div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">LAE Market Services &nbsp;|&nbsp; Learn. Analyze. Execute. &nbsp;|&nbsp; For internal use only – not investment advice</div>
+    <div class="footer-right">lae-market-services.de</div>
+  </footer>
+
+</div>
+</body>
+</html>
