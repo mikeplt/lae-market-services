@@ -99,22 +99,6 @@
     }
     .page-header p { font-size: 1rem; color: var(--gray); max-width: 560px; }
 
-    /* ── WARNING BADGES ── */
-    .warn-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 1rem; padding: 3rem 4rem;
-      background: var(--bg2); border-bottom: 1px solid var(--border);
-    }
-    .warn-card {
-      background: var(--bg);
-      border: 1px solid rgba(245,158,11,.25);
-      border-radius: 12px; padding: 1.5rem 1.25rem; text-align: center;
-    }
-    .warn-icon { font-size: 1.6rem; margin-bottom: .75rem; display: block; }
-    .warn-title {
-      font-size: .82rem; font-weight: 700; color: var(--warn); line-height: 1.4;
-    }
-
     /* ── LEGAL CONTENT ── */
     .legal-wrap {
       max-width: 800px; margin: 0 auto; padding: 4rem 4rem 6rem;
@@ -218,26 +202,6 @@
     <h1 data-i18n="page.title">Disclaimer</h1>
     <p data-i18n="page.sub">Haftungsausschluss und Risikohinweise für Finanzinhalte</p>
   </header>
-
-  <!-- WARNING BADGES -->
-  <div class="warn-grid">
-    <div class="warn-card">
-      <span class="warn-icon">⚠️</span>
-      <div class="warn-title" data-i18n="warn.1">Keine Anlageberatung</div>
-    </div>
-    <div class="warn-card">
-      <span class="warn-icon">📚</span>
-      <div class="warn-title" data-i18n="warn.2">Nur zu Bildungszwecken</div>
-    </div>
-    <div class="warn-card">
-      <span class="warn-icon">📉</span>
-      <div class="warn-title" data-i18n="warn.3">Kapital ist gefährdet</div>
-    </div>
-    <div class="warn-card">
-      <span class="warn-icon">📊</span>
-      <div class="warn-title" data-i18n="warn.4">Vergangene Ergebnisse ≠ Zukunft</div>
-    </div>
-  </div>
 
   <!-- LEGAL CONTENT -->
   <main class="legal-wrap">
