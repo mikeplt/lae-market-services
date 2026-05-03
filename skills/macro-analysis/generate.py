@@ -17,6 +17,14 @@ import os, sys, json, argparse
 from datetime import datetime, timedelta
 from pathlib import Path
 
+# .env laden (falls vorhanden)
+_env_file = Path(__file__).parent.parent.parent / ".env"
+if _env_file.exists():
+    for _line in _env_file.read_text(encoding="utf-8").splitlines():
+        if "=" in _line and not _line.startswith("#"):
+            _k, _, _v = _line.partition("=")
+            os.environ.setdefault(_k.strip(), _v.strip())
+
 try:
     import requests
     import pandas as pd
@@ -252,7 +260,55 @@ def build_calendar_html() -> str:
         )
     return "\n".join(cards)
 
-# ── Interpretation ────────────────────────────────────────────────────────────
+# ── AI Interpretation (Gemini API) ────────────────────────────────────────────
+def ai_interpretation(signals: list, score: int) -> str:
+    """Generiert den Macro Assessment Text per Gemini API. Fallback auf Template."""
+    api_key = os.environ.get("GEMINI_API_KEY", "")
+    if not api_key:
+        return generate_interpretation(signals, score)
+
+    try:
+        from google import genai
+
+        signal_lines = "\n".join(
+            f"- {s['label']}: {s['value']:.2f} → {s['signal'].upper()}"
+            for s in signals if s.get("value") is not None
+        )
+        score_label = "BULLISH" if score >= 60 else ("NEUTRAL" if score >= 40 else "BEARISH")
+
+        prompt = f"""You are a professional macro analyst writing a concise assessment for a financial dashboard.
+
+Current US Macro indicators (today):
+{signal_lines}
+
+Overall Macro Score: {score}/100 ({score_label})
+
+Write a Macro Assessment in English (4–6 short paragraphs). Requirements:
+- Be specific and concrete – reference the actual indicator values
+- Identify the current macro regime (e.g. Goldilocks, Disinflation, Overheating, Stagflation, Recessionary)
+- Explain key relationships between indicators (e.g. how inflation interacts with GDP and Fed policy)
+- Mention market implications for risk assets where relevant
+- Use <strong> tags to highlight key terms or regimes (not numbers)
+- Do NOT use markdown (no #, *, **, bullet points) – only plain text and <strong> tags
+- Each paragraph should be wrapped in <p>...</p>
+- Keep total length to roughly 150–200 words"""
+
+        client = genai.Client(api_key=api_key)
+        response = client.models.generate_content(
+            model="gemini-2.5-flash-lite",
+            contents=prompt
+        )
+        text = response.text.strip()
+        if "<p>" not in text:
+            text = "".join(f"<p>{p.strip()}</p>" for p in text.split("\n\n") if p.strip())
+        return text
+
+    except Exception as e:
+        print(f"  [AI]    Fallback auf Template ({e})")
+        return generate_interpretation(signals, score)
+
+
+# ── Interpretation (Template-Fallback) ────────────────────────────────────────
 def generate_interpretation(signals: list, score: int) -> str:
     """Analytische Makro-Zusammenfassung mit Zusammenhangs-Erkennung zwischen Indikatoren."""
     by_key = {s["label"]: s for s in signals}
@@ -779,7 +835,7 @@ def build(charts: dict, signals: list, score: int, data: dict) -> str:
     sl = "BULLISH" if score >= 60 else ("NEUTRAL" if score >= 40 else "BEARISH")
     bull = sum(1 for s in signals if s["signal"] == "bullish")
     neut = sum(1 for s in signals if s["signal"] == "neutral")
-    interp_html = generate_interpretation(signals, score)
+    interp_html = ai_interpretation(signals, score)
     bear = sum(1 for s in signals if s["signal"] == "bearish")
 
     def fmt(s, f=".2f", pre="", suf=""):
