@@ -180,30 +180,54 @@
 
         <!-- Kennzahlen-Kacheln -->
         <div class="metrics-grid">
-          <div class="metric-tile">
-            <div class="metric-icon">📊</div>
-            <div class="metric-label">Market Sentiment</div>
-            <div class="metric-value mono" id="sentiment-value">—</div>
-            <div class="metric-sub" id="sentiment-sub">Loading...</div>
+
+          <!-- Market Sentiment: Fear & Greed Gauge -->
+          <div class="metric-tile" style="display:flex;flex-direction:column;align-items:center;padding:14px 10px 10px;">
+            <div class="metric-label" style="margin-bottom:6px;align-self:flex-start;">Market Sentiment</div>
+            <svg viewBox="0 0 200 130" style="width:100%;max-width:190px;display:block;overflow:visible;">
+              <g id="fg-segs"></g>
+              <line id="fg-needle" x1="100" y1="105" x2="100" y2="35"
+                    stroke="#f0f4f8" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="100" cy="105" r="4.5" fill="#f0f4f8"/>
+              <circle cx="100" cy="105" r="2" fill="#090c11"/>
+              <text id="fg-score" x="100" y="124" text-anchor="middle" dominant-baseline="middle"
+                    font-family="JetBrains Mono,monospace" font-size="19" font-weight="700" fill="#f0f4f8">—</text>
+            </svg>
+            <div class="metric-sub" id="sentiment-sub" style="margin-top:2px;text-align:center;">Loading...</div>
           </div>
-          <div class="metric-tile">
-            <div class="metric-icon">📈</div>
-            <div class="metric-label">Market Situation</div>
-            <div class="metric-value mono" id="situation-value">—</div>
-            <div class="metric-sub" id="situation-sub">Loading...</div>
+
+          <!-- Market Situation: Macro Signal Gauge -->
+          <div class="metric-tile" style="display:flex;flex-direction:column;align-items:center;padding:14px 10px 10px;">
+            <div class="metric-label" style="margin-bottom:2px;align-self:flex-start;">Market Situation</div>
+            <div style="font-size:0.58rem;color:#7a8899;letter-spacing:.1em;font-weight:600;text-transform:uppercase;">Macro Signal</div>
+            <div id="ms-label" style="font-size:0.78rem;font-weight:700;letter-spacing:.05em;color:#7a8899;min-height:1rem;">—</div>
+            <svg viewBox="0 0 200 130" style="width:100%;max-width:190px;display:block;overflow:visible;">
+              <path id="ms-track" fill="none" stroke="rgba(57,255,20,0.12)" stroke-width="14" stroke-linecap="butt"/>
+              <path id="ms-fill"  fill="none" stroke="#39ff14"              stroke-width="14" stroke-linecap="butt" d=""/>
+              <g id="ms-ticks"></g>
+              <line id="ms-marker" x1="100" y1="91" x2="100" y2="119"
+                    stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+              <text id="ms-score" x="100" y="124" text-anchor="middle" dominant-baseline="middle"
+                    font-family="JetBrains Mono,monospace" font-size="20" font-weight="700" fill="#39ff14">—</text>
+            </svg>
           </div>
+
+          <!-- Top Mover -->
           <div class="metric-tile">
             <div class="metric-icon">⚡</div>
             <div class="metric-label">Top Mover</div>
             <div class="metric-value mono" id="mover-value">—</div>
             <div class="metric-sub" id="mover-sub">Loading...</div>
           </div>
+
+          <!-- Next Event -->
           <div class="metric-tile">
             <div class="metric-icon">🗓</div>
             <div class="metric-label">Next Event</div>
             <div class="metric-value mono" id="event-value">—</div>
             <div class="metric-sub" id="event-sub">Loading...</div>
           </div>
+
         </div>
 
         <!-- News + Letzte Updates -->
@@ -348,17 +372,116 @@
       if (s && sub !== undefined) s.textContent = sub;
     }
 
+    // ── Gauge Helpers ─────────────────────────────────────────────────────
+    const GCX = 100, GCY = 105, GR = 72;
+
+    function gXY(r, v) {
+      const a = Math.PI * (1 - v / 100);
+      return [GCX + r * Math.cos(a), GCY - r * Math.sin(a)];
+    }
+
+    function gArc(r, v1, v2) {
+      const [x1, y1] = gXY(r, v1);
+      const [x2, y2] = gXY(r, v2);
+      const large = (v2 - v1) > 50 ? 1 : 0;
+      return `M ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${large} 0 ${x2.toFixed(2)} ${y2.toFixed(2)}`;
+    }
+
+    function svgEl(tag, attrs) {
+      const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+      Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+      return el;
+    }
+
+    function drawFGGauge(score, label) {
+      const segs = document.getElementById('fg-segs');
+      if (!segs) return;
+      segs.innerHTML = '';
+
+      segs.appendChild(svgEl('path', {
+        d: gArc(GR, 0, 100), fill: 'none',
+        stroke: 'rgba(255,255,255,0.07)', 'stroke-width': '15', 'stroke-linecap': 'butt'
+      }));
+
+      const segments = [
+        { v1: 0,    v2: 20,   color: '#e04040' },
+        { v1: 20.5, v2: 40,   color: '#ff8c42' },
+        { v1: 40.5, v2: 60,   color: '#ffc93c' },
+        { v1: 60.5, v2: 80,   color: '#80cc22' },
+        { v1: 80.5, v2: 100,  color: '#39ff14' },
+      ];
+      segments.forEach(({ v1, v2, color }) => {
+        segs.appendChild(svgEl('path', {
+          d: gArc(GR, v1, v2), fill: 'none',
+          stroke: color, 'stroke-width': '15', 'stroke-linecap': 'butt'
+        }));
+      });
+
+      const needle = document.getElementById('fg-needle');
+      if (needle) needle.setAttribute('transform', `rotate(${(score - 50) * 1.8}, ${GCX}, ${GCY})`);
+
+      const segColor = score <= 20 ? '#e04040' : score <= 40 ? '#ff8c42' : score <= 60 ? '#ffc93c' : score <= 80 ? '#80cc22' : '#39ff14';
+      const scoreEl = document.getElementById('fg-score');
+      if (scoreEl) { scoreEl.textContent = score; scoreEl.setAttribute('fill', segColor); }
+
+      const sub = document.getElementById('sentiment-sub');
+      if (sub) {
+        sub.textContent = label || '—';
+        sub.style.color = segColor;
+        sub.style.fontWeight = '700';
+        sub.style.fontSize = '0.72rem';
+        sub.style.letterSpacing = '0.05em';
+        sub.style.textTransform = 'uppercase';
+      }
+    }
+
+    function drawMSGauge(score, label) {
+      const trackEl  = document.getElementById('ms-track');
+      const fillEl   = document.getElementById('ms-fill');
+      const ticksEl  = document.getElementById('ms-ticks');
+      const markerEl = document.getElementById('ms-marker');
+      const scoreEl  = document.getElementById('ms-score');
+      const labelEl  = document.getElementById('ms-label');
+      if (!trackEl) return;
+
+      trackEl.setAttribute('d', gArc(GR, 0, 100));
+      fillEl.setAttribute('d', score > 0 ? gArc(GR, 0, score) : '');
+
+      ticksEl.innerHTML = '';
+      [0, 20, 40, 60, 80, 100].forEach(v => {
+        const [ox, oy] = gXY(GR + 8, v);
+        const [ix, iy] = gXY(GR - 8, v);
+        ticksEl.appendChild(svgEl('line', {
+          x1: ox.toFixed(2), y1: oy.toFixed(2),
+          x2: ix.toFixed(2), y2: iy.toFixed(2),
+          stroke: 'rgba(255,255,255,0.35)', 'stroke-width': '1.5', 'stroke-linecap': 'round'
+        }));
+      });
+
+      const [mx1, my1] = gXY(GR + 9, score);
+      const [mx2, my2] = gXY(GR - 9, score);
+      if (markerEl) {
+        markerEl.setAttribute('x1', mx1.toFixed(2)); markerEl.setAttribute('y1', my1.toFixed(2));
+        markerEl.setAttribute('x2', mx2.toFixed(2)); markerEl.setAttribute('y2', my2.toFixed(2));
+      }
+
+      const lcolor = score >= 60 ? '#39ff14' : score >= 40 ? '#ffc93c' : '#ff4444';
+      if (scoreEl) { scoreEl.textContent = score; scoreEl.setAttribute('fill', lcolor); }
+      if (labelEl) { labelEl.textContent = label || '—'; labelEl.style.color = lcolor; }
+    }
+
     async function loadSentiment() {
       try {
         const r = await fetch('https://production.dataviz.cnn.io/index/fearandgreed/graphdata');
         if (!r.ok) throw new Error(r.status);
         const d = await r.json();
         const fg = d.fear_and_greed;
-        const score = Math.round(fg.score);
-        const color = score <= 40 ? '#ff8c42' : score <= 60 ? '#ffc93c' : '#39ff14';
-        setMetric('sentiment', score, fg.rating, color);
+        drawFGGauge(Math.round(fg.score), fg.rating);
       } catch(e) {
-        setMetric('sentiment', '—', 'N/A', null);
+        const sub = document.getElementById('sentiment-sub');
+        if (sub) { sub.textContent = 'N/A'; sub.style.color = '#7a8899'; }
+        const scoreEl = document.getElementById('fg-score');
+        if (scoreEl) scoreEl.textContent = '—';
       }
     }
 
@@ -369,10 +492,7 @@
         const d = await r.json();
 
         if (d.macro_score !== undefined) {
-          const s = d.macro_score;
-          const color = s >= 60 ? '#39ff14' : s >= 40 ? '#ffc93c' : '#ff4444';
-          const sub = (d.macro_label || '—') + (d.macro_date_str ? ' · ' + d.macro_date_str : '');
-          setMetric('situation', s + ' / 100', sub, color);
+          drawMSGauge(d.macro_score, d.macro_label);
         }
 
         if (d.top_mover_symbol) {
@@ -386,7 +506,9 @@
           setMetric('event', d.next_event, (d.next_event_date_str || '') + ' · ' + dayStr, null);
         }
       } catch(e) {
-        ['situation', 'mover', 'event'].forEach(id => setMetric(id, '—', 'N/A', null));
+        const scoreEl = document.getElementById('ms-score');
+        if (scoreEl) scoreEl.textContent = '—';
+        ['mover', 'event'].forEach(id => setMetric(id, '—', 'N/A', null));
       }
     }
 
