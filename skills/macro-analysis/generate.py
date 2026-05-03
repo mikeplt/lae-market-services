@@ -1278,7 +1278,46 @@ def main():
 
     out = OUTPUT_DIR / f"lae-macro-analysis-{DATE_STR}.html"
     out.write_text(html, encoding="utf-8")
-    print(f"\nFertig: {out}\n")
+    print(f"\nFertig: {out}")
+
+    # ── Dashboard-Data JSON exportieren ───────────────────────────────────
+    _dash_json = OUTPUT_DIR.parent / "portal" / "dashboard-data.json"
+    _macro_label = "BULLISH" if score >= 60 else ("NEUTRAL" if score >= 40 else "BEARISH")
+    _short = {
+        "CPI / Core CPI": "CPI Release",
+        "Non-Farm Payrolls": "NFP",
+        "Fed Decision (FOMC)": "FED Decision",
+        "GDP": "GDP Release",
+    }
+    import datetime as _dt
+    _today = _dt.date.today()
+    _nev, _nev_date, _nev_days = None, None, None
+    for _ev in ECON_CALENDAR:
+        for _ds in _ev["dates"]:
+            _d = _dt.date.fromisoformat(_ds)
+            if _d >= _today and (_nev_date is None or _d < _nev_date):
+                _nev, _nev_date, _nev_days = _short.get(_ev["label"], _ev["label"]), _d, (_d - _today).days
+
+    _dash = {}
+    if _dash_json.exists():
+        try: _dash = json.loads(_dash_json.read_text(encoding="utf-8"))
+        except Exception: pass
+
+    _dash.update({
+        "macro_score": score,
+        "macro_label": _macro_label,
+        "macro_date": DATE_STR,
+        "macro_date_str": f"{_today.day}. {_today.strftime('%b')} {_today.year}",
+    })
+    if _nev:
+        _dash.update({
+            "next_event": _nev,
+            "next_event_date": _nev_date.isoformat(),
+            "next_event_date_str": f"{_nev_date.day}. {_nev_date.strftime('%b')}",
+            "next_event_days": _nev_days,
+        })
+    _dash_json.write_text(json.dumps(_dash, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"  Dashboard: {_dash_json.name} aktualisiert\n")
 
 if __name__ == "__main__":
     main()

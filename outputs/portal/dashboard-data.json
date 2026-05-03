@@ -1,0 +1,14 @@
+{
+  "top_mover_symbol": "Nasdaq 100",
+  "top_mover_change": "+0.9%",
+  "top_mover_direction": "up",
+  "updated_at": "2026-05-03T17:45:07",
+  "macro_score": 67,
+  "macro_label": "BULLISH",
+  "macro_date": "2026-05-03",
+  "macro_date_str": "3. May 2026",
+  "next_event": "FED Decision",
+  "next_event_date": "2026-05-06",
+  "next_event_date_str": "6. May",
+  "next_event_days": 3
+}

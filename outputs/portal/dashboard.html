@@ -183,26 +183,26 @@
           <div class="metric-tile">
             <div class="metric-icon">📊</div>
             <div class="metric-label">Market Sentiment</div>
-            <div class="metric-value mono">—</div>
-            <div class="metric-sub">Coming soon</div>
+            <div class="metric-value mono" id="sentiment-value">—</div>
+            <div class="metric-sub" id="sentiment-sub">Loading...</div>
           </div>
           <div class="metric-tile">
             <div class="metric-icon">📈</div>
             <div class="metric-label">Market Situation</div>
-            <div class="metric-value mono">—</div>
-            <div class="metric-sub">Coming soon</div>
+            <div class="metric-value mono" id="situation-value">—</div>
+            <div class="metric-sub" id="situation-sub">Loading...</div>
           </div>
           <div class="metric-tile">
             <div class="metric-icon">⚡</div>
             <div class="metric-label">Top Mover</div>
-            <div class="metric-value mono">—</div>
-            <div class="metric-sub">Coming soon</div>
+            <div class="metric-value mono" id="mover-value">—</div>
+            <div class="metric-sub" id="mover-sub">Loading...</div>
           </div>
           <div class="metric-tile">
             <div class="metric-icon">🗓</div>
             <div class="metric-label">Next Event</div>
-            <div class="metric-value mono">—</div>
-            <div class="metric-sub">Coming soon</div>
+            <div class="metric-value mono" id="event-value">—</div>
+            <div class="metric-sub" id="event-sub">Loading...</div>
           </div>
         </div>
 
@@ -339,6 +339,59 @@
         window.location.replace('index.html');
       }
     });
+
+    // ── Dashboard Metrics ────────────────────────────────────────────────
+    function setMetric(id, value, sub, color) {
+      const v = document.getElementById(id + '-value');
+      const s = document.getElementById(id + '-sub');
+      if (v) { v.textContent = value; if (color) v.style.color = color; }
+      if (s && sub !== undefined) s.textContent = sub;
+    }
+
+    async function loadSentiment() {
+      try {
+        const r = await fetch('https://production.dataviz.cnn.io/index/fearandgreed/graphdata');
+        if (!r.ok) throw new Error(r.status);
+        const d = await r.json();
+        const fg = d.fear_and_greed;
+        const score = Math.round(fg.score);
+        const color = score <= 40 ? '#ff8c42' : score <= 60 ? '#ffc93c' : '#39ff14';
+        setMetric('sentiment', score, fg.rating, color);
+      } catch(e) {
+        setMetric('sentiment', '—', 'N/A', null);
+      }
+    }
+
+    async function loadDashboardData() {
+      try {
+        const r = await fetch('dashboard-data.json');
+        if (!r.ok) throw new Error(r.status);
+        const d = await r.json();
+
+        if (d.macro_score !== undefined) {
+          const s = d.macro_score;
+          const color = s >= 60 ? '#39ff14' : s >= 40 ? '#ffc93c' : '#ff4444';
+          const sub = (d.macro_label || '—') + (d.macro_date_str ? ' · ' + d.macro_date_str : '');
+          setMetric('situation', s + ' / 100', sub, color);
+        }
+
+        if (d.top_mover_symbol) {
+          const color = d.top_mover_direction === 'up' ? '#39ff14' : '#ff4444';
+          setMetric('mover', d.top_mover_symbol + '  ' + d.top_mover_change, 'Biggest mover today', color);
+        }
+
+        if (d.next_event) {
+          const days = d.next_event_days;
+          const dayStr = days === 0 ? 'Today' : days === 1 ? 'Tomorrow' : 'in ' + days + ' days';
+          setMetric('event', d.next_event, (d.next_event_date_str || '') + ' · ' + dayStr, null);
+        }
+      } catch(e) {
+        ['situation', 'mover', 'event'].forEach(id => setMetric(id, '—', 'N/A', null));
+      }
+    }
+
+    loadSentiment();
+    loadDashboardData();
   </script>
 
 </body>
