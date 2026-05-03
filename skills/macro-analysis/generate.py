@@ -993,8 +993,7 @@ body{{background:#090c11;color:var(--w);font-family:'Inter',sans-serif;font-size
 .cal-card{{display:flex;align-items:center;gap:12px;
   background:#0d111a;border:1px solid rgba(255,255,255,0.07);
   border-radius:10px;padding:12px 16px;flex:1;min-width:180px}}
-.cal-card.cal-soon{{border-color:rgba(57,255,20,0.35);box-shadow:0 0 12px rgba(57,255,20,.08)}}
-.cal-card.cal-today{{border-color:#39ff14;box-shadow:0 0 20px rgba(57,255,20,.15)}}
+.cal-card.cal-today{{border-color:rgba(57,255,20,0.35)}}
 .cal-icon{{font-size:1.4rem}}
 .cal-body{{flex:1}}
 .cal-name{{font-size:9px;font-weight:600;color:var(--gr);text-transform:uppercase;letter-spacing:.05em}}
