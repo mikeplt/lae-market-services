@@ -182,34 +182,34 @@
         <div class="metrics-grid">
 
           <!-- Market Sentiment: Fear & Greed Gauge -->
-          <div class="metric-tile" style="display:flex;flex-direction:column;align-items:center;padding:14px 10px 10px;">
-            <div class="metric-label" style="margin-bottom:6px;align-self:flex-start;">Market Sentiment</div>
-            <svg viewBox="0 0 200 130" style="width:100%;max-width:190px;display:block;overflow:visible;">
+          <div class="metric-tile" style="display:flex;flex-direction:column;align-items:center;padding:14px 12px 14px;gap:0;">
+            <div class="metric-label" style="align-self:flex-start;margin-bottom:6px;">Market Sentiment</div>
+            <svg viewBox="0 0 200 108" style="width:100%;max-width:176px;display:block;">
+              <path id="fg-bg-track" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="11" stroke-linecap="butt"/>
               <g id="fg-segs"></g>
-              <line id="fg-needle" x1="100" y1="105" x2="100" y2="35"
-                    stroke="#f0f4f8" stroke-width="2" stroke-linecap="round"/>
-              <circle cx="100" cy="105" r="4.5" fill="#f0f4f8"/>
-              <circle cx="100" cy="105" r="2" fill="#090c11"/>
-              <text id="fg-score" x="100" y="124" text-anchor="middle" dominant-baseline="middle"
-                    font-family="JetBrains Mono,monospace" font-size="19" font-weight="700" fill="#f0f4f8">—</text>
+              <g id="fg-ticks"></g>
+              <g id="fg-needle-group">
+                <line x1="100" y1="100" x2="100" y2="37" stroke="rgba(240,244,248,0.08)" stroke-width="8" stroke-linecap="round"/>
+                <line x1="100" y1="100" x2="100" y2="37" stroke="#f0f4f8" stroke-width="1.8" stroke-linecap="round"/>
+              </g>
+              <circle cx="100" cy="100" r="6.5" fill="#0d111a" stroke="rgba(240,244,248,0.65)" stroke-width="1.8"/>
+              <circle cx="100" cy="100" r="2.5" fill="#f0f4f8"/>
+              <text x="15" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="rgba(255,255,255,0.2)">0</text>
+              <text x="185" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="rgba(255,255,255,0.2)">100</text>
             </svg>
-            <div class="metric-sub" id="sentiment-sub" style="margin-top:2px;text-align:center;">Loading...</div>
+            <div style="display:flex;align-items:baseline;gap:3px;margin-top:4px;">
+              <span id="fg-score" style="font-family:'JetBrains Mono',monospace;font-size:1.55rem;font-weight:700;line-height:1;color:#f0f4f8;">—</span>
+              <span style="font-size:0.6rem;font-weight:600;color:rgba(255,255,255,0.28);line-height:1;">/100</span>
+            </div>
+            <div class="metric-sub" id="sentiment-sub" style="margin-top:5px;text-align:center;font-weight:700;font-size:0.67rem;letter-spacing:0.09em;text-transform:uppercase;">Loading...</div>
           </div>
 
-          <!-- Market Situation: Macro Signal Gauge -->
-          <div class="metric-tile" style="display:flex;flex-direction:column;align-items:center;padding:14px 10px 10px;">
-            <div class="metric-label" style="margin-bottom:2px;align-self:flex-start;">Market Situation</div>
-            <div style="font-size:0.58rem;color:#7a8899;letter-spacing:.1em;font-weight:600;text-transform:uppercase;">Macro Signal</div>
-            <div id="ms-label" style="font-size:0.78rem;font-weight:700;letter-spacing:.05em;color:#7a8899;min-height:1rem;">—</div>
-            <svg viewBox="0 0 200 130" style="width:100%;max-width:190px;display:block;overflow:visible;">
-              <path id="ms-track" fill="none" stroke="rgba(57,255,20,0.12)" stroke-width="14" stroke-linecap="butt"/>
-              <path id="ms-fill"  fill="none" stroke="#39ff14"              stroke-width="14" stroke-linecap="butt" d=""/>
-              <g id="ms-ticks"></g>
-              <line id="ms-marker" x1="100" y1="91" x2="100" y2="119"
-                    stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-              <text id="ms-score" x="100" y="124" text-anchor="middle" dominant-baseline="middle"
-                    font-family="JetBrains Mono,monospace" font-size="20" font-weight="700" fill="#39ff14">—</text>
-            </svg>
+          <!-- Market Situation: Platzhalter -->
+          <div class="metric-tile">
+            <div class="metric-icon">📡</div>
+            <div class="metric-label">Market Situation</div>
+            <div class="metric-value mono" id="ms-score">—</div>
+            <div class="metric-sub" id="ms-label">Coming soon</div>
           </div>
 
           <!-- Top Mover -->
@@ -373,7 +373,7 @@
     }
 
     // ── Gauge Helpers ─────────────────────────────────────────────────────
-    const GCX = 100, GCY = 105, GR = 72;
+    const GCX = 100, GCY = 100, GR = 72;
 
     function gXY(r, v) {
       const a = Math.PI * (1 - v / 100);
@@ -394,79 +394,59 @@
     }
 
     function drawFGGauge(score, label) {
+      const bgTrack = document.getElementById('fg-bg-track');
+      if (bgTrack) bgTrack.setAttribute('d', gArc(GR, 0, 100));
+
       const segs = document.getElementById('fg-segs');
       if (!segs) return;
       segs.innerHTML = '';
 
-      segs.appendChild(svgEl('path', {
-        d: gArc(GR, 0, 100), fill: 'none',
-        stroke: 'rgba(255,255,255,0.07)', 'stroke-width': '15', 'stroke-linecap': 'butt'
-      }));
-
       const segments = [
-        { v1: 0,    v2: 20,   color: '#e04040' },
-        { v1: 20.5, v2: 40,   color: '#ff8c42' },
-        { v1: 40.5, v2: 60,   color: '#ffc93c' },
-        { v1: 60.5, v2: 80,   color: '#80cc22' },
-        { v1: 80.5, v2: 100,  color: '#39ff14' },
+        { v1: 0,   v2: 19,  color: '#d63031' },
+        { v1: 21,  v2: 39,  color: '#e17055' },
+        { v1: 41,  v2: 59,  color: '#b8a21a' },
+        { v1: 61,  v2: 79,  color: '#6ab04c' },
+        { v1: 81,  v2: 100, color: '#39ff14' },
       ];
       segments.forEach(({ v1, v2, color }) => {
         segs.appendChild(svgEl('path', {
           d: gArc(GR, v1, v2), fill: 'none',
-          stroke: color, 'stroke-width': '15', 'stroke-linecap': 'butt'
+          stroke: color, 'stroke-width': '11', 'stroke-linecap': 'butt'
         }));
       });
 
-      const needle = document.getElementById('fg-needle');
-      if (needle) needle.setAttribute('transform', `rotate(${(score - 50) * 1.8}, ${GCX}, ${GCY})`);
+      const ticks = document.getElementById('fg-ticks');
+      if (ticks) {
+        ticks.innerHTML = '';
+        [0, 20, 40, 60, 80, 100].forEach(v => {
+          const [ox, oy] = gXY(GR + 7, v);
+          const [ix, iy] = gXY(GR - 7, v);
+          ticks.appendChild(svgEl('line', {
+            x1: ox.toFixed(2), y1: oy.toFixed(2),
+            x2: ix.toFixed(2), y2: iy.toFixed(2),
+            stroke: 'rgba(9,12,17,0.8)', 'stroke-width': '1.5', 'stroke-linecap': 'round'
+          }));
+        });
+      }
 
-      const segColor = score <= 20 ? '#e04040' : score <= 40 ? '#ff8c42' : score <= 60 ? '#ffc93c' : score <= 80 ? '#80cc22' : '#39ff14';
+      const needleGroup = document.getElementById('fg-needle-group');
+      if (needleGroup) {
+        needleGroup.setAttribute('transform', `rotate(${(score - 50) * 1.8}, ${GCX}, ${GCY})`);
+      }
+
+      const segColor = score <= 20 ? '#d63031' : score <= 40 ? '#e17055' : score <= 60 ? '#b8a21a' : score <= 80 ? '#6ab04c' : '#39ff14';
       const scoreEl = document.getElementById('fg-score');
-      if (scoreEl) { scoreEl.textContent = score; scoreEl.setAttribute('fill', segColor); }
+      if (scoreEl) { scoreEl.textContent = score; scoreEl.style.color = segColor; }
 
       const sub = document.getElementById('sentiment-sub');
-      if (sub) {
-        sub.textContent = label || '—';
-        sub.style.color = segColor;
-        sub.style.fontWeight = '700';
-        sub.style.fontSize = '0.72rem';
-        sub.style.letterSpacing = '0.05em';
-        sub.style.textTransform = 'uppercase';
-      }
+      if (sub) { sub.textContent = label || '—'; sub.style.color = segColor; }
     }
 
     function drawMSGauge(score, label) {
-      const trackEl  = document.getElementById('ms-track');
-      const fillEl   = document.getElementById('ms-fill');
-      const ticksEl  = document.getElementById('ms-ticks');
-      const markerEl = document.getElementById('ms-marker');
-      const scoreEl  = document.getElementById('ms-score');
-      const labelEl  = document.getElementById('ms-label');
-      if (!trackEl) return;
-
-      trackEl.setAttribute('d', gArc(GR, 0, 100));
-      fillEl.setAttribute('d', score > 0 ? gArc(GR, 0, score) : '');
-
-      ticksEl.innerHTML = '';
-      [0, 20, 40, 60, 80, 100].forEach(v => {
-        const [ox, oy] = gXY(GR + 8, v);
-        const [ix, iy] = gXY(GR - 8, v);
-        ticksEl.appendChild(svgEl('line', {
-          x1: ox.toFixed(2), y1: oy.toFixed(2),
-          x2: ix.toFixed(2), y2: iy.toFixed(2),
-          stroke: 'rgba(255,255,255,0.35)', 'stroke-width': '1.5', 'stroke-linecap': 'round'
-        }));
-      });
-
-      const [mx1, my1] = gXY(GR + 9, score);
-      const [mx2, my2] = gXY(GR - 9, score);
-      if (markerEl) {
-        markerEl.setAttribute('x1', mx1.toFixed(2)); markerEl.setAttribute('y1', my1.toFixed(2));
-        markerEl.setAttribute('x2', mx2.toFixed(2)); markerEl.setAttribute('y2', my2.toFixed(2));
-      }
-
-      const lcolor = score >= 60 ? '#39ff14' : score >= 40 ? '#ffc93c' : '#ff4444';
-      if (scoreEl) { scoreEl.textContent = score; scoreEl.setAttribute('fill', lcolor); }
+      const scoreEl = document.getElementById('ms-score');
+      const labelEl = document.getElementById('ms-label');
+      const lcolor = score >= 65 ? '#39ff14' : score >= 35 ? '#b8a21a' : '#d63031';
+      if (scoreEl) { scoreEl.textContent = score; scoreEl.style.color = lcolor; }
       if (labelEl) { labelEl.textContent = label || '—'; labelEl.style.color = lcolor; }
     }
 
