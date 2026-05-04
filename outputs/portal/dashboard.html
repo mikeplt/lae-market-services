@@ -197,18 +197,25 @@
           <!-- Market Sentiment: Fear & Greed Gauge -->
           <div class="metric-tile" style="display:flex;flex-direction:column;align-items:center;padding:20px 20px 14px;gap:0;">
             <div class="metric-label" style="align-self:flex-start;margin-bottom:6px;">Market Sentiment</div>
-            <svg viewBox="0 0 200 108" style="width:100%;max-width:176px;display:block;">
-              <path id="fg-bg-track" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="11" stroke-linecap="butt"/>
-              <g id="fg-segs"></g>
-              <g id="fg-ticks"></g>
+            <svg viewBox="0 0 200 114" style="width:100%;max-width:176px;display:block;">
+              <defs>
+                <linearGradient id="rainbow-grad" gradientUnits="userSpaceOnUse" x1="28" y1="0" x2="172" y2="0">
+                  <stop offset="0%"   stop-color="#d63031"/>
+                  <stop offset="25%"  stop-color="#e17055"/>
+                  <stop offset="50%"  stop-color="#b8a21a"/>
+                  <stop offset="75%"  stop-color="#6ab04c"/>
+                  <stop offset="100%" stop-color="#39ff14"/>
+                </linearGradient>
+              </defs>
+              <path id="fg-rainbow-track" fill="none" stroke="url(#rainbow-grad)" stroke-width="14" stroke-linecap="round"/>
               <g id="fg-needle-group">
-                <line x1="100" y1="100" x2="100" y2="37" stroke="rgba(240,244,248,0.08)" stroke-width="8" stroke-linecap="round"/>
-                <line x1="100" y1="100" x2="100" y2="37" stroke="#f0f4f8" stroke-width="1.8" stroke-linecap="round"/>
+                <line x1="100" y1="100" x2="100" y2="34" stroke="rgba(240,244,248,0.08)" stroke-width="8" stroke-linecap="round"/>
+                <line x1="100" y1="100" x2="100" y2="34" stroke="#f0f4f8" stroke-width="1.8" stroke-linecap="round"/>
               </g>
               <circle cx="100" cy="100" r="6.5" fill="#0d111a" stroke="rgba(240,244,248,0.65)" stroke-width="1.8"/>
               <circle cx="100" cy="100" r="2.5" fill="#f0f4f8"/>
-              <text x="15" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="rgba(255,255,255,0.2)">0</text>
-              <text x="185" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="rgba(255,255,255,0.2)">100</text>
+              <text x="20" y="113" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="rgba(255,255,255,0.2)">0</text>
+              <text x="180" y="113" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="rgba(255,255,255,0.2)">100</text>
             </svg>
             <div style="display:flex;align-items:baseline;gap:3px;margin-top:4px;">
               <span id="fg-score" style="font-family:'JetBrains Mono',monospace;font-size:1.55rem;font-weight:700;line-height:1;color:#f0f4f8;">—</span>
@@ -404,40 +411,8 @@
     }
 
     function drawFGGauge(score, label) {
-      const bgTrack = document.getElementById('fg-bg-track');
-      if (bgTrack) bgTrack.setAttribute('d', gArc(GR, 0, 100));
-
-      const segs = document.getElementById('fg-segs');
-      if (!segs) return;
-      segs.innerHTML = '';
-
-      const segments = [
-        { v1: 0,   v2: 19,  color: '#d63031' },
-        { v1: 21,  v2: 39,  color: '#e17055' },
-        { v1: 41,  v2: 59,  color: '#b8a21a' },
-        { v1: 61,  v2: 79,  color: '#6ab04c' },
-        { v1: 81,  v2: 100, color: '#39ff14' },
-      ];
-      segments.forEach(({ v1, v2, color }) => {
-        segs.appendChild(svgEl('path', {
-          d: gArc(GR, v1, v2), fill: 'none',
-          stroke: color, 'stroke-width': '11', 'stroke-linecap': 'butt'
-        }));
-      });
-
-      const ticks = document.getElementById('fg-ticks');
-      if (ticks) {
-        ticks.innerHTML = '';
-        [0, 20, 40, 60, 80, 100].forEach(v => {
-          const [ox, oy] = gXY(GR + 7, v);
-          const [ix, iy] = gXY(GR - 7, v);
-          ticks.appendChild(svgEl('line', {
-            x1: ox.toFixed(2), y1: oy.toFixed(2),
-            x2: ix.toFixed(2), y2: iy.toFixed(2),
-            stroke: 'rgba(9,12,17,0.8)', 'stroke-width': '1.5', 'stroke-linecap': 'round'
-          }));
-        });
-      }
+      const track = document.getElementById('fg-rainbow-track');
+      if (track) track.setAttribute('d', gArc(GR, 0, 100));
 
       const needleGroup = document.getElementById('fg-needle-group');
       if (needleGroup) {
