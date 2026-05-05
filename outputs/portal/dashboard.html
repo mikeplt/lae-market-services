@@ -323,7 +323,7 @@
 
     async function loadDashboardData() {
       try {
-        const r = await fetch('dashboard-data.json');
+        const r = await fetch('dashboard-data.json?v=' + Date.now());
         if (!r.ok) throw new Error(r.status);
         const d = await r.json();
         renderHighlight(d);
