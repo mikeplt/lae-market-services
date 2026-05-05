@@ -282,9 +282,9 @@
     function timeAgo(isoString) {
       if (!isoString) return '';
       const diff = Math.floor((Date.now() - new Date(isoString)) / 60000);
-      if (diff < 60) return `vor ${diff} Min.`;
-      if (diff < 1440) return `vor ${Math.floor(diff / 60)} Std.`;
-      return `vor ${Math.floor(diff / 1440)} Tag(en)`;
+      if (diff < 60) return `${diff}m ago`;
+      if (diff < 1440) return `${Math.floor(diff / 60)}h ago`;
+      return `${Math.floor(diff / 1440)}d ago`;
     }
 
     function renderHighlight(d) {
