@@ -2,7 +2,7 @@ name: Dashboard Update
 
 on:
   schedule:
-    - cron: '0 8 * * 1-5'  # Mo–Fr 08:00 UTC (10:00 CEST)
+    - cron: '0 6,10,14,18 * * 1-5'  # Mo–Fr 06/10/14/18 UTC (~alle 4h)
   workflow_dispatch:
 
 permissions:
@@ -26,13 +26,15 @@ jobs:
       - name: Abhängigkeiten installieren
         run: pip install -r requirements.txt
 
-      - name: Top Mover aktualisieren
-        run: python scripts/update-top-mover.py
+      - name: News aktualisieren
+        env:
+          ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
+        run: python scripts/update_dashboard_news.py
 
       - name: Änderungen speichern
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add outputs/portal/dashboard-data.json
-          git diff --staged --quiet || git commit -m "Dashboard Update $(date +%Y-%m-%d)"
+          git diff --staged --quiet || git commit -m "Dashboard Update $(date +%Y-%m-%d\ %H:%M)"
           git push

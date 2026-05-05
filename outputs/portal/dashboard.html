@@ -191,139 +191,35 @@
 
         </div>
 
-        <!-- Kennzahlen-Kacheln -->
-        <div class="metrics-grid">
-
-          <!-- Market Sentiment: Fear & Greed Gauge -->
-          <div class="metric-tile" style="display:flex;flex-direction:column;align-items:center;padding:20px 20px 14px;gap:0;">
-            <div class="metric-label" style="align-self:flex-start;margin-bottom:6px;">Market Sentiment</div>
-            <svg viewBox="0 0 200 114" style="width:100%;max-width:176px;display:block;">
-              <defs>
-                <linearGradient id="rainbow-grad" gradientUnits="userSpaceOnUse" x1="28" y1="0" x2="172" y2="0">
-                  <stop offset="0%"   stop-color="#d63031"/>
-                  <stop offset="25%"  stop-color="#e17055"/>
-                  <stop offset="50%"  stop-color="#b8a21a"/>
-                  <stop offset="75%"  stop-color="#6ab04c"/>
-                  <stop offset="100%" stop-color="#39ff14"/>
-                </linearGradient>
-              </defs>
-              <path id="fg-rainbow-track" fill="none" stroke="url(#rainbow-grad)" stroke-width="14" stroke-linecap="round"/>
-              <g id="fg-needle-group">
-                <line x1="100" y1="100" x2="100" y2="34" stroke="rgba(240,244,248,0.08)" stroke-width="8" stroke-linecap="round"/>
-                <line x1="100" y1="100" x2="100" y2="34" stroke="#f0f4f8" stroke-width="1.8" stroke-linecap="round"/>
-              </g>
-              <circle cx="100" cy="100" r="6.5" fill="#0d111a" stroke="rgba(240,244,248,0.65)" stroke-width="1.8"/>
-              <circle cx="100" cy="100" r="2.5" fill="#f0f4f8"/>
-              <text x="20" y="113" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="rgba(255,255,255,0.2)">0</text>
-              <text x="180" y="113" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="600" fill="rgba(255,255,255,0.2)">100</text>
-            </svg>
-            <div style="display:flex;align-items:baseline;gap:3px;margin-top:4px;">
-              <span id="fg-score" style="font-family:'JetBrains Mono',monospace;font-size:1.55rem;font-weight:700;line-height:1;color:#f0f4f8;">—</span>
-              <span style="font-size:0.6rem;font-weight:600;color:rgba(255,255,255,0.28);line-height:1;">/100</span>
+        <!-- LAE Highlight -->
+        <div id="lae-highlight" style="margin-bottom:20px;display:none;">
+          <a id="highlight-link" href="#" style="display:block;text-decoration:none;">
+            <div style="background:#0d111a;border:1px solid rgba(57,255,20,0.2);border-radius:12px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;transition:background 0.2s;" onmouseover="this.style.background='#111720'" onmouseout="this.style.background='#0d111a'">
+              <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                  <span id="highlight-badge" style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#090c11;background:#39ff14;padding:2px 8px;border-radius:4px;">Weekly Note</span>
+                  <span id="highlight-date" style="font-size:0.72rem;color:#7a8899;"></span>
+                </div>
+                <div id="highlight-title" style="font-size:1rem;font-weight:700;color:#f0f4f8;margin-bottom:6px;"></div>
+                <div id="highlight-teaser" style="font-size:0.82rem;color:#7a8899;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;"></div>
+              </div>
+              <div style="flex-shrink:0;font-size:0.8rem;font-weight:600;color:#39ff14;white-space:nowrap;">Read now →</div>
             </div>
-            <div class="metric-sub" id="sentiment-sub" style="margin-top:5px;text-align:center;font-weight:700;font-size:0.67rem;letter-spacing:0.09em;text-transform:uppercase;">Loading...</div>
-          </div>
-
-          <!-- Market Situation: Platzhalter -->
-          <div class="metric-tile">
-            <div class="metric-label">Macro Situation</div>
-            <div class="metric-value mono" id="ms-score">—</div>
-            <div class="metric-sub" id="ms-label">Coming soon</div>
-          </div>
-
-          <!-- Top Mover -->
-          <div class="metric-tile">
-            <div class="metric-label">Top Mover</div>
-            <div class="metric-value mono" id="mover-value">—</div>
-            <div class="metric-sub" id="mover-sub">Loading...</div>
-          </div>
-
-          <!-- Next Event -->
-          <div class="metric-tile">
-            <div class="metric-label">Next Event</div>
-            <div class="metric-value mono" id="event-value">—</div>
-            <div class="metric-sub" id="event-sub">Loading...</div>
-          </div>
-
+          </a>
         </div>
 
-        <!-- News + Letzte Updates -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-
-          <!-- News -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Latest News</span>
-            </div>
-            <div class="news-list">
-              <div class="news-item">
-                <div class="news-dot"></div>
-                <div>
-                  <div class="news-item-title">Market Update: Fed Decision Expected</div>
-                  <div class="news-item-meta">Apr 15, 2026 · 09:30</div>
-                </div>
-              </div>
-              <div class="news-item">
-                <div class="news-dot"></div>
-                <div>
-                  <div class="news-item-title">S&amp;P 500 Holds Key Support</div>
-                  <div class="news-item-meta">Apr 15, 2026 · 08:15</div>
-                </div>
-              </div>
-              <div class="news-item">
-                <div class="news-dot"></div>
-                <div>
-                  <div class="news-item-title">COT Data: Institutions Remain Long</div>
-                  <div class="news-item-meta">Apr 14, 2026 · 20:00</div>
-                </div>
-              </div>
-              <div class="news-item">
-                <div class="news-dot"></div>
-                <div>
-                  <div class="news-item-title">Earnings Season Kicks Off Strong</div>
-                  <div class="news-item-meta">Apr 14, 2026 · 17:45</div>
-                </div>
-              </div>
+        <!-- Latest News -->
+        <div class="card" style="margin-bottom:0;">
+          <div class="card-header">
+            <span class="card-title">Latest News</span>
+            <span id="news-updated" style="font-size:0.7rem;color:#7a8899;"></span>
+          </div>
+          <div id="news-list" class="news-list">
+            <div class="news-item">
+              <div class="news-dot"></div>
+              <div><div class="news-item-title" style="color:#7a8899;">Loading news...</div></div>
             </div>
           </div>
-
-          <!-- Letzte Updates -->
-          <div class="card">
-            <div class="card-header">
-              <span class="card-title">Latest Updates</span>
-            </div>
-            <div class="archive-list">
-              <div class="archive-item" onclick="window.location.href='products/earnings.html'" style="cursor:pointer;">
-                <div>
-                  <div class="archive-item-title">Earnings Preview – Microsoft (MSFT) Q3 FY2026</div>
-                  <div class="archive-item-date">Apr 28, 2026 · Earnings Preview</div>
-                </div>
-                <span class="archive-item-arrow">→</span>
-              </div>
-              <div class="archive-item" onclick="window.location.href='products/earnings.html'" style="cursor:pointer;">
-                <div>
-                  <div class="archive-item-title">Earnings Preview – Coca-Cola (KO) Q1 FY2026</div>
-                  <div class="archive-item-date">Apr 27, 2026 · Earnings Preview</div>
-                </div>
-                <span class="archive-item-arrow">→</span>
-              </div>
-              <div class="archive-item" onclick="window.location.href='products/earnings.html'" style="cursor:pointer;">
-                <div>
-                  <div class="archive-item-title">Earnings Preview – Visa (V) Q2 FY2026</div>
-                  <div class="archive-item-date">Apr 27, 2026 · Earnings Preview</div>
-                </div>
-                <span class="archive-item-arrow">→</span>
-              </div>
-              <div class="archive-item" onclick="window.location.href='products/weekly-note.html'" style="cursor:pointer;">
-                <div>
-                  <div class="archive-item-title">Weekly Note – CW17 2026</div>
-                  <div class="archive-item-date">Apr 22, 2026 · Weekly Note</div>
-                </div>
-                <span class="archive-item-arrow">→</span>
-              </div>
-            </div>
-          </div>
-
         </div>
 
       </div><!-- /page-content -->
@@ -381,73 +277,47 @@
       }
     });
 
-    // ── Dashboard Metrics ────────────────────────────────────────────────
-    function setMetric(id, value, sub, color) {
-      const v = document.getElementById(id + '-value');
-      const s = document.getElementById(id + '-sub');
-      if (v) { v.textContent = value; if (color) v.style.color = color; }
-      if (s && sub !== undefined) s.textContent = sub;
+    // ── Dashboard Data ────────────────────────────────────────────────────
+    function timeAgo(isoString) {
+      if (!isoString) return '';
+      const diff = Math.floor((Date.now() - new Date(isoString)) / 60000);
+      if (diff < 60) return `vor ${diff} Min.`;
+      if (diff < 1440) return `vor ${Math.floor(diff / 60)} Std.`;
+      return `vor ${Math.floor(diff / 1440)} Tag(en)`;
     }
 
-    // ── Gauge Helpers ─────────────────────────────────────────────────────
-    const GCX = 100, GCY = 100, GR = 72;
-
-    function gXY(r, v) {
-      const a = Math.PI * (1 - v / 100);
-      return [GCX + r * Math.cos(a), GCY - r * Math.sin(a)];
+    function renderHighlight(d) {
+      if (!d.highlight_title) return;
+      document.getElementById('highlight-badge').textContent = d.highlight_type || 'Update';
+      document.getElementById('highlight-title').textContent = d.highlight_title;
+      document.getElementById('highlight-teaser').textContent = d.highlight_teaser || '';
+      document.getElementById('highlight-date').textContent = d.highlight_date
+        ? new Date(d.highlight_date).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })
+        : '';
+      if (d.highlight_link) document.getElementById('highlight-link').href = d.highlight_link;
+      document.getElementById('lae-highlight').style.display = 'block';
     }
 
-    function gArc(r, v1, v2) {
-      const [x1, y1] = gXY(r, v1);
-      const [x2, y2] = gXY(r, v2);
-      const large = (v2 - v1) > 50 ? 1 : 0;
-      return `M ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${large} 0 ${x2.toFixed(2)} ${y2.toFixed(2)}`;
-    }
+    function renderNews(d) {
+      const list = document.getElementById('news-list');
+      const updatedEl = document.getElementById('news-updated');
+      if (!d.news || !d.news.length) return;
 
-    function svgEl(tag, attrs) {
-      const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
-      Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
-      return el;
-    }
+      if (d.news_updated) updatedEl.textContent = 'Updated ' + timeAgo(d.news_updated);
 
-    function drawFGGauge(score, label) {
-      const track = document.getElementById('fg-rainbow-track');
-      if (track) track.setAttribute('d', gArc(GR, 0, 100));
-
-      const needleGroup = document.getElementById('fg-needle-group');
-      if (needleGroup) {
-        needleGroup.setAttribute('transform', `rotate(${(score - 50) * 1.8}, ${GCX}, ${GCY})`);
-      }
-
-      const segColor = score <= 20 ? '#d63031' : score <= 40 ? '#e17055' : score <= 60 ? '#b8a21a' : score <= 80 ? '#6ab04c' : '#39ff14';
-      const scoreEl = document.getElementById('fg-score');
-      if (scoreEl) { scoreEl.textContent = score; scoreEl.style.color = segColor; }
-
-      const sub = document.getElementById('sentiment-sub');
-      if (sub) { sub.textContent = label || '—'; sub.style.color = segColor; }
-    }
-
-    function drawMSGauge(score, label) {
-      const scoreEl = document.getElementById('ms-score');
-      const labelEl = document.getElementById('ms-label');
-      const lcolor = score >= 65 ? '#39ff14' : score >= 35 ? '#b8a21a' : '#d63031';
-      if (scoreEl) { scoreEl.textContent = score; scoreEl.style.color = lcolor; }
-      if (labelEl) { labelEl.textContent = label || '—'; labelEl.style.color = lcolor; }
-    }
-
-    async function loadSentiment() {
-      try {
-        const r = await fetch('https://production.dataviz.cnn.io/index/fearandgreed/graphdata');
-        if (!r.ok) throw new Error(r.status);
-        const d = await r.json();
-        const fg = d.fear_and_greed;
-        drawFGGauge(Math.round(fg.score), fg.rating);
-      } catch(e) {
-        const sub = document.getElementById('sentiment-sub');
-        if (sub) { sub.textContent = 'N/A'; sub.style.color = '#7a8899'; }
-        const scoreEl = document.getElementById('fg-score');
-        if (scoreEl) scoreEl.textContent = '—';
-      }
+      list.innerHTML = d.news.map(item => {
+        const ts = item.time_published
+          ? item.time_published.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1-$2-$3T$4:$5:$6')
+          : null;
+        const ago = ts ? timeAgo(ts) : '';
+        return `<a href="${item.url || '#'}" target="_blank" rel="noopener noreferrer" class="news-item" style="text-decoration:none;display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+          <div class="news-dot" style="margin-top:6px;flex-shrink:0;"></div>
+          <div style="flex:1;min-width:0;">
+            <div class="news-item-title" style="color:#f0f4f8;margin-bottom:3px;">${item.title}</div>
+            <div class="news-item-meta">${item.source || ''}${ago ? ' · ' + ago : ''}</div>
+          </div>
+        </a>`;
+      }).join('');
     }
 
     async function loadDashboardData() {
@@ -455,29 +325,13 @@
         const r = await fetch('dashboard-data.json');
         if (!r.ok) throw new Error(r.status);
         const d = await r.json();
-
-        if (d.macro_score !== undefined) {
-          drawMSGauge(d.macro_score, d.macro_label);
-        }
-
-        if (d.top_mover_symbol) {
-          const color = d.top_mover_direction === 'up' ? '#39ff14' : '#ff4444';
-          setMetric('mover', d.top_mover_symbol + '  ' + d.top_mover_change, 'Biggest mover today', color);
-        }
-
-        if (d.next_event) {
-          const days = d.next_event_days;
-          const dayStr = days === 0 ? 'Today' : days === 1 ? 'Tomorrow' : 'in ' + days + ' days';
-          setMetric('event', d.next_event, (d.next_event_date_str || '') + ' · ' + dayStr, null);
-        }
+        renderHighlight(d);
+        renderNews(d);
       } catch(e) {
-        const scoreEl = document.getElementById('ms-score');
-        if (scoreEl) scoreEl.textContent = '—';
-        ['mover', 'event'].forEach(id => setMetric(id, '—', 'N/A', null));
+        console.warn('Dashboard data not available:', e);
       }
     }
 
-    loadSentiment();
     loadDashboardData();
   </script>
 
