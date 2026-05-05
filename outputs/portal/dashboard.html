@@ -212,9 +212,6 @@
         <!-- Latest News -->
         <h2 style="margin-bottom:16px;font-size:0.7rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;">Latest News</h2>
         <div class="card" style="margin-bottom:0;">
-          <div class="card-header">
-            <span id="news-updated" style="font-size:0.7rem;color:#7a8899;"></span>
-          </div>
           <div id="news-list" class="news-list">
             <div class="news-item">
               <div class="news-dot"></div>
@@ -301,10 +298,7 @@
 
     function renderNews(d) {
       const list = document.getElementById('news-list');
-      const updatedEl = document.getElementById('news-updated');
       if (!d.news || !d.news.length) return;
-
-      if (d.news_updated) updatedEl.textContent = 'Updated ' + timeAgo(d.news_updated);
 
       list.innerHTML = d.news.map(item => {
         const ts = item.time_published
