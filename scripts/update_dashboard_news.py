@@ -12,6 +12,21 @@ import urllib.error
 API_KEY = os.environ.get("ALPHAVANTAGE_API_KEY", "")
 DATA_FILE = Path(__file__).parent.parent / "outputs" / "portal" / "dashboard-data.json"
 NEWS_COUNT = 5
+FETCH_LIMIT = 50  # Fetch more to have enough after filtering
+
+# Preferred sources in priority order – max 1 article per source
+PREFERRED_SOURCES = [
+    "Reuters",
+    "Bloomberg",
+    "CNBC",
+    "The Wall Street Journal",
+    "Financial Times",
+    "MarketWatch",
+    "Barron's",
+    "Forbes",
+    "Yahoo Finance",
+    "Business Insider",
+]
 
 
 def fetch_news(api_key: str) -> list[dict]:
@@ -20,22 +35,51 @@ def fetch_news(api_key: str) -> list[dict]:
         f"?function=NEWS_SENTIMENT"
         f"&topics=financial_markets"
         f"&sort=LATEST"
-        f"&limit=10"
+        f"&limit={FETCH_LIMIT}"
         f"&apikey={api_key}"
     )
     req = urllib.request.Request(url, headers={"User-Agent": "LAE-Dashboard/1.0"})
     with urllib.request.urlopen(req, timeout=15) as resp:
         data = json.loads(resp.read().decode())
+    return data.get("feed", [])
 
-    articles = data.get("feed", [])
+
+def select_articles(articles: list[dict]) -> list[dict]:
+    """Pick up to NEWS_COUNT articles: preferred sources first, max 1 per source."""
+    seen_sources = set()
     result = []
-    for a in articles[:NEWS_COUNT]:
-        result.append({
-            "title": a.get("title", ""),
-            "source": a.get("source", ""),
-            "time_published": a.get("time_published", ""),
-            "url": a.get("url", ""),
-        })
+
+    # Pass 1: preferred sources only, in priority order
+    for source_name in PREFERRED_SOURCES:
+        if len(result) >= NEWS_COUNT:
+            break
+        for a in articles:
+            if len(result) >= NEWS_COUNT:
+                break
+            src = a.get("source", "")
+            if source_name.lower() in src.lower() and src not in seen_sources:
+                seen_sources.add(src)
+                result.append({
+                    "title": a.get("title", ""),
+                    "source": src,
+                    "time_published": a.get("time_published", ""),
+                    "url": a.get("url", ""),
+                })
+
+    # Pass 2: fill remaining slots with any source (max 1 per source, skip already used)
+    for a in articles:
+        if len(result) >= NEWS_COUNT:
+            break
+        src = a.get("source", "")
+        if src not in seen_sources:
+            seen_sources.add(src)
+            result.append({
+                "title": a.get("title", ""),
+                "source": src,
+                "time_published": a.get("time_published", ""),
+                "url": a.get("url", ""),
+            })
+
     return result
 
 
@@ -46,14 +90,18 @@ def main():
 
     print("Fetching news from Alpha Vantage...")
     try:
-        news = fetch_news(API_KEY)
+        articles = fetch_news(API_KEY)
     except urllib.error.URLError as e:
         print(f"ERROR: Request failed: {e}", file=sys.stderr)
         sys.exit(1)
 
-    if not news:
+    if not articles:
         print("WARNING: No articles returned.", file=sys.stderr)
         sys.exit(1)
+
+    news = select_articles(articles)
+    sources = [n["source"] for n in news]
+    print(f"Selected {len(news)} articles from: {', '.join(sources)}")
 
     data = json.loads(DATA_FILE.read_text(encoding="utf-8")) if DATA_FILE.exists() else {}
     data["news_updated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
