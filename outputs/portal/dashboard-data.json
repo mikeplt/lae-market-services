@@ -36,5 +36,13 @@
       "time_published": "20260506T152429",
       "url": "https://seekingalpha.com/news/4587077-western-digital-micron-among-group-getting-price-target-hikes-at-mizuho-on-ai-tailwinds"
     }
-  ]
+  ],
+  "macro_score": 67,
+  "macro_label": "BULLISH",
+  "macro_date": "2026-05-06",
+  "macro_date_str": "6. May 2026",
+  "next_event": "NFP",
+  "next_event_date": "2026-05-08",
+  "next_event_date_str": "8. May",
+  "next_event_days": 2
 }
