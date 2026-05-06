@@ -214,9 +214,85 @@ def get_earnings_calendar() -> list:
 
 # ── Macro calendar ────────────────────────────────────────────────────────────
 
-def get_macro_calendar() -> list:
-    """Heuristic macro calendar for next week based on recurring US data releases."""
-    next_mon, next_fri = _next_week_range()
+def _utc_to_et(dt_str: str) -> tuple:
+    """Convert Investing.com UTC datetime string (YYYY/MM/DD HH:MM) to (date, HH:MM ET)."""
+    try:
+        dt_utc = datetime.strptime(dt_str[:16], "%Y/%m/%d %H:%M")
+        ref = dt_utc.date()
+        year = ref.year
+        march1 = date(year, 3, 1)
+        edt_start = march1 + timedelta(days=(6 - march1.weekday()) % 7) + timedelta(weeks=1)
+        nov1 = date(year, 11, 1)
+        edt_end = nov1 + timedelta(days=(6 - nov1.weekday()) % 7)
+        offset = 4 if edt_start <= ref < edt_end else 5
+        dt_et = dt_utc - timedelta(hours=offset)
+        return dt_et.date(), dt_et.strftime("%H:%M")
+    except Exception:
+        return None, "–"
+
+
+def _scrape_investing_calendar(date_from: date, date_to: date) -> list:
+    """Fetch 3-star US economic events from Investing.com economic calendar."""
+    from bs4 import BeautifulSoup
+
+    url = "https://www.investing.com/economic-calendar/Service/getCalendarFilteredData"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+        "Referer": "https://www.investing.com/economic-calendar/",
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+    payload = {
+        "country[]": "5",       # USA
+        "importance[]": "3",    # 3-star events only
+        "dateFrom": date_from.strftime("%Y-%m-%d"),
+        "dateTo": date_to.strftime("%Y-%m-%d"),
+        "timeZone": "55",
+        "timeFilter": "timeRemain",
+        "currentTab": "nextWeek",
+        "submitFilters": "1",
+        "limit_from": "0",
+    }
+
+    resp = requests.post(url, headers=headers, data=payload, timeout=20)
+    resp.raise_for_status()
+    result = resp.json()
+    html = result.get("data", "")
+    if not html:
+        return []
+
+    soup = BeautifulSoup(html, "html.parser")
+    events = []
+
+    for row in soup.find_all("tr", attrs={"class": lambda c: c and "js-event-item" in c}):
+        time_td = row.find("td", class_="time")
+        time_raw = time_td.get_text(strip=True) if time_td else ""
+        if time_raw.lower() in ("all day", "tentative", ""):
+            continue
+
+        name_td = row.find("td", class_="event")
+        if not name_td:
+            continue
+        event_name = name_td.get_text(strip=True)
+        if not event_name:
+            continue
+
+        event_date, time_et = _utc_to_et(row.get("data-event-datetime", ""))
+        if event_date is None:
+            continue
+
+        events.append({
+            "tag": _DAY_EN.get(event_date.weekday(), "–"),
+            "event": event_name,
+            "uhrzeit": time_et,
+        })
+
+    return events
+
+
+def _heuristic_macro_calendar(next_mon: date, next_fri: date) -> list:
+    """Fallback: hardcoded heuristic for the most common recurring US events."""
     events = []
     day = next_mon
     while day <= next_fri:
@@ -224,7 +300,7 @@ def get_macro_calendar() -> list:
         if wd == 3:
             events.append({"tag": "Thu", "event": "Initial Jobless Claims", "uhrzeit": "08:30"})
         if wd == 4 and dom <= 7:
-            events.append({"tag": "Fri", "event": "Nonfarm Payrolls (NFP) – Employment & Unemployment Rate", "uhrzeit": "08:30"})
+            events.append({"tag": "Fri", "event": "Nonfarm Payrolls – Employment & Unemployment Rate", "uhrzeit": "08:30"})
         if wd == 1 and 8 <= dom <= 14:
             events.append({"tag": "Tue", "event": "Consumer Price Index (CPI)", "uhrzeit": "08:30"})
         if wd == 2 and 8 <= dom <= 15:
@@ -234,10 +310,22 @@ def get_macro_calendar() -> list:
         if wd == 4 and 15 <= dom <= 21:
             events.append({"tag": "Fri", "event": "Flash PMI (Manufacturing & Services)", "uhrzeit": "09:45"})
         day += timedelta(days=1)
-
     if not events:
         events.append({"tag": "–", "event": "No major data releases this week", "uhrzeit": "–"})
     return events[:5]
+
+
+def get_macro_calendar() -> list:
+    """3-star US economic events for next week via Investing.com (fallback: heuristic)."""
+    next_mon, next_fri = _next_week_range()
+    try:
+        events = _scrape_investing_calendar(next_mon, next_fri)
+        if events:
+            return events[:10]
+        print("    Warning [MACRO_CALENDAR]: No events returned, using heuristic fallback")
+    except Exception as e:
+        print(f"    Warning [MACRO_CALENDAR]: Scraping failed ({e}), using heuristic fallback")
+    return _heuristic_macro_calendar(next_mon, next_fri)
 
 
 # ── Narrative via Gemini API ──────────────────────────────────────────────────
