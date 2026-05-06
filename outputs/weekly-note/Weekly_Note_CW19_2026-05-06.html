@@ -87,9 +87,6 @@
   .idx-item { display: flex; flex-direction: column; gap: 2px; }
   .idx-name { font-size: 12px; color: #7a8899; }
   .idx-val  { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 17px; }
-  .idx-mom  { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
-  .macro-price { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #7a8899; }
-
   /* SEKTOR */
   .sektor-row {
     display: flex;
@@ -100,8 +97,6 @@
     border-bottom: 1px solid rgba(255,255,255,0.04);
   }
   .sektor-row:last-child { border-bottom: none; }
-  .sektor-right { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
-  .sektor-prev  { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #7a8899; }
   .sektor-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 6px 0; }
 
   /* NARRATIVE */
@@ -179,23 +174,23 @@
     <div class="card">
       <div class="card-title">Index Performance</div>
       <div class="idx-grid">
-        <div class="idx-item"><span class="idx-name">S&P 500</span><span class="idx-val" style="color:#39ff14">+0.43%</span><span class="idx-mom" style="color:#ff8c42">↓ vs +0.94%</span></div><div class="idx-item"><span class="idx-name">Nasdaq 100</span><span class="idx-val" style="color:#39ff14">+1.11%</span><span class="idx-mom" style="color:#ff8c42">↓ vs +1.55%</span></div><div class="idx-item"><span class="idx-name">Dow Jones</span><span class="idx-val" style="color:#ff4444">-0.42%</span><span class="idx-mom" style="color:#ff8c42">↓ vs +0.57%</span></div><div class="idx-item"><span class="idx-name">Russell 2000</span><span class="idx-val" style="color:#39ff14">+1.17%</span><span class="idx-mom" style="color:#39ff14">↑ vs +0.95%</span></div>
+        <div class="idx-item"><span class="idx-name">S&P 500</span><span class="idx-val" style="color:#39ff14">+0.43%</span></div><div class="idx-item"><span class="idx-name">Nasdaq 100</span><span class="idx-val" style="color:#39ff14">+1.11%</span></div><div class="idx-item"><span class="idx-name">Dow Jones</span><span class="idx-val" style="color:#ff4444">-0.42%</span></div><div class="idx-item"><span class="idx-name">Russell 2000</span><span class="idx-val" style="color:#39ff14">+1.17%</span></div>
       </div>
     </div>
 
     <!-- Sektor -->
     <div class="card">
       <div class="card-title">Sectors</div>
-      <div class="sektor-row"><span style="color:#39ff14">↑ Technology</span><div class="sektor-right"><span class="mono" style="color:#39ff14">+2.3%</span><span class="sektor-prev">vs +1.0%</span></div></div><div class="sektor-row"><span style="color:#39ff14">↑ Energy</span><div class="sektor-right"><span class="mono" style="color:#39ff14">+1.0%</span><span class="sektor-prev">vs +3.5%</span></div></div>
+      <div class="sektor-row"><span style="color:#39ff14">↑ Technology</span><span class="mono" style="color:#39ff14">+2.3%</span></div><div class="sektor-row"><span style="color:#39ff14">↑ Energy</span><span class="mono" style="color:#39ff14">+1.0%</span></div>
       <div class="sektor-divider"></div>
-      <div class="sektor-row"><span style="color:#ff4444">↓ Industrials</span><div class="sektor-right"><span class="mono" style="color:#ff4444">-0.3%</span><span class="sektor-prev">vs +0.3%</span></div></div><div class="sektor-row"><span style="color:#ff4444">↓ Financials</span><div class="sektor-right"><span class="mono" style="color:#ff4444">-0.6%</span><span class="sektor-prev">vs +1.0%</span></div></div>
+      <div class="sektor-row"><span style="color:#ff4444">↓ Industrials</span><span class="mono" style="color:#ff4444">-0.3%</span></div><div class="sektor-row"><span style="color:#ff4444">↓ Financials</span><span class="mono" style="color:#ff4444">-0.6%</span></div>
     </div>
 
     <!-- Macro Assets -->
     <div class="card">
-      <div class="card-title">Macro Assets – WoW</div>
+      <div class="card-title">Macro Assets</div>
       <div class="idx-grid">
-        <div class="idx-item"><span class="idx-name">Gold</span><span class="idx-val" style="color:#ff4444">-1.16%</span><span class="macro-price">418.27</span></div><div class="idx-item"><span class="idx-name">US Dollar</span><span class="idx-val" style="color:#39ff14">+0.33%</span><span class="macro-price">27.50</span></div><div class="idx-item"><span class="idx-name">Crude Oil</span><span class="idx-val" style="color:#39ff14">+0.96%</span><span class="macro-price">144.17</span></div><div class="idx-item"><span class="idx-name">10Y Yield</span><span class="idx-val" style="color:#39ff14">+8bp</span><span class="macro-price">4.38%</span></div>
+        <div class="idx-item"><span class="idx-name">Gold</span><span class="idx-val" style="color:#ff4444">-1.16%</span></div><div class="idx-item"><span class="idx-name">US Dollar</span><span class="idx-val" style="color:#39ff14">+0.33%</span></div><div class="idx-item"><span class="idx-name">Crude Oil</span><span class="idx-val" style="color:#39ff14">+0.96%</span></div><div class="idx-item"><span class="idx-name">10Y Yield</span><span class="idx-val" style="color:#39ff14">+8bp</span></div>
       </div>
     </div>
 
@@ -204,8 +199,8 @@
   <!-- MARKET NARRATIVE -->
   <div class="card narrative-card">
     <div class="card-title">Market Narrative</div>
-    <div class="narrative-headline">Tech Leads Gains Amid Mixed Market Signals</div>
-    <div class="narrative-body">The S&P 500 and Nasdaq 100 posted modest gains last week, driven by a strong performance in the Technology sector. Conversely, the Dow Jones experienced a decline, while the Russell 2000 continued its upward trend. Energy sectors saw softer growth compared to the previous week, and Industrials and Financials finished in negative territory. Gold prices fell, while Crude Oil and the US Dollar appreciated. Investors will be closely watching upcoming inflation data and earnings reports from major companies for further market direction.</div>
+    <div class="narrative-headline">Tech Leads Gains, Dow Dips Amid Mixed Weekly Performance</div>
+    <div class="narrative-body">US equities closed mixed for CW19 as the S&P 500 and Nasdaq 100 registered modest gains while the Dow Jones saw a slight decline. Technology sector performance rebounded significantly, while Energy also showed positive, albeit slower, growth. Industrials and Financials were the weakest performers, experiencing minor contractions.  Gold prices retreated, contrasting with gains in Crude Oil and the US Dollar, while the 10-year Treasury yield edged higher. Investors now await key inflation data and a slate of earnings reports next week.</div>
   </div>
 
   <!-- VORSCHAU: Makro + Earnings -->
