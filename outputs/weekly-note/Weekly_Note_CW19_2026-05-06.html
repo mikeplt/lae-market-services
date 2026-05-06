@@ -87,6 +87,8 @@
   .idx-item { display: flex; flex-direction: column; gap: 2px; }
   .idx-name { font-size: 12px; color: #7a8899; }
   .idx-val  { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 17px; }
+  .idx-mom  { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .macro-price { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #7a8899; }
 
   /* SEKTOR */
   .sektor-row {
@@ -98,26 +100,9 @@
     border-bottom: 1px solid rgba(255,255,255,0.04);
   }
   .sektor-row:last-child { border-bottom: none; }
+  .sektor-right { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
+  .sektor-prev  { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #7a8899; }
   .sektor-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 6px 0; }
-
-  /* TECHNISCH */
-  .tech-item { margin-bottom: 11px; }
-  .tech-item:last-child { margin-bottom: 0; }
-  .tech-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    font-weight: 700;
-    color: #39ff14;
-    margin-bottom: 3px;
-  }
-  .tech-bias { font-size: 13px; color: #f0f4f8; margin-bottom: 3px; }
-  .tech-levels {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: #7a8899;
-  }
-  .tech-levels .sup { color: #39ff14; }
-  .tech-levels .res { color: #ff8c42; }
 
   /* NARRATIVE */
   .narrative-card {
@@ -194,38 +179,23 @@
     <div class="card">
       <div class="card-title">Index Performance</div>
       <div class="idx-grid">
-        <div class="idx-item"><span class="idx-name">S&P 500</span><span class="idx-val" style="color:#39ff14">+0.43%</span></div><div class="idx-item"><span class="idx-name">Nasdaq 100</span><span class="idx-val" style="color:#39ff14">+1.11%</span></div><div class="idx-item"><span class="idx-name">Dow Jones</span><span class="idx-val" style="color:#ff4444">-0.42%</span></div><div class="idx-item"><span class="idx-name">Russell 2000</span><span class="idx-val" style="color:#39ff14">+1.17%</span></div>
+        <div class="idx-item"><span class="idx-name">S&P 500</span><span class="idx-val" style="color:#39ff14">n/a</span></div><div class="idx-item"><span class="idx-name">Nasdaq 100</span><span class="idx-val" style="color:#39ff14">n/a</span></div><div class="idx-item"><span class="idx-name">Dow Jones</span><span class="idx-val" style="color:#39ff14">n/a</span></div><div class="idx-item"><span class="idx-name">Russell 2000</span><span class="idx-val" style="color:#39ff14">n/a</span></div>
       </div>
     </div>
 
     <!-- Sektor -->
     <div class="card">
       <div class="card-title">Sectors</div>
-      <div class="sektor-row"><span style="color:#39ff14">↑ Technology</span><span class="mono" style="color:#39ff14">+2.3%</span></div><div class="sektor-row"><span style="color:#39ff14">↑ Energy</span><span class="mono" style="color:#39ff14">+1.0%</span></div>
+      
       <div class="sektor-divider"></div>
-      <div class="sektor-row"><span style="color:#ff4444">↓ Industrials</span><span class="mono" style="color:#ff4444">-0.3%</span></div><div class="sektor-row"><span style="color:#ff4444">↓ Financials</span><span class="mono" style="color:#ff4444">-0.6%</span></div>
+      
     </div>
 
-    <!-- Technisch -->
+    <!-- Macro Assets -->
     <div class="card">
-      <div class="card-title">Technical Orientation</div>
-      <div class="tech-item">
-        <div class="tech-label">S&P 500 (SPY)</div>
-        <div class="tech-bias">Uptrend</div>
-        <div class="tech-levels">
-          <span class="sup">▲ 698.53</span>
-          &nbsp;·&nbsp;
-          <span class="res">▼ 725.04</span>
-        </div>
-      </div>
-      <div class="tech-item">
-        <div class="tech-label">Nasdaq 100 (QQQ)</div>
-        <div class="tech-bias">Uptrend</div>
-        <div class="tech-levels">
-          <span class="sup">▲ 635.25</span>
-          &nbsp;·&nbsp;
-          <span class="res">▼ 682.77</span>
-        </div>
+      <div class="card-title">Macro Assets – WoW</div>
+      <div class="idx-grid">
+        <div class="idx-item"><span class="idx-name">Gold</span><span class="idx-val" style="color:#39ff14">n/a</span><span class="macro-price">n/a</span></div><div class="idx-item"><span class="idx-name">US Dollar</span><span class="idx-val" style="color:#39ff14">n/a</span><span class="macro-price">n/a</span></div><div class="idx-item"><span class="idx-name">Crude Oil</span><span class="idx-val" style="color:#39ff14">n/a</span><span class="macro-price">n/a</span></div><div class="idx-item"><span class="idx-name">10Y Yield</span><span class="idx-val" style="color:#39ff14">n/a</span><span class="macro-price">n/a</span></div>
       </div>
     </div>
 
@@ -234,8 +204,8 @@
   <!-- MARKET NARRATIVE -->
   <div class="card narrative-card">
     <div class="card-title">Market Narrative</div>
-    <div class="narrative-headline">Tech Leads Gains as Inflation Data Looms</div>
-    <div class="narrative-body">The S&P 500 and Nasdaq 100 closed higher last week, driven by strong performance in the Technology sector. The Russell 2000 also saw positive momentum, while the Dow Jones experienced a slight decline. Energy was another sector to post gains, contrasting with weakness in Industrials and Financials. Investors now turn their attention to key inflation data and a slate of corporate earnings announcements, including those from CEG, SPG, and CSCO, which will shape market sentiment in the coming week.</div>
+    <div class="narrative-headline">Weekly Review – set GEMINI_API_KEY to enable</div>
+    <div class="narrative-body">No API key found.</div>
   </div>
 
   <!-- VORSCHAU: Makro + Earnings -->

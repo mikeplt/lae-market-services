@@ -32,9 +32,10 @@ SECTOR_ETFS = {
     "XLP":  "Cons. Staples",
 }
 
-TECH_TICKERS = {
-    "es": ("SPY", "S&P 500 (SPY)"),
-    "nq": ("QQQ", "Nasdaq 100 (QQQ)"),
+MACRO_ASSET_ETFS = {
+    "gold": ("GLD", "Gold"),
+    "oil":  ("USO", "Crude Oil"),
+    "dxy":  ("UUP", "US Dollar"),
 }
 
 TOP_EARNINGS_TICKERS = {
@@ -103,7 +104,7 @@ def _next_week_range() -> tuple[date, date]:
 # ── Index performance ──────────────────────────────────────────────────────────
 
 def get_index_performance() -> dict:
-    """Weekly % change for the four main indices via TIME_SERIES_WEEKLY."""
+    """Weekly % change + prior-week % change for the four main indices via TIME_SERIES_WEEKLY."""
     result = {}
     for key, (ticker, name) in INDEX_TICKERS.items():
         try:
@@ -112,20 +113,30 @@ def get_index_performance() -> dict:
             if not series:
                 raise ValueError("Empty response")
             dates = sorted(series.keys(), reverse=True)
-            close_now  = float(series[dates[0]]["4. close"])
-            close_prev = float(series[dates[1]]["4. close"])
-            perf = _pct(close_now, close_prev)
-            result[key] = {"name": name, "woche": perf, "positiv": close_now >= close_prev}
+            close_now   = float(series[dates[0]]["4. close"])
+            close_prev  = float(series[dates[1]]["4. close"])
+            close_prev2 = float(series[dates[2]]["4. close"])
+            woche      = _pct(close_now,  close_prev)
+            woche_prev = _pct(close_prev, close_prev2)
+            pct_now    = (close_now  - close_prev)  / close_prev
+            pct_before = (close_prev - close_prev2) / close_prev2
+            result[key] = {
+                "name": name,
+                "woche": woche,
+                "woche_prev": woche_prev,
+                "positiv": close_now >= close_prev,
+                "momentum_up": pct_now >= pct_before,
+            }
         except Exception as e:
             print(f"    Warning [{ticker}]: {e}")
-            result[key] = {"name": name, "woche": "n/a", "positiv": True}
+            result[key] = {"name": name, "woche": "n/a", "woche_prev": "n/a", "positiv": True, "momentum_up": True}
     return result
 
 
 # ── Sector performance ────────────────────────────────────────────────────────
 
 def get_sector_performance() -> tuple[list, list]:
-    """Top-2 and Flop-2 sectors via TIME_SERIES_WEEKLY for key sector ETFs."""
+    """Top-2 and Flop-2 sectors via TIME_SERIES_WEEKLY, including prior-week performance for WoW comparison."""
     performances = []
     for etf, name in SECTOR_ETFS.items():
         try:
@@ -134,11 +145,18 @@ def get_sector_performance() -> tuple[list, list]:
             if not series:
                 continue
             dates = sorted(series.keys(), reverse=True)
-            close_now  = float(series[dates[0]]["4. close"])
-            close_prev = float(series[dates[1]]["4. close"])
-            pct = (close_now - close_prev) / close_prev * 100
-            sign = "+" if pct >= 0 else ""
-            performances.append({"name": name, "kuerzel": etf, "perf": f"{sign}{pct:.1f}%", "pct": pct})
+            close_now   = float(series[dates[0]]["4. close"])
+            close_prev  = float(series[dates[1]]["4. close"])
+            close_prev2 = float(series[dates[2]]["4. close"])
+            pct      = (close_now  - close_prev)  / close_prev  * 100
+            pct_prev = (close_prev - close_prev2) / close_prev2 * 100
+            sign      = "+" if pct >= 0 else ""
+            sign_prev = "+" if pct_prev >= 0 else ""
+            performances.append({
+                "name": name, "kuerzel": etf,
+                "perf": f"{sign}{pct:.1f}%", "pct": pct,
+                "perf_prev": f"{sign_prev}{pct_prev:.1f}%",
+            })
         except Exception as e:
             print(f"    Warning [{etf}]: {e}")
             continue
@@ -146,43 +164,55 @@ def get_sector_performance() -> tuple[list, list]:
     if not performances:
         return [], []
     performances.sort(key=lambda x: x["pct"], reverse=True)
-    top  = [{"name": s["name"], "kuerzel": s["kuerzel"], "perf": s["perf"]} for s in performances[:2]]
-    flop = [{"name": s["name"], "kuerzel": s["kuerzel"], "perf": s["perf"]} for s in performances[-2:]]
+    top  = [{"name": s["name"], "kuerzel": s["kuerzel"], "perf": s["perf"], "perf_prev": s["perf_prev"]} for s in performances[:2]]
+    flop = [{"name": s["name"], "kuerzel": s["kuerzel"], "perf": s["perf"], "perf_prev": s["perf_prev"]} for s in performances[-2:]]
     return top, flop
 
 
-# ── Technical levels ──────────────────────────────────────────────────────────
+# ── Macro assets ──────────────────────────────────────────────────────────────
 
-def get_technical_levels() -> dict:
-    """Bias, support and resistance for SPY and QQQ via TIME_SERIES_DAILY."""
+def get_macro_assets() -> dict:
+    """Weekly % change and current price for Gold (GLD), Oil (USO), Dollar (UUP), 10Y Yield."""
     result = {}
-    for key, (ticker, label) in TECH_TICKERS.items():
+
+    for key, (ticker, name) in MACRO_ASSET_ETFS.items():
         try:
-            data = _get({"function": "TIME_SERIES_DAILY", "symbol": ticker, "outputsize": "compact"})
-            series = data.get("Time Series (Daily)", {})
+            data = _get({"function": "TIME_SERIES_WEEKLY", "symbol": ticker})
+            series = data.get("Weekly Time Series", {})
             if not series:
                 raise ValueError("Empty response")
-
-            dates = sorted(series.keys(), reverse=True)[:60]
-            closes = [float(series[d]["4. close"]) for d in dates]
-            highs  = [float(series[d]["2. high"])  for d in dates]
-            lows   = [float(series[d]["3. low"])   for d in dates]
-
-            current    = closes[0]
-            ma20       = sum(closes[:20]) / 20
-            support    = min(lows[:14])
-            resistance = max(highs[:14])
-            bias       = "Uptrend" if current > ma20 else "Downtrend"
-
+            dates = sorted(series.keys(), reverse=True)
+            close_now  = float(series[dates[0]]["4. close"])
+            close_prev = float(series[dates[1]]["4. close"])
             result[key] = {
-                "label":      label,
-                "bias":       bias,
-                "support":    f"{support:,.2f}",
-                "resistance": f"{resistance:,.2f}",
+                "name": name,
+                "price": f"{close_now:.2f}",
+                "wow": _pct(close_now, close_prev),
+                "positiv": close_now >= close_prev,
             }
         except Exception as e:
             print(f"    Warning [{ticker}]: {e}")
-            result[key] = {"label": label, "bias": "n/a", "support": "n/a", "resistance": "n/a"}
+            result[key] = {"name": name, "price": "n/a", "wow": "n/a", "positiv": True}
+
+    try:
+        data = _get({"function": "TREASURY_YIELD", "interval": "weekly", "maturity": "10year"})
+        yields = data.get("data", [])
+        if len(yields) < 2:
+            raise ValueError("Insufficient data")
+        y_now  = float(yields[0]["value"])
+        y_prev = float(yields[1]["value"])
+        delta_bp = round((y_now - y_prev) * 100)
+        sign = "+" if delta_bp >= 0 else ""
+        result["yield10y"] = {
+            "name": "10Y Yield",
+            "price": f"{y_now:.2f}%",
+            "wow": f"{sign}{delta_bp}bp",
+            "positiv": y_now >= y_prev,
+        }
+    except Exception as e:
+        print(f"    Warning [TREASURY_YIELD]: {e}")
+        result["yield10y"] = {"name": "10Y Yield", "price": "n/a", "wow": "n/a", "positiv": True}
+
     return result
 
 
@@ -361,9 +391,10 @@ def generate_narrative(data: dict) -> dict:
         return {"headline": "Weekly Review – set GEMINI_API_KEY to enable", "body": "No API key found."}
     try:
         client = genai.Client(api_key=api_key)
-        idx_lines   = "\n".join(f"  {v['name']}: {v['woche']}" for v in data["indizes"].values())
-        top_lines   = ", ".join(f"{s['name']} ({s['perf']})" for s in data["sektor_top"])
-        flop_lines  = ", ".join(f"{s['name']} ({s['perf']})" for s in data["sektor_flop"])
+        idx_lines   = "\n".join(f"  {v['name']}: {v['woche']} (prev: {v['woche_prev']})" for v in data["indizes"].values())
+        top_lines   = ", ".join(f"{s['name']} ({s['perf']}, prev: {s['perf_prev']})" for s in data["sektor_top"])
+        flop_lines  = ", ".join(f"{s['name']} ({s['perf']}, prev: {s['perf_prev']})" for s in data["sektor_flop"])
+        macro_asset_lines = ", ".join(f"{v['name']}: {v['wow']} @ {v['price']}" for v in data["macro_assets"].values())
         earn_lines  = ", ".join(f"{e['ticker']} ({e['tag']})" for e in data["earnings"][:3] if e["ticker"] != "–")
         macro_lines = ", ".join(f"{m['event']} ({m['tag']})" for m in data["makro"][:3])
 
@@ -371,11 +402,13 @@ def generate_narrative(data: dict) -> dict:
 Write a concise English weekly market review for CW {data['kw']}.
 
 Last week's market data:
-Indices:
+Indices (this week / prev week):
 {idx_lines}
 
 Top sectors: {top_lines if top_lines else 'no data'}
 Weakest sectors: {flop_lines if flop_lines else 'no data'}
+
+Macro assets (WoW change @ current level): {macro_asset_lines if macro_asset_lines else 'no data'}
 
 Next week:
 Earnings: {earn_lines if earn_lines else 'no major releases'}
@@ -415,8 +448,8 @@ def fetch_all() -> dict:
     print("  [2/5] Fetching sector performance ...")
     sektor_top, sektor_flop = get_sector_performance()
 
-    print("  [3/5] Calculating technical levels ...")
-    technisch = get_technical_levels()
+    print("  [3/5] Fetching macro assets ...")
+    macro_assets = get_macro_assets()
 
     print("  [4/5] Fetching earnings calendar ...")
     earnings = get_earnings_calendar()
@@ -425,14 +458,14 @@ def fetch_all() -> dict:
     makro = get_macro_calendar()
 
     data = {
-        "kw":          kw,
-        "datum":       datum_str,
-        "indizes":     indizes,
-        "sektor_top":  sektor_top,
-        "sektor_flop": sektor_flop,
-        "technisch":   technisch,
-        "earnings":    earnings,
-        "makro":       makro,
+        "kw":           kw,
+        "datum":        datum_str,
+        "indizes":      indizes,
+        "sektor_top":   sektor_top,
+        "sektor_flop":  sektor_flop,
+        "macro_assets": macro_assets,
+        "earnings":     earnings,
+        "makro":        makro,
     }
 
     print("  [6/6] Generating narrative via Gemini API ...")

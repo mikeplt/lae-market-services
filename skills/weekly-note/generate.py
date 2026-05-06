@@ -20,12 +20,40 @@ import data_fetcher
 
 def index_badge(idx):
     color = "#39ff14" if idx["positiv"] else "#ff4444"
-    return f'<span class="idx-val" style="color:{color}">{idx["woche"]}</span>'
+    prev  = idx.get("woche_prev", "")
+    if prev and prev != "n/a":
+        mom_up    = idx.get("momentum_up", True)
+        mom_arrow = "↑" if mom_up else "↓"
+        mom_color = "#39ff14" if mom_up else "#ff8c42"
+        mom_html  = f'<span class="idx-mom" style="color:{mom_color}">{mom_arrow} vs {prev}</span>'
+    else:
+        mom_html = ""
+    return f'<span class="idx-val" style="color:{color}">{idx["woche"]}</span>{mom_html}'
 
 def sektor_row(s, is_top):
     arrow = "↑" if is_top else "↓"
     color = "#39ff14" if is_top else "#ff4444"
-    return f'<div class="sektor-row"><span style="color:{color}">{arrow} {s["name"]}</span><span class="mono" style="color:{color}">{s["perf"]}</span></div>'
+    prev  = s.get("perf_prev", "")
+    prev_html = f'<span class="sektor-prev">vs {prev}</span>' if prev else ""
+    return (f'<div class="sektor-row">'
+            f'<span style="color:{color}">{arrow} {s["name"]}</span>'
+            f'<div class="sektor-right"><span class="mono" style="color:{color}">{s["perf"]}</span>{prev_html}</div>'
+            f'</div>')
+
+def macro_asset_items(macro_assets):
+    order = ["gold", "dxy", "oil", "yield10y"]
+    html = ""
+    for key in order:
+        a = macro_assets.get(key)
+        if not a:
+            continue
+        color = "#39ff14" if a["positiv"] else "#ff4444"
+        html += (f'<div class="idx-item">'
+                 f'<span class="idx-name">{a["name"]}</span>'
+                 f'<span class="idx-val" style="color:{color}">{a["wow"]}</span>'
+                 f'<span class="macro-price">{a["price"]}</span>'
+                 f'</div>')
+    return html
 
 def earnings_rows(earnings):
     rows = ""
@@ -145,6 +173,8 @@ def generate_html(data: dict) -> str:
   .idx-item {{ display: flex; flex-direction: column; gap: 2px; }}
   .idx-name {{ font-size: 12px; color: #7a8899; }}
   .idx-val  {{ font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 17px; }}
+  .idx-mom  {{ font-family: 'JetBrains Mono', monospace; font-size: 11px; }}
+  .macro-price {{ font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #7a8899; }}
 
   /* SEKTOR */
   .sektor-row {{
@@ -156,26 +186,9 @@ def generate_html(data: dict) -> str:
     border-bottom: 1px solid rgba(255,255,255,0.04);
   }}
   .sektor-row:last-child {{ border-bottom: none; }}
+  .sektor-right {{ display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }}
+  .sektor-prev  {{ font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #7a8899; }}
   .sektor-divider {{ height: 1px; background: rgba(255,255,255,0.07); margin: 6px 0; }}
-
-  /* TECHNISCH */
-  .tech-item {{ margin-bottom: 11px; }}
-  .tech-item:last-child {{ margin-bottom: 0; }}
-  .tech-label {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    font-weight: 700;
-    color: #39ff14;
-    margin-bottom: 3px;
-  }}
-  .tech-bias {{ font-size: 13px; color: #f0f4f8; margin-bottom: 3px; }}
-  .tech-levels {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: #7a8899;
-  }}
-  .tech-levels .sup {{ color: #39ff14; }}
-  .tech-levels .res {{ color: #ff8c42; }}
 
   /* NARRATIVE */
   .narrative-card {{
@@ -264,26 +277,11 @@ def generate_html(data: dict) -> str:
       {"".join(sektor_row(s, False) for s in data["sektor_flop"])}
     </div>
 
-    <!-- Technisch -->
+    <!-- Macro Assets -->
     <div class="card">
-      <div class="card-title">Technical Orientation</div>
-      <div class="tech-item">
-        <div class="tech-label">{data['technisch']['es']['label']}</div>
-        <div class="tech-bias">{data['technisch']['es']['bias']}</div>
-        <div class="tech-levels">
-          <span class="sup">▲ {data['technisch']['es']['support']}</span>
-          &nbsp;·&nbsp;
-          <span class="res">▼ {data['technisch']['es']['resistance']}</span>
-        </div>
-      </div>
-      <div class="tech-item">
-        <div class="tech-label">{data['technisch']['nq']['label']}</div>
-        <div class="tech-bias">{data['technisch']['nq']['bias']}</div>
-        <div class="tech-levels">
-          <span class="sup">▲ {data['technisch']['nq']['support']}</span>
-          &nbsp;·&nbsp;
-          <span class="res">▼ {data['technisch']['nq']['resistance']}</span>
-        </div>
+      <div class="card-title">Macro Assets – WoW</div>
+      <div class="idx-grid">
+        {macro_asset_items(data['macro_assets'])}
       </div>
     </div>
 

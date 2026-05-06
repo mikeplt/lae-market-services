@@ -16,10 +16,10 @@ Erstellt das wöchentliche Briefing als **HTML-Datei** für US Markets Trader. Z
 | Bereich | Beschreibung | Pflicht |
 |---------|-------------|---------|
 | **Header** | KW, Datum, LAE-Logo | ✓ |
-| **Index-Performance** | S&P 500, Nasdaq, Dow, Russell 2000 – wöchentl. % Veränderung | ✓ |
-| **Sektor Top/Flop** | Top 2 / Flop 2 Sektoren der Woche | ✓ |
+| **Index-Performance** | S&P 500, Nasdaq, Dow, Russell 2000 – WoW % + Vorwoche (Momentum) | ✓ |
+| **Sektor Top/Flop** | Top 2 / Flop 2 Sektoren – WoW % + Vorwoche (Momentum) | ✓ |
 | **Market Narrative** | Headline + 3–5 Sätze – das bestimmende Marktthema | ✓ |
-| **Technische Orientierung** | ES & NQ: Trend-Bias + 1–2 Key Levels (Support/Resistance) | ✓ |
+| **Macro Assets** | Gold, Crude Oil, US Dollar, 10Y Yield – WoW % + aktueller Kurs/Stand | ✓ |
 | **Makro-Kalender** | Top 3–5 Ereignisse der kommenden Woche | ✓ |
 | **Earnings** | Top 5 Schwergewichte S&P 500 / Nasdaq-100 | ✓ |
 
@@ -29,11 +29,11 @@ Erstellt das wöchentliche Briefing als **HTML-Datei** für US Markets Trader. Z
 
 | Bereich | Quelle | URL |
 |---------|--------|-----|
-| Index-Performance + Sektor Top/Flop | Yahoo Finance | finance.yahoo.com |
-| Technische Orientierung (Key Levels) | TradingView | tradingview.com |
-| Earnings Current + Next Week | Investing.com | investing.com/earnings-calendar |
+| Index-Performance + Sektor Top/Flop | Alpha Vantage (TIME_SERIES_WEEKLY) | alphavantage.co |
+| Macro Assets (Gold, Oil, Dollar, 10Y) | Alpha Vantage (TIME_SERIES_WEEKLY + TREASURY_YIELD) | alphavantage.co |
+| Earnings Next Week | Alpha Vantage (EARNINGS_CALENDAR) | alphavantage.co |
 | Makro-Kalender | Investing.com | investing.com/economic-calendar |
-| Market Narrative | Yahoo Finance + CNBC | finance.yahoo.com / cnbc.com/markets |
+| Market Narrative | Google Gemini API | – |
 
 ---
 
@@ -52,14 +52,14 @@ Quelle: **Yahoo Finance** → finance.yahoo.com
 **Sektoren:** Top 2 Gewinner + Top 2 Verlierer der Woche
 - Kürzel: XLK (Tech), XLF (Finanzen), XLE (Energie), XLV (Gesundheit), XLI (Industrie), XLC (Kommunikation), XLY (Konsum zyklisch), XLP (Konsum defensiv), XLRE (Immobilien), XLU (Versorger), XLB (Materialien)
 
-### Schritt 2: Technische Orientierung (Key Levels ES / NQ)
+### Schritt 2: Macro Assets
 
-Quelle: **TradingView** → tradingview.com
+Quelle: **Alpha Vantage** (automatisch via `data_fetcher.py`)
 
-Pro Instrument (ES1! und NQ1!):
-- **Trend-Bias:** Uptrend / Range / Downtrend (1 Satz)
-- **Support:** wichtigstes Unterstützungsniveau
-- **Resistance:** wichtigstes Widerstandsniveau
+- **Gold** (GLD ETF) – WoW % + aktueller Kurs
+- **Crude Oil** (USO ETF) – WoW % + aktueller Kurs
+- **US Dollar** (UUP ETF) – WoW % + aktueller Kurs
+- **10Y Treasury Yield** (TREASURY_YIELD API) – WoW Veränderung in Basispunkten + aktueller Zinssatz
 
 ### Schritt 3: Earnings Current and next Week
 
@@ -93,18 +93,20 @@ data = {
     
     # Schritt 1
     "indizes": {
-        "sp500":  {"name": "S&P 500",  "woche": "+1.2%", "positiv": True},
-        "nasdaq": {"name": "Nasdaq",   "woche": "+0.8%", "positiv": True},
-        "dow":    {"name": "Dow",      "woche": "+0.5%", "positiv": True},
-        "russell":{"name": "Russell",  "woche": "-0.3%", "positiv": False},
+        "sp500":  {"name": "S&P 500",  "woche": "+1.2%", "woche_prev": "+2.9%", "positiv": True,  "momentum_up": False},
+        "nasdaq": {"name": "Nasdaq",   "woche": "+0.8%", "woche_prev": "+6.1%", "positiv": True,  "momentum_up": False},
+        "dow":    {"name": "Dow",      "woche": "+0.5%", "woche_prev": "+0.6%", "positiv": True,  "momentum_up": False},
+        "russell":{"name": "Russell",  "woche": "-0.3%", "woche_prev": "+8.1%", "positiv": False, "momentum_up": False},
     },
-    "sektor_top":  [{"name": "Technologie", "kuerzel": "XLK", "perf": "+2.1%"}, {"name": "Energie", "kuerzel": "XLE", "perf": "+1.8%"}],
-    "sektor_flop": [{"name": "Versorger",   "kuerzel": "XLU", "perf": "-1.2%"}, {"name": "Immobilien", "kuerzel": "XLRE", "perf": "-0.9%"}],
-    
+    "sektor_top":  [{"name": "Technologie", "kuerzel": "XLK", "perf": "+2.1%", "perf_prev": "+6.3%"}, {"name": "Energie", "kuerzel": "XLE", "perf": "+1.8%", "perf_prev": "-0.2%"}],
+    "sektor_flop": [{"name": "Versorger",   "kuerzel": "XLU", "perf": "-1.2%", "perf_prev": "+0.5%"}, {"name": "Immobilien", "kuerzel": "XLRE", "perf": "-0.9%", "perf_prev": "+1.1%"}],
+
     # Schritt 2
-    "technisch": {
-        "es": {"bias": "Uptrend intakt", "support": "5.380", "resistance": "5.450"},
-        "nq": {"bias": "Range-Phase",    "support": "18.800", "resistance": "19.200"},
+    "macro_assets": {
+        "gold":    {"name": "Gold",      "price": "189.45", "wow": "+2.3%", "positiv": True},
+        "oil":     {"name": "Crude Oil", "price": "62.30",  "wow": "-2.1%", "positiv": False},
+        "dxy":     {"name": "US Dollar", "price": "27.12",  "wow": "-0.8%", "positiv": False},
+        "yield10y":{"name": "10Y Yield", "price": "4.38%",  "wow": "+5bp",  "positiv": True},
     },
     
     # Schritt 3
