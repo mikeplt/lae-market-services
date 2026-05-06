@@ -165,9 +165,93 @@ def get_technical_levels() -> dict:
 
 # ── Earnings calendar ─────────────────────────────────────────────────────────
 
+def _parse_mcap(val: str) -> float:
+    val = val.strip().replace(",", "")
+    if not val or val == "--":
+        return 0
+    try:
+        if val.endswith("T"): return float(val[:-1]) * 1_000_000_000_000
+        if val.endswith("B"): return float(val[:-1]) * 1_000_000_000
+        if val.endswith("M"): return float(val[:-1]) * 1_000_000
+        return float(val)
+    except Exception:
+        return 0
+
+
+def _get_investing_earnings_tickers(date_from: date, date_to: date, min_mcap: float = 50_000_000_000) -> dict:
+    """Scrape Investing.com earnings calendar for US companies >= min_mcap. Returns {ticker: mcap}."""
+    from bs4 import BeautifulSoup
+
+    url = "https://www.investing.com/earnings-calendar/Service/getCalendarFilteredData"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+        "Referer": "https://www.investing.com/earnings-calendar/",
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+    }
+    payload = {
+        "dateFrom": date_from.strftime("%Y-%m-%d"),
+        "dateTo": date_to.strftime("%Y-%m-%d"),
+        "currentTab": "nextWeek",
+        "submitFilters": "1",
+        "limit_from": "0",
+    }
+
+    resp = requests.post(url, headers=headers, data=payload, timeout=20)
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.json().get("data", ""), "html.parser")
+
+    tickers = {}       # ticker -> mcap
+    seen_mcaps = {}    # rounded mcap -> ticker (deduplication for dual-share-class companies)
+
+    for row in soup.find_all("tr"):
+        flag_span = row.find("span", class_=lambda c: c and "ceFlags" in c)
+        if not flag_span or "USA" not in flag_span.get("class", []):
+            continue
+        tds = row.find_all("td")
+        if len(tds) < 7:
+            continue
+
+        ticker_a = tds[1].find("a", class_="bold")
+        ticker = ticker_a.get_text(strip=True) if ticker_a else ""
+        if not ticker:
+            continue
+
+        mcap = _parse_mcap(tds[6].get_text(strip=True))
+        if mcap < min_mcap:
+            continue
+
+        # Deduplicate dual-share-class entries (same market cap = same company)
+        mcap_key = round(mcap / 1_000_000_000)  # round to nearest billion
+        if mcap_key in seen_mcaps:
+            existing = seen_mcaps[mcap_key]
+            if len(ticker) < len(existing):  # keep shorter (primary) ticker
+                del tickers[existing]
+                seen_mcaps[mcap_key] = ticker
+                tickers[ticker] = mcap
+            continue
+
+        seen_mcaps[mcap_key] = ticker
+        tickers[ticker] = mcap
+
+    return tickers
+
+
 def get_earnings_calendar() -> list:
-    """Upcoming earnings for next week via Alpha Vantage EARNINGS_CALENDAR."""
+    """Next week's earnings for $50B+ US companies via Investing.com + Alpha Vantage dates."""
     next_mon, next_fri = _next_week_range()
+
+    # Step 1: Get $50B+ US tickers from Investing.com
+    try:
+        large_cap = _get_investing_earnings_tickers(next_mon, next_fri, min_mcap=50_000_000_000)
+        print(f"    Investing.com: {len(large_cap)} US companies >= $50B found")
+    except Exception as e:
+        print(f"    Warning [EARNINGS_INVESTING]: {e}, using fallback whitelist")
+        large_cap = {t: 0 for t in TOP_EARNINGS_TICKERS}
+
+    filter_set = large_cap if large_cap else {t: 0 for t in TOP_EARNINGS_TICKERS}
+
+    # Step 2: Get confirmed dates from Alpha Vantage
     try:
         csv_text = _get({"function": "EARNINGS_CALENDAR", "horizon": "3month"}, is_csv=True)
         reader = csv.DictReader(csv_text.splitlines())
@@ -175,7 +259,7 @@ def get_earnings_calendar() -> list:
 
         for row in reader:
             symbol = row.get("symbol", "")
-            if symbol not in TOP_EARNINGS_TICKERS:
+            if symbol not in filter_set:
                 continue
             try:
                 report_date = datetime.strptime(row["reportDate"], "%Y-%m-%d").date()
@@ -197,19 +281,22 @@ def get_earnings_calendar() -> list:
                 "tag":     _DAY_EN.get(report_date.weekday(), "?"),
                 "eps_erw": eps_str,
                 "datum":   report_date,
+                "mcap":    large_cap.get(symbol, 0),
             })
 
-        earnings_next_week.sort(key=lambda x: x["datum"])
+        earnings_next_week.sort(key=lambda x: (x["datum"], -x["mcap"]))
         for e in earnings_next_week:
             e.pop("datum", None)
+            e.pop("mcap", None)
 
-        if not earnings_next_week:
-            return [{"ticker": "–", "name": "No earnings data available", "tag": "–", "eps_erw": "–"}]
-        return earnings_next_week[:5]
+        if earnings_next_week:
+            return earnings_next_week[:10]
 
+        print("    Warning [EARNINGS_AV]: No matches found for next week")
     except Exception as e:
-        print(f"    Warning [EARNINGS_CALENDAR]: {e}")
-        return [{"ticker": "–", "name": "No earnings data available", "tag": "–", "eps_erw": "–"}]
+        print(f"    Warning [EARNINGS_AV]: {e}")
+
+    return [{"ticker": "–", "name": "No major earnings next week", "tag": "–", "eps_erw": "–"}]
 
 
 # ── Macro calendar ────────────────────────────────────────────────────────────
