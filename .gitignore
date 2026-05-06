@@ -16,6 +16,9 @@ outputs/weekly-note/run.log
 # Referenzmaterial (bleibt lokal)
 reference/
 
+# Interne Planung (bleibt lokal)
+context/tech-stack-roadmap.md
+
 # Batch-Dateien (nur lokal relevant)
 skills/cot-report/scripts/run_cot.bat
 skills/weekly-note/run_weekly_note.bat
