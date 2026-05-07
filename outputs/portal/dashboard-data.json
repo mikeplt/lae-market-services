@@ -1,9 +1,34 @@
 {
-  "highlight_type": "Macro Analysis",
-  "highlight_title": "Macro Analysis · 07. Mai 2026",
-  "highlight_teaser": "US macro score at 67/100 – BULLISH. Inflation cooling, labor market intact, yield curve normalizing. Full dashboard with 10 interactive charts.",
-  "highlight_link": "./products/macro-analysis.html",
-  "highlight_date": "2026-05-07",
+  "updates": [
+    {
+      "type": "Macro Analysis",
+      "title": "Macro Analysis · 07. Mai 2026",
+      "teaser": "US macro score at 67/100 – BULLISH. Inflation cooling, labor market intact, yield curve normalizing. Full dashboard with 10 interactive charts.",
+      "link": "./products/macro-analysis.html",
+      "date": "2026-05-07"
+    },
+    {
+      "type": "Weekly Note",
+      "title": "Weekly Note · CW 18",
+      "teaser": "The market shows early signs of recovery, but seasonal headwinds remain a challenge. Our outlook for the week ahead.",
+      "link": "./products/weekly-note.html",
+      "date": "2026-05-04"
+    },
+    {
+      "type": "COT Report",
+      "title": "COT Report · CW 18 · 2026",
+      "teaser": "Latest Commitments of Traders data for S&P 500 E-Mini futures. Net positioning, commercial vs. non-commercial flows.",
+      "link": "./products/cot-report.html",
+      "date": "2026-04-28"
+    },
+    {
+      "type": "Earnings",
+      "title": "Earnings Analysis · KO Q1 FY2026",
+      "teaser": "Coca-Cola Q1 FY2026 post-earnings report. Revenue, EPS, margins and forward guidance reviewed.",
+      "link": "./products/earnings.html",
+      "date": "2026-04-30"
+    }
+  ],
   "news_updated": "2026-05-07T11:53:12",
   "news": [
     {

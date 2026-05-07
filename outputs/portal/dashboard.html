@@ -191,22 +191,10 @@
 
         </div>
 
-        <!-- LAE Highlight -->
+        <!-- LAE Updates -->
         <div id="lae-highlight" style="margin-bottom:20px;display:none;">
           <h2 style="margin-bottom:16px;font-size:0.7rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;">Updates</h2>
-          <a id="highlight-link" href="#" style="display:block;text-decoration:none;">
-            <div style="background:#0d111a;border:1px solid rgba(57,255,20,0.2);border-radius:12px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;transition:background 0.2s;" onmouseover="this.style.background='#111720'" onmouseout="this.style.background='#0d111a'">
-              <div style="flex:1;min-width:0;">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-                  <span id="highlight-badge" style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#090c11;background:#39ff14;padding:2px 8px;border-radius:4px;">Weekly Note</span>
-                  <span id="highlight-date" style="font-size:0.72rem;color:#7a8899;"></span>
-                </div>
-                <div id="highlight-title" style="font-size:1rem;font-weight:700;color:#f0f4f8;margin-bottom:6px;"></div>
-                <div id="highlight-teaser" style="font-size:0.82rem;color:#7a8899;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;"></div>
-              </div>
-              <div style="flex-shrink:0;font-size:0.8rem;font-weight:600;color:#39ff14;white-space:nowrap;">Read now →</div>
-            </div>
-          </a>
+          <div id="updates-list" style="display:flex;flex-direction:column;gap:10px;"></div>
         </div>
 
         <!-- Latest News -->
@@ -285,14 +273,31 @@
     }
 
     function renderHighlight(d) {
-      if (!d.highlight_title) return;
-      document.getElementById('highlight-badge').textContent = d.highlight_type || 'Update';
-      document.getElementById('highlight-title').textContent = d.highlight_title;
-      document.getElementById('highlight-teaser').textContent = d.highlight_teaser || '';
-      document.getElementById('highlight-date').textContent = d.highlight_date
-        ? new Date(d.highlight_date).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })
-        : '';
-      if (d.highlight_link) document.getElementById('highlight-link').href = d.highlight_link;
+      const items = d.updates || (d.highlight_title ? [{
+        type: d.highlight_type, title: d.highlight_title,
+        teaser: d.highlight_teaser, link: d.highlight_link, date: d.highlight_date
+      }] : []);
+      if (!items.length) return;
+      const container = document.getElementById('updates-list');
+      container.innerHTML = items.slice(0, 4).map((item, i) => {
+        const border = i === 0 ? 'rgba(57,255,20,0.2)' : 'rgba(255,255,255,0.07)';
+        const dateStr = item.date
+          ? new Date(item.date).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })
+          : '';
+        return `<a href="${item.link || '#'}" style="display:block;text-decoration:none;">
+          <div style="background:#0d111a;border:1px solid ${border};border-radius:12px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:background 0.2s;" onmouseover="this.style.background='#111720'" onmouseout="this.style.background='#0d111a'">
+            <div style="flex:1;min-width:0;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#090c11;background:#39ff14;padding:2px 8px;border-radius:4px;">${item.type || 'Update'}</span>
+                <span style="font-size:0.72rem;color:#7a8899;">${dateStr}</span>
+              </div>
+              <div style="font-size:${i === 0 ? '0.92rem' : '0.85rem'};font-weight:700;color:#f0f4f8;margin-bottom:4px;">${item.title}</div>
+              <div style="font-size:0.78rem;color:#7a8899;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">${item.teaser || ''}</div>
+            </div>
+            <div style="flex-shrink:0;font-size:0.78rem;font-weight:600;color:#39ff14;white-space:nowrap;">Read →</div>
+          </div>
+        </a>`;
+      }).join('');
       document.getElementById('lae-highlight').style.display = 'block';
     }
 
