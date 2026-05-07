@@ -29,37 +29,37 @@
       "date": "2026-04-30"
     }
   ],
-  "news_updated": "2026-05-07T11:53:12",
+  "news_updated": "2026-05-07T16:08:49",
   "news": [
     {
-      "title": "Core Scientific, Inc. (CORZ) Reports Q1 Loss, Lags Revenue Estimates",
-      "source": "Yahoo Finance UK",
-      "time_published": "20260507T110855",
-      "url": "https://uk.finance.yahoo.com/news/core-scientific-inc-corz-reports-223010047.html"
+      "title": "ConocoPhillips gets Norway's nod to restart fields, boost Europe gas supply",
+      "source": "Reuters",
+      "time_published": "20260507T152317",
+      "url": "https://www.reuters.com/sustainability/boards-policy-regulation/conocophillips-gets-norways-nod-restart-fields-boost-europe-gas-supply-2026-05-07/"
     },
     {
-      "title": "TD Cowen reiterated coverage on Sunrun with a new price target",
-      "source": "Quantisnow",
-      "time_published": "20260507T110712",
-      "url": "https://quantisnow.com/insight/td-cowen-reiterated-coverage-on-sunrun-with-a-new-price-6537150"
+      "title": "Murphy Q1 Earnings & Sales Beat Estimates on Improved Realized Prices",
+      "source": "Yahoo Finance Singapore",
+      "time_published": "20260507T143958",
+      "url": "https://sg.finance.yahoo.com/news/murphy-q1-earnings-sales-beat-141000597.html"
     },
     {
-      "title": "Bernstein cuts Criteo stock price target to $35 on outlook cut",
-      "source": "Investing.com",
-      "time_published": "20260507T110614",
-      "url": "https://www.investing.com/news/analyst-ratings/bernstein-cuts-criteo-stock-price-target-to-35-on-outlook-cut-93CH-4666947"
-    },
-    {
-      "title": "Cramer Defends Massive AI Spending Spree: 'The Demand Already Exists'",
-      "source": "Benzinga",
-      "time_published": "20260507T110203",
-      "url": "https://www.benzinga.com/markets/tech/26/05/52359479/cramer-defends-massive-ai-spending-spree-the-demand-already-exists"
-    },
-    {
-      "title": "Earnings Flash (MKTX) MarketAxess Holdings Inc. Reports Q1 Revenue $233.4M, vs. FactSet Est of $231.9M",
+      "title": "Earnings Flash (MMS) Maximus, Inc. Posts Q2 Adjusted EPS $2.07 per Share, vs. FactSet Est of $1.97",
       "source": "marketscreener.com",
-      "time_published": "20260507T110058",
-      "url": "https://www.marketscreener.com/news/earnings-flash-mktx-marketaxess-holdings-inc-reports-q1-revenue-233-4m-vs-factset-est-of-231-ce7f58d3dc89f527"
+      "time_published": "20260507T153927",
+      "url": "https://www.marketscreener.com/news/earnings-flash-mms-maximus-inc-posts-q2-adjusted-eps-2-07-per-share-vs-factset-est-of-1-97-ce7f58d3dc8df620"
+    },
+    {
+      "title": "Travis Franklin Buys 9,400 Shares of Midland States Bancorp (NASDAQ:MSBI) Stock",
+      "source": "MarketBeat",
+      "time_published": "20260507T153926",
+      "url": "https://www.marketbeat.com/instant-alerts/travis-franklin-buys-9400-shares-of-midland-states-bancorp-nasdaqmsbi-stock-2026-05-06/"
+    },
+    {
+      "title": "Howmet Aerospace Stock Hits 52-Week High - Here's Why - Howmet Aerospace (NYSE:HWM)",
+      "source": "Benzinga",
+      "time_published": "20260507T153142",
+      "url": "https://www.benzinga.com/markets/earnings/26/05/52374909/howmet-ceo-warns-iran-conflict-could-hit-demand-momentum"
     }
   ],
   "macro_score": 67,
