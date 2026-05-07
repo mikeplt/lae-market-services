@@ -87,6 +87,7 @@ BASE = dict(
     font=dict(family=MONO, color=WHITE, size=11),
     hoverlabel=dict(bgcolor=BG3, bordercolor=LINE, font=dict(family=MONO, size=11, color=WHITE)),
     hovermode="x unified",
+    dragmode=False,
     legend=dict(
         bgcolor="rgba(0,0,0,0)", bordercolor=LINE, borderwidth=1,
         font=dict(size=10, color=GRAY), orientation="h",
@@ -100,6 +101,19 @@ def ax(**kw):
         tickfont=dict(family=MONO, size=10, color=GRAY),
         showspikes=True, spikecolor=LINE, spikethickness=1, spikesnap="cursor",
         **kw
+    )
+
+def rs():
+    return dict(
+        buttons=[
+            dict(count=6, label="6M", step="month", stepmode="backward"),
+            dict(count=1, label="1Y",  step="year",  stepmode="backward"),
+            dict(step="all", label="All"),
+        ],
+        bgcolor=BG3, activecolor="rgba(57,255,20,0.22)",
+        bordercolor="rgba(255,255,255,0.15)", borderwidth=1,
+        font=dict(family=MONO, size=9, color=WHITE),
+        x=0, y=1.07, xanchor="left",
     )
 
 def t(text):
@@ -504,14 +518,14 @@ def last_val(s: pd.Series) -> float | None:
     if s.empty: return None
     return float(s.dropna().iloc[-1])
 
-def current_annotation(fig, s: pd.Series, fmt: str = ".2f", prefix: str = "", suffix: str = ""):
+def current_annotation(fig, s: pd.Series, fmt: str = ".2f", prefix: str = "", suffix: str = "", color: str = WHITE):
     v = last_val(s)
     if v is None: return
     fig.add_annotation(
         x=1, y=v, xref="paper", yref="y",
         text=f"<b>{prefix}{v:{fmt}}{suffix}</b>",
         showarrow=False, xanchor="left",
-        font=dict(family=MONO, size=10, color=WHITE),
+        font=dict(family=MONO, size=10, color=color),
         bgcolor=BG3, bordercolor=LINE, borderpad=4,
     )
 
@@ -558,29 +572,37 @@ def chart_yield_curve(tnx: pd.Series, irx: pd.Series) -> go.Figure:
         line=dict(color=GREEN, width=2),
         name="10Y - 3M", hovertemplate="%{x|%d.%m.%Y}  %{y:+.2f}%<extra></extra>"))
     fig.add_hline(y=0, line=dict(color=LINE, width=1, dash="dot"))
+    yc_min = float(spread.min()) * 1.1 - 0.1 if not spread.empty else -1.5
+    yc_max = max(float(spread.max()) * 1.1 + 0.1, 1.2) if not spread.empty else 1.2
     fig.update_layout(**BASE, title=t("Yield Curve · 10Y - 3M"), height=320,
-        margin=dict(l=50, r=70, t=62, b=40),
-        xaxis=ax(showgrid=False, rangeslider=dict(visible=False)),
-        yaxis=ax(ticksuffix="%", zeroline=True, zerolinewidth=1))
+        margin=dict(l=50, r=70, t=98, b=40),
+        xaxis=ax(showgrid=False, rangeslider=dict(visible=False), rangeselector=rs()),
+        yaxis=ax(ticksuffix="%", zeroline=True, zerolinewidth=1,
+                 range=[yc_min, yc_max], dtick=0.5))
     current_annotation(fig, spread, "+.2f", suffix="%")
     return fig
 
 def chart_yields(tnx: pd.Series, fvx: pd.Series, irx: pd.Series) -> go.Figure:
     fig = go.Figure()
     traces = [
-        (irx, GRAY,  "3M T-Bill"),
-        (fvx, AMBER, "5Y"),
-        (tnx, GREEN, "10Y"),
+        (irx, GRAY,      "3M T-Bill"),
+        (fvx, "#38bdf8", "5Y"),
+        (tnx, "#c084fc", "10Y"),
     ]
     for s, color, name in traces:
         if s.empty: continue
         fig.add_trace(go.Scatter(x=s.index, y=s,
             line=dict(color=color, width=1.8), name=name,
             hovertemplate=f"%{{x|%d.%m.%Y}}  {name}: %{{y:.2f}}%<extra></extra>"))
+    all_s = [s for s in [tnx, fvx, irx] if not s.empty]
+    y_min = max(0.0, float(pd.concat(all_s).min()) - 0.3) if all_s else 0.0
     fig.update_layout(**BASE, title=t("Treasury Yields"), height=320,
-        margin=dict(l=50, r=70, t=62, b=40),
-        xaxis=ax(showgrid=False), yaxis=ax(ticksuffix="%"))
-    current_annotation(fig, tnx, ".2f", suffix="%")
+        margin=dict(l=50, r=70, t=98, b=40),
+        xaxis=ax(showgrid=False, rangeselector=rs()),
+        yaxis=ax(ticksuffix="%", range=[y_min, 5.7], dtick=0.5))
+    current_annotation(fig, irx, ".2f", suffix="%", color=GRAY)
+    current_annotation(fig, fvx, ".2f", suffix="%", color="#38bdf8")
+    current_annotation(fig, tnx, ".2f", suffix="%", color="#c084fc")
     return fig
 
 def chart_inflation(cpi: pd.Series, core_cpi: pd.Series) -> go.Figure:
@@ -600,9 +622,10 @@ def chart_inflation(cpi: pd.Series, core_cpi: pd.Series) -> go.Figure:
             line=dict(color=AMBER, width=2, dash="dash"), name="Core CPI",
             hovertemplate="%{x|%b %Y}  Core CPI: %{y:.1f}%<extra></extra>"))
     fig.update_layout(**BASE, title=t("Inflation · CPI & Core CPI YoY"), height=320,
-        margin=dict(l=50, r=75, t=62, b=40),
-        xaxis=ax(showgrid=False), yaxis=ax(ticksuffix="%"))
-    current_annotation(fig, cpi_yoy, ".1f", suffix="%")
+        margin=dict(l=50, r=75, t=98, b=40),
+        xaxis=ax(showgrid=False, rangeselector=rs()), yaxis=ax(ticksuffix="%"))
+    current_annotation(fig, core_cpi_yoy, ".1f", suffix="%", color=AMBER)
+    current_annotation(fig, cpi_yoy, ".1f", suffix="%", color=WHITE)
     return fig
 
 def chart_gdp(gdp: pd.Series) -> go.Figure:
@@ -672,10 +695,13 @@ def chart_nfp(nfp: pd.Series) -> go.Figure:
     ))
     fig.add_hline(y=0, line=dict(color=LINE, width=1))
     avg = monthly.mean()
-    fig.add_hline(y=avg, line=dict(color=AMBER, width=1, dash="dot"),
-                  annotation_text=f"Ø {avg:+,.0f}k",
-                  annotation_font=dict(color=AMBER, size=9, family=MONO),
-                  annotation_position="top right")
+    fig.add_hline(y=avg, line=dict(color=AMBER, width=1, dash="dot"))
+    fig.add_annotation(
+        x=0, y=avg, xref="paper", yref="y",
+        text=f"Ø {avg:+,.0f}k",
+        showarrow=False, xanchor="right", yanchor="middle",
+        font=dict(family=MONO, size=10, color=AMBER),
+    )
     fig.update_layout(**BASE, title=t("Non-Farm Payrolls · Monthly Change"), height=320,
         margin=dict(l=55, r=20, t=62, b=40),
         xaxis=ax(showgrid=False, tickmode="array", tickvals=tick_vals, ticktext=tick_text, tickangle=0),
@@ -722,15 +748,18 @@ def chart_vix(vix: pd.Series) -> go.Figure:
             line=dict(color=WHITE, width=1.8),
             hovertemplate="%{x|%d.%m.%Y}  VIX: %{y:.1f}<extra></extra>",
             showlegend=False))
-    for level, col, lbl in [(15, GREEN, "15 — Low Vol"), (25, RED, "25 — Fear")]:
-        fig.add_hline(y=level, line=dict(color=col, width=0.8, dash="dot"),
-                      annotation_text=lbl,
-                      annotation_font=dict(color=col, size=9, family=MONO),
-                      annotation_position="top right")
-    ymax = max(55, float(vix.max()) * 1.1) if not vix.empty else 50
+    for level, col, lbl in [(15, GREEN, "Low Vol"), (25, RED, "Fear")]:
+        fig.add_hline(y=level, line=dict(color=col, width=0.8, dash="dot"))
+        fig.add_annotation(
+            x=0.01, y=level, xref="paper", yref="y",
+            text=f"{level} — {lbl}",
+            showarrow=False, xanchor="left", yanchor="bottom",
+            font=dict(family=MONO, size=9, color=col),
+        )
+    ymax = 60
     fig.update_layout(**BASE, title=t("VIX · Volatility Index"), height=320,
-        margin=dict(l=45, r=20, t=62, b=40),
-        xaxis=ax(showgrid=False), yaxis=ax(range=[0, ymax]),
+        margin=dict(l=45, r=70, t=98, b=40),
+        xaxis=ax(showgrid=False, rangeselector=rs()), yaxis=ax(range=[0, ymax]),
         showlegend=False)
     current_annotation(fig, vix, ".1f")
     return fig
@@ -739,66 +768,128 @@ def chart_dxy_gold(dxy: pd.Series, gold: pd.Series) -> go.Figure:
     fig = make_subplots(specs=[[{"secondary_y": True}]])
     if not dxy.empty:
         fig.add_trace(go.Scatter(x=dxy.index, y=dxy,
-            line=dict(color=AMBER, width=1.8), name="DXY",
+            line=dict(color="#818cf8", width=1.8), name="DXY",
             hovertemplate="DXY: %{y:.1f}<extra></extra>"), secondary_y=False)
     if not gold.empty:
         fig.add_trace(go.Scatter(x=gold.index, y=gold,
-            line=dict(color=GREEN, width=1.8), name="Gold",
+            line=dict(color="#fbbf24", width=1.8), name="Gold",
             hovertemplate="Gold: $%{y:,.0f}<extra></extra>"), secondary_y=True)
     fig.update_layout(**BASE, title=t("DXY · Gold"), height=320,
-        margin=dict(l=50, r=65, t=62, b=40))
+        margin=dict(l=50, r=65, t=98, b=40))
     _ax = dict(gridcolor=GRID, linecolor=LINE, tickfont=dict(family=MONO, size=10, color=GRAY),
                showspikes=True, spikecolor=LINE, spikethickness=1)
     fig.update_yaxes(**_ax, secondary_y=False)
     fig.update_yaxes(**_ax, tickprefix="$", secondary_y=True)
     fig.update_xaxes(gridcolor=GRID, linecolor=LINE, showgrid=False,
-                     tickfont=dict(family=MONO, size=10, color=GRAY))
+                     tickfont=dict(family=MONO, size=10, color=GRAY), rangeselector=rs())
     return fig
 
 def chart_oil_copper(oil: pd.Series, copper: pd.Series) -> go.Figure:
-    fig = make_subplots(specs=[[{"secondary_y": True}]])
-    if not oil.empty:
-        fig.add_trace(go.Scatter(x=oil.index, y=oil,
-            line=dict(color="#ff8c42", width=1.8), name="WTI Crude",
-            hovertemplate="WTI: $%{y:.1f}<extra></extra>"), secondary_y=False)
-    if not copper.empty:
-        fig.add_trace(go.Scatter(x=copper.index, y=copper,
-            line=dict(color="#d4944a", width=1.8), name="Copper",
-            hovertemplate="Copper: $%{y:.3f}<extra></extra>"), secondary_y=True)
-    fig.update_layout(**BASE, title=t("WTI Crude · Copper"), height=320,
-        margin=dict(l=50, r=70, t=62, b=40))
-    _ax = dict(gridcolor=GRID, linecolor=LINE, tickfont=dict(family=MONO, size=10, color=GRAY),
-               showspikes=True, spikecolor=LINE, spikethickness=1)
-    fig.update_yaxes(**_ax, tickprefix="$", secondary_y=False)
-    fig.update_yaxes(**_ax, tickprefix="$", secondary_y=True)
-    fig.update_xaxes(gridcolor=GRID, linecolor=LINE, showgrid=False,
-                     tickfont=dict(family=MONO, size=10, color=GRAY))
+    WTI_COL = "#ff8c42"
+    COP_COL  = "#00c4b4"
+    fig = go.Figure()
+
+    if not oil.empty and not copper.empty:
+        common = oil.index.intersection(copper.index)
+        oil_a  = oil.reindex(common).dropna()
+        cop_a  = copper.reindex(common).dropna()
+        if len(oil_a) > 0 and len(cop_a) > 0:
+            oil_n = oil_a / oil_a.iloc[0] * 100
+            cop_n = cop_a / cop_a.iloc[0] * 100
+            pct_o = (oil_n - 100).round(2)
+            pct_c = (cop_n - 100).round(2)
+
+            # Main traces
+            fig.add_trace(go.Scatter(
+                x=oil_n.index, y=oil_n,
+                line=dict(color=WTI_COL, width=1.8),
+                name="WTI Crude",
+                customdata=pct_o.values,
+                hovertemplate="WTI: %{y:.1f} pts  (%{customdata:+.1f}%)<extra></extra>"
+            ))
+            fig.add_trace(go.Scatter(
+                x=cop_n.index, y=cop_n,
+                line=dict(color=COP_COL, width=1.8),
+                name="Copper",
+                customdata=pct_c.values,
+                hovertemplate="Copper: %{y:.1f} pts  (%{customdata:+.1f}%)<extra></extra>"
+            ))
+
+    fig.add_hline(y=100, line=dict(color=LINE, width=1, dash="dot"),
+                  annotation_text="Base 100",
+                  annotation_font=dict(color=GRAY, size=9, family=MONO),
+                  annotation_position="bottom right")
+
+    fig.update_layout(**BASE,
+        title=t("WTI Crude · Copper · Indexed (Base 100)"),
+        height=320,
+        margin=dict(l=50, r=30, t=98, b=40),
+        xaxis=ax(showgrid=False, rangeselector=rs()),
+        yaxis=ax(showgrid=True, zeroline=False, ticksuffix=" pts")
+    )
+    fig.update_yaxes(gridcolor="rgba(255,255,255,0.05)")
     return fig
 
 def chart_sp500(sp: pd.Series) -> go.Figure:
     fig = go.Figure()
     if not sp.empty:
         ma200 = sp.rolling(200).mean()
-        above = sp >= ma200
-        fig.add_trace(go.Scatter(x=sp.index, y=sp,
-            line=dict(color=GREEN, width=1.8),
-            fill="tozeroy", fillcolor="rgba(57,255,20,0.04)",
-            hovertemplate="%{x|%d.%m.%Y}  S&P 500: %{y:,.0f}<extra></extra>",
-            name="S&P 500"))
-        fig.add_trace(go.Scatter(x=ma200.index, y=ma200,
+
+        # Last 200 trading days only
+        sp_v  = sp.iloc[-200:]
+        ma_v  = ma200.reindex(sp_v.index)
+
+        above     = sp_v >= ma_v
+        # Where SP above MA → use SP value, else collapse to MA (zero-height fill)
+        sp_above  = sp_v.where(above,  ma_v)
+        # Where SP below MA → use SP value, else collapse to MA
+        sp_below  = sp_v.where(~above, ma_v)
+
+        combined = pd.concat([sp_v, ma_v.dropna()])
+        padding  = (combined.max() - combined.min()) * 0.08
+        y_min    = float(combined.min()) - padding
+        y_max    = 7500
+
+        # 1) MA baseline (visible dotted line)
+        fig.add_trace(go.Scatter(x=ma_v.index, y=ma_v,
             line=dict(color=GRAY, width=1.2, dash="dot"),
-            hovertemplate="200 MA: %{y:,.0f}<extra></extra>",
-            name="200 MA"))
-    fig.update_layout(**BASE, title=t("S&P 500 · 200-Tage MA"), height=320,
+            name="200 Day MA",
+            hovertemplate="200 Day MA: %{y:,.0f}<extra></extra>"))
+
+        # 2) Green fill: SP above MA  (fills toward previous trace = MA)
+        fig.add_trace(go.Scatter(x=sp_above.index, y=sp_above,
+            fill="tonexty", fillcolor="rgba(57,255,20,0.10)",
+            line=dict(width=0), showlegend=False, hoverinfo="skip"))
+
+        # 3) Hidden MA duplicate as base for red fill
+        fig.add_trace(go.Scatter(x=ma_v.index, y=ma_v,
+            line=dict(width=0, color="rgba(0,0,0,0)"),
+            showlegend=False, hoverinfo="skip"))
+
+        # 4) Red fill: SP below MA  (fills toward previous trace = hidden MA)
+        fig.add_trace(go.Scatter(x=sp_below.index, y=sp_below,
+            fill="tonexty", fillcolor="rgba(255,77,77,0.10)",
+            line=dict(width=0), showlegend=False, hoverinfo="skip"))
+
+        # 5) Main SP line on top
+        fig.add_trace(go.Scatter(x=sp_v.index, y=sp_v,
+            line=dict(color=GREEN, width=1.8),
+            name="S&P 500",
+            hovertemplate="%{x|%d.%m.%Y}  S&P 500: %{y:,.0f}<extra></extra>"))
+    else:
+        y_min, y_max = 0, 1
+
+    fig.update_layout(**BASE, title=t("S&P 500 · 200 Day MA"), height=320,
         margin=dict(l=55, r=70, t=62, b=40),
-        xaxis=ax(showgrid=False), yaxis=ax(tickprefix="$"))
+        xaxis=ax(showgrid=False),
+        yaxis=ax(tickprefix="$", range=[y_min, y_max]))
     current_annotation(fig, sp, ",.0f", prefix="$")
     return fig
 
 # ── HTML Builder ──────────────────────────────────────────────────────────────
 def div(fig: go.Figure, div_id: str) -> str:
     return pio.to_html(fig, full_html=False, include_plotlyjs=False,
-                       div_id=div_id, config={"staticPlot": True, "displayModeBar": False, "responsive": True})
+                       div_id=div_id, config={"staticPlot": False, "displayModeBar": False, "responsive": True})
 
 def kpi_card(label: str, value: str, sub: str = "", color: str = WHITE) -> str:
     sub_html = f'<div class="kpi-sub">{sub}</div>' if sub else ""
@@ -1002,6 +1093,10 @@ body{{background:#090c11;color:var(--w);font-family:'Inter',sans-serif;font-size
   padding:3px 8px;border-radius:4px;background:rgba(57,255,20,0.12);color:var(--g);white-space:nowrap}}
 .cal-card.cal-later .cal-badge{{background:rgba(255,255,255,0.06);color:var(--gr)}}
 
+/* Range Selector Pill Buttons */
+.rangeselector .button rect{{rx:10px;ry:10px}}
+.rangeselector>rect{{display:none}}
+
 /* Footer */
 .ftr{{margin:48px 0 0;
   padding:20px 40px;border-top:1px solid rgba(255,255,255,0.06);
@@ -1150,11 +1245,18 @@ body{{background:#090c11;color:var(--w);font-family:'Inter',sans-serif;font-size
       : document.documentElement.scrollHeight;
     window.parent.postMessage({{frameHeight: h}}, '*');
   }}
+  function pillButtons(){{
+    document.querySelectorAll('.rangeselector .button rect').forEach(function(r){{
+      r.setAttribute('rx','10');r.setAttribute('ry','10');
+    }});
+  }}
   window.addEventListener('load', function(){{
     sendHeight();
     setTimeout(sendHeight, 500);
     setTimeout(sendHeight, 1500);
     setTimeout(sendHeight, 3000);
+    setTimeout(pillButtons, 200);
+    setTimeout(pillButtons, 800);
   }});
 }})();
 </script>
