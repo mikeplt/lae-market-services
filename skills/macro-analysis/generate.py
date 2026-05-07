@@ -1405,17 +1405,28 @@ def main():
         try: _dash = json.loads(_dash_json.read_text(encoding="utf-8"))
         except Exception: pass
 
+    _title_date = _today.strftime("%b %d, %Y")
+    _new_entry = {
+        "type": "Macro Analysis",
+        "title": f"Macro Analysis · {_title_date}",
+        "teaser": f"US macro score at {score}/100 – {_macro_label}. Full dashboard with interactive charts.",
+        "link": "./products/macro-analysis.html",
+        "date": DATE_STR,
+    }
+    _updates = [u for u in _dash.get("updates", []) if u.get("type") != "Macro Analysis"]
+    _dash["updates"] = [_new_entry] + _updates
+
     _dash.update({
         "macro_score": score,
         "macro_label": _macro_label,
         "macro_date": DATE_STR,
-        "macro_date_str": f"{_today.day}. {_today.strftime('%b')} {_today.year}",
+        "macro_date_str": _today.strftime("%b %d, %Y"),
     })
     if _nev:
         _dash.update({
             "next_event": _nev,
             "next_event_date": _nev_date.isoformat(),
-            "next_event_date_str": f"{_nev_date.day}. {_nev_date.strftime('%b')}",
+            "next_event_date_str": _nev_date.strftime("%b %d"),
             "next_event_days": _nev_days,
         })
     _dash_json.write_text(json.dumps(_dash, indent=2, ensure_ascii=False), encoding="utf-8")
