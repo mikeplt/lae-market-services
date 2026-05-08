@@ -1430,7 +1430,24 @@ def main():
             "next_event_days": _nev_days,
         })
     _dash_json.write_text(json.dumps(_dash, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(f"  Dashboard: {_dash_json.name} aktualisiert\n")
+    print(f"  Dashboard: {_dash_json.name} aktualisiert")
+
+    # ── Portal-Dropdown auto-update ────────────────────────────────────────────
+    _portal_html = OUTPUT_DIR.parent / "portal" / "products" / "macro-analysis.html"
+    if _portal_html.exists():
+        _pcontent = _portal_html.read_text(encoding="utf-8")
+        _opt_val = f"../../macro-analysis/lae-macro-analysis-{DATE_STR}.html"
+        if _opt_val not in _pcontent:
+            _months_de = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"]
+            _opt_label = f"{_today.day:02d}. {_months_de[_today.month-1]} {_today.year}"
+            _opt_tag = f'              <option value="{_opt_val}">{_opt_label}</option>\n'
+            _pcontent = _pcontent.replace(
+                "              <!-- ARCHIV-START -->\n",
+                f"              <!-- ARCHIV-START -->\n{_opt_tag}"
+            )
+            _portal_html.write_text(_pcontent, encoding="utf-8")
+            print(f"  Portal-Dropdown: {_opt_label} eingetragen")
+    print()
 
 if __name__ == "__main__":
     main()

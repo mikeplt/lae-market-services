@@ -1,0 +1,62 @@
+name: Macro Analysis
+
+on:
+  schedule:
+    - cron: '0 13 * * 1'   # Montag 13:00 UTC (09:00 ET) – wöchentlicher Report
+    - cron: '0 14 * * 5'   # Freitag 14:00 UTC – NFP-Check intern
+  workflow_dispatch:        # Manuell für CPI, FOMC, GDP
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Abhängigkeiten installieren
+        run: pip install -r requirements.txt
+
+      - name: Relevanz-Check (Montag immer, Freitag nur wenn erster Freitag = NFP)
+        id: check
+        run: |
+          python -c "
+          import datetime
+          t = datetime.date.today()
+          is_monday = t.weekday() == 0
+          is_nfp    = t.weekday() == 4 and t.day <= 7
+          result    = 'true' if (is_monday or is_nfp) else 'false'
+          print(f'run={result}')
+          " >> $GITHUB_OUTPUT
+
+      - name: Macro Analysis generieren
+        if: steps.check.outputs.run == 'true' || github.event_name == 'workflow_dispatch'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FRED_API_KEY:   ${{ secrets.FRED_API_KEY }}
+        run: |
+          if [ -n "$FRED_API_KEY" ]; then
+            python skills/macro-analysis/generate.py --api-key "$FRED_API_KEY"
+          else
+            python skills/macro-analysis/generate.py
+          fi
+
+      - name: Report speichern & pushen
+        if: steps.check.outputs.run == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add outputs/macro-analysis/ outputs/portal/
+          git diff --staged --quiet || git commit -m "Macro Analysis $(date +%Y-%m-%d)"
+          git pull --rebase origin main
+          git push
