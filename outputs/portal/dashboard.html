@@ -279,6 +279,7 @@
       }] : []);
       if (!items.length) return;
       const container = document.getElementById('updates-list');
+      items.sort((a, b) => new Date(b.date) - new Date(a.date));
       container.innerHTML = items.slice(0, 4).map((item, i) => {
         const border = 'rgba(255,255,255,0.07)';
         const dateStr = item.date
