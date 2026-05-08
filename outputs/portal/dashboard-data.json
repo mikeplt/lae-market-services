@@ -29,37 +29,37 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-08T11:23:17",
+  "news_updated": "2026-05-08T15:27:55",
   "news": [
     {
-      "title": "Sequoia Financial Advisors LLC Sells 27,005 Shares of U.S. Bancorp $USB",
-      "source": "MarketBeat",
-      "time_published": "20260508T103337",
-      "url": "https://www.marketbeat.com/instant-alerts/filing-sequoia-financial-advisors-llc-sells-27005-shares-of-us-bancorp-usb-2026-05-08/"
+      "title": "ITDI Stock Fund Price and Chart — AMEX:ITDI",
+      "source": "TradingView",
+      "time_published": "20260508T143940",
+      "url": "https://www.tradingview.com/symbols/AMEX-ITDI/"
     },
     {
-      "title": "Moderna Stock Climbs After Hantavirus Vaccine Data Release",
-      "source": "Tokenist",
-      "time_published": "20260508T103004",
-      "url": "https://tokenist.com/moderna-mrna-hantavirus-vaccine-price-target-hikes/"
+      "title": "iShares Morningstar Small-Cap ETF (NY: ISCB",
+      "source": "FinancialContent",
+      "time_published": "20260508T143909",
+      "url": "https://markets.financialcontent.com/stocks/quote?Symbol=321%3A546405"
     },
     {
-      "title": "3M Company stock (US88579Y1010): Mixed signals after latest earnings and guidance update",
+      "title": "Cisco Systems (CSCO) Q3 2026 Preview: EPS Est. $1.04, Reports May 13",
+      "source": "AlphaStreet",
+      "time_published": "20260508T143019",
+      "url": "https://news.alphastreet.com/cisco-systems-csco-q3-2026-preview-eps-est-1-04-reports-may-13/"
+    },
+    {
+      "title": "Ulta Beauty Inc. Stock (US90384S3031): Analysts See Upside After Recent Price Pullback",
       "source": "AD HOC NEWS",
-      "time_published": "20260508T103003",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/3m-company-stock-us88579y1010-mixed-signals-after-latest-earnings-and/69291594"
+      "time_published": "20260508T142929",
+      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/ulta-beauty-inc-stock-us90384s3031-analysts-see-upside-after-recent/69293409"
     },
     {
-      "title": "5 Must-Read Analyst Questions From Church & Dwight’s Q1 Earnings Call",
-      "source": "StockStory",
-      "time_published": "20260508T102314",
-      "url": "https://stockstory.org/us/stocks/nyse/chd/news/earnings-call/5-must-read-analyst-questions-from-church-and-dwights-q1-earnings-call"
-    },
-    {
-      "title": "Tapestry Inc. (TPR) PT Raised to $180 at Bernstein SocGen Group",
-      "source": "StreetInsider",
-      "time_published": "20260508T102130",
-      "url": "https://www.streetinsider.com/Analyst+Comments/Tapestry+Inc.+%28TPR%29+PT+Raised+to+%24180+at+Bernstein+SocGen+Group/26457103.html"
+      "title": "Fortinet's price target raised but Susquehanna remains Neutral after 'solid' Q1",
+      "source": "Seeking Alpha",
+      "time_published": "20260508T141836",
+      "url": "https://seekingalpha.com/news/4589879-fortinets-price-target-raised-but-susquehanna-remains-neutral-after-solid-q1"
     }
   ],
   "macro_score": 61,
