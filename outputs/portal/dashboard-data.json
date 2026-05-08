@@ -2,10 +2,10 @@
   "updates": [
     {
       "type": "Macro Analysis",
-      "title": "Macro Analysis · May 07, 2026",
-      "teaser": "US macro score at 67/100 – BULLISH. Inflation cooling, labor market intact, yield curve normalizing. Full dashboard with 10 interactive charts.",
+      "title": "Macro Analysis · May 08, 2026",
+      "teaser": "US macro score at 61/100 – BULLISH. Full dashboard with interactive charts.",
       "link": "./products/macro-analysis.html",
-      "date": "2026-05-07"
+      "date": "2026-05-08"
     },
     {
       "type": "Weekly Note",
@@ -62,12 +62,12 @@
       "url": "https://www.streetinsider.com/Analyst+Comments/Tapestry+Inc.+%28TPR%29+PT+Raised+to+%24180+at+Bernstein+SocGen+Group/26457103.html"
     }
   ],
-  "macro_score": 67,
+  "macro_score": 61,
   "macro_label": "BULLISH",
-  "macro_date": "2026-05-07",
-  "macro_date_str": "May 07, 2026",
+  "macro_date": "2026-05-08",
+  "macro_date_str": "May 08, 2026",
   "next_event": "NFP",
   "next_event_date": "2026-05-08",
   "next_event_date_str": "May 08",
-  "next_event_days": 1
+  "next_event_days": 0
 }
