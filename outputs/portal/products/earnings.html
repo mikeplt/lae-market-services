@@ -9,62 +9,71 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/style.css" />
   <style>
-    /* ── Tabs ── */
-    .earnings-tabs { display:flex; gap:8px; margin-bottom:20px; }
-    .tab-btn {
-      background:transparent; border:1px solid var(--border); color:var(--gray);
-      border-radius:6px; padding:7px 16px; font-family:var(--font-body);
-      font-size:0.82rem; font-weight:600; cursor:pointer; transition:all 0.15s;
-    }
-    .tab-btn.active { background:var(--green-glow); border-color:var(--green-border); color:var(--green); }
-    .tab-btn:hover:not(.active) { border-color:rgba(255,255,255,0.18); color:var(--white); }
-
-    /* ── Grouped archive ── */
-    #earnings-archive { display:flex; flex-direction:column; gap:10px; }
-
-    .earnings-group { display:flex; flex-direction:column; }
-    .earnings-group-header {
-      display:flex; align-items:center; gap:10px;
-      padding:9px 16px; background:var(--bg3);
-      border:1px solid var(--border); border-radius:8px 8px 0 0; border-bottom:none;
-    }
-    .group-ticker {
-      font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:700;
-      color:var(--green); background:var(--green-glow); border:1px solid var(--green-border);
-      padding:2px 8px; border-radius:4px; white-space:nowrap;
-    }
-    .group-company { font-size:0.85rem; font-weight:600; color:var(--white); }
-    .group-quarter {
-      font-family:'JetBrains Mono',monospace; font-size:0.74rem;
-      color:var(--gray); margin-left:auto; white-space:nowrap;
+    #logo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
     }
 
-    .earnings-group-entries {
-      border:1px solid var(--border); border-radius:0 0 8px 8px; overflow:hidden;
+    .company-tile {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px 16px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      transition: border-color 0.18s, background 0.15s, box-shadow 0.18s;
     }
-    .earnings-group-entries .archive-item {
-      border-radius:0; border:none; border-bottom:1px solid var(--border);
-      padding:11px 16px; transition:background 0.15s, border-color 0.15s;
-      cursor:pointer;
+    .company-tile:hover {
+      background: var(--bg3);
+      border-color: rgba(57,255,20,0.35);
+      box-shadow: 0 0 24px rgba(57,255,20,0.08);
     }
-    .earnings-group-entries .archive-item:last-child { border-bottom:none; }
-    .earnings-group-entries .archive-item:hover { background:var(--bg3); }
 
-    .item-left { display:flex; align-items:center; gap:12px; }
-
-    .type-badge {
-      font-size:9px; font-weight:700; text-transform:uppercase;
-      letter-spacing:0.1em; padding:2px 7px; border-radius:4px; white-space:nowrap; flex-shrink:0;
+    .tile-logo-wrap {
+      width: 68px;
+      height: 68px;
+      background: #fff;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
     }
-    .type-badge.preview  { background:rgba(255,255,255,0.07); color:var(--gray); }
-    .type-badge.analysis { background:rgba(255,255,255,0.07); color:var(--gray); }
-
-    /* ── Viewer ── */
-    #preview-viewer { transition:border-color 0.2s; }
-    #preview-viewer:hover {
-      border-color:rgba(57,255,20,0.3) !important;
-      box-shadow:0 0 24px rgba(57,255,20,0.07);
+    .tile-logo-wrap img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
     }
+    .tile-logo-fallback {
+      width: 68px;
+      height: 68px;
+      background: var(--green-glow);
+      border: 1px solid var(--green-border);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .tile-ticker {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 1024px) { #logo-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 640px)  { #logo-grid { grid-template-columns: repeat(2, 1fr); } }
   </style>
 </head>
 <body>
@@ -189,126 +198,57 @@
         <div class="page-header">
           <div class="page-header-meta">Quarterly · Earnings Season</div>
           <h1 class="page-title">Earnings Reports</h1>
-          <p class="page-subtitle">Fundamental analysis of individual stocks – earnings previews before reporting and reports after results publication.</p>
+          <p class="page-subtitle">Select a company to view earnings previews and post-earnings analysis reports.</p>
         </div>
 
-        <!-- Tabs -->
-        <div class="earnings-tabs">
-          <button class="tab-btn active" data-filter="all"      onclick="filterTabs('all')">All</button>
-          <button class="tab-btn"        data-filter="preview"  onclick="filterTabs('preview')">Previews</button>
-          <button class="tab-btn"        data-filter="analysis" onclick="filterTabs('analysis')">Analysis</button>
-        </div>
+        <!-- Company Logo Grid -->
+        <div id="logo-grid">
 
-        <!-- Archiv gruppiert nach Unternehmen -->
-        <div class="card mb-6">
-          <div class="card-header">
-            <span class="card-title">Stocks</span>
-          </div>
-          <div id="earnings-archive">
-
-            <!-- ── AMD ── -->
-            <div class="earnings-group">
-              <div class="earnings-group-header">
-                <span class="group-ticker">AMD</span>
-                <span class="group-company">Advanced Micro Devices, Inc.</span>
-                <span class="group-quarter">Q1 FY2026</span>
-              </div>
-              <div class="earnings-group-entries">
-                <div class="archive-item" data-type="analysis" onclick="openPreview('../../earnings-analysis/earnings-analysis-AMD-Q1-FY2026.html', this)">
-                  <div class="item-left">
-                    <span class="type-badge analysis">Analysis</span>
-                    <span class="archive-item-date">May 8, 2026 · Reported: May 5 After Close</span>
-                  </div>
-                  <span class="archive-item-arrow">→</span>
-                </div>
-              </div>
+          <a href="earnings-AMD.html" class="company-tile">
+            <div class="tile-logo-wrap">
+              <img src="https://s3-symbol-logo.tradingview.com/advanced-micro-devices.svg"
+                   alt="AMD"
+                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>AMD</div>'">
             </div>
+            <span class="tile-ticker">AMD</span>
+          </a>
 
-            <!-- ── MSFT ── -->
-            <div class="earnings-group">
-              <div class="earnings-group-header">
-                <span class="group-ticker">MSFT</span>
-                <span class="group-company">Microsoft Corporation</span>
-                <span class="group-quarter">Q3 FY2026</span>
-              </div>
-              <div class="earnings-group-entries">
-                <div class="archive-item" data-type="preview" onclick="openPreview('../../earnings-preview/earnings-preview-MSFT-Q3-FY2026.html', this)">
-                  <div class="item-left">
-                    <span class="type-badge preview">Preview</span>
-                    <span class="archive-item-date">Apr 28, 2026 · Earnings: Apr 29 After Close</span>
-                  </div>
-                  <span class="archive-item-arrow">→</span>
-                </div>
-              </div>
+          <a href="earnings-MSFT.html" class="company-tile">
+            <div class="tile-logo-wrap">
+              <img src="https://s3-symbol-logo.tradingview.com/microsoft.svg"
+                   alt="MSFT"
+                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>MSFT</div>'">
             </div>
+            <span class="tile-ticker">MSFT</span>
+          </a>
 
-            <!-- ── KO ── -->
-            <div class="earnings-group">
-              <div class="earnings-group-header">
-                <span class="group-ticker">KO</span>
-                <span class="group-company">The Coca-Cola Company</span>
-                <span class="group-quarter">Q1 FY2026</span>
-              </div>
-              <div class="earnings-group-entries">
-                <div class="archive-item" data-type="analysis" onclick="openPreview('../../earnings-analysis/earnings-analysis-KO-Q1-FY2026.html', this)">
-                  <div class="item-left">
-                    <span class="type-badge analysis">Analysis</span>
-                    <span class="archive-item-date">Apr 29, 2026 · Reported: Apr 28 Before Open</span>
-                  </div>
-                  <span class="archive-item-arrow">→</span>
-                </div>
-                <div class="archive-item" data-type="preview" onclick="openPreview('../../earnings-preview/earnings-preview-KO-Q1-FY2026.html', this)">
-                  <div class="item-left">
-                    <span class="type-badge preview">Preview</span>
-                    <span class="archive-item-date">Apr 27, 2026 · Earnings: Apr 28 Before Open</span>
-                  </div>
-                  <span class="archive-item-arrow">→</span>
-                </div>
-              </div>
+          <a href="earnings-KO.html" class="company-tile">
+            <div class="tile-logo-wrap">
+              <img src="https://s3-symbol-logo.tradingview.com/coca-cola.svg"
+                   alt="KO"
+                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>KO</div>'">
             </div>
+            <span class="tile-ticker">KO</span>
+          </a>
 
-            <!-- ── V ── -->
-            <div class="earnings-group">
-              <div class="earnings-group-header">
-                <span class="group-ticker">V</span>
-                <span class="group-company">Visa Inc.</span>
-                <span class="group-quarter">Q2 FY2026</span>
-              </div>
-              <div class="earnings-group-entries">
-                <div class="archive-item" data-type="preview" onclick="openPreview('../../earnings-preview/earnings-preview-V-Q2-FY2026.html', this)">
-                  <div class="item-left">
-                    <span class="type-badge preview">Preview</span>
-                    <span class="archive-item-date">Apr 27, 2026 · Earnings: Apr 28 After Close</span>
-                  </div>
-                  <span class="archive-item-arrow">→</span>
-                </div>
-              </div>
+          <a href="earnings-V.html" class="company-tile">
+            <div class="tile-logo-wrap">
+              <img src="https://s3-symbol-logo.tradingview.com/visa.svg"
+                   alt="V"
+                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>V</div>'">
             </div>
+            <span class="tile-ticker">V</span>
+          </a>
 
-            <!-- ── TSLA ── -->
-            <div class="earnings-group">
-              <div class="earnings-group-header">
-                <span class="group-ticker">TSLA</span>
-                <span class="group-company">Tesla, Inc.</span>
-                <span class="group-quarter">Q1 FY2026</span>
-              </div>
-              <div class="earnings-group-entries">
-                <div class="archive-item" data-type="preview" onclick="openPreview('../../earnings-preview/earnings-preview-TSLA-Q1-FY2026.html', this)">
-                  <div class="item-left">
-                    <span class="type-badge preview">Preview</span>
-                    <span class="archive-item-date">Apr 19, 2026 · Earnings: Apr 22 After Close</span>
-                  </div>
-                  <span class="archive-item-arrow">→</span>
-                </div>
-              </div>
+          <a href="earnings-TSLA.html" class="company-tile">
+            <div class="tile-logo-wrap">
+              <img src="https://s3-symbol-logo.tradingview.com/tesla.svg"
+                   alt="TSLA"
+                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>TSLA</div>'">
             </div>
+            <span class="tile-ticker">TSLA</span>
+          </a>
 
-          </div>
-        </div>
-
-        <!-- Preview Viewer -->
-        <div id="preview-viewer" style="display:none; border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:4px;">
-          <iframe id="preview-frame" src="" scrolling="no" style="width:100%; height:0; border:none; display:block; opacity:0; transition:opacity 0.2s ease;" onload="autoResize(this)"></iframe>
         </div>
 
       </div>
@@ -339,84 +279,6 @@
       sessionStorage.removeItem('lae_user');
       window.location.replace('../index.html');
     }
-    function filterTabs(type) {
-      document.querySelectorAll('.tab-btn').forEach(b =>
-        b.classList.toggle('active', b.dataset.filter === type));
-      if (activeItem) {
-        document.getElementById('preview-viewer').style.display = 'none';
-        const f = document.getElementById('preview-frame');
-        f.src = ''; f.style.height = '0px'; f.style.opacity = '0';
-        if (_frameObserver) { _frameObserver.disconnect(); _frameObserver = null; }
-        activeItem.style.borderColor = '';
-        activeItem = null;
-      }
-      document.querySelectorAll('.archive-item').forEach(item => {
-        item.style.display = (type === 'all' || item.dataset.type === type) ? '' : 'none';
-      });
-      document.querySelectorAll('.earnings-group').forEach(g => {
-        const hasVisible = [...g.querySelectorAll('.archive-item')].some(i => i.style.display !== 'none');
-        g.style.display = hasVisible ? '' : 'none';
-      });
-    }
-
-    let _frameObserver = null;
-
-    function autoResize(frame) {
-      if (_frameObserver) { _frameObserver.disconnect(); _frameObserver = null; }
-      const sync = () => {
-        try {
-          const h = frame.contentDocument.body.scrollHeight;
-          if (h > 0) frame.style.height = h + 'px';
-        } catch(e) {}
-      };
-      setTimeout(() => {
-        try {
-          sync();
-          frame.style.opacity = '1';
-          _frameObserver = new ResizeObserver(sync);
-          _frameObserver.observe(frame.contentDocument.body);
-        } catch(e) {
-          frame.style.height = '2000px';
-          frame.style.opacity = '1';
-        }
-      }, 150);
-    }
-
-    let activeItem = null;
-    function openPreview(url, item) {
-      const viewer = document.getElementById('preview-viewer');
-      const frame  = document.getElementById('preview-frame');
-
-      if (activeItem === item) {
-        frame.style.opacity = '0';
-        item.style.borderColor = '';
-        activeItem = null;
-        setTimeout(() => {
-          viewer.style.display = 'none';
-          frame.src = '';
-          frame.style.height = '0px';
-          if (_frameObserver) { _frameObserver.disconnect(); _frameObserver = null; }
-        }, 220);
-        return;
-      }
-
-      if (activeItem) activeItem.style.borderColor = '';
-      activeItem = item;
-      item.style.borderColor = 'rgba(57,255,20,0.35)';
-
-      if (_frameObserver) { _frameObserver.disconnect(); _frameObserver = null; }
-      frame.style.opacity = '0';
-
-      const load = () => {
-        frame.style.height = '0px';
-        frame.src = url;
-        viewer.style.display = 'block';
-        viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      };
-
-      viewer.style.display !== 'none' ? setTimeout(load, 200) : load();
-    }
-
     history.pushState(null, '', location.href);
     window.addEventListener('popstate', function() {
       if (sessionStorage.getItem('lae_auth') !== 'true') {

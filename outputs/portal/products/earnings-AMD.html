@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AMD – Earnings Reports – LAE Market Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    .company-header {
+      display: flex; align-items: center; gap: 20px; margin-bottom: 28px;
+    }
+    .co-logo-wrap {
+      width: 56px; height: 56px; background: #fff;
+      border-radius: 12px; display: flex; align-items: center;
+      justify-content: center; overflow: hidden; flex-shrink: 0;
+    }
+    .co-logo-wrap img { width: 42px; height: 42px; object-fit: contain; }
+    .co-logo-fallback {
+      width: 56px; height: 56px; background: var(--green-glow);
+      border: 1px solid var(--green-border); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--green);
+    }
+    .co-info { display: flex; flex-direction: column; gap: 4px; }
+    .co-ticker {
+      font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
+      color: var(--green); background: var(--green-glow);
+      border: 1px solid var(--green-border); padding: 2px 8px;
+      border-radius: 4px; display: inline-block; width: fit-content;
+    }
+    .co-name { font-size: 1.1rem; font-weight: 700; color: var(--white); }
+
+    .report-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      cursor: pointer; transition: background 0.13s; gap: 16px;
+    }
+    .report-row:last-child { border-bottom: none; }
+    .report-row:hover { background: var(--bg3); }
+    .report-row.active-report { border-left: 3px solid var(--green); padding-left: 17px; }
+    .report-row-left { display: flex; flex-direction: column; gap: 5px; }
+    .report-row-meta { display: flex; align-items: center; gap: 8px; }
+    .report-row-date { font-size: 0.8rem; color: var(--gray); }
+    .report-row-arrow {
+      color: var(--gray); flex-shrink: 0; font-size: 1rem;
+      transition: color 0.13s, transform 0.13s;
+    }
+    .report-row:hover .report-row-arrow { color: var(--green); transform: translateX(3px); }
+
+    .type-badge {
+      font-size: 9px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; padding: 2px 7px; border-radius: 4px; display: inline-block;
+    }
+    .type-badge.preview  { background: rgba(255,255,255,0.07); color: var(--gray); }
+    .type-badge.analysis { background: rgba(255,255,255,0.07); color: var(--gray); }
+
+    #preview-viewer { transition: border-color 0.2s; }
+    #preview-viewer:hover {
+      border-color: rgba(57,255,20,0.3) !important;
+      box-shadow: 0 0 24px rgba(57,255,20,0.07);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+  <div class="portal-shell">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">
+          <svg width="28" height="28" viewBox="0 0 60 60" fill="none">
+            <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+            <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="sidebar-logo-text"><span class="lae">LAE</span><span class="ms"> – Portal</span></div>
+        <button class="sidebar-toggle" onclick="toggleSidebarCollapse()" title="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">Main Menu</div>
+        <a href="../dashboard.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        <div class="nav-section-label">Products</div>
+        <a href="market-overview.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span class="nav-text">Market Overview</span>
+        </a>
+        <a href="macro-analysis.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span class="nav-text">Macro Analysis</span>
+        </a>
+        <a href="weekly-note.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span class="nav-text">Weekly Note</span>
+        </a>
+        <a href="cot-report.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span class="nav-text">COT Report</span>
+        </a>
+        <a href="earnings.html" class="nav-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span class="nav-text">Earnings Reports</span>
+        </a>
+        <div class="nav-section-label">Account</div>
+        <a href="../account.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="nav-text">Profile</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="logout()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span class="nav-text">Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="main-content">
+      <div class="topbar">
+        <div class="topbar-logo">
+          <svg width="22" height="22" viewBox="0 0 60 60" fill="none">
+            <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+            <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span><span class="lae">LAE</span><span class="ms"> – Portal</span></span>
+        </div>
+        <button class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
+      </div>
+
+      <div class="page-content">
+
+        <div class="breadcrumb">
+          <a href="../dashboard.html">Dashboard</a>
+          <span class="breadcrumb-sep">/</span>
+          <a href="earnings.html">Earnings Reports</a>
+          <span class="breadcrumb-sep">/</span>
+          <span class="current">AMD</span>
+        </div>
+
+        <div class="company-header">
+          <div class="co-logo-wrap">
+            <img src="https://s3-symbol-logo.tradingview.com/advanced-micro-devices.svg" alt="AMD"
+                 onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'co-logo-fallback\'>AMD</div>'">
+          </div>
+          <div class="co-info">
+            <span class="co-ticker">AMD</span>
+            <span class="co-name">Advanced Micro Devices, Inc.</span>
+          </div>
+        </div>
+
+        <div class="card mb-6">
+          <div class="card-header"><span class="card-title">Reports</span></div>
+
+          <div class="report-row" onclick="openPreview('../../earnings-analysis/earnings-analysis-AMD-Q1-FY2026.html', this)">
+            <div class="report-row-left">
+              <div class="report-row-meta">
+                <span class="type-badge analysis">Analysis</span>
+                <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--green);">Q1 FY2026</span>
+              </div>
+              <span class="report-row-date">May 8, 2026 · Reported: May 5, 2026 · After Close</span>
+            </div>
+            <span class="report-row-arrow">→</span>
+          </div>
+
+        </div>
+
+        <div id="preview-viewer" style="display:none; border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:4px;">
+          <iframe id="preview-frame" src="" scrolling="no" style="width:100%; height:0; border:none; display:block; opacity:0; transition:opacity 0.2s ease;" onload="autoResize(this)"></iframe>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    if (sessionStorage.getItem('lae_auth') !== 'true') window.location.replace('../index.html');
+    if (localStorage.getItem('lae-sidebar') === 'collapsed') document.body.classList.add('sidebar-collapsed');
+    function toggleSidebarCollapse() {
+      const c = document.body.classList.toggle('sidebar-collapsed');
+      localStorage.setItem('lae-sidebar', c ? 'collapsed' : 'expanded');
+    }
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebar-overlay').classList.toggle('active');
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebar-overlay').classList.remove('active');
+    }
+    function logout() {
+      sessionStorage.removeItem('lae_auth'); sessionStorage.removeItem('lae_user');
+      window.location.replace('../index.html');
+    }
+
+    let activeItem = null, _frameObserver = null;
+
+    function autoResize(frame) {
+      if (_frameObserver) { _frameObserver.disconnect(); _frameObserver = null; }
+      const sync = () => { try { const h = frame.contentDocument.body.scrollHeight; if (h > 0) frame.style.height = h + 'px'; } catch(e) {} };
+      setTimeout(() => {
+        try { sync(); frame.style.opacity = '1'; _frameObserver = new ResizeObserver(sync); _frameObserver.observe(frame.contentDocument.body); }
+        catch(e) { frame.style.height = '2000px'; frame.style.opacity = '1'; }
+      }, 150);
+    }
+
+    function openPreview(url, item) {
+      const viewer = document.getElementById('preview-viewer');
+      const frame  = document.getElementById('preview-frame');
+      if (activeItem === item) {
+        frame.style.opacity = '0'; item.classList.remove('active-report'); activeItem = null;
+        setTimeout(() => { viewer.style.display = 'none'; frame.src = ''; frame.style.height = '0px'; if (_frameObserver) { _frameObserver.disconnect(); _frameObserver = null; } }, 220);
+        return;
+      }
+      if (activeItem) activeItem.classList.remove('active-report');
+      activeItem = item; item.classList.add('active-report');
+      if (_frameObserver) { _frameObserver.disconnect(); _frameObserver = null; }
+      frame.style.opacity = '0';
+      const load = () => { frame.style.height = '0px'; frame.src = url; viewer.style.display = 'block'; viewer.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+      viewer.style.display !== 'none' ? setTimeout(load, 200) : load();
+    }
+
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => { if (sessionStorage.getItem('lae_auth') !== 'true') window.location.replace('../index.html'); });
+  </script>
+
+</body>
+</html>
