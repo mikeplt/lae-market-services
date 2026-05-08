@@ -7,21 +7,21 @@ from pathlib import Path
 
 # ── HEADER ────────────────────────────────────────────────────────────────────
 DATA = {
-    "DATUM":           "April 29, 2026",
-    "TICKER":          "KO",
-    "COMPANY_NAME":    "The Coca-Cola Company",
+    "DATUM":           "May 8, 2026",
+    "TICKER":          "AMD",
+    "COMPANY_NAME":    "Advanced Micro Devices, Inc.",
     "QUARTER":         "Q1 FY2026",
-    "REPORT_DATE":     "April 28, 2026",
-    "REPORT_TIME":     "Before Open",
-    "STOCK_PREV_DATE": "Apr. 25",       # Tag vor den Earnings (Kurs aus Preview)
-    "STOCK_PREV":      "$ 76.31",       # Kurs vor Earnings
-    "STOCK_POST_DATE": "Apr. 28",       # Tag nach den Earnings
-    "STOCK_AFTER":     "$ 78.59",       # Schlusskurs nach Earnings
-    "STOCK_REACT":     "▲ 3.0%",        # Tatsächliche Kursreaktion
-    "REACT_CLASS":     "green",         # "green" oder "red"
+    "REPORT_DATE":     "May 5, 2026",
+    "REPORT_TIME":     "After Close",
+    "STOCK_PREV_DATE": "May 5",        # Schlusskurs am Tag der Earnings (vor AH)
+    "STOCK_PREV":      "$ 363.00",     # Kurs vor Earnings
+    "STOCK_POST_DATE": "May 6",        # Erster Handelstag nach Earnings
+    "STOCK_AFTER":     "$ 421.39",     # Schlusskurs nach Earnings
+    "STOCK_REACT":     "▲ +16.1%",    # Tatsächliche Kursreaktion
+    "REACT_CLASS":     "green",        # "green" oder "red"
     "TV_IFRAME_SRC": (
         "https://www.tradingview.com/embed-widget/mini-symbol-overview/"
-        "?symbol=NYSE%3AKO&locale=en&dateRange=12M&colorTheme=dark"
+        "?symbol=NASDAQ%3AAMD&locale=en&dateRange=12M&colorTheme=dark"
         "&trendLineColor=%2339ff14&underLineColor=rgba(57%2C255%2C20%2C0.15)"
         "&underLineBottomColor=rgba(57%2C255%2C20%2C0)&isTransparent=true&autosize=true"
     ),
@@ -32,10 +32,10 @@ DATA = {
 # vs_class: "pos" (grün) | "neg" (rot) | "neutral" (gelb)
 # status:   "beat" | "missed" | "in-line"
 RESULTS = [
-    ("Revenue (total)",       "$ 12.2B",  "$ 12.5B",  "▲ +$0.3B",   "pos", "beat"),
-    ("Organic Revenue Growth","~ +5.5%",  "+10%",     "▲ +4.5 pp",  "pos", "beat"),
-    ("EPS (adj.)",            "$ 0.81",   "$ 0.86",   "▲ +$0.05",   "pos", "beat"),
-    ("Unit Case Volume",      "~ +2%",    "+3%",      "▲ +1 pp",    "pos", "beat"),
+    ("Revenue (total)",          "$ 9.84B",   "$ 10.25B",  "▲ +$0.41B",  "pos", "beat"),
+    ("Data Center Revenue",      "~ $ 5.3B",  "$ 5.8B",    "▲ +$0.5B",   "pos", "beat"),
+    ("EPS (non-GAAP adj.)",      "$ 1.25",    "$ 1.37",    "▲ +$0.12",   "pos", "beat"),
+    ("Non-GAAP Gross Margin",    "~ 54.5%",   "55.0%",     "▲ +0.5 pp",  "pos", "beat"),
 ]
 
 # ── SCENARIO RESULT ────────────────────────────────────────────────────────────
@@ -43,16 +43,17 @@ RESULTS = [
 SCENARIO_RESULT = {
     "played_out": "bull",
     "tag":        "Bull",
-    "reaction":   "▲ 3.0%",
-    "driver":     "Organic Growth Surge + Full Beat + Guidance Raise",
-    "revenue":    "$ 12.5B",
-    "eps":        "$ 0.86",
+    "reaction":   "▲ +16.1%",
+    "driver":     "Data Center Beat + Full EPS Beat + Strong Q2 Guidance",
+    "revenue":    "$ 10.25B",
+    "eps":        "$ 1.37",
     "summary":    (
-        "Coca-Cola delivered its best organic revenue growth in five quarters at +10%, "
-        "massively topping the ~+5.5% consensus estimate. Volume, price, and mix all contributed. "
-        "Management raised full-year EPS guidance to 8–9% growth from the prior 7–8% outlook. "
-        "The stock surged intraday (+4.49%) before closing up 3.0% at $78.59 – "
-        "above the implied move of ±2.5%."
+        "AMD delivered its best post-earnings session in seven years – the stock surged +16.1% "
+        "on May 6, 2026, closing at $421.39. Revenue of $10.25B crushed the $9.84B consensus by $0.41B, "
+        "up 38% year-over-year. The Data Center segment led the way at $5.8B (+57% YoY), driven by "
+        "explosive demand for EPYC server CPUs and Instinct AI GPUs. A blockbuster Meta partnership "
+        "announcement – up to 6 GW of Instinct GPU deployments – supercharged the bull narrative. "
+        "Q2 guidance of $11.2B topped the ~$10.9B estimate, cementing AMD's AI infrastructure momentum."
     ),
 }
 
@@ -60,52 +61,58 @@ SCENARIO_RESULT = {
 # Format: (Nr, Title, status, Beschreibung was tatsächlich passiert ist)
 # status: "triggered" | "missed" | "partial"
 CATALYST_RESULTS = [
-    ("01", "Organic Revenue Growth", "triggered",
-     "Organic revenue grew +10% – the best result in five quarters and far above the ~+5.5% consensus estimate. "
-     "Driven by 8% concentrate sales growth and 2% price/mix improvement."),
-    ("02", "Unit Case Volume", "triggered",
-     "Unit case volume grew +3%, beating the ~+2% estimate. "
-     "Growth was broad-based across all operating segments, supported by strong brand activation and innovation."),
-    ("03", "FY2026 EPS Guidance", "triggered",
-     "Full-year comparable EPS growth guidance raised to 8–9% (from 7–8% prior), "
-     "driven by a lower effective tax rate of 19.9% and stronger underlying business momentum."),
-    ("04", "New CEO Braun – Strategic Commentary", "triggered",
-     "CEO James Quincey's successor provided constructive commentary on portfolio strategy and volume recovery. "
-     "Market viewed the tone as confident and execution-focused – no major strategic pivots announced."),
-    ("05", "Currency Headwinds", "triggered",
-     "A 3% currency tailwind (positive surprise vs. prior headwind expectations) boosted comparable EPS. "
-     "The FX environment shifted favorably, removing a key bear-case risk heading into H2 2026."),
+    ("01", "Data Center Revenue Surge", "triggered",
+     "Data Center segment revenue hit $5.8B, up 57% year-over-year, crushing the ~$5.3B estimate. "
+     "Both EPYC server CPUs and Instinct AI GPUs contributed to the outperformance. "
+     "AMD's Data Center segment is now the clear growth engine of the company."),
+    ("02", "Meta Partnership – Instinct GPU Deployment", "triggered",
+     "AMD and Meta announced plans to deploy up to 6 GW of AMD Instinct GPUs, "
+     "with the first 1-GW tranche powered by a custom MI450-based GPU. "
+     "This is one of the largest single AI infrastructure commitments ever announced – a major demand signal."),
+    ("03", "Q2 FY2026 Revenue Guidance Beat", "triggered",
+     "AMD guided Q2 revenue to approximately $11.2B (±$300M), well above the ~$10.9B Street estimate. "
+     "This represents ~46% year-over-year growth and confirms AI infrastructure demand acceleration "
+     "heading into the second half of 2026."),
+    ("04", "Non-GAAP EPS Beat", "triggered",
+     "Non-GAAP diluted EPS of $1.37 beat the $1.25 consensus by $0.12, or +9.6%. "
+     "On a year-over-year basis, EPS grew 43%, reflecting strong operating leverage as "
+     "Data Center scale benefits flow through to the bottom line."),
+    ("05", "Server CPU Market Share Momentum", "triggered",
+     "Lisa Su confirmed server CPU market growth exceeding 35% and a CPU-to-GPU ratio target of 1:1. "
+     "Server CPU revenue is expected to grow more than 70% year-over-year in Q2 FY2026, "
+     "signaling sustained EPYC share gains versus Intel in the data center."),
 ]
 
 # ── FORWARD GUIDANCE ───────────────────────────────────────────────────────────
 # Format: (Metric, Alte Guidance, Neue Guidance, change_class)
 # change_class: "pos" | "neg" | "neutral"
 GUIDANCE = [
-    ("Organic Revenue Growth FY2026", "mid-single digits",  "4–5%",         "neutral"),
-    ("Comparable EPS Growth FY2026",  "+7–8% (vs. $3.00)",  "+8–9%",        "pos"),
-    ("Effective Tax Rate FY2026",     "~ 20.5%",            "19.9%",        "pos"),
-    ("Currency Impact",               "headwind",           "~3% tailwind", "pos"),
+    ("Q2 FY2026 Revenue",              "~ $10.9B (consensus)",  "$11.2B (±$300M)",  "pos"),
+    ("Q2 Non-GAAP Gross Margin",       "~ 54.5%",               "~ 56%",            "pos"),
+    ("Q2 Non-GAAP Operating Expenses", "~ $3.2B",               "~ $3.3B",          "neg"),
+    ("Server CPU Revenue Growth Q2",   "~ +50% YoY",            "> +70% YoY",       "pos"),
 ]
 
 # ── OUTLOOK ────────────────────────────────────────────────────────────────────
 # Format: (Nr, Title, Text) – 3–4 Ausblickspunkte
 OUTLOOK = [
-    ("01", "Organic Growth Sustainability",
-     "The +10% organic growth print was the best in five quarters, but the bar is now reset higher. "
-     "Q2 2026 consensus sits around +5–6% – any deceleration would be scrutinized. "
-     "Management's 4–5% full-year guidance implies a moderation, keeping expectations in check."),
-    ("02", "Volume Recovery Trajectory",
-     "+3% unit case volume marks a meaningful re-acceleration from prior sluggishness. "
-     "The key question for H2 2026 is whether volume can hold at 2–3% as pricing tailwinds fade. "
-     "Emerging market performance and North America execution will be the key indicators to watch."),
-    ("03", "Currency Tailwind Duration",
-     "The unexpected 3% FX tailwind was a key upside driver for comparable EPS. "
-     "This is unlikely to persist at this magnitude – if the dollar strengthens in H2, "
-     "the FX benefit reverses and creates a headwind vs. raised expectations."),
+    ("01", "AI Infrastructure Demand Cycle",
+     "The Meta partnership – up to 6 GW of Instinct GPU deployments – is a multi-year demand signal. "
+     "As hyperscalers ramp AI workloads, AMD's Instinct GPU lineup directly competes with Nvidia's H-series. "
+     "The key question for H2 2026: can AMD maintain supply to meet accelerating hyperscaler demand?"),
+    ("02", "Server CPU Market Share vs. Intel",
+     "AMD's EPYC is firmly in share-gain mode with server CPU revenue expected to grow >70% YoY in Q2. "
+     "Lisa Su's 1:1 CPU-to-GPU ratio target signals how deeply AMD is embedding itself "
+     "in AI data center infrastructure – a strategic moat that compounds over time."),
+    ("03", "Embedded & Gaming Recovery Pace",
+     "Embedded revenue of $873M (+6% YoY) is recovering but remains sluggish vs. the Data Center. "
+     "Gaming ($720M, +11% YoY) showed resilience driven by Radeon GPU demand. "
+     "Neither segment is a near-term growth catalyst – the Data Center dominates the story."),
     ("04", "Valuation & Price Target",
-     "KO closed at $78.59 after the print – a fair reward for a strong beat. "
-     "At these levels the stock trades at a slight premium to historical averages. "
-     "Key support at $76, resistance at $80–82. Defensive profile remains intact for risk-off environments."),
+     "AMD closed at $421.39 post-earnings – up +16.1% on its best post-earnings day in seven years. "
+     "At these levels, the premium reflects strong AI execution and hyperscaler partnerships. "
+     "Key support at $390–400, resistance at $430–440. Continued Data Center outperformance "
+     "is required to justify the elevated multiple."),
 ]
 
 # ── HTML BUILD ────────────────────────────────────────────────────────────────
