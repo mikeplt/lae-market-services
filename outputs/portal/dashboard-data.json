@@ -29,37 +29,37 @@
       "date": "2026-04-30"
     }
   ],
-  "news_updated": "2026-05-07T19:48:19",
+  "news_updated": "2026-05-08T07:49:25",
   "news": [
     {
-      "title": "Blackstone, BlackRock cut value of their private credit funds",
-      "source": "Reuters",
-      "time_published": "20260507T173711",
-      "url": "https://www.reuters.com/legal/transactional/blackrock-cut-private-credit-funds-value-by-5-first-quarter-2026-05-07/"
-    },
-    {
-      "title": "Palo Alto Networks’ stock is basking in the glow of a cybersecurity revival",
+      "title": "RELX falls Thursday, underperforms market",
       "source": "MarketWatch",
-      "time_published": "20260507T190316",
-      "url": "https://www.marketwatch.com/story/palo-alto-networks-stock-is-basking-in-the-glow-of-a-cybersecurity-revival-c822e0aa"
+      "time_published": "20260508T053943",
+      "url": "https://www.marketwatch.com/data-news/relx-falls-thursday-underperforms-market-7e6c4669-f447ad1ef519"
     },
     {
-      "title": "TLTD Stock Fund Price and Chart — BOATS:TLTD",
-      "source": "TradingView",
-      "time_published": "20260507T191003",
-      "url": "https://www.tradingview.com/symbols/BOATS-TLTD/"
+      "title": "Syensqo - Participation notification by BlackRock Inc.",
+      "source": "Yahoo Finance Singapore",
+      "time_published": "20260508T064516",
+      "url": "https://sg.finance.yahoo.com/news/syensqo-participation-notification-blackrock-inc-064500526.html"
     },
     {
-      "title": "Boeing $695 Billion Backlog Is Just the Beginning. Here’s Where BA Could Go by 2030.",
-      "source": "TIKR.com",
-      "time_published": "20260507T190704",
-      "url": "https://www.tikr.com/blog/boeing-695-billion-backlog-is-just-the-beginning-heres-where-ba-could-go-by-2030"
+      "title": "Eaton (ETN) Is Down 7.8% After Raising 2026 Guidance Amid Margin Pressure and AI Bet",
+      "source": "Yahoo Finance",
+      "time_published": "20260508T051238",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/eaton-etn-down-7-8-051347919.html"
     },
     {
-      "title": "Rockwell Automation, Inc. Just Recorded A 15% EPS Beat: Here's What Analysts Are Forecasting Next",
-      "source": "Simply Wall Street",
-      "time_published": "20260507T190022",
-      "url": "https://simplywall.st/stocks/us/capital-goods/nyse-rok/rockwell-automation/news/rockwell-automation-inc-just-recorded-a-15-eps-beat-heres-wh"
+      "title": "KLA's 10-for-1 Stock Split Signals Major Confidence",
+      "source": "BriefGlance",
+      "time_published": "20260508T070219",
+      "url": "https://briefglance.com/articles/klas-10-for-1-stock-split-signals-major-confidence"
+    },
+    {
+      "title": "Is Humana a value trap? Falling EPS outlook vs. surging share price",
+      "source": "Latest news from Azerbaijan",
+      "time_published": "20260508T070212",
+      "url": "https://news.az/news/is-humana-a-value-trap-falling-eps-outlook-vs-surging-share-price"
     }
   ],
   "macro_score": 67,
