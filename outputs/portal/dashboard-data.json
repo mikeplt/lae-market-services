@@ -29,37 +29,37 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-08T15:27:55",
+  "news_updated": "2026-05-08T19:38:50",
   "news": [
     {
-      "title": "ITDI Stock Fund Price and Chart — AMEX:ITDI",
-      "source": "TradingView",
-      "time_published": "20260508T143940",
-      "url": "https://www.tradingview.com/symbols/AMEX-ITDI/"
+      "title": "AM Best Affirms Credit Ratings of Prudential Financial, Inc. and Its Life/Health Subsidiaries",
+      "source": "Yahoo Finance",
+      "time_published": "20260508T184419",
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/am-best-affirms-credit-ratings-184400927.html"
     },
     {
-      "title": "iShares Morningstar Small-Cap ETF (NY: ISCB",
-      "source": "FinancialContent",
-      "time_published": "20260508T143909",
-      "url": "https://markets.financialcontent.com/stocks/quote?Symbol=321%3A546405"
+      "title": "PODD Maintained by Barclays -- Price Target Lowered to $198",
+      "source": "GuruFocus",
+      "time_published": "20260508T190517",
+      "url": "https://www.gurufocus.com/news/8846568/podd-maintained-by-barclays-price-target-lowered-to-198"
     },
     {
-      "title": "Cisco Systems (CSCO) Q3 2026 Preview: EPS Est. $1.04, Reports May 13",
-      "source": "AlphaStreet",
-      "time_published": "20260508T143019",
-      "url": "https://news.alphastreet.com/cisco-systems-csco-q3-2026-preview-eps-est-1-04-reports-may-13/"
+      "title": "Monolithic Power Systems director Wynne sells $530,197 in stock",
+      "source": "Investing.com",
+      "time_published": "20260508T185905",
+      "url": "https://www.investing.com/news/insider-trading-news/monolithic-power-systems-director-wynne-sells-530197-in-stock-93CH-4673803"
     },
     {
-      "title": "Ulta Beauty Inc. Stock (US90384S3031): Analysts See Upside After Recent Price Pullback",
+      "title": "KeyCorp (KEY) Valuation Check As Southeast Michigan Expansion Targets Middle Market Growth",
+      "source": "Simply Wall Street",
+      "time_published": "20260508T185454",
+      "url": "https://simplywall.st/stocks/us/banks/nyse-key/keycorp/news/keycorp-key-valuation-check-as-southeast-michigan-expansion"
+    },
+    {
+      "title": "Labcorp stock (US50540R4092): Q1 2026 beats fuel investor interest",
       "source": "AD HOC NEWS",
-      "time_published": "20260508T142929",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/ulta-beauty-inc-stock-us90384s3031-analysts-see-upside-after-recent/69293409"
-    },
-    {
-      "title": "Fortinet's price target raised but Susquehanna remains Neutral after 'solid' Q1",
-      "source": "Seeking Alpha",
-      "time_published": "20260508T141836",
-      "url": "https://seekingalpha.com/news/4589879-fortinets-price-target-raised-but-susquehanna-remains-neutral-after-solid-q1"
+      "time_published": "20260508T185357",
+      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/labcorp-stock-us50540r4092-q1-2026-beats-fuel-investor-interest/69294894"
     }
   ],
   "macro_score": 61,
