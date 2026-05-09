@@ -363,6 +363,24 @@ def main():
         else:
             print(f"  Portal:  Eintrag bereits vorhanden")
 
+    # Dashboard-Data JSON aktualisieren
+    import json
+    dash_json = base_dir / "outputs" / "portal" / "dashboard-data.json"
+    new_entry = {
+        "type": "Weekly Note",
+        "title": f"Weekly Note · CW {data['kw']}",
+        "teaser": f"Market outlook for calendar week {data['kw']}. Key levels, macro events and sector highlights.",
+        "link": "./products/weekly-note.html",
+        "date": datum_str,
+    }
+    dash = {}
+    if dash_json.exists():
+        try: dash = json.loads(dash_json.read_text(encoding="utf-8"))
+        except Exception: pass
+    dash["updates"] = [new_entry] + [u for u in dash.get("updates", []) if u.get("type") != "Weekly Note"]
+    dash_json.write_text(json.dumps(dash, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"  Dashboard: aktualisiert (CW {data['kw']})")
+
 
 if __name__ == "__main__":
     main()

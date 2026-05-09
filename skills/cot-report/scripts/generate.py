@@ -571,5 +571,25 @@ def main():
         else:
             print(f"  Portal:        Eintrag bereits vorhanden")
 
+    # ── Dashboard-Data JSON aktualisieren ─────────────────────────────────────
+    dash_json = Path(__file__).parents[3] / "outputs" / "portal" / "dashboard-data.json"
+    pub_date  = datetime.today().strftime("%Y-%m-%d")
+    kw        = L["date"].isocalendar()[1]
+    yr        = L["date"].year
+    new_entry = {
+        "type": "COT Report",
+        "title": f"COT Report · CW {kw} · {yr}",
+        "teaser": "Latest Commitments of Traders data for S&P 500 E-Mini futures. Net positioning, commercial vs. non-commercial flows.",
+        "link": "./products/cot-report.html",
+        "date": pub_date,
+    }
+    dash = {}
+    if dash_json.exists():
+        try: dash = json.loads(dash_json.read_text(encoding="utf-8"))
+        except Exception: pass
+    dash["updates"] = [new_entry] + [u for u in dash.get("updates", []) if u.get("type") != "COT Report"]
+    dash_json.write_text(json.dumps(dash, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"  Dashboard:     aktualisiert (CW {kw} · {yr})")
+
 if __name__ == "__main__":
     main()
