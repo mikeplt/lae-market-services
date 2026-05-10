@@ -1,18 +1,18 @@
 {
   "updates": [
     {
+      "type": "Weekly Note",
+      "title": "Weekly Note · CW 19",
+      "teaser": "Market outlook for calendar week 19. Key levels, macro events and sector highlights.",
+      "link": "./products/weekly-note.html",
+      "date": "2026-05-10"
+    },
+    {
       "type": "Macro Analysis",
       "title": "Macro Analysis · May 08, 2026",
       "teaser": "US macro score at 61/100 – BULLISH. Full dashboard with interactive charts.",
       "link": "./products/macro-analysis.html",
       "date": "2026-05-08"
-    },
-    {
-      "type": "Weekly Note",
-      "title": "Weekly Note · CW 18",
-      "teaser": "The market shows early signs of recovery, but seasonal headwinds remain a challenge. Our outlook for the week ahead.",
-      "link": "./products/weekly-note.html",
-      "date": "2026-05-04"
     },
     {
       "type": "COT Report",
