@@ -29,37 +29,37 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-11T12:42:49",
+  "news_updated": "2026-05-11T16:35:56",
   "news": [
     {
-      "title": "Collective Audience, Inc. (CAUD) Company Information",
+      "title": "JPMorgan Chase-led bank group reins in credit line to troubled KKR private credit fund as losses mount",
+      "source": "CNBC",
+      "time_published": "20260511T160753",
+      "url": "https://www.cnbc.com/2026/05/11/kkr-private-credit-fund-fsk-jpmorgan-chase-credit.html"
+    },
+    {
+      "title": "MOS Q1 Earnings Lag Estimates on Higher Input Costs, Sales Up Y/Y",
+      "source": "Yahoo Finance Singapore",
+      "time_published": "20260511T150803",
+      "url": "https://sg.finance.yahoo.com/news/mos-q1-earnings-lag-estimates-145100768.html"
+    },
+    {
+      "title": "Tesla $400 core value leaves Optimus & AI upside fully unpriced: Piper analyst view",
+      "source": "Seeking Alpha",
+      "time_published": "20260511T160100",
+      "url": "https://seekingalpha.com/news/4590624-tesla-400-core-value-leaves-optimus-ai-upside-fully-unpriced-piper-analyst-view"
+    },
+    {
+      "title": "Analysts Have Made A Financial Statement On Jumia Technologies AG's (NYSE:JMIA) First-Quarter Report",
       "source": "Simply Wall Street",
-      "time_published": "20260511T121010",
-      "url": "https://simplywall.st/stocks/us/media/otc-caud/collective-audience/information"
+      "time_published": "20260511T155809",
+      "url": "https://simplywall.st/stocks/us/retail/nyse-jmia/jumia-technologies/news/analysts-have-made-a-financial-statement-on-jumia-technologi"
     },
     {
-      "title": "Total operating expenses of Carlsmed, Inc. – LS:A41CM7",
-      "source": "TradingView",
-      "time_published": "20260511T120927",
-      "url": "https://www.tradingview.com/symbols/LS-A41CM7/financials-income-statement/total-oper-expense/"
-    },
-    {
-      "title": "Regeneron Pharma stock (US75886F1075): Biotech leader in eye and oncology treatments",
+      "title": "IDEX Corporation stock (US45167R1041): Q1 earnings beat lifts shares",
       "source": "AD HOC NEWS",
-      "time_published": "20260511T120826",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/regeneron-pharma-stock-us75886f1075-biotech-leader-in-eye-and-oncology/69304903"
-    },
-    {
-      "title": "Swiss Life Asset Management Ltd Boosts Holdings in Regions Financial Corporation $RF",
-      "source": "MarketBeat",
-      "time_published": "20260511T120625",
-      "url": "https://www.marketbeat.com/instant-alerts/filing-swiss-life-asset-management-ltd-boosts-holdings-in-regions-financial-corporation-rf-2026-05-11/"
-    },
-    {
-      "title": "Carlyle Secured Lending Releases Q1 2026 Financial Results",
-      "source": "AlphaStreet",
-      "time_published": "20260511T120310",
-      "url": "https://news.alphastreet.com/carlyle-secured-lending-releases-q1-2026-financial-results/"
+      "time_published": "20260511T155647",
+      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/idex-corporation-stock-us45167r1041-q1-earnings-beat-lifts-shares/69306919"
     }
   ],
   "macro_score": 61,
