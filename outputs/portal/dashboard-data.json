@@ -29,37 +29,37 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-08T19:38:50",
+  "news_updated": "2026-05-11T09:52:21",
   "news": [
     {
-      "title": "AM Best Affirms Credit Ratings of Prudential Financial, Inc. and Its Life/Health Subsidiaries",
-      "source": "Yahoo Finance",
-      "time_published": "20260508T184419",
-      "url": "https://finance.yahoo.com/sectors/healthcare/articles/am-best-affirms-credit-ratings-184400927.html"
+      "title": "Centric Wealth Management Sells 15,476 Shares of Procter & Gamble Company (The) $PG",
+      "source": "MarketBeat",
+      "time_published": "20260511T090610",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-centric-wealth-management-sells-15476-shares-of-procter-gamble-company-the-pg-2026-05-11/"
     },
     {
-      "title": "PODD Maintained by Barclays -- Price Target Lowered to $198",
-      "source": "GuruFocus",
-      "time_published": "20260508T190517",
-      "url": "https://www.gurufocus.com/news/8846568/podd-maintained-by-barclays-price-target-lowered-to-198"
-    },
-    {
-      "title": "Monolithic Power Systems director Wynne sells $530,197 in stock",
-      "source": "Investing.com",
-      "time_published": "20260508T185905",
-      "url": "https://www.investing.com/news/insider-trading-news/monolithic-power-systems-director-wynne-sells-530197-in-stock-93CH-4673803"
-    },
-    {
-      "title": "KeyCorp (KEY) Valuation Check As Southeast Michigan Expansion Targets Middle Market Growth",
-      "source": "Simply Wall Street",
-      "time_published": "20260508T185454",
-      "url": "https://simplywall.st/stocks/us/banks/nyse-key/keycorp/news/keycorp-key-valuation-check-as-southeast-michigan-expansion"
-    },
-    {
-      "title": "Labcorp stock (US50540R4092): Q1 2026 beats fuel investor interest",
+      "title": "Brown & Brown Inc. stock (US1156371007): Ex-dividend date arrives May 11",
       "source": "AD HOC NEWS",
-      "time_published": "20260508T185357",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/labcorp-stock-us50540r4092-q1-2026-beats-fuel-investor-interest/69294894"
+      "time_published": "20260511T090210",
+      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/brown-and-brown-inc-stock-us1156371007-ex-dividend-date-arrives-may/69303457"
+    },
+    {
+      "title": "Why United Fire Group (UFCS) Is Up 22.9% After Underwriting-Driven Q1 2026 Earnings Beat - And What's Next",
+      "source": "Simply Wall Street",
+      "time_published": "20260511T084821",
+      "url": "https://simplywall.st/stocks/us/insurance/nasdaq-ufcs/united-fire-group/news/why-united-fire-group-ufcs-is-up-229-after-underwriting-driv"
+    },
+    {
+      "title": "US Utility Q1 2026 Beats: WEC, PEG, Entergy Top Estimates",
+      "source": "Gotrade",
+      "time_published": "20260511T084436",
+      "url": "https://www.heygotrade.com/en/news/us-utility-q1-2026-earnings-beats-wec-peg-entergy/"
+    },
+    {
+      "title": "State Street Group Exits Substantial Holding in WA1 Resources",
+      "source": "TipRanks",
+      "time_published": "20260511T082930",
+      "url": "https://www.tipranks.com/news/company-announcements/state-street-group-exits-substantial-holding-in-wa1-resources"
     }
   ],
   "macro_score": 61,
