@@ -335,6 +335,8 @@ def _scrape_investing_calendar(date_from: date, date_to: date) -> list:
         event_date, time_et = _utc_to_et(row.get("data-event-datetime", ""))
         if event_date is None:
             continue
+        if not (date_from <= event_date <= date_to):
+            continue
 
         events.append({
             "tag": _DAY_EN.get(event_date.weekday(), "–"),
