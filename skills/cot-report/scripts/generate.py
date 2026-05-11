@@ -6,6 +6,7 @@ TFF Futures Only · S&P 500 E-Mini · Visueller Report für Daytrader
 import csv
 import io
 import json
+import math
 import sys
 import zipfile
 from datetime import datetime
@@ -173,6 +174,17 @@ def build_html(series: list[dict]) -> str:
     ci     = cot_idx(am_v)
     ci_s   = cot_idx_series(am_v)
 
+    _step    = 50_000
+    am_ymin  = math.floor(min(am_v) / _step) * _step
+    am_ymax  = math.ceil(max(am_v)  / _step) * _step
+    lf_ymin  = math.floor(min(lf_v) / _step) * _step
+    lf_ymax  = math.ceil(max(lf_v)  / _step) * _step
+    am_avg   = round(sum(am_v) / len(am_v))
+    lf_avg   = round(sum(lf_v) / len(lf_v))
+    _oi_step = 100_000
+    oi_ymin  = math.floor(min(oi_v) / _oi_step) * _oi_step
+    oi_ymax  = math.ceil(max(oi_v)  / _oi_step) * _oi_step
+
     kw     = L["date"].isocalendar()[1]
     yr     = L["date"].year
 
@@ -301,7 +313,7 @@ body{{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;fon
     </div>
   </div>
 
-  <div class="kpi">
+  <div class="kpi hl">
     <div class="kpi-lbl">Net Position</div>
     <div class="kpi-grp">LEVERAGED FUNDS</div>
     <div class="kpi-val {sc(lf_net)}">{fmt(lf_net)}</div>
@@ -311,7 +323,7 @@ body{{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;fon
     </div>
   </div>
 
-  <div class="kpi">
+  <div class="kpi hl">
     <div class="kpi-lbl">COT Index (52W)</div>
     <div class="kpi-grp">ASSET MANAGER</div>
     <div class="kpi-val" style="color:{idx_clr(ci)}">{ci}</div>
@@ -325,7 +337,7 @@ body{{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;fon
     </div>
   </div>
 
-  <div class="kpi">
+  <div class="kpi hl">
     <div class="kpi-lbl">Open Interest</div>
     <div class="kpi-grp">TOTAL</div>
     <div class="kpi-val neutral">{fmt_abs(oi_now)}</div>
@@ -339,15 +351,24 @@ body{{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;fon
 
 <!-- CHARTS -->
 <div class="sec">Historical Positioning (52 Weeks)</div>
-<div style="margin-bottom:14px">
+<div style="margin-bottom:14px;display:grid;gap:14px">
   <div class="card full">
-    <div class="card-title">Net Positioning &ndash; Asset Manager &amp; Leveraged Funds</div>
+    <div class="card-title">Net Positioning &ndash; Asset Manager</div>
     <div class="card-sub">Contracts (Long minus Short) &middot; weekly &middot; last 52 weeks</div>
     <div class="legend">
       <div class="leg-item"><div class="leg-dot" style="background:#39ff14;box-shadow:0 0 5px #39ff14aa"></div>Asset Manager</div>
-      <div class="leg-item"><div class="leg-dash"></div>Leveraged Funds</div>
+      <div class="leg-item"><div class="leg-dash" style="background:repeating-linear-gradient(90deg,rgba(57,255,20,.45) 0 3px,transparent 3px 6px)"></div>Asset Manager Ø 52W</div>
     </div>
-    <div class="chart-wrap h280"><canvas id="netChart"></canvas></div>
+    <div class="chart-wrap h220"><canvas id="amChart"></canvas></div>
+  </div>
+  <div class="card full">
+    <div class="card-title">Net Positioning &ndash; Leveraged Funds</div>
+    <div class="card-sub">Contracts (Long minus Short) &middot; weekly &middot; last 52 weeks</div>
+    <div class="legend">
+      <div class="leg-item"><div class="leg-dash"></div>Leveraged Funds</div>
+      <div class="leg-item"><div class="leg-dash" style="background:repeating-linear-gradient(90deg,rgba(122,136,153,.45) 0 3px,transparent 3px 6px)"></div>Leveraged Funds Ø 52W</div>
+    </div>
+    <div class="chart-wrap h220"><canvas id="lfChart"></canvas></div>
   </div>
 </div>
 
@@ -359,7 +380,7 @@ body{{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;fon
   </div>
   <div class="card">
     <div class="card-title">Open Interest</div>
-    <div class="card-sub">Total open contracts &middot; current value highlighted</div>
+    <div class="card-sub">Total open contracts &middot; weekly &middot; last 52 weeks</div>
     <div class="chart-wrap h220"><canvas id="oiChart"></canvas></div>
   </div>
 </div>
@@ -429,33 +450,65 @@ const zeroLine={{
 }};
 
 // NET POSITIONING
-new Chart(document.getElementById('netChart'),{{
+const amAvg = {am_avg};
+const lfAvg = {lf_avg};
+const netTooltip = {{...tt,callbacks:{{
+  label:ctx=>ctx.dataset.pointHoverRadius===0?` ${{ctx.dataset.label}}: ${{(ctx.parsed.y/1000).toFixed(0)}}K (Ø)`
+                                             :` ${{ctx.dataset.label}}: ${{ctx.parsed.y.toLocaleString('en-US')}} Contracts`
+}}}};
+
+new Chart(document.getElementById('amChart'),{{
   type:'line',plugins:[zeroLine],
   data:{{labels,datasets:[
     {{
       label:'Asset Manager',data:amData,
       borderColor:'#39ff14',
-      backgroundColor:(ctx)=>{{const g=ctx.chart.ctx.createLinearGradient(0,0,0,280);g.addColorStop(0,'rgba(57,255,20,.12)');g.addColorStop(1,'rgba(57,255,20,.01)');return g;}},
+      backgroundColor:(ctx)=>{{const g=ctx.chart.ctx.createLinearGradient(0,0,0,220);g.addColorStop(0,'rgba(57,255,20,.12)');g.addColorStop(1,'rgba(57,255,20,.01)');return g;}},
       borderWidth:2,pointRadius:0,pointHoverRadius:5,
       pointHoverBackgroundColor:'#39ff14',pointHoverBorderColor:'#090c11',pointHoverBorderWidth:2,
       tension:.38,fill:true
     }},
     {{
-      label:'Leveraged Funds',data:lfData,
-      borderColor:'#7a8899',backgroundColor:'transparent',
-      borderWidth:1.5,borderDash:[5,4],pointRadius:0,pointHoverRadius:4,
-      pointHoverBackgroundColor:'#7a8899',tension:.38,fill:false
+      label:'Asset Manager Ø 52W',data:Array(labels.length).fill(amAvg),
+      borderColor:'rgba(57,255,20,.35)',backgroundColor:'transparent',
+      borderWidth:1,borderDash:[3,5],pointRadius:0,pointHoverRadius:0,
+      tension:0,fill:false
     }}
   ]}},
   options:{{
     responsive:true,maintainAspectRatio:false,
     interaction:{{mode:'index',intersect:false}},
-    plugins:{{legend:{{display:false}},tooltip:{{...tt,callbacks:{{
-      label:ctx=>` ${{ctx.dataset.label}}: ${{ctx.parsed.y.toLocaleString('de-DE')}} Kontrakte`
-    }}}}}},
+    plugins:{{legend:{{display:false}},tooltip:{{...netTooltip}}}},
     scales:{{
       x:{{grid:{{display:false}},ticks:{{maxTicksLimit:10,maxRotation:0}}}},
-      y:{{grid:{{color:'rgba(255,255,255,.04)'}},ticks:{{callback:v=>Math.abs(v)>=1000?(v/1000).toFixed(0)+'K':v}}}}
+      y:{{min:{am_ymin},max:{am_ymax},grid:{{color:'rgba(255,255,255,.04)'}},ticks:{{callback:v=>Math.abs(v)>=1000?(v/1000).toFixed(0)+'K':v}}}}
+    }}
+  }}
+}});
+
+new Chart(document.getElementById('lfChart'),{{
+  type:'line',plugins:[zeroLine],
+  data:{{labels,datasets:[
+    {{
+      label:'Leveraged Funds',data:lfData,
+      borderColor:'#7a8899',backgroundColor:'transparent',
+      borderWidth:1.5,borderDash:[5,4],pointRadius:0,pointHoverRadius:4,
+      pointHoverBackgroundColor:'#7a8899',tension:.38,fill:false
+    }},
+    {{
+      label:'Leveraged Funds Ø 52W',data:Array(labels.length).fill(lfAvg),
+      borderColor:'rgba(122,136,153,.35)',backgroundColor:'transparent',
+      borderWidth:1,borderDash:[3,5],pointRadius:0,pointHoverRadius:0,
+      tension:0,fill:false
+    }}
+  ]}},
+  options:{{
+    responsive:true,maintainAspectRatio:false,
+    interaction:{{mode:'index',intersect:false}},
+    plugins:{{legend:{{display:false}},tooltip:{{...netTooltip}}}},
+    scales:{{
+      x:{{grid:{{display:false}},ticks:{{maxTicksLimit:10,maxRotation:0}}}},
+      y:{{min:{lf_ymin},max:{lf_ymax},grid:{{color:'rgba(255,255,255,.04)'}},ticks:{{callback:v=>Math.abs(v)>=1000?(v/1000).toFixed(0)+'K':v}}}}
     }}
   }}
 }});
@@ -467,11 +520,12 @@ new Chart(document.getElementById('idxChart'),{{
     data:idxData,borderColor:'#39ff14',
     backgroundColor:(ctx)=>{{const g=ctx.chart.ctx.createLinearGradient(0,0,0,220);g.addColorStop(0,'rgba(57,255,20,.2)');g.addColorStop(1,'rgba(57,255,20,0)');return g;}},
     borderWidth:2,pointRadius:0,pointHoverRadius:4,
-    pointHoverBackgroundColor:'#39ff14',tension:.42,fill:true
+    pointHoverBackgroundColor:'#39ff14',tension:.42,fill:true,clip:false
   }}]}},
   options:{{
     responsive:true,maintainAspectRatio:false,
     interaction:{{mode:'index',intersect:false}},
+    layout:{{padding:{{top:8,left:4,right:4}}}},
     plugins:{{legend:{{display:false}},tooltip:{{...tt,callbacks:{{label:ctx=>` COT Index: ${{ctx.parsed.y}}`}}}}}},
     scales:{{
       x:{{grid:{{display:false}},ticks:{{maxTicksLimit:6,maxRotation:0}}}},
@@ -491,22 +545,36 @@ new Chart(document.getElementById('idxChart'),{{
 }});
 
 // OPEN INTEREST
+const oiMin=Math.min(...oiData),oiMax=Math.max(...oiData);
+const oiMinIdx=oiData.lastIndexOf(oiMin),oiMaxIdx=oiData.lastIndexOf(oiMax),oiLastIdx=oiData.length-1;
+function oiBg(i){{
+  if(i===oiLastIdx) return 'rgba(57,255,20,.55)';
+  if(i===oiMaxIdx)  return 'rgba(240,192,64,.45)';
+  if(i===oiMinIdx)  return 'rgba(255,77,77,.45)';
+  return 'rgba(122,136,153,.2)';
+}}
+function oiBorder(i){{
+  if(i===oiLastIdx) return '#39ff14';
+  if(i===oiMaxIdx)  return '#f0c040';
+  if(i===oiMinIdx)  return '#ff4d4d';
+  return 'transparent';
+}}
 new Chart(document.getElementById('oiChart'),{{
   type:'bar',
   data:{{labels,datasets:[{{
     data:oiData,
-    backgroundColor:oiData.map((_,i)=>i===oiData.length-1?'rgba(57,255,20,.55)':'rgba(122,136,153,.2)'),
-    borderColor:oiData.map((_,i)=>i===oiData.length-1?'#39ff14':'transparent'),
+    backgroundColor:oiData.map((_,i)=>oiBg(i)),
+    borderColor:oiData.map((_,i)=>oiBorder(i)),
     borderWidth:1,borderRadius:2,
-    hoverBackgroundColor:oiData.map((_,i)=>i===oiData.length-1?'rgba(57,255,20,.7)':'rgba(122,136,153,.35)')
+    hoverBackgroundColor:oiData.map((_,i)=>oiBg(i))
   }}]}},
   options:{{
     responsive:true,maintainAspectRatio:false,
     interaction:{{mode:'index',intersect:false}},
-    plugins:{{legend:{{display:false}},tooltip:{{...tt,callbacks:{{label:ctx=>` OI: ${{(ctx.parsed.y/1000).toFixed(0)}}K`}}}}}},
+    plugins:{{legend:{{display:false}},tooltip:{{...tt,callbacks:{{label:ctx=>` OI: ${{(ctx.parsed.y/1000000).toFixed(2)}}M`}}}}}},
     scales:{{
       x:{{grid:{{display:false}},ticks:{{maxTicksLimit:6,maxRotation:0}}}},
-      y:{{grid:{{color:'rgba(255,255,255,.04)'}},ticks:{{callback:v=>(v/1000).toFixed(0)+'K'}}}}
+      y:{{min:{oi_ymin},max:{oi_ymax},grid:{{color:'rgba(255,255,255,.04)'}},ticks:{{stepSize:200000,callback:v=>(v/1000000).toFixed(1)+'M'}}}}
     }}
   }}
 }});
