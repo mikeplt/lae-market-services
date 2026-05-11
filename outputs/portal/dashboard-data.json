@@ -1,6 +1,13 @@
 {
   "updates": [
     {
+      "type": "Macro Analysis",
+      "title": "Macro Analysis · May 11, 2026",
+      "teaser": "US macro score at 61/100 – BULLISH. Full dashboard with interactive charts.",
+      "link": "./products/macro-analysis.html",
+      "date": "2026-05-11"
+    },
+    {
       "type": "COT Report",
       "title": "COT Report · CW 19 · 2026",
       "teaser": "Latest Commitments of Traders data for S&P 500 E-Mini futures. Net positioning, commercial vs. non-commercial flows.",
@@ -13,13 +20,6 @@
       "teaser": "Market outlook for calendar week 19. Key levels, macro events and sector highlights.",
       "link": "./products/weekly-note.html",
       "date": "2026-05-10"
-    },
-    {
-      "type": "Macro Analysis",
-      "title": "Macro Analysis · May 08, 2026",
-      "teaser": "US macro score at 61/100 – BULLISH. Full dashboard with interactive charts.",
-      "link": "./products/macro-analysis.html",
-      "date": "2026-05-08"
     },
     {
       "type": "Earnings",
@@ -64,10 +64,10 @@
   ],
   "macro_score": 61,
   "macro_label": "BULLISH",
-  "macro_date": "2026-05-08",
-  "macro_date_str": "May 08, 2026",
-  "next_event": "NFP",
-  "next_event_date": "2026-05-08",
-  "next_event_date_str": "May 08",
-  "next_event_days": 0
+  "macro_date": "2026-05-11",
+  "macro_date_str": "May 11, 2026",
+  "next_event": "CPI Release",
+  "next_event_date": "2026-05-12",
+  "next_event_date_str": "May 12",
+  "next_event_days": 1
 }
