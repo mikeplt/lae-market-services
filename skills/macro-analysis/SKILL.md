@@ -21,7 +21,7 @@ Alle Daten werden automatisch geladen – kein manuelles Befüllen nötig.
 4. Berechnet einen Macro Score (0–100) aus 9 Indikatoren mit Ampel-System
 5. Bestimmt das aktuelle Makroregime (Goldilocks, Overheating, Stagflation, Rezession etc.)
 6. Generiert eine analytische Textzusammenfassung mit Zusammenhängen zwischen den Indikatoren
-7. Erzeugt 10 Plotly-Charts und gibt alles als HTML-Dashboard aus
+7. Erzeugt 10 interaktive Charts (Chart.js, eingebettet) und gibt alles als HTML-Dashboard aus
 
 ## Output
 
@@ -68,19 +68,22 @@ python skills/macro-analysis/generate.py --api-key DEIN_FRED_KEY
 
 ## Charts im Dashboard
 
+Alle Charts sind interaktiv (Hover, Tooltip, Range-Filter 6M / 1Y / All, Toggle-Legende).
+
 | Chart | Beschreibung |
 |---|---|
 | Macro Score Gauge | Gesamtscore 0–100 mit Ampelfarben + analytischer Textzusammenfassung |
 | 9 Key Metrics Karten | Jeder Indikator mit Wert, Trend-Pfeil und Signal-Badge |
-| Yield Curve (10Y–3M) | Spread-Verlauf der letzten 2 Jahre |
-| Treasury Yields | 10Y / 5Y / 3M im Vergleich |
-| CPI & Core CPI | YoY-Entwicklung + 2%-Zielline |
+| CPI & Core CPI | YoY-Entwicklung + 2%-Ziellinie |
 | Real GDP QoQ | Quartalsbalken mit Farbkodierung (blau ≥ 2%, gedämpft 0–2%, rot < 0%) |
-| NFP Monthly Change | Monatliche Jobzuwächse (blau, quartalsweise beschriftet) |
-| Unemployment Rate | Verlauf mit engen Y-Achsen-Stufen |
+| Yield Curve (10Y–3M) | Spread-Verlauf mit Fill über/unter 0 |
+| Treasury Yields | 10Y / 5Y / 3M im Vergleich |
+| Non-Farm Payrolls | Monatliche Jobzuwächse als Balkendiagramm |
+| Unemployment Rate | Verlauf mit Gradient-Fill |
+| S&P 500 mit 200-Tage-MA | Trendvisualisierung mit Fill zwischen Kurs und MA |
+| VIX | Volatilitätsindex mit farbigen Zonen (Low / Neutral / Fear) |
 | DXY & Gold | Dual-Achsen-Chart |
-| WTI Crude & Copper | Dual-Achsen-Chart |
-| S&P 500 mit 200-Tage-MA | Trendvisualisierung |
+| WTI Crude & Copper | Dual-Achsen-Chart, indexiert auf Base 100 |
 
 ---
 
@@ -90,7 +93,8 @@ python skills/macro-analysis/generate.py --api-key DEIN_FRED_KEY
 |---|---|---|
 | Yahoo Finance (yfinance) | Automatisch | Keine |
 | BLS Public API v1 | Automatisch + Tages-Cache | 25 Anfragen/Tag ohne Key |
-| FRED API | Optional (--api-key) | Kostenloser Key: fred.stlouisfed.org |
+| FRED API | Optional (`--api-key` oder `FRED_API_KEY` Secret) | Kostenloser Key: fred.stlouisfed.org |
+| Gemini API | Optional (`GEMINI_API_KEY` Secret) | Für KI-generierte Textzusammenfassung |
 
 ### BLS-Cache
 
