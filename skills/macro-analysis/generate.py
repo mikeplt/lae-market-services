@@ -181,7 +181,7 @@ body{background:#090c11;color:var(--w);font-family:'Inter',sans-serif;font-size:
 .hdr-right{display:flex;align-items:center;gap:16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gr)}
 .chip{background:#111720;border:1px solid rgba(255,255,255,0.07);padding:5px 12px;border-radius:8px;color:var(--w)}
 .score-pill{background:#111720;border:1px solid rgba(57,255,20,0.25);padding:5px 14px;border-radius:8px;font-weight:700;color:__SC__;box-shadow:0 0 14px rgba(57,255,20,0.08)}
-.wrap{padding:28px 40px 64px}
+.wrap{padding:28px 40px 32px}
 .sec-hdr{display:flex;align-items:center;gap:10px;margin:36px 0 16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.06)}
 .sec-dot{width:6px;height:6px;border-radius:50%;background:var(--g);box-shadow:0 0 8px var(--g);flex-shrink:0}
 .sec-title{font-size:10px;font-weight:700;letter-spacing:0.16em;color:var(--gr);text-transform:uppercase}
@@ -232,7 +232,7 @@ body{background:#090c11;color:var(--w);font-family:'Inter',sans-serif;font-size:
 .cal-date{font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;color:var(--w);margin-top:3px}
 .cal-badge{font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:4px;background:rgba(57,255,20,0.12);color:var(--g);white-space:nowrap}
 .cal-card.cal-later .cal-badge{background:rgba(255,255,255,0.06);color:var(--gr)}
-.ftr{margin:48px 0 0;padding:20px 40px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--gr);font-family:'JetBrains Mono',monospace}
+.ftr{margin:24px 0 0;padding:20px 40px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--gr);font-family:'JetBrains Mono',monospace}
 @media(max-width:1100px){
   .macro-top{flex-direction:column}.gauge-col{flex:none;width:100%}.divider{flex:none;height:1px;width:100%}
   .chart-2{grid-template-columns:1fr}.sig-grid{grid-template-columns:repeat(3,1fr)}
