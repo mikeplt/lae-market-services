@@ -171,7 +171,7 @@ _HTML = """\
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#090c11;--bg2:#0d111a;--bg3:#111720;--g:#39ff14;--w:#f0f4f8;--gr:#7a8899;--r:#ff4d4d;--a:#ffc93c;--b:rgba(255,255,255,0.07);--radius:14px}
 html{background:#090c11}
-body{background:#090c11;color:var(--w);font-family:'Inter',sans-serif;font-size:14px;min-height:100vh}
+body{background:#090c11;color:var(--w);font-family:'Inter',sans-serif;font-size:14px}
 .hdr{background:rgba(13,17,26,0.92);border-bottom:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(20px);position:sticky;top:0;z-index:100}
 .hdr-i{padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
