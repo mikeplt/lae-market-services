@@ -16,6 +16,9 @@ outputs/weekly-note/run.log
 # Referenzmaterial (bleibt lokal)
 reference/
 
+# Archiv-Ordner (lokal behalten, nicht auf GitHub)
+**/archive/
+
 # Interne Planung (bleibt lokal)
 context/tech-stack-roadmap.md
 
