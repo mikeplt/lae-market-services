@@ -2,7 +2,7 @@ name: Macro Analysis
 
 on:
   schedule:
-    - cron: '0 13 * * 1'   # Montag 13:00 UTC (09:00 ET) – wöchentlicher Report
+    - cron: '0 7 * * 1'    # Montag 07:00 UTC (09:00 MESZ / 08:00 MEZ) – wöchentlicher Report
     - cron: '0 14 * * 5'   # Freitag 14:00 UTC – NFP-Check intern
   workflow_dispatch:        # Manuell für CPI, FOMC, GDP
 
