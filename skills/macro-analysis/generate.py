@@ -956,10 +956,11 @@ def main():
 
     # ── Dashboard-Data aktualisieren ──────────────────────────────────────────
     dash_json = base_dir / "outputs" / "portal" / "dashboard-data.json"
+    score_label = "BULLISH" if score >= 60 else ("NEUTRAL" if score >= 40 else "BEARISH")
     new_entry = {
         "type":   "Macro Analysis",
-        "title":  f"Macro Analysis · {DATE_STR}",
-        "teaser": f"US macro overview – inflation, growth, rates, labor market & market structure.",
+        "title":  f"Macro Analysis · {label}",
+        "teaser": f"US macro score at {score}/100 – {score_label}. Full dashboard with interactive charts.",
         "link":   "./products/macro-analysis.html",
         "date":   DATE_STR,
     }
