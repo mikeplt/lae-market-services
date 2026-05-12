@@ -63,7 +63,7 @@ def yahoo(ticker: str, period: str = "2y") -> pd.Series:
     try:
         df = yf.Ticker(ticker).history(period=period, interval="1d", auto_adjust=True)
         s = df["Close"].rename(ticker)
-        s.index = s.index.tz_localize(None)
+        s.index = s.index.tz_convert(None) if s.index.tz is not None else s.index
         return s.dropna()
     except Exception as e:
         print(f"  [Yahoo] {ticker}: {e}")
