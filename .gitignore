@@ -25,3 +25,6 @@ context/tech-stack-roadmap.md
 # Batch-Dateien (nur lokal relevant)
 skills/cot-report/scripts/run_cot.bat
 skills/weekly-note/run_weekly_note.bat
+
+# BLS-Cache (täglich generiert, nicht versionieren)
+outputs/macro-analysis/_bls_cache_*.json

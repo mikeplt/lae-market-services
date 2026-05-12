@@ -1,7 +1,4 @@
 requests
 google-genai
-anthropic
-beautifulsoup4
-plotly
 yfinance
 pandas
