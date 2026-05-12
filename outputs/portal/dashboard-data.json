@@ -29,37 +29,37 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-12T12:01:32",
+  "news_updated": "2026-05-12T16:25:15",
   "news": [
     {
-      "title": "AI will drive Nvidia higher by more than 40% from here, says Wells Fargo",
-      "source": "CNBC",
-      "time_published": "20260512T104334",
-      "url": "https://www.cnbc.com/2026/05/12/ai-will-drive-nvidia-higher-by-more-than-40percent-from-here-says-wells-fargo.html"
-    },
-    {
-      "title": "S&P 500 Futures Decline in Premarket Trading; Williams-Sonoma, Primo Brands Lag",
+      "title": "Solar Stocks Could Have More Room to Run. First Solar, SolarEdge Charts Turn Bullish.",
       "source": "Barron's",
-      "time_published": "20260512T112931",
-      "url": "https://www.barrons.com/articles/s-p-500-futures-decline-in-premarket-trading-williams-sonoma-primo-brands-lag-13cf7109"
+      "time_published": "20260512T152935",
+      "url": "https://www.barrons.com/articles/solar-stocks-room-to-run-first-solar-solaredge-charts-turn-bullish-c92a4de7"
     },
     {
-      "title": "S&P/TSX 60 Dips 0.01% Despite 1.25x Advance-Decline Ratio; Barrick Gold Soars 9.06%",
-      "source": "Markets Mojo",
-      "time_published": "20260512T113647",
-      "url": "https://www.marketsmojo.com/news/stock-market-news/sptsx-60-dips-001-despite-125x-advance-decline-ratio-barrick-gold-soars-906-3987964"
-    },
-    {
-      "title": "BofA Securities reinstates BlackLine stock with underperform rating",
-      "source": "Investing.com",
-      "time_published": "20260512T113510",
-      "url": "https://www.investing.com/news/analyst-ratings/bofa-securities-reinstates-blackline-stock-with-underperform-rating-93CH-4679944"
-    },
-    {
-      "title": "Alphabet stock (US02079K1079): AI gains and cloud momentum drive tech giant",
+      "title": "The Coca-Cola Company stock (US1912161007): Chairman sells $200K shares",
       "source": "AD HOC NEWS",
-      "time_published": "20260512T113334",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/alphabet-stock-us02079k1079-ai-gains-and-cloud-momentum-drive-tech/69313171"
+      "time_published": "20260512T155847",
+      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/the-coca-cola-company-stock-us1912161007-chairman-sells-200k-shares/69315152"
+    },
+    {
+      "title": "HGRO ETF Holdings List — BOATS:HGRO",
+      "source": "TradingView",
+      "time_published": "20260512T153925",
+      "url": "https://www.tradingview.com/symbols/BOATS-HGRO/holdings/"
+    },
+    {
+      "title": "Fortinet: Efficient, Profitable, Resilient And Versatile Cyber-GARP (NASDAQ:FTNT)",
+      "source": "Seeking Alpha",
+      "time_published": "20260512T153335",
+      "url": "https://seekingalpha.com/article/4903102-fortinet-efficient-profitable-resilient-and-versatile-cyber-garp"
+    },
+    {
+      "title": "Health Catalyst (HCAT) Stock Trades Up, Here Is Why",
+      "source": "StockStory",
+      "time_published": "20260512T153300",
+      "url": "https://stockstory.org/us/stocks/nasdaq/hcat/news/why-up-down/health-catalyst-hcat-stock-trades-up-here-is-why-2"
     }
   ],
   "macro_score": 61,
