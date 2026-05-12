@@ -932,9 +932,44 @@ def main():
     print("  Baue HTML...")
     html = build_chartjs(score, signals, data_dict, cdata)
 
-    out = OUTPUT_DIR / f"lae-macro-analysis-{DATE_STR}.html"
+    filename = f"lae-macro-analysis-{DATE_STR}.html"
+    out = OUTPUT_DIR / filename
     out.write_text(html, encoding="utf-8")
     print(f"\nFertig: {out}")
+
+    # ── Portal-Archiv aktualisieren ───────────────────────────────────────────
+    from pathlib import Path as _Path
+    base_dir    = _Path(__file__).parents[2]
+    portal_path = base_dir / "outputs" / "portal" / "products" / "macro-analysis.html"
+    if portal_path.exists():
+        portal_html = portal_path.read_text(encoding="utf-8")
+        rel_src  = f"../../macro-analysis/{filename}"
+        label    = TODAY.strftime("%b %d, %Y")
+        new_item = f'              <option value="{rel_src}">{label}</option>'
+        marker   = "              <!-- ARCHIV-START -->"
+        if rel_src not in portal_html:
+            portal_html = portal_html.replace(marker, marker + "\n" + new_item)
+            portal_path.write_text(portal_html, encoding="utf-8")
+            print(f"  Portal:  aktualisiert ({label})")
+        else:
+            print(f"  Portal:  Eintrag bereits vorhanden")
+
+    # ── Dashboard-Data aktualisieren ──────────────────────────────────────────
+    dash_json = base_dir / "outputs" / "portal" / "dashboard-data.json"
+    new_entry = {
+        "type":   "Macro Analysis",
+        "title":  f"Macro Analysis · {DATE_STR}",
+        "teaser": f"US macro overview – inflation, growth, rates, labor market & market structure.",
+        "link":   "./products/macro-analysis.html",
+        "date":   DATE_STR,
+    }
+    dash = {}
+    if dash_json.exists():
+        try: dash = json.loads(dash_json.read_text(encoding="utf-8"))
+        except Exception: pass
+    dash["updates"] = [new_entry] + [u for u in dash.get("updates", []) if u.get("type") != "Macro Analysis"]
+    dash_json.write_text(json.dumps(dash, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"  Dashboard: aktualisiert")
 
 
 if __name__ == "__main__":
