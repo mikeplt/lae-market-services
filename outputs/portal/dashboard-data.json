@@ -29,37 +29,37 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-13T12:09:19",
+  "news_updated": "2026-05-13T16:25:11",
   "news": [
     {
-      "title": "Subsea Tech Expansion Might Change The Case For Investing In SLB (SLB)",
-      "source": "Yahoo Finance Singapore",
-      "time_published": "20260513T111621",
-      "url": "https://sg.finance.yahoo.com/news/subsea-tech-expansion-might-change-111648176.html"
-    },
-    {
-      "title": "Operating margin % of Adeia Inc. – TRADEGATE:8OZ",
-      "source": "TradingView",
-      "time_published": "20260513T113854",
-      "url": "https://www.tradingview.com/symbols/TRADEGATE-8OZ/financials-statistics-and-ratios/operating-margin/"
-    },
-    {
-      "title": "Builders FirstSource stock (US12189T1043): Hits 52-week low amid earnings miss",
+      "title": "Thermo Fisher Sci. stock (US8835561023): Recent earnings beat and price gain",
       "source": "AD HOC NEWS",
-      "time_published": "20260513T113710",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/builders-firstsource-stock-us12189t1043-hits-52-week-low-amid-earnings/69322931"
+      "time_published": "20260513T155840",
+      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/thermo-fisher-sci-stock-us8835561023-recent-earnings-beat-and-price/69324958"
     },
     {
-      "title": "Oregon Public Employees Retirement Fund Purchases 95,039 Shares of ServiceNow, Inc. $NOW",
+      "title": "Akamai Technologies Jumps 6.9% After B of A Securities Upgrades to Buy",
+      "source": "AlphaStreet",
+      "time_published": "20260513T153203",
+      "url": "https://news.alphastreet.com/akamai-technologies-jumps-6-9-after-b-of-a-securities-upgrades-to-buy/"
+    },
+    {
+      "title": "Cummins (NYSE:CMI) VP Jennifer Mary Bush Sells 5,000 Shares",
       "source": "MarketBeat",
-      "time_published": "20260513T113605",
-      "url": "https://www.marketbeat.com/instant-alerts/filing-oregon-public-employees-retirement-fund-purchases-95039-shares-of-servicenow-inc-now-2026-05-13/"
+      "time_published": "20260513T151917",
+      "url": "https://www.marketbeat.com/instant-alerts/cummins-nysecmi-vp-jennifer-mary-bush-sells-5000-shares-2026-05-13/"
     },
     {
-      "title": "Azitra, Inc. Announces Q1 2026 Financial Results and Pipeline Milestones for Biotherapeutics and Cosmeceuticals",
-      "source": "Minichart",
-      "time_published": "20260513T113516",
-      "url": "https://www.minichart.com.sg/2026/05/13/azitra-inc-announces-q1-2026-financial-results-and-pipeline-milestones-for-biotherapeutics-and-cosmeceuticals/"
+      "title": "Palantir Technologies Inc Stock (PLTR) Moved Down by 4.31% on May 13: What Investors Need To Know",
+      "source": "TradingKey",
+      "time_published": "20260513T151510",
+      "url": "https://www.tradingkey.com/news/market-movers/261890713-market-movers-pltr-20260513"
+    },
+    {
+      "title": "U.S. to Launch 2x Leveraged ETF Tracking Samsung, SK hynix",
+      "source": "Seoul Economic Daily",
+      "time_published": "20260513T151005",
+      "url": "https://en.sedaily.com/finance/2026/05/13/us-to-launch-2x-leveraged-etf-tracking-samsung-sk-hynix"
     }
   ],
   "macro_score": 61,
