@@ -29,37 +29,37 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-13T20:03:07",
+  "news_updated": "2026-05-14T08:45:32",
   "news": [
     {
-      "title": "Teradyne Inc. stock (US8807701029): French fund buys shares amid strong Q1 growth",
+      "title": "Catalyst Financial Partners LLC Raises Stock Holdings in Marathon Petroleum Corporation $MPC",
+      "source": "MarketBeat",
+      "time_published": "20260514T080413",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-catalyst-financial-partners-llc-raises-stock-holdings-in-marathon-petroleum-corporation-mpc-2026-05-14/"
+    },
+    {
+      "title": "Pinnacle West Capital stock (US7234841010): Barrow Hanley boosts stake to 5.78%",
       "source": "AD HOC NEWS",
-      "time_published": "20260513T195333",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/teradyne-inc-stock-us8807701029-french-fund-buys-shares-amid-strong-q1/69327643"
+      "time_published": "20260514T080323",
+      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/pinnacle-west-capital-stock-us7234841010-barrow-hanley-boosts-stake-to/69331070"
     },
     {
-      "title": "Microsoft Corporation (MSFT): Chris Rokos Trims Holding",
-      "source": "Insider Monkey",
-      "time_published": "20260513T193306",
-      "url": "https://www.insidermonkey.com/blog/microsoft-corporation-msft-chris-rokos-trims-holding-1760644/"
+      "title": "Chubb (CB) Valuation Check After Recent Share Weakness And Mixed Fair Value Signals",
+      "source": "Simply Wall Street",
+      "time_published": "20260514T080315",
+      "url": "https://simplywall.st/stocks/us/insurance/nyse-cb/chubb/news/chubb-cb-valuation-check-after-recent-share-weakness-and-mix"
     },
     {
-      "title": "Japan Post Holdings sells $2.77m of Aflac stock",
-      "source": "Investing.com",
-      "time_published": "20260513T191859",
-      "url": "https://www.investing.com/news/insider-trading-news/japan-post-holdings-sells-277m-of-aflac-stock-93CH-4685957"
+      "title": "Cboe reports retail traders aggressively buying calls on Mag 10 stocks amid AI rally",
+      "source": "Crypto Briefing",
+      "time_published": "20260514T080115",
+      "url": "https://cryptobriefing.com/cboe-retail-traders-mag-10-call-options/"
     },
     {
-      "title": "Polestar Automotive Holding Uk Plc Stock (PSNY) Moved Up by 5.92% on May 13: Key Drivers Unveiled",
-      "source": "TradingKey",
-      "time_published": "20260513T191551",
-      "url": "https://www.tradingkey.com/news/market-movers/261891434-market-movers-psny-20260513"
-    },
-    {
-      "title": "Seagate, SanDisk Stocks Get 2X ETF Boost As Themes Expands Leveraged AI Trade With 9 Funds",
-      "source": "Benzinga",
-      "time_published": "20260513T191428",
-      "url": "https://www.benzinga.com/etfs/new-etfs/26/05/52540830/seagate-sandisk-stocks-get-2x-etf-boost-as-themes-expands-leveraged-ai-trade-with-9-funds"
+      "title": "United States Industrial Waste Management Market 2033: High-Growth Opportunities, Circular Economy Trends & Strategic Investment Insights",
+      "source": "openPR.com",
+      "time_published": "20260514T073948",
+      "url": "https://www.openpr.com/news/4513301/united-states-industrial-waste-management-market-2033"
     }
   ],
   "macro_score": 61,
