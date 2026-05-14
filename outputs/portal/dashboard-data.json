@@ -36,37 +36,37 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-14T16:11:37",
+  "news_updated": "2026-05-14T19:53:54",
   "news": [
     {
-      "title": "EverCommerce stock (US29978A1043): Q1 earnings beat with Q2 guidance",
-      "source": "AD HOC NEWS",
-      "time_published": "20260514T155806",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/evercommerce-stock-us29978a1043-q1-earnings-beat-with-q2-guidance/69335231"
+      "title": "Why Booking Holdings (BKNG) Is Down 7.9% After Cutting Guidance And Raising New Debt - And What's Next",
+      "source": "Yahoo Finance",
+      "time_published": "20260514T182112",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/why-booking-holdings-bkng-down-182130202.html"
     },
     {
-      "title": "Latest FGB News - First Trust Announces Completion of First Tr...",
-      "source": "Stock Titan",
-      "time_published": "20260514T153936",
-      "url": "https://www.stocktitan.net/news/FGB/"
+      "title": "Energy Vault Holdings stock hits 52-week high at $6.35",
+      "source": "Investing.com",
+      "time_published": "20260514T190633",
+      "url": "https://www.investing.com/news/company-news/energy-vault-holdings-stock-hits-52week-high-at-635-93CH-4689842"
     },
     {
-      "title": "Texas Instruments stock hits all-time high at $309.40 By Investing.com",
-      "source": "Investing.com Canada",
-      "time_published": "20260514T152942",
-      "url": "https://ca.investing.com/news/company-news/texas-instruments-stock-hits-alltime-high-at-30940-93CH-4639102"
-    },
-    {
-      "title": "EG Maintained by BMO Capital -- Price Target Raised to $376",
+      "title": "PPL Maintained by JP Morgan -- Price Target Lowered to $42.00",
       "source": "GuruFocus",
-      "time_published": "20260514T152434",
-      "url": "https://www.gurufocus.com/news/8859032/eg-maintained-by-bmo-capital-price-target-raised-to-376"
+      "time_published": "20260514T190130",
+      "url": "https://www.gurufocus.com/news/8859757/ppl-maintained-by-jp-morgan-price-target-lowered-to-4200"
     },
     {
-      "title": "Flutter Entertainment (NYSE:FLUT) Insider Don Liu Sells 1,259 Shares",
-      "source": "MarketBeat",
-      "time_published": "20260514T152053",
-      "url": "https://www.marketbeat.com/instant-alerts/flutter-entertainment-nyseflut-insider-don-liu-sells-1259-shares-2026-05-14/"
+      "title": "CME shareholders approve executive pay, delay Class B vote to June 9",
+      "source": "Stock Titan",
+      "time_published": "20260514T190023",
+      "url": "https://www.stocktitan.net/news/CME/cme-group-inc-announces-preliminary-results-of-2026-annual-zoyyyjaakbym.html"
+    },
+    {
+      "title": "News Corp stock (US65249B2088): Maintains $1B buyback amid analyst upgrade",
+      "source": "AD HOC NEWS",
+      "time_published": "20260514T190019",
+      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/news-corp-stock-us65249b2088-maintains-1b-buyback-amid-analyst-upgrade/69337096"
     }
   ],
   "macro_score": 61,
