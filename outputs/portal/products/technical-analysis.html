@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="de">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>COT Report – LAE Market Services</title>
+  <title>Technical Analysis – LAE Market Services</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -45,7 +45,7 @@
       cursor: pointer;
       outline: none;
       transition: border-color 0.15s, color 0.15s;
-      min-width: 160px;
+      min-width: 200px;
     }
     .archive-select:hover,
     .archive-select:focus {
@@ -79,10 +79,9 @@
     .note-frame-wrap iframe {
       display: block;
       width: 100%;
-      height: 1600px;
+      height: 600px;
       border: none;
       background: #090c11;
-      overflow: hidden;
     }
   </style>
 </head>
@@ -142,21 +141,21 @@
           </svg>
           <span class="nav-text">Weekly Note</span>
         </a>
-        <a href="cot-report.html" class="nav-link active">
+        <a href="cot-report.html" class="nav-link">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
             <line x1="6" y1="20" x2="6" y2="14"/>
           </svg>
           <span class="nav-text">COT Report</span>
         </a>
-        <a href="technical-analysis.html" class="nav-link">
+        <a href="technical-analysis.html" class="nav-link active">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
             <circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/>
           </svg>
           <span class="nav-text">Technical Analysis</span>
         </a>
-                <a href="earnings.html" class="nav-link">
+        <a href="earnings.html" class="nav-link">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
             <polyline points="14 2 14 8 20 8"/>
@@ -208,14 +207,14 @@
         <div class="breadcrumb">
           <a href="../dashboard.html">Dashboard</a>
           <span class="breadcrumb-sep">/</span>
-          <span class="current">COT Report</span>
+          <span class="current">Technical Analysis</span>
         </div>
 
         <!-- Header -->
         <div class="page-header">
-          <div class="page-header-meta">Weekly · Fridays</div>
-          <h1 class="page-title">COT Report</h1>
-          <p class="page-subtitle">Weekly analysis of futures positioning based on CFTC TFF data – institutional positioning, trends &amp; signals.</p>
+          <div class="page-header-meta">Event-driven · Futures &amp; Stocks</div>
+          <h1 class="page-title">Technical Analysis</h1>
+          <p class="page-subtitle">Chart-based analysis of key markets – trend, indicators, key levels &amp; overall bias.</p>
         </div>
 
         <!-- Toolbar: Archiv-Dropdown -->
@@ -224,11 +223,7 @@
             <span class="archive-dropdown-label">Archive</span>
             <select class="archive-select" id="archive-select" onchange="loadFromSelect(this)">
               <!-- ARCHIV-START -->
-              <option value="../../cot-report/lae-cot-report-2026-05-05.html">CW 19 · 2026</option>
-              <option value="../../cot-report/lae-cot-report-2026-04-28.html">CW 18 · 2026</option>
-              <option value="../../cot-report/lae-cot-report-2026-04-21.html">CW 17 · 2026</option>
-              <option value="../../cot-report/lae-cot-report-2026-04-14.html">CW 16 · 2026</option>
-              <option value="../../cot-report/lae-cot-report-2026-04-07.html">CW 15 · 2026</option>
+              <option value="../../technical-analysis/lae-ta-ES1-2026-05-14.html">ES1! · May 14, 2026</option>
               <!-- ARCHIV-ENDE -->
             </select>
             <svg class="archive-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none">
@@ -239,7 +234,7 @@
 
         <!-- Report als iframe -->
         <div class="note-frame-wrap">
-          <iframe id="note-frame" title="COT Report" src="" scrolling="no"></iframe>
+          <iframe id="note-frame" title="Technical Analysis" src=""></iframe>
         </div>
 
       </div>
@@ -254,7 +249,6 @@
       document.body.classList.add('sidebar-collapsed');
     }
 
-    // Höhe vom iframe selbst empfangen (postMessage)
     window.addEventListener('message', function(e) {
       if (e.data && e.data.frameHeight) {
         document.getElementById('note-frame').style.height = (e.data.frameHeight + 6) + 'px';
