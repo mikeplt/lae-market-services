@@ -8,7 +8,11 @@ const ASSET     = 'ES1! · S&P 500 E-Mini';
 const TIMEFRAME = 'Daily (1D)';
 const EXCHANGE  = 'CME';
 const DATE      = 'May 14, 2026';
+const DATE_ISO  = '2026-05-14';
 const OUTPUT    = path.join(__dirname, '../../outputs/technical-analysis/lae-ta-ES1-2026-05-14.html');
+
+// One-liner for the dashboard Updates section (no HTML tags)
+const TEASER = 'S&P 500 E-Mini Daily – Bullish bias. Price +8.8% above SMA 200, pressing upper Bollinger Band. Key support at 7,421.';
 
 // ── ANALYSIS CONTENT ─────────────────────────────────────────────
 const BIAS_TEXT = `
@@ -277,3 +281,23 @@ if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(OUTPUT, html, 'utf8');
 console.log('Saved:', OUTPUT);
 console.log('Size:', Math.round(fs.statSync(OUTPUT).size / 1024), 'KB');
+
+// ── AUTO-UPDATE dashboard-data.json ──────────────────────────────
+const dashboardPath = path.join(__dirname, '../../outputs/portal/dashboard-data.json');
+if (fs.existsSync(dashboardPath)) {
+  const dashboard = JSON.parse(fs.readFileSync(dashboardPath, 'utf8'));
+  const newEntry = {
+    type:   'Technical Analysis',
+    title:  `Technical Analysis · ${ASSET} · ${DATE}`,
+    teaser: TEASER,
+    link:   './products/technical-analysis.html',
+    date:   DATE_ISO,
+  };
+  // Remove any existing entry for this exact date+type to avoid duplicates
+  dashboard.updates = dashboard.updates.filter(
+    u => !(u.type === 'Technical Analysis' && u.date === DATE_ISO)
+  );
+  dashboard.updates.unshift(newEntry);
+  fs.writeFileSync(dashboardPath, JSON.stringify(dashboard, null, 2), 'utf8');
+  console.log('Dashboard updated:', dashboardPath);
+}
