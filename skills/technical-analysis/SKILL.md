@@ -107,7 +107,12 @@ If no rectangles are present, skip the Gaps sub-section entirely.
 ### Step 3 — Generate the HTML Report
 
 Fill in `skills/technical-analysis/generate.js` with all analysis content, then run it.
-The script base64-encodes the screenshot (via Node.js) and writes a self-contained HTML file.
+The script base64-encodes the screenshot and writes a self-contained HTML file.
+It also **automatically updates `dashboard-data.json`** — no manual step needed.
+
+**Claude derives these CONFIG fields automatically — never ask Mike:**
+- `DATE_ISO` → convert DATE to ISO format: "May 14, 2026" → "2026-05-14"
+- `TEASER` → one plain-text sentence summarising bias + key signal, ~150 chars, no HTML tags
 
 ```bash
 node skills/technical-analysis/generate.js
@@ -138,9 +143,13 @@ const SCREENSHOT = /* FILL IN: absolute or relative path to screenshot, e.g. */
 const ASSET      = /* FILL IN: e.g. */ 'ES1! · S&P 500 E-Mini';
 const TIMEFRAME  = /* FILL IN: e.g. */ 'Daily (1D)';
 const EXCHANGE   = /* FILL IN: e.g. */ 'CME';
-const DATE       = /* FILL IN: e.g. */ 'May 14, 2026';
+const DATE       = /* FILL IN: human-readable, e.g. */ 'May 14, 2026';
+const DATE_ISO   = /* FILL IN: ISO format derived from DATE, e.g. */ '2026-05-14';
 const OUTPUT     = /* FILL IN: e.g. */
   path.join(__dirname, '../../outputs/technical-analysis/lae-ta-ES1-2026-05-14.html');
+
+// One-liner for the dashboard Updates section — plain text, no HTML tags, ~150 chars
+const TEASER = /* FILL IN: e.g. */ 'S&P 500 E-Mini Daily – Bullish bias. Price +8.8% above SMA 200, pressing upper Bollinger Band. Key support at 7,421.';
 
 // ── ANALYSIS CONTENT ─────────────────────────────────────────────
 const BIAS_TEXT = /* FILL IN: 2–3 sentences explaining the overall bias */ `
@@ -386,6 +395,8 @@ console.log('Size:', Math.round(fs.statSync(OUTPUT).size / 1024), 'KB');
 
 ## After Saving
 
-1. Confirm output path to Mike
-2. Open HTML in browser: `start "" "outputs\technical-analysis\lae-ta-{ASSET}-{YYYY-MM-DD}.html"`
-3. Ask if the analysis and layout look good
+1. Open HTML in browser: `start "" "outputs\technical-analysis\lae-ta-{ASSET}-{YYYY-MM-DD}.html"`
+2. Add a new `<option>` entry to the archive dropdown in `outputs/portal/products/technical-analysis.html`
+   between the `ARCHIV-START` and `ARCHIV-ENDE` comments:
+   `<option value="../../technical-analysis/lae-ta-{ASSET}-{DATE_ISO}.html">{ASSET_SHORT} · {DATE}</option>`
+3. Confirm to Mike that report, dashboard and portal archive are all updated
