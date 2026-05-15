@@ -2,49 +2,50 @@ const fs = require('fs');
 const path = require('path');
 
 // ── CONFIG ────────────────────────────────────────────────────────
-const SCREENSHOT = path.join(__dirname, 'ES1!_2026-05-14_13-34-04.png');
+const SCREENSHOT = path.join(__dirname, 'Tradingview Screenshots', 'CL1!_2026-05-15_11-16-31.png');
 
-const ASSET     = 'ES1! · S&P 500 E-Mini';
+const ASSET     = 'CL1! · Crude Oil Future';
 const TIMEFRAME = 'Daily (1D)';
-const EXCHANGE  = 'CME';
-const DATE      = 'May 14, 2026';
-const DATE_ISO  = '2026-05-14';
-const OUTPUT    = path.join(__dirname, '../../outputs/technical-analysis/lae-ta-ES1-2026-05-14.html');
+const EXCHANGE  = 'NYMEX';
+const DATE      = 'May 15, 2026';
+const DATE_ISO  = '2026-05-15';
+const OUTPUT    = path.join(__dirname, '../../outputs/technical-analysis/lae-ta-CL1-2026-05-15.html');
 
 // One-liner for the dashboard Updates section (no HTML tags)
-const TEASER = 'S&P 500 E-Mini Daily – Bullish bias. Price +8.8% above SMA 200, pressing upper Bollinger Band. Key support at 7,421.';
+const TEASER = 'Crude Oil Daily – Neutral bias. Price at 100.29, pressing resistance at 102.13. Bounced from 84 lows; clean break needed to turn bullish.';
 
 // ── ANALYSIS CONTENT ─────────────────────────────────────────────
 const BIAS_TEXT = `
-  <strong>Bullish.</strong> The S&amp;P 500 E-Mini has completed a sharp V-shaped recovery
-  from the April lows, decisively reclaiming the SMA 200 and establishing a new bullish
-  structure. Price is currently pressing against the upper Bollinger Band, reflecting strong
-  post-recovery momentum. The bullish bias holds as long as price remains above the SMA 200
-  at <strong>6,881</strong>.
+  <strong>Neutral.</strong> Crude Oil has staged a solid recovery from the April correction low
+  near <strong>84</strong>, reclaiming the 90.48 support level and pushing back toward the
+  100 handle. However, two overhead resistance levels at <strong>102.13</strong> and
+  <strong>105.24</strong> are capping upside. A clean daily close above 102.13 would shift
+  the bias to Bullish; a reversal back below 93.26 (BB mid) would signal renewed downside pressure.
 `;
 
 const TREND_TEXT = `
-  Price is trading decisively <strong>above the SMA 200</strong> (purple) at
-  <strong>6,881.83</strong>, sitting approximately <strong>+8.8% above</strong> the
-  long-term average. The SMA 200 has begun curling upward following the April recovery —
-  a textbook bullish structural shift. The strong separation confirms trend strength,
-  though it also means any pullback toward the SMA 200 would still be healthy within
-  the bull trend.
+  Price is trading <strong>well above the SMA 200</strong> (purple) at <strong>62.18</strong>,
+  sitting approximately <strong>+61.3% above</strong> the long-term average — a direct legacy
+  of the February–March spike. The SMA 200 is sloping upward and provides no actionable
+  short-term reference at current prices. The extreme separation confirms the long-term
+  structural trend is bullish, but mean-reversion risk remains elevated.
 `;
 
 const BB_TEXT = `
-  Bands are in a strongly <strong>expanded state</strong> (upper: 7,514 / mid: 7,253 /
-  lower: 6,992), reflecting the high volatility generated during the April rally. Price
-  at <strong>7,487.50</strong> is pressing against the upper band — a sign of strong
-  directional momentum and continued expansion. The wide band spread indicates trend
-  mode rather than consolidation; a fade from here would target the mid band at 7,253.
+  Bands remain in an <strong>expanded state</strong> (upper: 105.68 / mid: 93.26 /
+  lower: 80.84), reflecting the high volatility generated during the March–April period.
+  Price at <strong>100.29</strong> is positioned in the upper half of the bands, between
+  the mid and the upper band. The upper band at 105.68 aligns closely with the 105.24
+  resistance level, forming a confluent ceiling. Bands show early signs of contraction —
+  a squeeze breakout in either direction is possible.
 `;
 
 const VOLUME_TEXT = `
-  Volume spiked significantly during the April reversal, providing strong institutional
-  confirmation of the move. Current bars have normalized to below-average levels —
-  consistent with healthy consolidation rather than distribution. No climax bars or
-  divergence visible in recent sessions.
+  Volume spiked to extreme levels during the February–March rally, providing strong
+  institutional confirmation of the move. Current volume at <strong>33.55K</strong> has
+  normalized well below the spike peaks. The April recovery from the lows was accompanied
+  by declining volume — a mild divergence that warrants caution. No climax bars visible
+  in recent sessions.
 `;
 
 // Set to null if no gap rectangles are visible in the chart
@@ -54,13 +55,11 @@ const GAPS_TEXT = null;
 // List from highest price to lowest.
 // type: 'resistance' | 'support' | 'avwap-long' | 'avwap-short' | 'sma'
 const LEVELS = [
-  { type: 'support',    label: 'Support',                      price: '7,421.00' },
-  { type: 'support',    label: 'Support',                      price: '7,351.75' },
-  { type: 'support',    label: 'Support',                      price: '7,223.00' },
-  { type: 'avwap-long', label: 'Long AVWAP · dynamic support', price: '7,015.75' },
-  { type: 'avwap-long', label: 'Long AVWAP · dynamic support', price: '6,710.75' },
-  { type: 'avwap-long', label: 'Long AVWAP · dynamic support', price: '6,444.75' },
-  { type: 'sma',        label: 'SMA 200 · trend baseline',     price: '6,881.83' },
+  { type: 'resistance',  label: 'Resistance',                       price: '105.24' },
+  { type: 'resistance',  label: 'Resistance',                       price: '102.13' },
+  { type: 'support',     label: 'Support',                          price: '90.48'  },
+  { type: 'avwap-long',  label: 'Long AVWAP · dynamic support',     price: '85.43'  },
+  { type: 'sma',         label: 'SMA 200 · trend baseline',         price: '62.18'  },
 ];
 
 // ─────────────────────────────────────────────────────────────────
@@ -81,7 +80,7 @@ const colorMap = {
 };
 const styleMap = {
   resistance:    'background:rgba(255,149,0,0.06);border:1px solid rgba(255,149,0,0.18);',
-  support:       '',
+  support:       'background:rgba(255,149,0,0.06);border:1px solid rgba(255,149,0,0.18);',
   'avwap-long':  'background:rgba(57,255,20,0.05);border:1px solid rgba(57,255,20,0.12);',
   'avwap-short': 'background:rgba(255,68,68,0.05);border:1px solid rgba(255,68,68,0.1);',
   sma:           'background:rgba(181,123,255,0.05);border:1px solid rgba(181,123,255,0.15);',
