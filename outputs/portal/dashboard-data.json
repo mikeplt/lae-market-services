@@ -1,6 +1,13 @@
 {
   "updates": [
     {
+      "type": "COT Report",
+      "title": "COT Report · CW 20 · 2026",
+      "teaser": "Latest Commitments of Traders data for S&P 500 E-Mini futures. Net positioning, commercial vs. non-commercial flows.",
+      "link": "./products/cot-report.html",
+      "date": "2026-05-15"
+    },
+    {
       "type": "Technical Analysis",
       "title": "Technical Analysis · CL1! · Crude Oil Future · May 15, 2026",
       "teaser": "Crude Oil Daily – Neutral bias. Price at 100.29, pressing resistance at 102.13. Bounced from 84 lows; clean break needed to turn bullish.",
@@ -20,13 +27,6 @@
       "teaser": "US macro score at 56/100 – NEUTRAL. Full dashboard with interactive charts.",
       "link": "./products/macro-analysis.html",
       "date": "2026-05-12"
-    },
-    {
-      "type": "COT Report",
-      "title": "COT Report · CW 19 · 2026",
-      "teaser": "Latest Commitments of Traders data for S&P 500 E-Mini futures. Net positioning, commercial vs. non-commercial flows.",
-      "link": "./products/cot-report.html",
-      "date": "2026-05-11"
     },
     {
       "type": "Weekly Note",
