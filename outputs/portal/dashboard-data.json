@@ -43,31 +43,37 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-15T08:56:17",
+  "news_updated": "2026-05-15T11:59:14",
   "news": [
     {
-      "title": "Castle Rock Wealth Management LLC Has $290,000 Position in Vistra Corp. $VST",
+      "title": "VIRGINIA RETIREMENT SYSTEMS ET Al Sells 21,700 Shares of Evergy Inc. $EVRG",
       "source": "MarketBeat",
-      "time_published": "20260515T080818",
-      "url": "https://www.marketbeat.com/instant-alerts/filing-castle-rock-wealth-management-llc-has-290000-position-in-vistra-corp-vst-2026-05-15/"
+      "time_published": "20260515T110331",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-virginia-retirement-systems-et-al-sells-21700-shares-of-evergy-inc-evrg-2026-05-15/"
     },
     {
-      "title": "The Zacks Analyst Blog Highlights Home Depot, TJX Companies, Marvell Technology and C&F Financial",
-      "source": "Zacks Investment Research",
-      "time_published": "20260515T080113",
-      "url": "https://www.zacks.com/stock/news/2921674/the-zacks-analyst-blog-highlights-home-depot-tjx-companies-marvell-technology-and-cf-financial"
+      "title": "Global Diethyl Ketone Market Outlook 2026-2036: Pharmaceutical Demand Accelerates Growth for Dow Inc., Arkema S.A., and Mitsui Chemicals",
+      "source": "PR Newswire UK",
+      "time_published": "20260515T110327",
+      "url": "https://www.prnewswire.co.uk/news-releases/global-diethyl-ketone-market-outlook-20262036-pharmaceutical-demand-accelerates-growth-for-dow-inc-arkema-sa-and-mitsui-chemicals-302773470.html"
     },
     {
-      "title": "Fifth Third Bancorp stock (US3167731005): solid earnings, dividend focus and regional banking risks",
+      "title": "Principal Financial stock (US74251V1026): dividend increase and buyback underpin latest earnings",
       "source": "AD HOC NEWS",
-      "time_published": "20260515T075055",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/fifth-third-bancorp-stock-us3167731005-solid-earnings-dividend-focus/69340608"
+      "time_published": "20260515T110112",
+      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/principal-financial-stock-us74251v1026-dividend-increase-and-buyback/69341727"
     },
     {
-      "title": "Keysight Technologies Inc. Stock 12‑Month Price Target Raised to $331.58, Implies 8% Downside",
-      "source": "TradingView",
-      "time_published": "20260515T072012",
-      "url": "https://www.tradingview.com/news/tradingview:3d4435be1ea87:0-keysight-technologies-inc-stock-12-month-price-target-raised-to-331-58-implies-8-downside/"
+      "title": "Bernstein Adjusts Price Target on Hilton Worldwide to $320 From $322, Maintains Market Perform Rating",
+      "source": "www.marketscreener.com",
+      "time_published": "20260515T105644",
+      "url": "https://www.marketscreener.com/news/bernstein-adjusts-price-target-on-hilton-worldwide-to-320-from-322-maintains-market-perform-ratin-ce7f5bd2df8ef225"
+    },
+    {
+      "title": "Baird Adjusts Price Target on Keysight Technologies to $375 From $310, Maintains Outperform Rating",
+      "source": "marketscreener.com",
+      "time_published": "20260515T105351",
+      "url": "https://www.marketscreener.com/news/baird-adjusts-price-target-on-keysight-technologies-to-375-from-310-maintains-outperform-rating-ce7f5bd2df8ef62d"
     }
   ],
   "macro_score": 61,
