@@ -148,7 +148,7 @@ const html = `<!DOCTYPE html>
   .chart-panel{border-radius:16px;overflow:hidden;border:1px solid var(--border);
     background:#050709;height:100%;position:relative;cursor:zoom-in;}
   .chart-panel img{width:100%;height:100%;object-fit:contain;display:block;}
-  .lightbox{display:none;position:fixed;inset:0;z-index:999;
+  .lightbox{display:none;position:fixed;inset:0;z-index:9999;
     background:rgba(0,0,0,0.88);backdrop-filter:blur(6px);
     align-items:center;justify-content:center;cursor:zoom-out;}
   .lightbox.open{display:flex;}
@@ -207,10 +207,6 @@ const html = `<!DOCTYPE html>
     <div class="chart-panel" onclick="openLightbox()">
       <img src="${chartSrc}" alt="${ASSET} Chart">
     </div>
-    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-      <img src="${chartSrc}" alt="${ASSET} Chart – Zoom" onclick="event.stopPropagation()">
-      <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-    </div>
     <div class="right-top">
       <div class="card">
         <div class="card-title">Overall Bias</div>
@@ -244,6 +240,10 @@ const html = `<!DOCTYPE html>
 </div>
 <div class="footer">
   <span>LAE Market Services</span> &middot; Learn. Analyze. Execute.
+</div>
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <img src="${chartSrc}" alt="${ASSET} Chart – Zoom" onclick="event.stopPropagation()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
 </div>
 <script>
   function openLightbox() {
