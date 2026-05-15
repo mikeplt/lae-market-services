@@ -83,6 +83,17 @@
       border: none;
       background: #090c11;
     }
+    .note-frame-wrap.zoom-active {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+    }
+    .note-frame-wrap.zoom-active iframe {
+      height: 100vh !important;
+    }
   </style>
 </head>
 <body>
@@ -253,6 +264,12 @@
     window.addEventListener('message', function(e) {
       if (e.data && e.data.frameHeight) {
         document.getElementById('note-frame').style.height = (e.data.frameHeight + 6) + 'px';
+      }
+      if (e.data && e.data.type === 'ta-zoom-open') {
+        document.querySelector('.note-frame-wrap').classList.add('zoom-active');
+      }
+      if (e.data && e.data.type === 'ta-zoom-close') {
+        document.querySelector('.note-frame-wrap').classList.remove('zoom-active');
       }
     });
 

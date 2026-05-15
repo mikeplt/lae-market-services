@@ -167,14 +167,19 @@
 <script>
   function openLightbox() {
     document.getElementById('lightbox').classList.add('open');
+    window.parent.postMessage({ type: 'ta-zoom-open' }, '*');
   }
   function closeLightbox(e) {
     if (!e || e.target !== e.currentTarget.querySelector('img')) {
       document.getElementById('lightbox').classList.remove('open');
+      window.parent.postMessage({ type: 'ta-zoom-close' }, '*');
     }
   }
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('open');
+    if (e.key === 'Escape') {
+      document.getElementById('lightbox').classList.remove('open');
+      window.parent.postMessage({ type: 'ta-zoom-close' }, '*');
+    }
   });
   function reportHeight() {
     const h = Math.max(
