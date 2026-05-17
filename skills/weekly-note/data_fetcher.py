@@ -300,7 +300,7 @@ def _finnhub_macro_calendar(next_mon: date, next_fri: date) -> list:
     for item in raw:
         if item.get("country") != "US":
             continue
-        if item.get("impact", "").lower() not in ("high", "medium"):
+        if item.get("impact", "").lower() != "high":
             continue
         event_name = item.get("event", "").strip()
         if not event_name:
