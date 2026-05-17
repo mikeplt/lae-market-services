@@ -268,6 +268,37 @@ def get_earnings_calendar() -> list:
 
 # ── Macro calendar ────────────────────────────────────────────────────────────
 
+# Keywords that identify Investing.com 3-star US events (case-insensitive substring match)
+_THREE_STAR_KEYWORDS = [
+    "nonfarm payroll", "unemployment rate",
+    "consumer price index", " cpi ",
+    "core cpi", "core inflation",
+    "producer price index", " ppi ",
+    "pce price", "core pce", "personal income", "personal spending",
+    "retail sales",
+    "fomc", "federal funds rate", "fed rate",
+    "gdp", "gross domestic product",
+    "ism manufacturing", "ism non-manufacturing", "ism services",
+    "adp non-farm", "adp employment", "adp nonfarm",
+    "initial jobless claims", "jobless claims", "continuing claims",
+    "philly fed", "philadelphia fed",
+    "consumer confidence", "cb consumer",
+    "michigan consumer sentiment", "umich",
+    "flash manufacturing pmi", "flash services pmi", "flash composite pmi",
+    "s&p global", "markit pmi",
+    "building permits", "housing starts",
+    "existing home sales", "new home sales",
+    "durable goods",
+    "trade balance", "goods trade balance",
+    "cb leading", "leading economic index",
+    "jolts", "job openings",
+]
+
+def _is_three_star(event_name: str) -> bool:
+    name = f" {event_name.lower()} "
+    return any(kw in name for kw in _THREE_STAR_KEYWORDS)
+
+
 def _utc_hhmm_to_et(dt_utc: datetime, event_date: date) -> str:
     """Convert UTC datetime to HH:MM ET string, respecting EDT/EST transitions."""
     year = event_date.year
@@ -300,10 +331,10 @@ def _finnhub_macro_calendar(next_mon: date, next_fri: date) -> list:
     for item in raw:
         if item.get("country") != "US":
             continue
-        if item.get("impact", "").lower() != "high":
+        if item.get("impact", "").lower() not in ("high", "medium"):
             continue
         event_name = item.get("event", "").strip()
-        if not event_name:
+        if not event_name or not _is_three_star(event_name):
             continue
         time_str = item.get("time", "")
         try:
