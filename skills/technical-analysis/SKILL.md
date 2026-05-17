@@ -137,91 +137,85 @@ const fs = require('fs');
 const path = require('path');
 
 // ── CONFIG ────────────────────────────────────────────────────────
-const SCREENSHOT = /* FILL IN: absolute or relative path to screenshot, e.g. */
-  path.join(__dirname, 'ES1!_2026-05-14_13-34-04.png');
+const SCREENSHOT = /* FILL IN: path to screenshot */
+  path.join(__dirname, 'Tradingview Screenshots', 'ASSET_YYYY-MM-DD_HH-MM-SS.png');
 
-const ASSET      = /* FILL IN: e.g. */ 'ES1! · S&P 500 E-Mini';
-const TIMEFRAME  = /* FILL IN: e.g. */ 'Daily (1D)';
-const EXCHANGE   = /* FILL IN: e.g. */ 'CME';
-const DATE       = /* FILL IN: human-readable, e.g. */ 'May 14, 2026';
-const DATE_ISO   = /* FILL IN: ISO format derived from DATE, e.g. */ '2026-05-14';
-const OUTPUT     = /* FILL IN: e.g. */
-  path.join(__dirname, '../../outputs/technical-analysis/lae-ta-ES1-2026-05-14.html');
+const ASSET     = /* FILL IN: e.g. */ 'ES1! · S&P 500 E-Mini';
+const TIMEFRAME = /* FILL IN: e.g. */ 'Daily (1D)';
+const EXCHANGE  = /* FILL IN: e.g. */ 'CME';
+const DATE      = /* FILL IN: e.g. */ 'May 14, 2026';
+const DATE_ISO  = /* FILL IN: derived from DATE */ '2026-05-14';
+const OUTPUT    = /* FILL IN: */
+  path.join(__dirname, '../../outputs/technical-analysis/lae-ta-ASSET-YYYY-MM-DD.html');
 
-// One-liner for the dashboard Updates section — plain text, no HTML tags, ~150 chars
-const TEASER = /* FILL IN: e.g. */ 'S&P 500 E-Mini Daily – Bullish bias. Price +8.8% above SMA 200, pressing upper Bollinger Band. Key support at 7,421.';
+// One-liner for dashboard — plain text, no HTML, ~150 chars
+const TEASER = /* FILL IN */ 'Asset Daily – Bias. Key signal.';
 
 // ── ANALYSIS CONTENT ─────────────────────────────────────────────
-const BIAS_TEXT = /* FILL IN: 2–3 sentences explaining the overall bias */ `
+const BIAS_TEXT = /* FILL IN: 2–3 sentences */ `
   Overall bias is <strong>Bullish</strong>. ...
 `;
 
 const TREND_TEXT = /* FILL IN: SMA 200 analysis */ `
-  Price is trading above the <strong>SMA 200</strong> at ...
+  Price is trading <strong>above the SMA 200</strong> at ...
 `;
 
 const BB_TEXT = /* FILL IN: Bollinger Bands analysis */ `
-  Bands are in an <strong>expanded state</strong> (upper: X / mid: X / lower: X). ...
+  Bollinger Bands are in an <strong>expanding state</strong> ...
 `;
 
 const VOLUME_TEXT = /* FILL IN: Volume analysis */ `
-  Volume spiked during ... Recent bars have normalized to ...
+  Volume on the breakout candles shows ...
 `;
 
-// GAPS_TEXT: set to null if no gap rectangles are visible in the chart
+// GAPS_TEXT: null if no gap rectangles visible in chart
 const GAPS_TEXT = /* FILL IN: null or string */ null;
 
-// LEVELS: list from highest price to lowest
+// LEVELS: highest price to lowest
 // type: 'resistance' | 'support' | 'avwap-long' | 'avwap-short' | 'sma'
 const LEVELS = [
-  /* FILL IN examples: */
-  { type: 'resistance', label: 'Resistance',                    price: '7,514.71' },
-  { type: 'support',    label: 'Support',                       price: '7,421.00' },
-  { type: 'support',    label: 'Support',                       price: '7,351.75' },
-  { type: 'support',    label: 'Support',                       price: '7,223.00' },
-  { type: 'avwap-long', label: 'Long AVWAP · dynamic support',  price: '7,015.75' },
-  { type: 'avwap-long', label: 'Long AVWAP · dynamic support',  price: '6,710.75' },
-  { type: 'avwap-long', label: 'Long AVWAP · dynamic support',  price: '6,444.75' },
-  { type: 'sma',        label: 'SMA 200 · trend baseline',      price: '6,881.83' },
+  { type: 'resistance',   label: 'Resistance',                    price: '0.00' },
+  { type: 'avwap-short',  label: 'Short AVWAP · reclaimed',       price: '0.00' },
+  { type: 'sma',          label: 'SMA 200 · trend baseline',      price: '0.00' },
+  { type: 'support',      label: 'Support',                       price: '0.00' },
+  { type: 'avwap-long',   label: 'Long AVWAP · dynamic support',  price: '0.00' },
 ];
 // ─────────────────────────────────────────────────────────────────
 
-const imgExt  = path.extname(SCREENSHOT).toLowerCase();
+const imgExt   = path.extname(SCREENSHOT).toLowerCase();
 const mimeType = imgExt === '.jpg' || imgExt === '.jpeg' ? 'image/jpeg' : 'image/png';
-const b64     = fs.readFileSync(SCREENSHOT).toString('base64');
+const b64      = fs.readFileSync(SCREENSHOT).toString('base64');
 const chartSrc = `data:${mimeType};base64,${b64}`;
 
-// Build levels HTML
 function buildLevels(levels) {
   const colorMap = {
-    resistance:  '#ff9500',
-    support:     '#ff9500',
+    resistance:    '#ff9500',
+    support:       '#ff9500',
     'avwap-long':  '#4cff6e',
     'avwap-short': '#ff8c8c',
-    sma:         '#b57bff',
+    sma:           '#b57bff',
   };
   const bgMap = {
-    resistance:  'rgba(255,149,0,0.06)',
-    support:     'rgba(255,149,0,0.06)',
+    resistance:    'rgba(255,149,0,0.06)',
+    support:       'rgba(255,149,0,0.06)',
     'avwap-long':  'rgba(57,255,20,0.05)',
     'avwap-short': 'rgba(255,68,68,0.05)',
-    sma:         'rgba(181,123,255,0.05)',
+    sma:           'rgba(181,123,255,0.05)',
   };
   const borderMap = {
-    resistance:  '1px solid rgba(255,149,0,0.18)',
-    support:     '1px solid rgba(255,149,0,0.18)',
+    resistance:    '1px solid rgba(255,149,0,0.18)',
+    support:       '1px solid rgba(255,149,0,0.18)',
     'avwap-long':  '1px solid rgba(57,255,20,0.12)',
     'avwap-short': '1px solid rgba(255,68,68,0.1)',
-    sma:         '1px solid rgba(181,123,255,0.15)',
+    sma:           '1px solid rgba(181,123,255,0.15)',
   };
 
-  // Group into sections
   const resistance = levels.filter(l => l.type === 'resistance');
   const support    = levels.filter(l => l.type === 'support');
   const dynamic    = levels.filter(l => ['avwap-long','avwap-short','sma'].includes(l.type));
 
   const row = l => {
-    const bg = bgMap[l.type] ? `background:${bgMap[l.type]};` : '';
+    const bg     = bgMap[l.type]     ? `background:${bgMap[l.type]};` : '';
     const border = borderMap[l.type] ? `border:${borderMap[l.type]};` : '';
     return `<div class="level-row" style="${bg}${border}">
       <span class="level-label">${l.label}</span>
@@ -261,62 +255,64 @@ const html = `<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:    #090c11; --bg2: #0d111a; --bg3: #111720;
-    --green: #39ff14; --white: #f0f4f8; --gray: #7a8899;
-    --border: rgba(255,255,255,0.07); --border-green: rgba(57,255,20,0.2);
-    --red: #ff4444;
+    --bg:#090c11; --bg2:#0d111a; --bg3:#111720;
+    --green:#39ff14; --white:#f0f4f8; --gray:#7a8899;
+    --border:rgba(255,255,255,0.07); --border-green:rgba(57,255,20,0.2);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--white); font-family: "Inter", sans-serif;
-         font-size: 15px; line-height: 1.6; overflow: hidden; }
-  .page-header {
-    padding: 20px 28px 16px; border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-    background: var(--bg); position: fixed; top: 0; left: 0; right: 0;
-    z-index: 10; height: 70px;
-  }
-  .page-header h1 { font-size: 1.4rem; font-weight: 800; color: var(--white);
-    letter-spacing: -0.5px; font-family: "JetBrains Mono", monospace; }
-  .header-meta { font-family: "JetBrains Mono", monospace; font-size: .75rem;
-    color: var(--gray); margin-top: 1px; }
-  .ta-layout { display: grid; grid-template-columns: 1fr 1fr;
-    height: calc(100vh - 70px); margin-top: 70px; }
-  .chart-panel { height: calc(100vh - 70px); overflow: hidden;
-    border-right: 1px solid var(--border); background: #050709;
-    display: flex; align-items: center; justify-content: center; }
-  .chart-panel img { width: 100%; height: 100%; object-fit: contain; }
-  .analysis-panel { overflow-y: auto; padding: 20px 22px;
-    display: flex; flex-direction: column; gap: 14px; }
-  .card { background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 18px 20px; flex-shrink: 0; }
-  .card.highlight { border-color: var(--border-green);
-    box-shadow: 0 0 28px rgba(57,255,20,.05); }
-  .card-title { font-size: .67rem; font-weight: 700; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--green);
-    font-family: "JetBrains Mono", monospace; margin-bottom: 10px; }
-  .card p { color: var(--gray); font-size: .9rem; line-height: 1.75; }
-  .card p + p { margin-top: 8px; }
-  .card strong { color: var(--white); font-weight: 600; }
-  .indicator-block { padding-top: 13px; margin-top: 13px;
-    border-top: 1px solid var(--border); }
-  .indicator-block:first-child { padding-top: 0; margin-top: 0; border-top: none; }
-  .indicator-title { font-size: .7rem; font-weight: 700;
-    font-family: "JetBrains Mono", monospace; color: var(--white);
-    margin-bottom: 7px; text-transform: uppercase; letter-spacing: .07em; opacity: .8; }
-  .levels-list { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
-  .level-row { display: flex; justify-content: space-between; align-items: center;
-    padding: 7px 11px; border-radius: 7px; background: var(--bg3); gap: 12px; }
-  .level-label { font-size: .78rem; color: var(--gray); }
-  .level-value { font-family: "JetBrains Mono", monospace; font-size: .82rem;
-    font-weight: 700; white-space: nowrap; }
-  .zone-label { font-size: .65rem; font-family: "JetBrains Mono", monospace;
-    color: var(--gray); letter-spacing: .1em; text-transform: uppercase;
-    padding: 4px 0 2px; opacity: .55; }
-  @media (max-width: 768px) {
-    body { overflow: auto; }
-    .ta-layout { grid-template-columns: 1fr; height: auto; margin-top: 0; }
-    .chart-panel { height: 58vw; min-height: 200px; }
-    .page-header { position: relative; height: auto; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--white);font-family:"Inter",sans-serif;
+       font-size:15px;line-height:1.6;}
+  .page-header{padding:20px 28px 16px;border-bottom:1px solid var(--border);
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--bg);}
+  .page-header h1{font-size:1.4rem;font-weight:800;color:var(--white);
+    letter-spacing:-0.5px;font-family:"JetBrains Mono",monospace;}
+  .header-meta{font-family:"JetBrains Mono",monospace;font-size:.75rem;
+    color:var(--gray);margin-top:1px;}
+  .ta-content{padding:20px 22px;display:flex;flex-direction:column;gap:16px;
+    padding-bottom:28px;}
+  .top-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .chart-panel{border-radius:16px;overflow:hidden;border:1px solid var(--border);
+    background:#050709;height:100%;position:relative;cursor:zoom-in;}
+  .chart-panel img{width:100%;height:100%;object-fit:contain;display:block;}
+  .lightbox{display:none;position:fixed;inset:0;z-index:9999;
+    background:rgba(0,0,0,0.88);backdrop-filter:blur(6px);
+    align-items:center;justify-content:center;cursor:zoom-out;}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:94vw;max-height:92vh;object-fit:contain;
+    border-radius:12px;box-shadow:0 0 80px rgba(0,0,0,.9);cursor:default;}
+  .lightbox-close{position:fixed;top:16px;right:18px;
+    background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+    border-radius:8px;color:var(--white);font-size:1.1rem;line-height:1;
+    width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:background .15s;}
+  .lightbox-close:hover{background:rgba(255,255,255,0.16);}
+  .right-top{display:flex;flex-direction:column;gap:14px;height:100%;}
+  .bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .card{background:var(--bg2);border:1px solid var(--border);
+    border-radius:12px;padding:18px 20px;}
+  .card-title{font-size:.67rem;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--green);
+    font-family:"JetBrains Mono",monospace;margin-bottom:10px;}
+  .card p{color:var(--gray);font-size:.9rem;line-height:1.75;}
+  .card p+p{margin-top:8px;}
+  .card strong{color:var(--white);font-weight:600;}
+  .indicator-block{padding-top:13px;margin-top:13px;
+    border-top:1px solid var(--border);}
+  .indicator-block:first-child{padding-top:0;margin-top:0;border-top:none;}
+  .indicator-title{font-size:.7rem;font-weight:700;
+    font-family:"JetBrains Mono",monospace;color:var(--white);
+    margin-bottom:7px;text-transform:uppercase;letter-spacing:.07em;opacity:.8;}
+  .levels-list{display:flex;flex-direction:column;gap:6px;margin-top:4px;}
+  .level-row{display:flex;justify-content:space-between;align-items:center;
+    padding:7px 11px;border-radius:7px;background:var(--bg3);gap:12px;}
+  .level-label{font-size:.78rem;color:var(--gray);}
+  .level-value{font-family:"JetBrains Mono",monospace;font-size:.82rem;
+    font-weight:700;white-space:nowrap;}
+  .zone-label{font-size:.65rem;font-family:"JetBrains Mono",monospace;
+    color:var(--gray);letter-spacing:.1em;text-transform:uppercase;
+    padding:4px 0 2px;opacity:.55;}
+  @media(max-width:900px){
+    .top-row,.bottom-row{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -327,19 +323,23 @@ const html = `<!DOCTYPE html>
     <div class="header-meta">${TIMEFRAME} &nbsp;·&nbsp; ${EXCHANGE} &nbsp;·&nbsp; ${DATE}</div>
   </div>
 </header>
-<div class="ta-layout">
-  <div class="chart-panel">
-    <img src="${chartSrc}" alt="${ASSET} Chart">
+<div class="ta-content">
+  <div class="top-row">
+    <div class="chart-panel" onclick="openLightbox()">
+      <img src="${chartSrc}" alt="${ASSET} Chart">
+    </div>
+    <div class="right-top">
+      <div class="card">
+        <div class="card-title">Overall Bias</div>
+        <p>${BIAS_TEXT}</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Trend</div>
+        <p>${TREND_TEXT}</p>
+      </div>
+    </div>
   </div>
-  <div class="analysis-panel">
-    <div class="card highlight">
-      <div class="card-title">Overall Bias</div>
-      <p>${BIAS_TEXT}</p>
-    </div>
-    <div class="card">
-      <div class="card-title">Trend</div>
-      <p>${TREND_TEXT}</p>
-    </div>
+  <div class="bottom-row">
     <div class="card">
       <div class="card-title">Indicators</div>
       <div class="indicator-block">
@@ -359,6 +359,38 @@ const html = `<!DOCTYPE html>
     </div>
   </div>
 </div>
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <img src="${chartSrc}" alt="${ASSET} Chart fullscreen">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+</div>
+<script>
+  function openLightbox() {
+    document.getElementById('lightbox').classList.add('open');
+    window.parent.postMessage({ type: 'ta-zoom-open' }, '*');
+  }
+  function closeLightbox(e) {
+    if (!e || e.target !== e.currentTarget.querySelector('img')) {
+      document.getElementById('lightbox').classList.remove('open');
+      window.parent.postMessage({ type: 'ta-zoom-close' }, '*');
+    }
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.getElementById('lightbox').classList.remove('open');
+      window.parent.postMessage({ type: 'ta-zoom-close' }, '*');
+    }
+  });
+  function reportHeight() {
+    const h = Math.max(
+      document.body.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.scrollHeight
+    );
+    window.parent.postMessage({ frameHeight: h }, '*');
+  }
+  window.addEventListener('load', reportHeight);
+  new ResizeObserver(reportHeight).observe(document.body);
+</script>
 </body>
 </html>`;
 
@@ -367,6 +399,21 @@ if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(OUTPUT, html, 'utf8');
 console.log('Saved:', OUTPUT);
 console.log('Size:', Math.round(fs.statSync(OUTPUT).size / 1024), 'KB');
+
+// ── Dashboard-Data aktualisieren ──────────────────────────────────
+const dashPath = path.join(__dirname, '../../outputs/portal/dashboard-data.json');
+let dash = {};
+try { dash = JSON.parse(fs.readFileSync(dashPath, 'utf8')); } catch(_) {}
+const newEntry = {
+  type:   'Technical Analysis',
+  title:  `Technical Analysis · ${ASSET}`,
+  teaser: TEASER,
+  link:   './products/technical-analysis.html',
+  date:   DATE_ISO,
+};
+dash.updates = [newEntry, ...(dash.updates || []).filter(u => !(u.type === 'Technical Analysis' && u.title === newEntry.title))];
+fs.writeFileSync(dashPath, JSON.stringify(dash, null, 2), 'utf8');
+console.log('Dashboard updated.');
 ```
 
 ---

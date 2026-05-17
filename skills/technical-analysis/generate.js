@@ -243,13 +243,27 @@ const html = `<!DOCTYPE html>
     </div>
   </div>
 </div>
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <img src="${chartSrc}" alt="${ASSET} Chart fullscreen" onclick="event.stopPropagation()">
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <img src="${chartSrc}" alt="${ASSET} Chart fullscreen">
   <button class="lightbox-close" onclick="closeLightbox()">✕</button>
 </div>
 <script>
-  function openLightbox() { document.getElementById('lightbox').classList.add('open'); }
-  function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+  function openLightbox() {
+    document.getElementById('lightbox').classList.add('open');
+    window.parent.postMessage({ type: 'ta-zoom-open' }, '*');
+  }
+  function closeLightbox(e) {
+    if (!e || e.target !== e.currentTarget.querySelector('img')) {
+      document.getElementById('lightbox').classList.remove('open');
+      window.parent.postMessage({ type: 'ta-zoom-close' }, '*');
+    }
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.getElementById('lightbox').classList.remove('open');
+      window.parent.postMessage({ type: 'ta-zoom-close' }, '*');
+    }
+  });
   function reportHeight() {
     const h = Math.max(
       document.body.scrollHeight,
