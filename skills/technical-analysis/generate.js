@@ -195,6 +195,9 @@ const html = `<!DOCTYPE html>
   .zone-label{font-size:.65rem;font-family:"JetBrains Mono",monospace;
     color:var(--gray);letter-spacing:.1em;text-transform:uppercase;
     padding:4px 0 2px;opacity:.55;}
+  .footer{text-align:center;font-size:11px;color:var(--gray);
+    font-family:"JetBrains Mono",monospace;padding:12px 22px 20px;}
+  .footer span{color:var(--green);}
   @media(max-width:900px){
     .top-row,.bottom-row{grid-template-columns:1fr;}
   }
@@ -242,6 +245,9 @@ const html = `<!DOCTYPE html>
       </div>
     </div>
   </div>
+</div>
+<div class="footer">
+  <span>LAE Market Services</span> &middot; Learn. Analyze. Execute.
 </div>
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <img src="${chartSrc}" alt="${ASSET} Chart fullscreen">
