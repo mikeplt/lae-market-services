@@ -1,6 +1,13 @@
 {
   "updates": [
     {
+      "type": "Weekly Note",
+      "title": "Weekly Note · CW 20",
+      "teaser": "Market outlook for calendar week 20. Key levels, macro events and sector highlights.",
+      "link": "./products/weekly-note.html",
+      "date": "2026-05-17"
+    },
+    {
       "type": "COT Report",
       "title": "COT Report · CW 20 · 2026",
       "teaser": "Latest Commitments of Traders data for S&P 500 E-Mini futures. Net positioning, commercial vs. non-commercial flows.",
@@ -27,13 +34,6 @@
       "teaser": "US macro score at 56/100 – NEUTRAL. Full dashboard with interactive charts.",
       "link": "./products/macro-analysis.html",
       "date": "2026-05-12"
-    },
-    {
-      "type": "Weekly Note",
-      "title": "Weekly Note · CW 19",
-      "teaser": "Market outlook for calendar week 19. Key levels, macro events and sector highlights.",
-      "link": "./products/weekly-note.html",
-      "date": "2026-05-10"
     },
     {
       "type": "Earnings",
