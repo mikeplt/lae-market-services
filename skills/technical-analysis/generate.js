@@ -139,65 +139,64 @@ const html = `<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:    #090c11; --bg2: #0d111a; --bg3: #111720;
-    --green: #39ff14; --white: #f0f4f8; --gray: #7a8899;
-    --border: rgba(255,255,255,0.07); --border-green: rgba(57,255,20,0.2);
-    --red: #ff4444;
+    --bg:#090c11; --bg2:#0d111a; --bg3:#111720;
+    --green:#39ff14; --white:#f0f4f8; --gray:#7a8899;
+    --border:rgba(255,255,255,0.07); --border-green:rgba(57,255,20,0.2);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--white); font-family: "Inter", sans-serif;
-         font-size: 15px; line-height: 1.6; overflow: hidden; }
-  .page-header {
-    padding: 20px 28px 16px; border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-    background: var(--bg); position: fixed; top: 0; left: 0; right: 0;
-    z-index: 10; height: 70px;
-  }
-  .page-header h1 { font-size: 1.4rem; font-weight: 800; color: var(--white);
-    letter-spacing: -0.5px; font-family: "JetBrains Mono", monospace; }
-  .header-meta { font-family: "JetBrains Mono", monospace; font-size: .75rem;
-    color: var(--gray); margin-top: 1px; }
-  .ta-layout { display: grid; grid-template-columns: 1fr 1fr;
-    height: calc(100vh - 70px); margin-top: 70px; }
-  .chart-panel { height: calc(100vh - 70px); overflow: hidden;
-    border-right: 1px solid var(--border); background: #050709;
-    display: flex; align-items: center; justify-content: center; cursor: zoom-in; }
-  .chart-panel img { width: 100%; height: 100%; object-fit: contain; }
-  .analysis-panel { overflow-y: auto; padding: 20px 22px;
-    display: flex; flex-direction: column; gap: 14px; }
-  .card { background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 18px 20px; flex-shrink: 0; }
-  .card-title { font-size: .67rem; font-weight: 700; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--green);
-    font-family: "JetBrains Mono", monospace; margin-bottom: 10px; }
-  .card p { color: var(--gray); font-size: .9rem; line-height: 1.75; }
-  .card p + p { margin-top: 8px; }
-  .card strong { color: var(--white); font-weight: 600; }
-  .indicator-block { padding-top: 13px; margin-top: 13px;
-    border-top: 1px solid var(--border); }
-  .indicator-block:first-child { padding-top: 0; margin-top: 0; border-top: none; }
-  .indicator-title { font-size: .7rem; font-weight: 700;
-    font-family: "JetBrains Mono", monospace; color: var(--white);
-    margin-bottom: 7px; text-transform: uppercase; letter-spacing: .07em; opacity: .8; }
-  .levels-list { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
-  .level-row { display: flex; justify-content: space-between; align-items: center;
-    padding: 7px 11px; border-radius: 7px; background: var(--bg3); gap: 12px; }
-  .level-label { font-size: .78rem; color: var(--gray); }
-  .level-value { font-family: "JetBrains Mono", monospace; font-size: .82rem;
-    font-weight: 700; white-space: nowrap; }
-  .zone-label { font-size: .65rem; font-family: "JetBrains Mono", monospace;
-    color: var(--gray); letter-spacing: .1em; text-transform: uppercase;
-    padding: 4px 0 2px; opacity: .55; }
-  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.92);
-    z-index:100; align-items:center; justify-content:center; cursor:zoom-out; }
-  .overlay.active { display:flex; }
-  .overlay img { max-width:96vw; max-height:96vh; object-fit:contain;
-    border-radius:8px; box-shadow:0 0 60px rgba(0,0,0,.8); }
-  @media (max-width: 768px) {
-    body { overflow: auto; }
-    .ta-layout { grid-template-columns: 1fr; height: auto; margin-top: 0; }
-    .chart-panel { height: 58vw; min-height: 200px; }
-    .page-header { position: relative; height: auto; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--white);font-family:"Inter",sans-serif;
+       font-size:15px;line-height:1.6;}
+  .page-header{padding:20px 28px 16px;border-bottom:1px solid var(--border);
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--bg);}
+  .page-header h1{font-size:1.4rem;font-weight:800;color:var(--white);
+    letter-spacing:-0.5px;font-family:"JetBrains Mono",monospace;}
+  .header-meta{font-family:"JetBrains Mono",monospace;font-size:.75rem;
+    color:var(--gray);margin-top:1px;}
+  .ta-content{padding:20px 22px;display:flex;flex-direction:column;gap:16px;
+    padding-bottom:28px;}
+  .top-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .chart-panel{border-radius:16px;overflow:hidden;border:1px solid var(--border);
+    background:#050709;height:100%;position:relative;cursor:zoom-in;}
+  .chart-panel img{width:100%;height:100%;object-fit:contain;display:block;}
+  .lightbox{display:none;position:fixed;inset:0;z-index:9999;
+    background:rgba(0,0,0,0.88);backdrop-filter:blur(6px);
+    align-items:center;justify-content:center;cursor:zoom-out;}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:94vw;max-height:92vh;object-fit:contain;
+    border-radius:12px;box-shadow:0 0 80px rgba(0,0,0,.9);cursor:default;}
+  .lightbox-close{position:fixed;top:16px;right:18px;
+    background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+    border-radius:8px;color:var(--white);font-size:1.1rem;line-height:1;
+    width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:background .15s;}
+  .lightbox-close:hover{background:rgba(255,255,255,0.16);}
+  .right-top{display:flex;flex-direction:column;gap:14px;height:100%;}
+  .bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .card{background:var(--bg2);border:1px solid var(--border);
+    border-radius:12px;padding:18px 20px;}
+  .card-title{font-size:.67rem;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--green);
+    font-family:"JetBrains Mono",monospace;margin-bottom:10px;}
+  .card p{color:var(--gray);font-size:.9rem;line-height:1.75;}
+  .card p+p{margin-top:8px;}
+  .card strong{color:var(--white);font-weight:600;}
+  .indicator-block{padding-top:13px;margin-top:13px;
+    border-top:1px solid var(--border);}
+  .indicator-block:first-child{padding-top:0;margin-top:0;border-top:none;}
+  .indicator-title{font-size:.7rem;font-weight:700;
+    font-family:"JetBrains Mono",monospace;color:var(--white);
+    margin-bottom:7px;text-transform:uppercase;letter-spacing:.07em;opacity:.8;}
+  .levels-list{display:flex;flex-direction:column;gap:6px;margin-top:4px;}
+  .level-row{display:flex;justify-content:space-between;align-items:center;
+    padding:7px 11px;border-radius:7px;background:var(--bg3);gap:12px;}
+  .level-label{font-size:.78rem;color:var(--gray);}
+  .level-value{font-family:"JetBrains Mono",monospace;font-size:.82rem;
+    font-weight:700;white-space:nowrap;}
+  .zone-label{font-size:.65rem;font-family:"JetBrains Mono",monospace;
+    color:var(--gray);letter-spacing:.1em;text-transform:uppercase;
+    padding:4px 0 2px;opacity:.55;}
+  @media(max-width:900px){
+    .top-row,.bottom-row{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -208,19 +207,23 @@ const html = `<!DOCTYPE html>
     <div class="header-meta">${TIMEFRAME} &nbsp;·&nbsp; ${EXCHANGE} &nbsp;·&nbsp; ${DATE}</div>
   </div>
 </header>
-<div class="ta-layout">
-  <div class="chart-panel" id="chartPanel">
-    <img src="${chartSrc}" alt="${ASSET} Chart">
+<div class="ta-content">
+  <div class="top-row">
+    <div class="chart-panel" onclick="openLightbox()">
+      <img src="${chartSrc}" alt="${ASSET} Chart">
+    </div>
+    <div class="right-top">
+      <div class="card">
+        <div class="card-title">Overall Bias</div>
+        <p>${BIAS_TEXT}</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Trend</div>
+        <p>${TREND_TEXT}</p>
+      </div>
+    </div>
   </div>
-  <div class="analysis-panel">
-    <div class="card">
-      <div class="card-title">Overall Bias</div>
-      <p>${BIAS_TEXT}</p>
-    </div>
-    <div class="card">
-      <div class="card-title">Trend</div>
-      <p>${TREND_TEXT}</p>
-    </div>
+  <div class="bottom-row">
     <div class="card">
       <div class="card-title">Indicators</div>
       <div class="indicator-block">
@@ -240,18 +243,23 @@ const html = `<!DOCTYPE html>
     </div>
   </div>
 </div>
-<div class="overlay" id="overlay">
-  <img src="${chartSrc}" alt="${ASSET} Chart fullscreen">
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img src="${chartSrc}" alt="${ASSET} Chart fullscreen" onclick="event.stopPropagation()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
 </div>
 <script>
-  const panel   = document.getElementById('chartPanel');
-  const overlay = document.getElementById('overlay');
-  panel.addEventListener('click', () => overlay.classList.add('active'));
-  overlay.addEventListener('click', () => overlay.classList.remove('active'));
-  window.addEventListener('load', function() {
-    var h = document.documentElement.scrollHeight || document.body.scrollHeight;
+  function openLightbox() { document.getElementById('lightbox').classList.add('open'); }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+  function reportHeight() {
+    const h = Math.max(
+      document.body.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.scrollHeight
+    );
     window.parent.postMessage({ frameHeight: h }, '*');
-  });
+  }
+  window.addEventListener('load', reportHeight);
+  new ResizeObserver(reportHeight).observe(document.body);
 </script>
 </body>
 </html>`;
