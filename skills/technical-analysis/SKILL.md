@@ -202,14 +202,14 @@ function buildLevels(levels) {
   };
   const bgMap = {
     resistance:  'rgba(255,149,0,0.06)',
-    support:     '',
+    support:     'rgba(255,149,0,0.06)',
     'avwap-long':  'rgba(57,255,20,0.05)',
     'avwap-short': 'rgba(255,68,68,0.05)',
     sma:         'rgba(181,123,255,0.05)',
   };
   const borderMap = {
     resistance:  '1px solid rgba(255,149,0,0.18)',
-    support:     '',
+    support:     '1px solid rgba(255,149,0,0.18)',
     'avwap-long':  '1px solid rgba(57,255,20,0.12)',
     'avwap-short': '1px solid rgba(255,68,68,0.1)',
     sma:         '1px solid rgba(181,123,255,0.15)',
