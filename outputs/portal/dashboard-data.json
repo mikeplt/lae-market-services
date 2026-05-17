@@ -50,37 +50,37 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-15T19:46:09",
+  "news_updated": "2026-05-17T19:28:51",
   "news": [
     {
-      "title": "JPMorgan基本面科學中型核心股主動型ETF-MCDS-ETF基本資料",
-      "source": "MoneyDJ理財網",
-      "time_published": "20260515T191000",
-      "url": "https://www.moneydj.com/ETF/X/Basic/Basic0004.xdjhtm?etfid=MCDS&topc="
+      "title": "Home Sales, Nvidia, Walmart, Home Depot, Target, and More to Watch This Week",
+      "source": "Barron's",
+      "time_published": "20260517T175947",
+      "url": "https://www.barrons.com/articles/home-sales-nvidia-walmart-home-depot-target-and-more-to-watch-this-week-b3fe60ea"
     },
     {
-      "title": "3M Company stock (US88579Y1010): spin-off of Solventum reshapes the industrial conglomerate",
+      "title": "Barclays Bullish on Home Depot Inc. (HD) amid Improving Fundamentals and Comparisons",
+      "source": "Yahoo Finance",
+      "time_published": "20260517T165343",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/barclays-bullish-home-depot-inc-165346672.html"
+    },
+    {
+      "title": "Brown & Brown Inc stock (US1113201073): Institutional buying and analyst views put insurance broker",
       "source": "AD HOC NEWS",
-      "time_published": "20260515T190331",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/3m-company-stock-us88579y1010-spin-off-of-solventum-reshapes-the/69344968"
+      "time_published": "20260517T183111",
+      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/brown-and-brown-inc-stock-us1113201073-institutional-buying-and/69359085"
     },
     {
-      "title": "Palisades Goldcorp Ltd. (NFGC) discloses 26.75M shares, 7.8% stake",
-      "source": "Stock Titan",
-      "time_published": "20260515T185624",
-      "url": "https://www.stocktitan.net/sec-filings/NFGC/schedule-13g-a-new-found-gold-corp-amended-passive-investment-disclos-c4e0e0898749.html"
+      "title": "Walmart Stock Hits Key Resistance As Valuation Concerns Creep Up Ahead Of Earnings",
+      "source": "Benzinga",
+      "time_published": "20260517T183044",
+      "url": "https://www.benzinga.com/markets/equities/26/05/52625311/walmart-stock-hits-key-resistance-as-valuation-concerns-creep-up-ahead-of-earnings"
     },
     {
-      "title": "Ameren declares 75 cent quarterly dividend payable June 30 By Investing.com",
-      "source": "Investing.com Canada",
-      "time_published": "20260515T185203",
-      "url": "https://ca.investing.com/news/stock-market-news/ameren-declares-75-cent-quarterly-dividend-payable-june-30-93CH-4643423"
-    },
-    {
-      "title": "RCL Maintained by TD Cowen -- Price Target Lowered to $337",
-      "source": "GuruFocus",
-      "time_published": "20260515T184857",
-      "url": "https://www.gurufocus.com/news/8863390/rcl-maintained-by-td-cowen-price-target-lowered-to-337"
+      "title": "Assessing International Paper (IP) Shares After A Steep Pullback And Undervaluation Debate",
+      "source": "Simply Wall Street",
+      "time_published": "20260517T180350",
+      "url": "https://simplywall.st/stocks/us/materials/nyse-ip/international-paper/news/assessing-international-paper-ip-shares-after-a-steep-pullba"
     }
   ],
   "macro_score": 61,
