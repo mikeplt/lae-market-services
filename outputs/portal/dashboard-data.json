@@ -1,17 +1,17 @@
 {
   "updates": [
     {
-      "type": "Technical Analysis",
-      "title": "Technical Analysis · TSLA · Tesla, Inc.",
-      "teaser": "TSLA Daily – Bullish bias. Price reclaimed SMA 200 ($407.40) and Short AVWAP ($407.77) simultaneously. Two Gap Down zones overhead act as near-term resistance.",
-      "link": "./products/technical-analysis.html",
-      "date": "2026-05-17"
-    },
-    {
       "type": "Weekly Note",
       "title": "Weekly Note · CW 20",
       "teaser": "Market outlook for calendar week 20. Key levels, macro events and sector highlights.",
       "link": "./products/weekly-note.html",
+      "date": "2026-05-17"
+    },
+    {
+      "type": "Technical Analysis",
+      "title": "Technical Analysis · TSLA · Tesla, Inc.",
+      "teaser": "TSLA Daily – Bullish bias. Price reclaimed SMA 200 ($407.40) and Short AVWAP ($407.77) simultaneously. Two Gap Down zones overhead act as near-term resistance.",
+      "link": "./products/technical-analysis.html",
       "date": "2026-05-17"
     },
     {
