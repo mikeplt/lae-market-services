@@ -382,11 +382,12 @@ def _finnhub_macro_calendar(next_mon: date, next_fri: date) -> list:
             continue
         events.append({
             "tag": tag, "event": event_name, "uhrzeit": time_et,
-            "_priority": _event_priority(event_name), "_sort": time_str,
+            "_date": time_str[:10], "_priority": _event_priority(event_name), "_sort": time_str,
         })
 
-    events.sort(key=lambda x: (x["_priority"], x["_sort"]))
+    events.sort(key=lambda x: (x["_date"], x["_priority"], x["_sort"]))
     for e in events:
+        e.pop("_date")
         e.pop("_priority")
         e.pop("_sort")
     return events
