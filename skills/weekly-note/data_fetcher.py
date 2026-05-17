@@ -292,6 +292,8 @@ _THREE_STAR_KEYWORDS = [
     "trade balance", "goods trade balance",
     "cb leading", "leading economic index",
     "jolts", "job openings",
+    "crude oil inventories", "crude oil stocks", "eia crude",
+    "crude oil stock change", "petroleum status",
 ]
 
 def _is_three_star(event_name: str) -> bool:
