@@ -301,6 +301,38 @@ def _is_three_star(event_name: str) -> bool:
     return any(kw in name for kw in _THREE_STAR_KEYWORDS)
 
 
+def _event_priority(event_name: str) -> int:
+    """Lower = more important. Used to rank events when the 10-slot limit is reached."""
+    n = event_name.lower()
+    # Tier 1 – market-moving top releases
+    if any(k in n for k in ["fomc rate", "federal funds rate", "rate decision", "interest rate decision"]): return 1
+    if any(k in n for k in ["nonfarm payroll", "unemployment rate"]): return 2
+    if any(k in n for k in ["consumer price index", " cpi ", "core cpi", "core inflation"]): return 3
+    if any(k in n for k in ["gdp", "gross domestic product"]): return 4
+    if any(k in n for k in ["pce price", "core pce", "personal income", "personal spending"]): return 5
+    # Tier 2 – very important
+    if any(k in n for k in ["flash", "s&p global", "markit pmi", "manufacturing pmi", "services pmi", "composite pmi"]): return 10
+    if any(k in n for k in ["ism manufacturing", "ism non-manufacturing", "ism services"]): return 11
+    if any(k in n for k in ["retail sales"]): return 12
+    if any(k in n for k in ["fomc minutes", "fomc meeting minutes", "fomc"]): return 13
+    if any(k in n for k in ["producer price index", " ppi "]): return 14
+    if any(k in n for k in ["adp non-farm", "adp nonfarm", "adp employment"]): return 15
+    # Tier 3 – important
+    if any(k in n for k in ["initial jobless claims", "jobless claims", "continuing claims"]): return 20
+    if any(k in n for k in ["philly fed", "philadelphia fed"]): return 21
+    if any(k in n for k in ["consumer confidence", "cb consumer"]): return 22
+    if any(k in n for k in ["michigan consumer sentiment", "umich"]): return 23
+    if any(k in n for k in ["jolts", "job openings"]): return 24
+    if any(k in n for k in ["durable goods"]): return 25
+    if any(k in n for k in ["trade balance", "goods trade balance"]): return 26
+    if any(k in n for k in ["crude oil inventories", "crude oil stocks", "eia crude", "petroleum status", "crude oil stock change"]): return 27
+    # Tier 4 – standard 3-star
+    if any(k in n for k in ["housing starts", "building permits"]): return 30
+    if any(k in n for k in ["existing home sales", "new home sales"]): return 31
+    if any(k in n for k in ["cb leading", "leading economic index"]): return 32
+    return 50
+
+
 def _utc_hhmm_to_et(dt_utc: datetime, event_date: date) -> str:
     """Convert UTC datetime to HH:MM ET string, respecting EDT/EST transitions."""
     year = event_date.year
@@ -348,10 +380,14 @@ def _finnhub_macro_calendar(next_mon: date, next_fri: date) -> list:
             tag = _DAY_EN[event_date.weekday()]
         except Exception:
             continue
-        events.append({"tag": tag, "event": event_name, "uhrzeit": time_et, "_sort": time_str})
+        events.append({
+            "tag": tag, "event": event_name, "uhrzeit": time_et,
+            "_priority": _event_priority(event_name), "_sort": time_str,
+        })
 
-    events.sort(key=lambda x: x["_sort"])
+    events.sort(key=lambda x: (x["_priority"], x["_sort"]))
     for e in events:
+        e.pop("_priority")
         e.pop("_sort")
     return events
 
