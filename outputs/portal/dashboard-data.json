@@ -64,37 +64,37 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-18T10:16:54",
+  "news_updated": "2026-05-18T16:50:06",
   "news": [
     {
-      "title": "This Is the Only AI ETF You Need to Hold During the Capex Boom",
-      "source": "24/7 Wall St.",
-      "time_published": "20260518T094045",
-      "url": "https://247wallst.com/investing/2026/05/17/this-is-the-only-ai-etf-you-need-to-hold-during-the-capex-boom/"
+      "title": "Alaska LNG secures supply deal with ConocoPhillips for pipeline project",
+      "source": "Reuters",
+      "time_published": "20260518T151717",
+      "url": "https://www.reuters.com/business/energy/alaska-lng-secures-supply-deal-with-conocophillips-pipeline-project-2026-05-18/"
     },
     {
-      "title": "Costco Wholesale Corp. stock (US22160K1051): Dividend hike and expansion plans keep momentum high",
-      "source": "AD HOC NEWS",
-      "time_published": "20260518T093917",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/costco-wholesale-corp-stock-us22160k1051-dividend-hike-and-expansion/69364443"
+      "title": "Alphabet Stock Nears $5 Trillion Market Cap. What’s Driving the Rally.",
+      "source": "Barron's",
+      "time_published": "20260518T154139",
+      "url": "https://www.barrons.com/articles/alphabet-stock-5-trillion-market-cap-google-nvidia-09db616d"
     },
     {
-      "title": "92,919 Shares in Devon Energy Corporation $DVN Bought by iA Global Asset Management Inc.",
+      "title": "New Strong Buy Stocks for May 18th",
+      "source": "Yahoo Finance Australia",
+      "time_published": "20260518T151005",
+      "url": "https://au.finance.yahoo.com/news/strong-buy-stocks-may-18th-091800360.html"
+    },
+    {
+      "title": "TJX Maintained by JP Morgan -- Price Target Raised to $174",
+      "source": "GuruFocus",
+      "time_published": "20260518T160626",
+      "url": "https://www.gurufocus.com/news/8866640/tjx-maintained-by-jp-morgan-price-target-raised-to-174"
+    },
+    {
+      "title": "TD Cowen Has Lowered Expectations for KKR & Co. Inc. (NYSE:KKR) Stock Price",
       "source": "MarketBeat",
-      "time_published": "20260518T093529",
-      "url": "https://www.marketbeat.com/instant-alerts/filing-92919-shares-in-devon-energy-corporation-dvn-bought-by-ia-global-asset-management-inc-2026-05-18/"
-    },
-    {
-      "title": "Indonesia's IHSG Sinks 3.76% on MSCI and FTSE Russell Cuts",
-      "source": "Gotrade",
-      "time_published": "20260518T093327",
-      "url": "https://www.heygotrade.com/en/news/ihsg-morning-drop-msci-ftse-russell-deletions/"
-    },
-    {
-      "title": "Dominion Energy (D) Stock Jumps 11% on NextEra Takeover Report",
-      "source": "CoinCentral",
-      "time_published": "20260518T091427",
-      "url": "https://coincentral.com/dominion-energy-d-stock-jumps-11-on-nextera-takeover-report/"
+      "time_published": "20260518T160553",
+      "url": "https://www.marketbeat.com/instant-alerts/td-cowen-has-lowered-expectations-for-kkr-co-inc-nysekkr-stock-price-2026-05-18/"
     }
   ],
   "macro_score": 61,
