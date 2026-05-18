@@ -1,6 +1,13 @@
 {
   "updates": [
     {
+      "type": "Macro Analysis",
+      "title": "Macro Analysis · May 18, 2026",
+      "teaser": "US macro score at 56/100 – NEUTRAL. Full dashboard with interactive charts.",
+      "link": "./products/macro-analysis.html",
+      "date": "2026-05-18"
+    },
+    {
       "type": "Weekly Note",
       "title": "Weekly Note · CW 20",
       "teaser": "Market outlook for calendar week 20. Key levels, macro events and sector highlights.",
@@ -34,13 +41,6 @@
       "teaser": "S&P 500 E-Mini Daily – Bullish bias. Price +8.8% above SMA 200, pressing upper Bollinger Band. Key support at 7,421.",
       "link": "./products/technical-analysis.html",
       "date": "2026-05-14"
-    },
-    {
-      "type": "Macro Analysis",
-      "title": "Macro Analysis · May 12, 2026",
-      "teaser": "US macro score at 56/100 – NEUTRAL. Full dashboard with interactive charts.",
-      "link": "./products/macro-analysis.html",
-      "date": "2026-05-12"
     },
     {
       "type": "Earnings",
