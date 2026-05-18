@@ -3,88 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Technical Analysis – LAE Market Services</title>
+  <title>NVDA – Technical Analysis – LAE Market Services</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/style.css" />
   <style>
-    .section-heading {
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--gray);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 16px;
-    }
-
-    .asset-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-bottom: 32px;
-    }
-
-    .asset-tile {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 32px 16px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-      text-decoration: none;
-      transition: border-color 0.18s, background 0.15s, box-shadow 0.18s;
-    }
-    .asset-tile:hover {
-      background: var(--bg3);
-      border-color: rgba(57,255,20,0.35);
-      box-shadow: 0 0 24px rgba(57,255,20,0.08);
-    }
-
-    .tile-logo-wrap {
-      width: 68px;
-      height: 68px;
-      background: #fff;
-      border-radius: 14px;
+    .note-toolbar {
       display: flex;
       align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-    .tile-logo-wrap img {
-      width: 52px;
-      height: 52px;
-      object-fit: contain;
-    }
-    .tile-logo-fallback {
-      width: 68px;
-      height: 68px;
-      background: var(--green-glow);
-      border: 1px solid var(--green-border);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--green);
-      letter-spacing: 0.03em;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+      gap: 8px;
     }
 
-    .tile-ticker {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--white);
+    .archive-dropdown-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .archive-dropdown-label {
+      font-size: 0.72rem;
+      color: #7a8899;
       letter-spacing: 0.04em;
+      white-space: nowrap;
+      user-select: none;
     }
 
-    @media (max-width: 1024px) { .asset-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 640px)  { .asset-grid { grid-template-columns: repeat(2, 1fr); } }
+    .archive-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background: #0d111a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      color: #7a8899;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 5px 28px 5px 10px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.15s, color 0.15s;
+      min-width: 200px;
+    }
+    .archive-select:hover,
+    .archive-select:focus {
+      border-color: rgba(57,255,20,0.3);
+      color: #f0f4f8;
+    }
+    .archive-select option {
+      background: #0d111a;
+      color: #f0f4f8;
+    }
+
+    .archive-dropdown-arrow {
+      position: absolute;
+      right: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: #7a8899;
+    }
+
+    .note-frame-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .note-frame-wrap:hover {
+      border-color: rgba(57,255,20,0.3);
+      box-shadow: 0 0 24px rgba(57,255,20,0.07);
+    }
+    .note-frame-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 600px;
+      border: none;
+      background: #090c11;
+    }
+    .note-frame-wrap.zoom-active {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+    }
+    .note-frame-wrap.zoom-active iframe {
+      height: 100vh !important;
+    }
   </style>
 </head>
 <body>
@@ -209,62 +218,29 @@
         <div class="breadcrumb">
           <a href="../dashboard.html">Dashboard</a>
           <span class="breadcrumb-sep">/</span>
-          <span class="current">Technical Analysis</span>
+          <a href="technical-analysis.html">Technical Analysis</a>
+          <span class="breadcrumb-sep">/</span>
+          <span class="current">NVDA</span>
         </div>
 
-        <!-- Header -->
-        <div class="page-header">
-          <div class="page-header-meta">Chart-based · Futures &amp; Stocks</div>
-          <h1 class="page-title">Technical Analysis</h1>
-          <p class="page-subtitle">Chart-based analysis of key markets – trend, indicators, key levels &amp; overall bias.</p>
+        <!-- Toolbar: Archiv-Dropdown -->
+        <div class="note-toolbar">
+          <div class="archive-dropdown-wrap">
+            <span class="archive-dropdown-label">Archive</span>
+            <select class="archive-select" id="archive-select" onchange="loadFromSelect(this)">
+              <!-- ARCHIV-START -->
+              <option value="../../technical-analysis/lae-ta-NVDA-2026-05-18.html">May 18, 2026</option>
+              <!-- ARCHIV-ENDE -->
+            </select>
+            <svg class="archive-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M2 3.5L5 6.5L8 3.5" stroke="#7a8899" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
         </div>
 
-        <!-- Futures -->
-        <h2 class="section-heading">Futures</h2>
-        <div class="asset-grid">
-
-          <a href="technical-analysis-ES1.html" class="asset-tile">
-            <div class="tile-logo-wrap">
-              <img src="https://s3-symbol-logo.tradingview.com/indices/s-and-p-500.svg"
-                   alt="ES1!"
-                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>ES</div>'">
-            </div>
-            <span class="tile-ticker">ES</span>
-          </a>
-
-          <a href="technical-analysis-CL1.html" class="asset-tile">
-            <div class="tile-logo-wrap">
-              <img src="https://s3-symbol-logo.tradingview.com/crude-oil.svg"
-                   alt="CL1!"
-                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>CL</div>'">
-            </div>
-            <span class="tile-ticker">CL</span>
-          </a>
-
-        </div>
-
-        <!-- Stocks -->
-        <h2 class="section-heading">Stocks</h2>
-        <div class="asset-grid">
-
-          <a href="technical-analysis-TSLA.html" class="asset-tile">
-            <div class="tile-logo-wrap">
-              <img src="https://s3-symbol-logo.tradingview.com/tesla.svg"
-                   alt="TSLA"
-                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>TSLA</div>'">
-            </div>
-            <span class="tile-ticker">TSLA</span>
-          </a>
-
-          <a href="technical-analysis-NVDA.html" class="asset-tile">
-            <div class="tile-logo-wrap">
-              <img src="https://s3-symbol-logo.tradingview.com/nvidia.svg"
-                   alt="NVDA"
-                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>NVDA</div>'">
-            </div>
-            <span class="tile-ticker">NVDA</span>
-          </a>
-
+        <!-- Report als iframe -->
+        <div class="note-frame-wrap">
+          <iframe id="note-frame" title="Technical Analysis NVDA" src=""></iframe>
         </div>
 
       </div>
@@ -278,6 +254,32 @@
     if (localStorage.getItem('lae-sidebar') === 'collapsed') {
       document.body.classList.add('sidebar-collapsed');
     }
+
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.frameHeight) {
+        document.getElementById('note-frame').style.height = (e.data.frameHeight + 6) + 'px';
+      }
+      if (e.data && e.data.type === 'ta-zoom-open') {
+        document.querySelector('.note-frame-wrap').classList.add('zoom-active');
+      }
+      if (e.data && e.data.type === 'ta-zoom-close') {
+        document.querySelector('.note-frame-wrap').classList.remove('zoom-active');
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const sel = document.getElementById('archive-select');
+      const frame = document.getElementById('note-frame');
+      if (sel && sel.options.length > 0) {
+        frame.src = sel.options[0].value;
+      }
+    });
+
+    function loadFromSelect(sel) {
+      const src = sel.value;
+      if (src) document.getElementById('note-frame').src = src;
+    }
+
     function toggleSidebarCollapse() {
       const collapsed = document.body.classList.toggle('sidebar-collapsed');
       localStorage.setItem('lae-sidebar', collapsed ? 'collapsed' : 'expanded');

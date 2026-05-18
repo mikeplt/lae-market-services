@@ -1,6 +1,13 @@
 {
   "updates": [
     {
+      "type": "Technical Analysis",
+      "title": "Technical Analysis · NVDA · Nvidia Corporation",
+      "teaser": "NVDA Daily – Bullish bias. Price +21.2% above SMA 200 ($185.97), all three Long AVWAPs reclaimed. Approaching resistance at $235.83 with two Gap Up zones providing structural support below.",
+      "link": "./products/technical-analysis.html",
+      "date": "2026-05-18"
+    },
+    {
       "type": "Macro Analysis",
       "title": "Macro Analysis · May 18, 2026",
       "teaser": "US macro score at 56/100 – NEUTRAL. Full dashboard with interactive charts.",

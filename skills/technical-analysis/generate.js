@@ -3,66 +3,63 @@ const path = require('path');
 
 // ── CONFIG ────────────────────────────────────────────────────────
 const SCREENSHOT =
-  path.join(__dirname, 'Tradingview Screenshots', 'TSLA_2026-05-17_20-33-11.png');
+  path.join(__dirname, 'Tradingview Screenshots', 'NVDA_2026-05-18_14-57-30.png');
 
-const ASSET     = 'TSLA · Tesla, Inc.';
+const ASSET     = 'NVDA · Nvidia Corporation';
 const TIMEFRAME = 'Daily (1D)';
 const EXCHANGE  = 'NASDAQ';
-const DATE      = 'May 17, 2026';
-const DATE_ISO  = '2026-05-17';
+const DATE      = 'May 18, 2026';
+const DATE_ISO  = '2026-05-18';
 const OUTPUT    =
-  path.join(__dirname, '../../outputs/technical-analysis/lae-ta-TSLA-2026-05-17.html');
+  path.join(__dirname, '../../outputs/technical-analysis/lae-ta-NVDA-2026-05-18.html');
 
-const TEASER = 'TSLA Daily – Bullish bias. Price reclaimed SMA 200 ($407.40) and Short AVWAP ($407.77) simultaneously. Two Gap Down zones overhead act as near-term resistance.';
+const TEASER = 'NVDA Daily – Bullish bias. Price +21.2% above SMA 200 ($185.97), all three Long AVWAPs reclaimed. Approaching resistance at $235.83 with two Gap Up zones providing structural support below.';
 
 // ── ANALYSIS CONTENT ─────────────────────────────────────────────
 const BIAS_TEXT = `
-  Overall bias is <strong>Bullish</strong>. TSLA has made a decisive structural move, reclaiming both the
-  SMA 200 ($407.40) and the Short AVWAP ($407.77) in the same session — a confluence breakout that signals
-  a meaningful shift in control from sellers to buyers. Price is now trading in the upper half of the
-  Bollinger Bands, confirming momentum. The primary risk to the bullish thesis is the two unfilled
-  Gap Down zones overhead, which represent areas of residual supply.
+  Overall bias is <strong>Bullish</strong>. After a significant drawdown, NVDA has staged a strong
+  structural recovery — price at $225.32 trades 21.2% above the SMA 200 ($185.97) and above all
+  three Long AVWAPs. Momentum is clearly with buyers as price presses toward resistance at $235.83.
+  The two Gap Up zones below act as structural support cushions, reducing downside risk near-term.
 `;
 
 const TREND_TEXT = `
-  Price is trading <strong>above the SMA 200</strong> at $407.40, which has been declining for several months.
-  The reclaim of the SMA 200 from below is a significant development — this is the first confirmed close
-  above the long-term average after an extended downtrend. While the SMA 200 itself is still declining,
-  sustained price action above it would eventually flatten and turn the slope, confirming a structural
-  trend reversal.
+  Price is trading <strong>above the SMA 200</strong> at $185.97, with a distance of $39.35 (+21.2%).
+  The SMA 200, previously declining through the drawdown phase, is beginning to flatten and turn upward —
+  a sign that the long-term trend structure is repairing. The recovery from the lows has been impulsive
+  and broad, confirming sustained buyer control above the long-term average.
 `;
 
 const BB_TEXT = `
-  Bollinger Bands are in an <strong>expanding state</strong>, with price pressing into the upper half above the
-  mid band ($400.72). The upper band at $448.64 represents the near-term technical target and aligns
-  closely with the overhead Gap Down resistance. Expanding bands on a directional move confirm the
-  breakout has momentum behind it rather than being a low-volatility drift.
+  Bollinger Bands are in an <strong>expanding state</strong>, with price pressing against the upper band.
+  The expansion confirms strong directional momentum rather than a low-volatility drift. Price is
+  extended relative to the mid band, which could attract short-term profit-taking near resistance —
+  but in trending conditions, the upper band acts as a momentum target, not a reversal signal.
 `;
 
 const VOLUME_TEXT = `
-  Volume on the breakout candles shows elevated activity relative to the prior consolidation range,
-  supporting the validity of the SMA 200 reclaim. A sustained move above current levels will require
-  continued above-average volume — particularly on any retest of the $407 support cluster. Fading
-  volume on follow-through would be an early warning sign for the bullish setup.
+  Volume on the recovery rally shows elevated bars on the key upside sessions, confirming institutional
+  participation in the move. As price approaches the $235.83 resistance zone, watch for volume behavior
+  closely — a high-volume breakout would open the path to new highs, while fading volume near resistance
+  would suggest a temporary pause or consolidation before continuation.
 `;
 
 const GAPS_TEXT = `
-  Two unfilled <strong>Gap Down zones</strong> (light red rectangles) are visible above current price, representing
-  areas where prior sell-offs created supply overhangs. These zones are likely to slow or temporarily
-  stall any advance as trapped sellers look to exit at breakeven. Price filling these gaps would be
-  a strongly bullish outcome and remove the key structural overhead.
+  Two unfilled <strong>Gap Up zones</strong> (light green rectangles) are visible below current price,
+  representing breakaway gaps from the recovery move. These zones form near-term structural support —
+  if price pulls back to test them, buyers are likely to step in and defend. Unfilled Gap Up zones in
+  a bullish trend typically resolve to the upside.
 `;
 
 // LEVELS: highest to lowest price
 const LEVELS = [
-  { type: 'resistance',   label: 'Resistance',                    price: '445.61' },
-  { type: 'avwap-short',  label: 'Short AVWAP · reclaimed',       price: '407.77' },
-  { type: 'sma',          label: 'SMA 200 · trend baseline',      price: '407.40' },
-  { type: 'support',      label: 'Support',                       price: '400.45' },
-  { type: 'support',      label: 'Support',                       price: '373.15' },
-  { type: 'avwap-long',   label: 'Long AVWAP · dynamic support',  price: '369.70' },
-  { type: 'avwap-long',   label: 'Long AVWAP · dynamic support',  price: '341.53' },
-  { type: 'avwap-long',   label: 'Long AVWAP · dynamic support',  price: '320.25' },
+  { type: 'resistance',  label: 'Resistance',                   price: '235.83' },
+  { type: 'support',     label: 'Support · AVWAP confluence',   price: '216.56' },
+  { type: 'avwap-long',  label: 'Long AVWAP · dynamic support', price: '216.15' },
+  { type: 'avwap-long',  label: 'Long AVWAP · dynamic support', price: '199.67' },
+  { type: 'support',     label: 'Support · AVWAP confluence',   price: '196.39' },
+  { type: 'sma',         label: 'SMA 200 · trend baseline',     price: '185.97' },
+  { type: 'avwap-long',  label: 'Long AVWAP · deep support',    price: '168.80' },
 ];
 // ─────────────────────────────────────────────────────────────────
 
