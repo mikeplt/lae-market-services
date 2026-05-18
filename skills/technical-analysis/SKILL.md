@@ -449,7 +449,15 @@ console.log('Dashboard updated.');
 ## After Saving
 
 1. Open HTML in browser: `start "" "outputs\technical-analysis\lae-ta-{ASSET}-{YYYY-MM-DD}.html"`
-2. Add a new `<option>` entry to the archive dropdown in `outputs/portal/products/technical-analysis.html`
-   between the `ARCHIV-START` and `ARCHIV-ENDE` comments:
+2. Add a new `<option>` entry to the archive dropdown of the **asset-specific portal page**
+   (`outputs/portal/products/technical-analysis-{ASSET_SLUG}.html`) between the
+   `ARCHIV-START` and `ARCHIV-ENDE` comments:
    `<option value="../../technical-analysis/lae-ta-{ASSET}-{DATE_ISO}.html">{ASSET_SHORT} · {DATE}</option>`
-3. Confirm to Mike that report, dashboard and portal archive are all updated
+   - ES1! → `technical-analysis-ES1.html`
+   - CL1! → `technical-analysis-CL1.html`
+   - TSLA → `technical-analysis-TSLA.html`
+   - New asset: create a new asset page and add a tile to the hub (`technical-analysis.html`)
+3. Update the asset tile in the hub page (`outputs/portal/products/technical-analysis.html`):
+   - Set `asset-tile-date` to the new date (e.g. `Latest: May 18, 2026`)
+   - Set `asset-tile-teaser` to the TEASER value from the report config
+4. Confirm to Mike that report, dashboard, asset archive and hub tile are all updated
