@@ -7,18 +7,18 @@ from pathlib import Path
 
 # ── HEADER ────────────────────────────────────────────────────────────────────
 DATA = {
-    "DATUM":        "April 28, 2026",
-    "TICKER":       "MSFT",
-    "COMPANY_NAME": "Microsoft Corporation",
-    "QUARTER":      "Q3 FY2026",
-    "REPORT_DATE":  "April 29, 2026",
+    "DATUM":        "May 18, 2026",
+    "TICKER":       "NVDA",
+    "COMPANY_NAME": "Nvidia Corporation",
+    "QUARTER":      "Q1 FY2027",
+    "REPORT_DATE":  "May 20, 2026",
     "REPORT_TIME":  "After Close",
-    "STOCK_DATE":   "Apr. 28",
-    "STOCK_PRICE":  "$ 424.82",
-    "IMPLIED_MOVE": "± 6.8%",
+    "STOCK_DATE":   "May 18",
+    "STOCK_PRICE":  "$ 225.32",
+    "IMPLIED_MOVE": "± 8.0%",
     "TV_IFRAME_SRC": (
         "https://www.tradingview.com/embed-widget/mini-symbol-overview/"
-        "?symbol=NASDAQ%3AMSFT&locale=en&dateRange=12M&colorTheme=dark"
+        "?symbol=NASDAQ%3ANVDA&locale=en&dateRange=12M&colorTheme=dark"
         "&trendLineColor=%2339ff14&underLineColor=rgba(57%2C255%2C20%2C0.15)"
         "&underLineBottomColor=rgba(57%2C255%2C20%2C0)&isTransparent=true&autosize=true"
     ),
@@ -27,81 +27,90 @@ DATA = {
 # ── CONSENSUS ESTIMATES ───────────────────────────────────────────────────────
 # Format: (Metric, Consensus, Prior Year, YoY, yoy_class)
 ESTIMATES = [
-    ("Revenue (total)",      "$ 81.3B",  "$ 70.1B",  "▲ 16.0%",  "pos"),
-    ("Intelligent Cloud",    "~ $ 30.0B","$ 26.7B",  "▲ 12.4%",  "pos"),
-    ("Azure Growth (CC)",    "~ 38%",    "~ 33%",    "▲ 5 pp",   "pos"),
-    ("EPS (adj.)",           "$ 4.06",   "$ 3.46",   "▲ 17.3%",  "pos"),
+    ("Revenue (total)",      "$ 78.8B",  "$ 44.1B",   "▲ 78.7%",    "pos"),
+    ("Data Center",          "$ 72.9B",  "$ 39.3B",   "▲ 85.4%",    "pos"),
+    ("Gaming",               "$ 3.6B",   "$ 2.6B",    "▲ 38.5%",    "pos"),
+    ("EPS (adj.)",           "$ 1.77",   "$ 0.78",    "▲ 126.9%",   "pos"),
+    ("Gross Margin (adj.)",  "~ 75.0%",  "~ 78.4%",   "▼ 340 bps",  "neg"),
 ]
 
 # ── KEY METRICS TO WATCH ──────────────────────────────────────────────────────
 # Format: (Rank, Title, Description)
 METRICS = [
-    ("1", "Azure Growth Rate (CC)",
-     "Q3 FY2025: 33% CC. Guidance Q3 FY2026: 37–38%. The #1 market focus – "
-     "can Azure re-accelerate after decelerating to 31% in Q2? Every point above or below guidance drives outsized stock reaction."),
-    ("2", "AI & Copilot Revenue",
-     "Concrete Copilot ARR data is what the market craves. Seat count growth, "
-     "enterprise adoption rates, and any mention of a $15B+ ARR milestone will be key signals for the AI investment thesis."),
-    ("3", "Capital Expenditure Discipline",
-     "CapEx is expected near $21–22B for Q3. The market wants to see AI infrastructure spending "
-     "translate into Azure acceleration – not just cost escalation without visible returns."),
-    ("4", "FY2026 Full-Year Guidance",
-     "Any revision to revenue or EPS guidance is the key re-rating catalyst. "
-     "Strong Azure + guidance raise = bull case. Cautious or no-raise outlook = renewed pressure on the stock."),
+    ("1", "Data Center Revenue vs. $72.9B",
+     "The single most important number — driven entirely by Blackwell GPU shipments to hyperscalers. "
+     "A beat above $75B signals demand remains unbroken and supply constraints are easing. "
+     "A miss below $70B would call the entire AI capex cycle into question."),
+    ("2", "Q2 FY2027 Revenue Guidance",
+     "Consensus expects ~$80B for Q2. This number moves the stock more than the Q1 print itself — "
+     "NVDA trades on trajectory. Guidance above $82B triggers a re-rating; anything below $78B "
+     "overshadows even a strong Q1 beat."),
+    ("3", "China / Export Control Commentary",
+     "NVIDIA guided zero H20 revenue following US export restrictions. Any update on alternative "
+     "products for China, policy relief, or demand redirection is the highest-variance wildcard — "
+     "it can move the stock ±5% independent of any other number."),
+    ("4", "Gross Margin Trajectory",
+     "Q1 consensus is ~75.0% non-GAAP, down from 78.4% in Q1 FY2026 due to Blackwell ramp costs. "
+     "Q2 gross margin guidance above 75.5% signals manufacturing yields are improving ahead of schedule "
+     "and unlocks the margin expansion story for the rest of FY2027."),
 ]
 
 # ── SCENARIOS ─────────────────────────────────────────────────────────────────
 # Format: (class, tag, reaction, revenue, eps, driver, description)
 SCENARIOS = [
-    ("bull", "Bull", "+8–12%",
-     "> $ 83B", "> $ 4.20",
-     "Azure Re-Acceleration + Guidance Raise",
-     "Azure grows 40%+ CC, significantly beating guidance. Copilot adoption shows material ARR milestones. "
-     "Management raises FY2026 revenue and EPS guidance. CapEx narrative shifts from 'cost' to 'return on investment'. "
-     "Stock reclaims $460+ and targets the $480–500 resistance zone."),
-    ("base", "Base", "± 2–4%",
-     "~ $ 81.3B", "~ $ 4.06",
-     "Consensus Met, Outlook Stable",
-     "Azure delivers 37–38% growth, in line with guidance. EPS and revenue meet consensus. "
-     "Full-year guidance maintained. Market reads the print as solid but without a big surprise – "
-     "stock reacts mildly positive or flat, within the implied move range."),
-    ("bear", "Bear", "− 7–10%",
-     "< $ 79B", "< $ 3.90",
-     "Azure Miss + Guidance Cut",
-     "Azure falls below 36% CC, missing guidance for the second consecutive quarter. "
-     "CapEx pressures margins further. Management lowers or removes FY2026 guidance. "
-     "Post-earnings sentiment turns structurally negative – stock risks retesting the $380–390 lows."),
+    ("bull", "Bull", "+8–15%",
+     "> $ 80B", "> $ 1.90",
+     "Data Center Beat + Q2 Guidance Raise",
+     "Data Center revenues exceed $75B on stronger-than-expected Blackwell shipments. Q2 guidance "
+     "comes in above $82B, confirming continued acceleration. China commentary turns neutral-to-positive. "
+     "Gross margin guidance for Q2 above 76% signals Blackwell cost normalization. "
+     "Stock clears $235 resistance and targets the $260–280 zone."),
+    ("base", "Base", "± 2–5%",
+     "~ $ 78.8B", "~ $ 1.77",
+     "Consensus Met, Guidance In-Line",
+     "Revenue and EPS land at or slightly above consensus. Q2 guidance comes in around $80B, "
+     "in line with expectations. China remains a headwind but no escalation. "
+     "Gross margins stabilize near 75%. Stock moves within the implied range — "
+     "mildly positive reaction or consolidation near current levels."),
+    ("bear", "Bear", "− 8–15%",
+     "< $ 77B", "< $ 1.65",
+     "Data Center Miss + Weak Q2 Guidance",
+     "Data Center falls short of $70B due to supply issues or demand softness from hyperscalers. "
+     "Q2 guidance below $76B signals a deceleration in the Blackwell ramp. "
+     "Negative China commentary or further export restrictions announced. "
+     "Gross margins compress below 74%. Stock risks retesting the $196–200 support cluster."),
 ]
 
 # ── CATALYST CHECKLIST ────────────────────────────────────────────────────────
 # Format: (Number, Title, Description)
 CATALYSTS = [
-    ("01", "Azure Growth Rate (CC)",
-     "Q3 FY2025: 33% CC. Guidance Q3 FY2026: 37–38%. The #1 market focus – "
-     "every percentage point above or below guidance drives outsized stock reaction."),
-    ("02", "AI & Copilot Revenue",
-     "Seat count growth and ARR milestones for Copilot. "
-     "A concrete $15B+ ARR figure or strong enterprise adoption data would validate the AI investment thesis."),
-    ("03", "CapEx Efficiency Commentary",
-     "Expected CapEx: ~$21–22B. CFO commentary on when AI infrastructure spending "
-     "will translate into margin expansion is the key swing factor for long-term investors."),
-    ("04", "OpenAI Partnership Update",
-     "Microsoft restructured its OpenAI revenue share agreement in April 2026. "
-     "Any earnings commentary on the financial impact or strategic implications will move the stock."),
-    ("05", "FY2026 Full-Year Guidance",
-     "Consensus expects ~14–15% revenue growth for FY2026. A raise confirms Azure re-acceleration. "
-     "A hold is neutral. Any cut or removal of guidance triggers severe selling pressure."),
+    ("01", "Data Center Revenue vs. $72.9B",
+     "The headline number — any beat above $75B signals Blackwell demand is fully unbound. "
+     "A miss below $70B would trigger a sharp selloff as it questions the hyperscaler AI capex narrative."),
+    ("02", "Q2 FY2027 Revenue Guidance",
+     "Consensus: ~$80B. This is the most market-moving number — NVDA trades on the trajectory, "
+     "not the rearview mirror. Guidance above $82B triggers a re-rating; below $78B triggers selling."),
+    ("03", "China / Export Controls Update",
+     "NVIDIA guided zero H20 revenue. Any commentary on H20 replacements, licensing workarounds, "
+     "or a shift in US policy toward Nvidia is the highest-surprise factor in either direction."),
+    ("04", "Q2 Gross Margin Guidance",
+     "Q1 consensus is ~75.0%. A Q2 gross margin guide above 75.5% signals Blackwell manufacturing "
+     "yields are improving — a structural positive for the margin story beyond FY2027."),
+    ("05", "Blackwell Demand & Supply Commentary",
+     "CEO Jensen Huang's tone on order backlog, lead times, and customer demand visibility. "
+     "Any signal that supply is beginning to exceed demand — or new capacity expansion plans — "
+     "drives long-term sentiment and can reshape the valuation narrative."),
 ]
 
 # ── TRADING SETUP ─────────────────────────────────────────────────────────────
 # Format: (Label, Value, class)  class: "red" | "green" | ""
 TRADING = [
-    ("Price (Apr. 28)",              "$ 424.82",                  ""),
-    ("52-Week Range",                "$ 356 – 555",               ""),
-    ("YTD Performance",              "▼ 10.3%",                   "red"),
-    ("Avg. Earnings Reaction",       "± 3.8%",                    ""),
-    ("Implied Move (Options)",       "± 6.8%",                    "red"),
-    ("Analyst Consensus",            "Strong Buy / 53 Analysten", ""),
+    ("Price (May 18)",               "$ 225.32",                  ""),
+    ("52-Week Range",                "$ 112 – $ 225",             ""),
+    ("YTD Performance",              "▲ 15.4%",                   "green"),
+    ("Avg. Earnings Reaction",       "± 6.3%",                    ""),
+    ("Implied Move (Options)",       "± 8.0%",                    "red"),
+    ("Analyst Consensus",            "Strong Buy / 70 Analysten", ""),
 ]
 
 # ── HTML BUILD ────────────────────────────────────────────────────────────────
