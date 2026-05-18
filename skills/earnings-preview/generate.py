@@ -195,7 +195,15 @@ def render_template():
         tpl = tpl.replace("{{" + key + "}}", val)
     return tpl
 
+TEASER = (
+    f"{DATA['TICKER']} reports {DATA['REPORT_DATE']} {DATA['REPORT_TIME']}. "
+    f"Consensus: Revenue {ESTIMATES[0][1]} ({ESTIMATES[0][3]} YoY), "
+    f"EPS {ESTIMATES[3][1]} ({ESTIMATES[3][3]})."
+)
+
 if __name__ == "__main__":
+    import json
+
     ticker  = DATA["TICKER"]
     quarter = DATA["QUARTER"].replace(" ", "-")
     out = Path(f"../../outputs/earnings-preview/earnings-preview-{ticker}-{quarter}.html")
@@ -203,3 +211,29 @@ if __name__ == "__main__":
     html = render_template()
     out.write_text(html, encoding="utf-8")
     print(f"HTML created: {out.resolve()}")
+
+    # ── Dashboard-Data aktualisieren ──────────────────────────────
+    dash_path = Path("../../outputs/portal/dashboard-data.json")
+    dash = {}
+    try:
+        dash = json.loads(dash_path.read_text(encoding="utf-8"))
+    except Exception:
+        pass
+    new_entry = {
+        "type":   "Earnings",
+        "title":  f"Earnings Preview · {ticker} {DATA['QUARTER']}",
+        "teaser": TEASER,
+        "link":   f"./products/earnings-{ticker}.html",
+        "date":   DATA["DATUM"].replace("May ", "2026-05-").replace("January ", "2026-01-"),
+    }
+    # date als ISO-String aus DATUM ableiten
+    from datetime import datetime
+    try:
+        new_entry["date"] = datetime.strptime(DATA["DATUM"], "%B %d, %Y").strftime("%Y-%m-%d")
+    except Exception:
+        pass
+    existing = dash.get("updates", [])
+    existing = [u for u in existing if not (u.get("type") == "Earnings" and u.get("title") == new_entry["title"])]
+    dash["updates"] = [new_entry] + existing
+    dash_path.write_text(json.dumps(dash, indent=2, ensure_ascii=False), encoding="utf-8")
+    print("Dashboard updated.")

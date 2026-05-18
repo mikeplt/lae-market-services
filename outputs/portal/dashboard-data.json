@@ -1,6 +1,13 @@
 {
   "updates": [
     {
+      "type": "Earnings",
+      "title": "Earnings Preview · NVDA Q1 FY2027",
+      "teaser": "NVDA reports May 20 After Close. Consensus: Revenue $78.8B (+79% YoY), EPS $1.77 (+127%). Key watch: Data Center vs. $72.9B, Q2 guidance, China/export controls.",
+      "link": "./products/earnings-NVDA.html",
+      "date": "2026-05-18"
+    },
+    {
       "type": "Technical Analysis",
       "title": "Technical Analysis · NVDA · Nvidia Corporation",
       "teaser": "NVDA Daily – Bullish bias. Price +21.2% above SMA 200 ($185.97), all three Long AVWAPs reclaimed. Approaching resistance at $235.83 with two Gap Up zones providing structural support below.",
