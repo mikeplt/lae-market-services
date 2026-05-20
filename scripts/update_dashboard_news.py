@@ -11,7 +11,7 @@ import urllib.error
 
 API_KEY = os.environ.get("ALPHAVANTAGE_API_KEY", "")
 DATA_FILE = Path(__file__).parent.parent / "outputs" / "portal" / "dashboard-data.json"
-NEWS_COUNT = 5
+NEWS_COUNT = 6
 FETCH_LIMIT = 50  # Fetch more to have enough after filtering
 
 # Preferred sources in priority order – max 1 article per source
@@ -26,6 +26,16 @@ PREFERRED_SOURCES = [
     "Forbes",
     "Yahoo Finance",
     "Business Insider",
+    "Benzinga",
+    "Seeking Alpha",
+    "The Motley Fool",
+    "Zacks",
+    "InvestorPlace",
+    "TheStreet",
+    "MarketBeat",
+    "Stock Titan",
+    "Investopedia",
+    "Market Index",
 ]
 
 
@@ -45,11 +55,10 @@ def fetch_news(api_key: str) -> list[dict]:
 
 
 def select_articles(articles: list[dict]) -> list[dict]:
-    """Pick up to NEWS_COUNT articles: preferred sources first, max 1 per source."""
+    """Pick up to NEWS_COUNT articles from preferred sources only, max 1 per source."""
     seen_sources = set()
     result = []
 
-    # Pass 1: preferred sources only, in priority order
     for source_name in PREFERRED_SOURCES:
         if len(result) >= NEWS_COUNT:
             break
@@ -65,20 +74,6 @@ def select_articles(articles: list[dict]) -> list[dict]:
                     "time_published": a.get("time_published", ""),
                     "url": a.get("url", ""),
                 })
-
-    # Pass 2: fill remaining slots with any source (max 1 per source, skip already used)
-    for a in articles:
-        if len(result) >= NEWS_COUNT:
-            break
-        src = a.get("source", "")
-        if src not in seen_sources:
-            seen_sources.add(src)
-            result.append({
-                "title": a.get("title", ""),
-                "source": src,
-                "time_published": a.get("time_published", ""),
-                "url": a.get("url", ""),
-            })
 
     return result
 

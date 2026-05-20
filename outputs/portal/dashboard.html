@@ -211,21 +211,28 @@
 
         </div>
 
-        <!-- LAE Updates -->
-        <div id="lae-highlight" style="margin-bottom:20px;display:none;">
-          <h2 style="margin-bottom:16px;font-size:0.7rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;">Updates</h2>
-          <div id="updates-list" style="display:flex;flex-direction:column;gap:10px;"></div>
-        </div>
+        <!-- Updates + Latest News nebeneinander -->
+        <div id="bottom-row" style="display:flex;gap:20px;align-items:stretch;margin-bottom:0;">
 
-        <!-- Latest News -->
-        <h2 style="margin-bottom:16px;font-size:0.7rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;">Latest News</h2>
-        <div class="card" style="margin-bottom:0;">
-          <div id="news-list" class="news-list">
-            <div class="news-item">
-              <div class="news-dot"></div>
-              <div><div class="news-item-title" style="color:#7a8899;">Loading news...</div></div>
+          <!-- LAE Updates -->
+          <div id="lae-highlight" style="flex:1;min-width:0;display:none;">
+            <h2 style="margin-bottom:16px;font-size:0.7rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;">Updates</h2>
+            <div id="updates-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+          </div>
+
+          <!-- Latest News -->
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+            <h2 style="margin-bottom:16px;font-size:0.7rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;">Latest News</h2>
+            <div class="card" style="margin-bottom:0;flex:1;">
+              <div id="news-list" class="news-list">
+                <div class="news-item">
+                  <div class="news-dot"></div>
+                  <div><div class="news-item-title" style="color:#7a8899;">Loading news...</div></div>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
 
       </div><!-- /page-content -->

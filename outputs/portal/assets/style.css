@@ -1028,4 +1028,7 @@ body.sidebar-collapsed .sidebar-footer {
   .profile-grid {
     grid-template-columns: 1fr;
   }
+  #bottom-row {
+    flex-direction: column;
+  }
 }
