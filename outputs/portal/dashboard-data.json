@@ -64,31 +64,31 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-20T09:45:45",
+  "news_updated": "2026-05-20T12:29:22",
   "news": [
     {
-      "title": "National Grid plc stock (GB00BDR05C01): focus turns to UK energy transition after latest results",
-      "source": "AD HOC NEWS",
-      "time_published": "20260520T092238",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/national-grid-plc-stock-gb00bdr05c01-focus-turns-to-uk-energy/69380632"
+      "title": "Will Mortgage Rates Hit 7% As Borrowing Costs Keep Climbing?",
+      "source": "Benzinga",
+      "time_published": "20260520T111325",
+      "url": "https://www.benzinga.com/real-estate/26/05/52685821/will-mortgage-rates-hit-7-as-borrowing-costs-keep-climbing"
     },
     {
-      "title": "ChartWatch ASX Scans: Telstra, Suncorp, Life360, ARB Corp, Catapult Sports, Sonic Healthcare, Global X Cybersecurity ETF",
-      "source": "Market Index",
-      "time_published": "20260520T091200",
-      "url": "https://www.marketindex.com.au/news/chartwatch-asx-scans-telstra-suncorp-life360-arb-corp-catapult-sports-sonic-healthcare-global-x-cybersecurity-etf"
+      "title": "Analog Devices slips even as Q2 results, guidance top estimates (ADI:NASDAQ)",
+      "source": "Seeking Alpha",
+      "time_published": "20260520T113258",
+      "url": "https://seekingalpha.com/news/4595243-analog-devices-slips-even-as-q2-results-guidance-top-estimates"
     },
     {
-      "title": "Cloudflare (NET) CFO trades shares, exercises options and covers RSU taxes",
-      "source": "Stock Titan",
-      "time_published": "20260520T091050",
-      "url": "https://www.stocktitan.net/sec-filings/NET/form-4-cloudflare-inc-insider-trading-activity-7529bc92434c.html"
-    },
-    {
-      "title": "Northwestern Mutual Wealth Management Co. Buys 162,848 Shares of American Water Works Company, Inc. $AWK",
+      "title": "Tredje AP fonden Takes $4.16 Million Position in Halliburton Company $HAL",
       "source": "MarketBeat",
-      "time_published": "20260520T090308",
-      "url": "https://www.marketbeat.com/instant-alerts/filing-northwestern-mutual-wealth-management-co-buys-162848-shares-of-american-water-works-company-inc-awk-2026-05-20/"
+      "time_published": "20260520T111144",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-tredje-ap-fonden-takes-416-million-position-in-halliburton-company-hal-2026-05-20/"
+    },
+    {
+      "title": "Radian Group (RDN) director RSUs vest into 8,616 shares with 4 withheld for taxes",
+      "source": "Stock Titan",
+      "time_published": "20260520T110901",
+      "url": "https://www.stocktitan.net/sec-filings/RDN/form-4-radian-group-inc-insider-trading-activity-7f89b747cf45.html"
     }
   ],
   "macro_score": 61,
