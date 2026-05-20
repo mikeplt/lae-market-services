@@ -55,10 +55,11 @@ def fetch_news(api_key: str) -> list[dict]:
 
 
 def select_articles(articles: list[dict]) -> list[dict]:
-    """Pick up to NEWS_COUNT articles from preferred sources only, max 1 per source."""
+    """Pick up to NEWS_COUNT articles, preferred sources first (max 1 per source), then fallback."""
     seen_sources = set()
     result = []
 
+    # Pass 1: preferred sources, max 1 per source
     for source_name in PREFERRED_SOURCES:
         if len(result) >= NEWS_COUNT:
             break
@@ -71,6 +72,22 @@ def select_articles(articles: list[dict]) -> list[dict]:
                 result.append({
                     "title": a.get("title", ""),
                     "source": src,
+                    "time_published": a.get("time_published", ""),
+                    "url": a.get("url", ""),
+                })
+
+    # Pass 2: fill remaining slots with any unused article
+    if len(result) < NEWS_COUNT:
+        used_titles = {r["title"] for r in result}
+        for a in articles:
+            if len(result) >= NEWS_COUNT:
+                break
+            title = a.get("title", "")
+            if title not in used_titles:
+                used_titles.add(title)
+                result.append({
+                    "title": title,
+                    "source": a.get("source", ""),
                     "time_published": a.get("time_published", ""),
                     "url": a.get("url", ""),
                 })
