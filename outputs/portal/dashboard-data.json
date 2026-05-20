@@ -64,7 +64,7 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-20T15:48:32",
+  "news_updated": "2026-05-20T15:51:05",
   "news": [
     {
       "title": "GameStop increases stake in eBay to more than 6%",
@@ -95,6 +95,12 @@
       "source": "Stock Titan",
       "time_published": "20260520T150204",
       "url": "https://www.stocktitan.net/sec-filings/DJP/424b2-barclays-bank-plc-prospectus-supplement-a6242e424cd1.html"
+    },
+    {
+      "title": "Intraday strength lifts GE stock 3.46% in face of weak daily momentum",
+      "source": "Traders Union",
+      "time_published": "20260520T150238",
+      "url": "https://tradersunion.com/news/financial-news/show/2089672-ge-aerospace-gains-3-46percent-to/"
     }
   ],
   "macro_score": 61,
