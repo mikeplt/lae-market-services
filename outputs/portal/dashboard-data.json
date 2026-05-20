@@ -64,31 +64,37 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-20T12:29:22",
+  "news_updated": "2026-05-20T15:48:32",
   "news": [
     {
-      "title": "Will Mortgage Rates Hit 7% As Borrowing Costs Keep Climbing?",
+      "title": "GameStop increases stake in eBay to more than 6%",
+      "source": "Reuters",
+      "time_published": "20260520T142530",
+      "url": "https://www.reuters.com/legal/government/gamestop-increases-stake-ebay-more-than-6-2026-05-20/"
+    },
+    {
+      "title": "Target tops forecasts but shares fall as retailer flags cost headwinds",
+      "source": "Yahoo Finance",
+      "time_published": "20260520T142533",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/target-tops-forecasts-shares-fall-142600355.html"
+    },
+    {
+      "title": "Recent Report Shows That Rep. Tim Moore Bought Up to $80K Worth of AT&T Stock",
       "source": "Benzinga",
-      "time_published": "20260520T111325",
-      "url": "https://www.benzinga.com/real-estate/26/05/52685821/will-mortgage-rates-hit-7-as-borrowing-costs-keep-climbing"
+      "time_published": "20260520T150028",
+      "url": "https://www.benzinga.com/insights/government/26/05/52694034/recent-report-shows-that-rep-tim-moore-bought-up-to-80k-worth-of-at-t-stock"
     },
     {
-      "title": "Analog Devices slips even as Q2 results, guidance top estimates (ADI:NASDAQ)",
-      "source": "Seeking Alpha",
-      "time_published": "20260520T113258",
-      "url": "https://seekingalpha.com/news/4595243-analog-devices-slips-even-as-q2-results-guidance-top-estimates"
-    },
-    {
-      "title": "Tredje AP fonden Takes $4.16 Million Position in Halliburton Company $HAL",
+      "title": "Alphabet (NASDAQ:GOOGL) Receives \"Overweight\" Rating from KeyCorp",
       "source": "MarketBeat",
-      "time_published": "20260520T111144",
-      "url": "https://www.marketbeat.com/instant-alerts/filing-tredje-ap-fonden-takes-416-million-position-in-halliburton-company-hal-2026-05-20/"
+      "time_published": "20260520T150450",
+      "url": "https://www.marketbeat.com/instant-alerts/alphabet-nasdaqgoogl-receives-overweight-rating-from-keycorp-2026-05-20/"
     },
     {
-      "title": "Radian Group (RDN) director RSUs vest into 8,616 shares with 4 withheld for taxes",
+      "title": "Barclays Bank PLC (DJP) prices 5.95% callable notes due June 2, 2056",
       "source": "Stock Titan",
-      "time_published": "20260520T110901",
-      "url": "https://www.stocktitan.net/sec-filings/RDN/form-4-radian-group-inc-insider-trading-activity-7f89b747cf45.html"
+      "time_published": "20260520T150204",
+      "url": "https://www.stocktitan.net/sec-filings/DJP/424b2-barclays-bank-plc-prospectus-supplement-a6242e424cd1.html"
     }
   ],
   "macro_score": 61,
