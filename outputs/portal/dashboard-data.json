@@ -64,49 +64,49 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-20T16:57:16",
+  "news_updated": "2026-05-20T20:25:07",
   "news": [
     {
-      "title": "APA Corp. is positioned to benefit from extended shortages in natural gas and oil",
+      "title": "Nvidia earnings live updates: The key numbers to watch for in the report",
       "source": "CNBC",
-      "time_published": "20260520T150603",
-      "url": "https://www.cnbc.com/video/2026/05/20/apa-corp-is-positioned-to-benefit-from-extended-shortages-in-natural-gas-and-oil.html"
+      "time_published": "20260520T181100",
+      "url": "https://www.cnbc.com/2026/05/20/nvidia-nvda-earnings-report-q1-2027.html"
     },
     {
-      "title": "Here's How Much You Would Have Made Owning Jabil Stock In The Last 5 Years",
-      "source": "Benzinga",
-      "time_published": "20260520T151546",
-      "url": "https://www.benzinga.com/insights/news/26/05/52694751/heres-how-much-you-would-have-made-owning-jabil-stock-in-the-last-5-years"
-    },
-    {
-      "title": "Deere heads into Q2 earnings amid soft farm demand and rising tariff pressures (DE:NYSE)",
+      "title": "Regeneron backed Parabilis seeks U.S. IPO (PBLS:Pending)",
       "source": "Seeking Alpha",
-      "time_published": "20260520T155026",
-      "url": "https://seekingalpha.com/news/4595338-deere-heads-into-q2-earnings-amid-soft-farm-demand-and-rising-tariff-pressures"
+      "time_published": "20260520T181320",
+      "url": "https://seekingalpha.com/news/4595451-regeneron-backed-parabilis-seeks-us-ipo"
     },
     {
-      "title": "Hasbro (NASDAQ:HAS) Shares Gap Down - Here's What Happened",
+      "title": "Daniel Krueger Sells 4,665 Shares of WEC Energy Group (NYSE:WEC) Stock",
       "source": "MarketBeat",
-      "time_published": "20260520T160547",
-      "url": "https://www.marketbeat.com/instant-alerts/hasbro-nasdaqhas-shares-gap-down-heres-what-happened-2026-05-20/"
+      "time_published": "20260520T192542",
+      "url": "https://www.marketbeat.com/instant-alerts/daniel-krueger-sells-4665-shares-of-wec-energy-group-nysewec-stock-2026-05-20/"
     },
     {
-      "title": "Morgan Stanley Smith Barney (JBHT) lists restricted and performance shares for resale",
+      "title": "ITRI (NASDAQ: ITRI) files Form 144 to sell 57 vested shares",
       "source": "Stock Titan",
-      "time_published": "20260520T155552",
-      "url": "https://www.stocktitan.net/sec-filings/JBHT/144-hunt-j-b-transport-services-inc-sec-filing-3a72d6592a72.html"
+      "time_published": "20260520T193126",
+      "url": "https://www.stocktitan.net/sec-filings/ITRI/144-itron-inc-sec-filing-72a58ef35df1.html"
     },
     {
-      "title": "REX Shares Announces Transition to Weekly Distributions for FEPI, AIPI, and CEPI",
-      "source": "Business Wire",
-      "time_published": "20260520T160014",
-      "url": "https://www.businesswire.com/news/home/20260520391072/en/REX-Shares-Announces-Transition-to-Weekly-Distributions-for-FEPI-AIPI-and-CEPI"
+      "title": "ITRI (NASDAQ) insider sales total 3,189 shares; 277 restricted shares vested",
+      "source": "Stock Titan",
+      "time_published": "20260520T192926",
+      "url": "https://www.stocktitan.net/sec-filings/ITRI/144-itron-inc-sec-filing-6bf4d7bdf666.html"
     },
     {
-      "title": "FS KKR Capital Corp. (FSK) Shareholders Who Lost Money Have Opportunity to Lead Securities Fraud Lawsuit",
-      "source": "PR Newswire",
-      "time_published": "20260520T155954",
-      "url": "https://www.prnewswire.com/news-releases/fs-kkr-capital-corp-fsk-shareholders-who-lost-money-have-opportunity-to-lead-securities-fraud-lawsuit-302777521.html"
+      "title": "[424B2] BARCLAYS BANK PLC Prospectus Supplement",
+      "source": "Stock Titan",
+      "time_published": "20260520T192714",
+      "url": "https://www.stocktitan.net/sec-filings/DJP/424b2-barclays-bank-plc-prospectus-supplement-cd01c03660ca.html"
+    },
+    {
+      "title": "Entergy stock (US29364G1031): Edison Electric Institute notes strong load growth backdrop",
+      "source": "AD HOC NEWS",
+      "time_published": "20260520T192658",
+      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/entergy-stock-us29364g1031-edison-electric-institute-notes-strong-load/69384752"
     }
   ],
   "macro_score": 61,
