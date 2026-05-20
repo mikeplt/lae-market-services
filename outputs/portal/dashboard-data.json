@@ -64,49 +64,49 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-20T15:53:55",
+  "news_updated": "2026-05-20T16:57:16",
   "news": [
     {
-      "title": "GameStop increases stake in eBay to more than 6%",
-      "source": "Reuters",
-      "time_published": "20260520T142530",
-      "url": "https://www.reuters.com/legal/government/gamestop-increases-stake-ebay-more-than-6-2026-05-20/"
+      "title": "APA Corp. is positioned to benefit from extended shortages in natural gas and oil",
+      "source": "CNBC",
+      "time_published": "20260520T150603",
+      "url": "https://www.cnbc.com/video/2026/05/20/apa-corp-is-positioned-to-benefit-from-extended-shortages-in-natural-gas-and-oil.html"
     },
     {
-      "title": "Target tops forecasts but shares fall as retailer flags cost headwinds",
-      "source": "Yahoo Finance",
-      "time_published": "20260520T142533",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/target-tops-forecasts-shares-fall-142600355.html"
-    },
-    {
-      "title": "Recent Report Shows That Rep. Tim Moore Bought Up to $80K Worth of AT&T Stock",
+      "title": "Here's How Much You Would Have Made Owning Jabil Stock In The Last 5 Years",
       "source": "Benzinga",
-      "time_published": "20260520T150028",
-      "url": "https://www.benzinga.com/insights/government/26/05/52694034/recent-report-shows-that-rep-tim-moore-bought-up-to-80k-worth-of-at-t-stock"
+      "time_published": "20260520T151546",
+      "url": "https://www.benzinga.com/insights/news/26/05/52694751/heres-how-much-you-would-have-made-owning-jabil-stock-in-the-last-5-years"
     },
     {
-      "title": "Alphabet (NASDAQ:GOOGL) Receives \"Overweight\" Rating from KeyCorp",
+      "title": "Deere heads into Q2 earnings amid soft farm demand and rising tariff pressures (DE:NYSE)",
+      "source": "Seeking Alpha",
+      "time_published": "20260520T155026",
+      "url": "https://seekingalpha.com/news/4595338-deere-heads-into-q2-earnings-amid-soft-farm-demand-and-rising-tariff-pressures"
+    },
+    {
+      "title": "Hasbro (NASDAQ:HAS) Shares Gap Down - Here's What Happened",
       "source": "MarketBeat",
-      "time_published": "20260520T150450",
-      "url": "https://www.marketbeat.com/instant-alerts/alphabet-nasdaqgoogl-receives-overweight-rating-from-keycorp-2026-05-20/"
+      "time_published": "20260520T160547",
+      "url": "https://www.marketbeat.com/instant-alerts/hasbro-nasdaqhas-shares-gap-down-heres-what-happened-2026-05-20/"
     },
     {
-      "title": "Barclays Bank PLC (DJP) prices 5.95% callable notes due June 2, 2056",
+      "title": "Morgan Stanley Smith Barney (JBHT) lists restricted and performance shares for resale",
       "source": "Stock Titan",
-      "time_published": "20260520T150204",
-      "url": "https://www.stocktitan.net/sec-filings/DJP/424b2-barclays-bank-plc-prospectus-supplement-a6242e424cd1.html"
+      "time_published": "20260520T155552",
+      "url": "https://www.stocktitan.net/sec-filings/JBHT/144-hunt-j-b-transport-services-inc-sec-filing-3a72d6592a72.html"
     },
     {
-      "title": "Intraday strength lifts GE stock 3.46% in face of weak daily momentum",
-      "source": "Traders Union",
-      "time_published": "20260520T150238",
-      "url": "https://tradersunion.com/news/financial-news/show/2089672-ge-aerospace-gains-3-46percent-to/"
+      "title": "REX Shares Announces Transition to Weekly Distributions for FEPI, AIPI, and CEPI",
+      "source": "Business Wire",
+      "time_published": "20260520T160014",
+      "url": "https://www.businesswire.com/news/home/20260520391072/en/REX-Shares-Announces-Transition-to-Weekly-Distributions-for-FEPI-AIPI-and-CEPI"
     },
     {
-      "title": "New Jersey Rep. Josh Gottheimer Sold Over $129K Worth of Darden Restaurants Stock: Here's What You Should Know",
-      "source": "Benzinga",
-      "time_published": "20260520T150025",
-      "url": "https://www.benzinga.com/insights/government/26/05/52694014/new-jersey-rep-josh-gottheimer-sold-over-129k-worth-of-darden-restaurants-stock-heres-what-yo"
+      "title": "FS KKR Capital Corp. (FSK) Shareholders Who Lost Money Have Opportunity to Lead Securities Fraud Lawsuit",
+      "source": "PR Newswire",
+      "time_published": "20260520T155954",
+      "url": "https://www.prnewswire.com/news-releases/fs-kkr-capital-corp-fsk-shareholders-who-lost-money-have-opportunity-to-lead-securities-fraud-lawsuit-302777521.html"
     }
   ],
   "macro_score": 61,
