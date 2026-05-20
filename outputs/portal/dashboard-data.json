@@ -64,37 +64,31 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-19T19:58:38",
+  "news_updated": "2026-05-20T09:45:45",
   "news": [
     {
-      "title": "Franklin Templeton Canada Announces Final Valuations for Terminated ETF Series",
-      "source": "Financial Times",
-      "time_published": "20260519T180000",
-      "url": "https://markets.ft.com/data/announce/detail?dockey=600-202605191400CANADANWCANADAPR_C3263-1"
-    },
-    {
-      "title": "Ecolab launches $5B bond sale to fund CoolIT acquisition By Investing.com",
-      "source": "Investing.com Canada",
-      "time_published": "20260519T190731",
-      "url": "https://ca.investing.com/news/economy-news/ecolab-launches-5b-bond-sale-to-fund-coolit-acquisition-93CH-4649120"
-    },
-    {
-      "title": "Guarantor: JPMorgan Chase & Co.",
-      "source": "StreetInsider",
-      "time_published": "20260519T190456",
-      "url": "https://www.streetinsider.com/SEC+Filings/Form+424B2+JPMORGAN+CHASE+%26amp%3B+CO/26520566.html"
-    },
-    {
-      "title": "Roper Technologies declares $0.91 quarterly dividend By Investing.com",
-      "source": "Investing.com Australia",
-      "time_published": "20260519T185530",
-      "url": "https://au.investing.com/news/stock-market-news/roper-technologies-declares-091-quarterly-dividend-93CH-4445287"
-    },
-    {
-      "title": "RTX Corp (Raytheon) stock (US75513E1010): new Pentagon contract and guidance lift investor focus",
+      "title": "National Grid plc stock (GB00BDR05C01): focus turns to UK energy transition after latest results",
       "source": "AD HOC NEWS",
-      "time_published": "20260519T184727",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/rtx-corp-raytheon-stock-us75513e1010-new-pentagon-contract-and/69375750"
+      "time_published": "20260520T092238",
+      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/national-grid-plc-stock-gb00bdr05c01-focus-turns-to-uk-energy/69380632"
+    },
+    {
+      "title": "ChartWatch ASX Scans: Telstra, Suncorp, Life360, ARB Corp, Catapult Sports, Sonic Healthcare, Global X Cybersecurity ETF",
+      "source": "Market Index",
+      "time_published": "20260520T091200",
+      "url": "https://www.marketindex.com.au/news/chartwatch-asx-scans-telstra-suncorp-life360-arb-corp-catapult-sports-sonic-healthcare-global-x-cybersecurity-etf"
+    },
+    {
+      "title": "Cloudflare (NET) CFO trades shares, exercises options and covers RSU taxes",
+      "source": "Stock Titan",
+      "time_published": "20260520T091050",
+      "url": "https://www.stocktitan.net/sec-filings/NET/form-4-cloudflare-inc-insider-trading-activity-7529bc92434c.html"
+    },
+    {
+      "title": "Northwestern Mutual Wealth Management Co. Buys 162,848 Shares of American Water Works Company, Inc. $AWK",
+      "source": "MarketBeat",
+      "time_published": "20260520T090308",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-northwestern-mutual-wealth-management-co-buys-162848-shares-of-american-water-works-company-inc-awk-2026-05-20/"
     }
   ],
   "macro_score": 61,
