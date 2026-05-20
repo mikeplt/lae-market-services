@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>COT Report – LAE Market Services</title>
+  <title>Smart Money Insights – TFF – LAE Market Services</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -142,12 +142,12 @@
           </svg>
           <span class="nav-text">Weekly Note</span>
         </a>
-        <a href="cot-report.html" class="nav-link active">
+        <a href="cot-reports.html" class="nav-link active">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
             <line x1="6" y1="20" x2="6" y2="14"/>
           </svg>
-          <span class="nav-text">COT Report</span>
+          <span class="nav-text">COT Reports</span>
         </a>
         <a href="technical-analysis.html" class="nav-link">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -156,7 +156,7 @@
           </svg>
           <span class="nav-text">Technical Analysis</span>
         </a>
-                <a href="earnings.html" class="nav-link">
+        <a href="earnings.html" class="nav-link">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
             <polyline points="14 2 14 8 20 8"/>
@@ -208,14 +208,16 @@
         <div class="breadcrumb">
           <a href="../dashboard.html">Dashboard</a>
           <span class="breadcrumb-sep">/</span>
-          <span class="current">COT Report</span>
+          <a href="cot-reports.html">COT Reports</a>
+          <span class="breadcrumb-sep">/</span>
+          <span class="current">Smart Money Insights</span>
         </div>
 
         <!-- Header -->
         <div class="page-header">
           <div class="page-header-meta">Weekly · Fridays</div>
-          <h1 class="page-title">COT Report</h1>
-          <p class="page-subtitle">Weekly analysis of futures positioning based on CFTC TFF data – institutional positioning, trends &amp; signals.</p>
+          <h1 class="page-title">Smart Money Insights</h1>
+          <p class="page-subtitle">Weekly institutional positioning for S&amp;P 500 E-Mini futures based on CFTC TFF data – Asset Managers vs. Leveraged Funds.</p>
         </div>
 
         <!-- Toolbar: Archiv-Dropdown -->
@@ -240,7 +242,7 @@
 
         <!-- Report als iframe -->
         <div class="note-frame-wrap">
-          <iframe id="note-frame" title="COT Report" src="" scrolling="no"></iframe>
+          <iframe id="note-frame" title="Smart Money Insights – TFF" src="" scrolling="no"></iframe>
         </div>
 
       </div>
@@ -255,7 +257,6 @@
       document.body.classList.add('sidebar-collapsed');
     }
 
-    // Höhe vom iframe selbst empfangen (postMessage)
     window.addEventListener('message', function(e) {
       if (e.data && e.data.frameHeight) {
         document.getElementById('note-frame').style.height = (e.data.frameHeight + 6) + 'px';

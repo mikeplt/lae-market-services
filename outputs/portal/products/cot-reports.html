@@ -1,79 +1,152 @@
-﻿<!DOCTYPE html>
-<html lang="de">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Earnings Reports – LAE Market Services</title>
+  <title>COT Reports – LAE Market Services</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/style.css" />
   <style>
-    #logo-grid {
+    .hub-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 8px;
+    }
+    @media (max-width: 960px) {
+      .hub-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 1200px) and (min-width: 961px) {
+      .hub-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
-    .company-tile {
-      background: var(--bg2);
-      border: 1px solid var(--border);
+    .hub-card {
+      background: #0d111a;
+      border: 1px solid rgba(255,255,255,0.07);
       border-radius: 14px;
-      padding: 32px 16px 24px;
+      padding: 28px;
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 16px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .hub-card.available {
+      border-color: rgba(57,255,20,0.2);
+      cursor: pointer;
+    }
+    .hub-card.available:hover {
+      box-shadow: 0 0 28px rgba(57,255,20,0.08);
+    }
+
+    .hub-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .hub-card-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 3px 9px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .hub-card.available .hub-card-badge {
+      color: #39ff14;
+      background: rgba(57,255,20,0.08);
+      border: 1px solid rgba(57,255,20,0.25);
+    }
+    .hub-card.soon .hub-card-badge {
+      color: #7a8899;
+      background: rgba(122,136,153,0.08);
+      border: 1px solid rgba(122,136,153,0.18);
+    }
+
+    .hub-card-status {
+      font-size: 0.67rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .hub-card.available .hub-card-status {
+      color: #39ff14;
+      background: rgba(57,255,20,0.06);
+    }
+    .hub-card.soon .hub-card-status {
+      color: #7a8899;
+      background: rgba(122,136,153,0.06);
+    }
+
+    .hub-card-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7a8899;
+      margin-bottom: 4px;
+    }
+    .hub-card-title {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: #f0f4f8;
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .hub-card-desc {
+      font-size: 0.875rem;
+      color: #7a8899;
+      line-height: 1.62;
+      flex: 1;
+    }
+
+    .hub-card-markets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .hub-card-market-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #7a8899;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 4px;
+      padding: 3px 8px;
+    }
+
+    .hub-card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 9px 18px;
+      border-radius: 6px;
       text-decoration: none;
-      transition: border-color 0.18s, background 0.15s, box-shadow 0.18s;
+      width: fit-content;
+      transition: opacity 0.15s;
+      border: none;
+      cursor: pointer;
     }
-    .company-tile:hover {
-      background: var(--bg3);
-      border-color: rgba(57,255,20,0.35);
-      box-shadow: 0 0 24px rgba(57,255,20,0.08);
+    .hub-card-btn.btn-active {
+      background: #39ff14;
+      color: #090c11;
     }
-
-    .tile-logo-wrap {
-      width: 68px;
-      height: 68px;
-      background: #fff;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex-shrink: 0;
+    .hub-card-btn.btn-active:hover { opacity: 0.85; }
+    .hub-card-btn.btn-soon {
+      background: rgba(122,136,153,0.1);
+      color: #7a8899;
+      border: 1px solid rgba(122,136,153,0.2);
+      pointer-events: none;
     }
-    .tile-logo-wrap img {
-      width: 52px;
-      height: 52px;
-      object-fit: contain;
-    }
-    .tile-logo-fallback {
-      width: 68px;
-      height: 68px;
-      background: var(--green-glow);
-      border: 1px solid var(--green-border);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--green);
-    }
-
-    .tile-ticker {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: 0.04em;
-    }
-
-    @media (max-width: 1024px) { #logo-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 640px)  { #logo-grid { grid-template-columns: repeat(2, 1fr); } }
   </style>
 </head>
 <body>
@@ -132,7 +205,7 @@
           </svg>
           <span class="nav-text">Weekly Note</span>
         </a>
-        <a href="cot-reports.html" class="nav-link">
+        <a href="cot-reports.html" class="nav-link active">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
             <line x1="6" y1="20" x2="6" y2="14"/>
@@ -146,7 +219,7 @@
           </svg>
           <span class="nav-text">Technical Analysis</span>
         </a>
-                <a href="earnings.html" class="nav-link active">
+        <a href="earnings.html" class="nav-link">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
             <polyline points="14 2 14 8 20 8"/>
@@ -198,72 +271,68 @@
         <div class="breadcrumb">
           <a href="../dashboard.html">Dashboard</a>
           <span class="breadcrumb-sep">/</span>
-          <span class="current">Earnings Reports</span>
+          <span class="current">COT Reports</span>
         </div>
 
         <!-- Header -->
         <div class="page-header">
-          <div class="page-header-meta">Quarterly · Earnings Season</div>
-          <h1 class="page-title">Earnings Reports</h1>
-          <p class="page-subtitle">Select a company to view earnings previews and post-earnings analysis reports.</p>
+          <div class="page-header-meta">Weekly · Fridays</div>
+          <h1 class="page-title">COT Reports</h1>
+          <p class="page-subtitle">Commitment of Traders – select a report type for detailed positioning analysis of institutional market participants.</p>
         </div>
 
-        <!-- Company Logo Grid -->
-        <div id="logo-grid">
+        <!-- Hub Grid -->
+        <div class="hub-grid">
 
-          <a href="earnings-AMD.html" class="company-tile">
-            <div class="tile-logo-wrap">
-              <img src="https://s3-symbol-logo.tradingview.com/advanced-micro-devices.svg"
-                   alt="AMD"
-                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>AMD</div>'">
+          <!-- Card 1: Smart Money Insights (TFF) – verfügbar -->
+          <a href="cot-tff.html" class="hub-card available" style="text-decoration:none;color:inherit;">
+            <div class="hub-card-top">
+              <span class="hub-card-badge">TFF</span>
             </div>
-            <span class="tile-ticker">AMD</span>
+            <h2 class="hub-card-title">Smart Money Insights</h2>
+            <p class="hub-card-desc">Institutional positioning in S&amp;P 500 E-Mini futures. Asset Managers vs. Leveraged Funds – who is building long, who is building short? COT Index, net positions &amp; divergence signals.</p>
+            <div class="hub-card-markets">
+              <span class="hub-card-market-tag">S&amp;P 500 E-Mini</span>
+            </div>
+            <span class="hub-card-btn btn-active">
+              View Report
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </span>
           </a>
 
-          <a href="earnings-MSFT.html" class="company-tile">
-            <div class="tile-logo-wrap">
-              <img src="https://s3-symbol-logo.tradingview.com/microsoft.svg"
-                   alt="MSFT"
-                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>MSFT</div>'">
+          <!-- Card 2: Commodity Flow (Disaggregated) – Coming Soon -->
+          <div class="hub-card soon">
+            <div class="hub-card-top">
+              <span class="hub-card-badge">Disaggregated</span>
             </div>
-            <span class="tile-ticker">MSFT</span>
-          </a>
+            <h2 class="hub-card-title">Commodity Flow</h2>
+            <p class="hub-card-desc">Futures positioning for commodities. Producer/Merchant vs. Money Manager flow – who is hedging, who is speculating? Ideal for commodity traders and macro analysts.</p>
+            <div class="hub-card-markets">
+              <span class="hub-card-market-tag">Gold</span>
+              <span class="hub-card-market-tag">Crude Oil</span>
+              <span class="hub-card-market-tag">Nat. Gas</span>
+              <span class="hub-card-market-tag">Wheat</span>
+            </div>
+            <span class="hub-card-btn btn-soon">Coming Soon</span>
+          </div>
 
-          <a href="earnings-KO.html" class="company-tile">
-            <div class="tile-logo-wrap">
-              <img src="https://s3-symbol-logo.tradingview.com/coca-cola.svg"
-                   alt="KO"
-                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>KO</div>'">
+          <!-- Card 3: Classic Sentiment (Legacy) – Coming Soon -->
+          <div class="hub-card soon">
+            <div class="hub-card-top">
+              <span class="hub-card-badge">Legacy</span>
             </div>
-            <span class="tile-ticker">KO</span>
-          </a>
-
-          <a href="earnings-V.html" class="company-tile">
-            <div class="tile-logo-wrap">
-              <img src="https://s3-symbol-logo.tradingview.com/visa.svg"
-                   alt="V"
-                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>V</div>'">
+            <h2 class="hub-card-title">Classic Sentiment</h2>
+            <p class="hub-card-desc">Classic COT sentiment in the traditional CFTC format. Commercial vs. Non-Commercial positioning for index futures and commodities – the origin of COT analysis.</p>
+            <div class="hub-card-markets">
+              <span class="hub-card-market-tag">S&amp;P 500</span>
+              <span class="hub-card-market-tag">Nasdaq</span>
+              <span class="hub-card-market-tag">Gold</span>
+              <span class="hub-card-market-tag">Crude Oil</span>
             </div>
-            <span class="tile-ticker">V</span>
-          </a>
-
-          <a href="earnings-TSLA.html" class="company-tile">
-            <div class="tile-logo-wrap">
-              <img src="https://s3-symbol-logo.tradingview.com/tesla.svg"
-                   alt="TSLA"
-                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>TSLA</div>'">
-            </div>
-            <span class="tile-ticker">TSLA</span>
-          </a>
-
-          <a href="earnings-NVDA.html" class="company-tile">
-            <div class="tile-logo-wrap">
-              <img src="https://s3-symbol-logo.tradingview.com/nvidia.svg"
-                   alt="NVDA"
-                   onerror="this.onerror=null; this.parentElement.outerHTML='<div class=\'tile-logo-fallback\'>NVDA</div>'">
-            </div>
-            <span class="tile-ticker">NVDA</span>
-          </a>
+            <span class="hub-card-btn btn-soon">Coming Soon</span>
+          </div>
 
         </div>
 
@@ -278,6 +347,7 @@
     if (localStorage.getItem('lae-sidebar') === 'collapsed') {
       document.body.classList.add('sidebar-collapsed');
     }
+
     function toggleSidebarCollapse() {
       const collapsed = document.body.classList.toggle('sidebar-collapsed');
       localStorage.setItem('lae-sidebar', collapsed ? 'collapsed' : 'expanded');

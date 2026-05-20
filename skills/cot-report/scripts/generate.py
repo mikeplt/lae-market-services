@@ -623,7 +623,7 @@ def main():
     print(f"  Open Interest: {L['oi']:,}")
 
     # ── Portal-Archiv aktualisieren ───────────────────────────────────────────
-    portal_path = Path(__file__).parents[3] / "outputs" / "portal" / "products" / "cot-report.html"
+    portal_path = Path(__file__).parents[3] / "outputs" / "portal" / "products" / "cot-tff.html"
     if portal_path.exists():
         portal_html = portal_path.read_text(encoding="utf-8")
         rel_src  = f"../../cot-report/{fname}"
@@ -648,7 +648,7 @@ def main():
         "type": "COT Report",
         "title": f"COT Report · CW {kw} · {yr}",
         "teaser": "Latest Commitments of Traders data for S&P 500 E-Mini futures. Net positioning, commercial vs. non-commercial flows.",
-        "link": "./products/cot-report.html",
+        "link": "./products/cot-reports.html",
         "date": pub_date,
     }
     dash = {}
