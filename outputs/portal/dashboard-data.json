@@ -64,7 +64,7 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-20T15:51:05",
+  "news_updated": "2026-05-20T15:53:55",
   "news": [
     {
       "title": "GameStop increases stake in eBay to more than 6%",
@@ -101,6 +101,12 @@
       "source": "Traders Union",
       "time_published": "20260520T150238",
       "url": "https://tradersunion.com/news/financial-news/show/2089672-ge-aerospace-gains-3-46percent-to/"
+    },
+    {
+      "title": "New Jersey Rep. Josh Gottheimer Sold Over $129K Worth of Darden Restaurants Stock: Here's What You Should Know",
+      "source": "Benzinga",
+      "time_published": "20260520T150025",
+      "url": "https://www.benzinga.com/insights/government/26/05/52694014/new-jersey-rep-josh-gottheimer-sold-over-129k-worth-of-darden-restaurants-stock-heres-what-yo"
     }
   ],
   "macro_score": 61,
