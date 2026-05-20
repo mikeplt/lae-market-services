@@ -11,7 +11,7 @@ import urllib.error
 
 API_KEY = os.environ.get("ALPHAVANTAGE_API_KEY", "")
 DATA_FILE = Path(__file__).parent.parent / "outputs" / "portal" / "dashboard-data.json"
-NEWS_COUNT = 6
+NEWS_COUNT = 7
 FETCH_LIMIT = 50  # Fetch more to have enough after filtering
 
 # Preferred sources in priority order – max 1 article per source
