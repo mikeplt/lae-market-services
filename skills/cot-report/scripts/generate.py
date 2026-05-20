@@ -648,7 +648,7 @@ def main():
         "type": "COT Report",
         "title": f"COT Report · CW {kw} · {yr}",
         "teaser": "Latest Commitments of Traders data for S&P 500 E-Mini futures. Net positioning, commercial vs. non-commercial flows.",
-        "link": "./products/cot-reports.html",
+        "link": "./products/cot-tff.html",
         "date": pub_date,
     }
     dash = {}
