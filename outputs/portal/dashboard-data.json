@@ -1,6 +1,13 @@
 {
   "updates": [
     {
+      "type": "COT Report",
+      "title": "COT Disaggregated · CW 20 · 2026",
+      "teaser": "Commodity positioning: Gold, Crude Oil, Natural Gas & Wheat. Producers vs. Managed Money flows.",
+      "link": "./products/cot-disaggregated.html",
+      "date": "2026-05-21"
+    },
+    {
       "type": "Earnings",
       "title": "Earnings Analysis · NVDA Q1 FY2027",
       "teaser": "NVDA Q1 FY2027 reported. Revenue $81.6B (+85% YoY, Beat), Data Center $75.2B (+92% YoY, Beat), EPS adj. $1.87 (Beat). Q2 Guidance $91B – $11B über Konsens. Kursreaktion: +1.4% AH, dann flat.",

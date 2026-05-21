@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Wheat &ndash; COT Positioning &middot; CW 20 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#090c11;--bg2:#0d111a;--bg3:#111720;
+  --green:#39ff14;--green-glow:rgba(57,255,20,.08);
+  --white:#f0f4f8;--gray:#7a8899;
+  --border:rgba(255,255,255,.07);--border-g:rgba(57,255,20,.2);
+  --red:#ff4d4d;--yellow:#f0c040;
+}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;font-size:14px;padding:32px 32px 8px;max-width:1280px;margin:0 auto}
+.header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid var(--border);gap:16px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-text{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700}
+.logo-text .lae{color:var(--green)}
+.header-meta{text-align:right}
+.header-title{font-size:22px;font-weight:800;letter-spacing:-.3px}
+.header-sub{font-size:12px;color:var(--gray);margin-top:5px;font-family:'JetBrains Mono',monospace}
+.kw-badge{display:inline-block;background:var(--green-glow);border:1px solid var(--border-g);color:var(--green);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;margin-top:8px}
+.sec{font-size:10px;font-weight:700;color:var(--green);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.sec::after{content:'';flex:1;height:1px;background:var(--border)}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:36px}
+@media(max-width:1000px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;transition:border-color .2s,box-shadow .2s;cursor:default}
+.kpi:hover{border-color:var(--border-g);box-shadow:0 0 24px var(--green-glow)}
+.kpi.hl{border-color:var(--border-g);background:linear-gradient(140deg,var(--bg2) 60%,rgba(57,255,20,.05) 100%)}
+.kpi-lbl{font-size:10px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:2px}
+.kpi-grp{font-size:10px;color:var(--green);font-weight:700;letter-spacing:.8px;margin-bottom:12px;font-family:'JetBrains Mono',monospace}
+.kpi-val{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;line-height:1;margin-bottom:10px}
+.kpi-val.positive{color:var(--green)}.kpi-val.negative{color:var(--red)}.kpi-val.neutral{color:var(--white)}
+.kpi-wow{display:flex;align-items:center;gap:6px;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:600}
+.wow.positive{color:var(--green)}.wow.negative{color:var(--red)}.wow.neutral{color:var(--gray)}
+.wow-lbl{color:var(--gray);font-weight:400}
+.idx-wrap{margin:10px 0 4px;background:var(--bg3);border-radius:6px;height:7px;overflow:hidden}
+.idx-bar{height:100%;border-radius:6px}
+.idx-zones{display:flex;justify-content:space-between;font-size:9px;color:var(--gray);margin-top:4px;font-family:'JetBrains Mono',monospace}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:36px}
+@media(max-width:1000px){.chart-grid{grid-template-columns:1fr}}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:22px 20px}
+.card.full{grid-column:1/-1}
+.card-title{font-size:13px;font-weight:700;margin-bottom:3px}
+.card-sub{font-size:11px;color:var(--gray);margin-bottom:14px}
+.chart-wrap{position:relative}
+.h220{height:220px}
+.legend{display:flex;gap:18px;margin-bottom:12px;flex-wrap:wrap}
+.leg-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--gray)}
+.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:36px}
+@media(max-width:1000px){.insight-grid{grid-template-columns:1fr}}
+.insight{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px}
+.ins-lbl{font-size:10px;font-weight:700;color:var(--green);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;font-family:'JetBrains Mono',monospace}
+.ins-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;margin-bottom:6px}
+.ins-desc{font-size:11px;color:var(--gray);line-height:1.6}
+.footer{margin-top:24px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-left{font-size:11px;color:var(--gray);line-height:1.7}
+.footer-brand{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px}
+.footer-brand .lae{color:var(--green)}
+.footer-claim{font-size:10px;color:var(--gray);margin-top:2px;font-family:'JetBrains Mono',monospace}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">
+    <svg width="30" height="30" viewBox="0 0 60 60" fill="none">
+      <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+      <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="logo-text"><span class="lae">LAE</span> Market Services</div>
+  </div>
+  <div class="header-meta">
+    <div class="header-title">Wheat &ndash; COT Positioning</div>
+    <div class="header-sub">Data: 12.05.2026 &nbsp;&middot;&nbsp; CFTC Disaggregated &nbsp;&middot;&nbsp; Futures Only &nbsp;&middot;&nbsp; CBOT</div>
+    <div class="kw-badge">CW 20 &middot; 2026</div>
+  </div>
+</header>
+
+<div class="sec">Positioning Overview</div>
+<div class="kpi-grid">
+
+  <div class="kpi hl">
+    <div class="kpi-lbl">Net Position</div>
+    <div class="kpi-grp">PRODUCER/MERCHANT</div>
+    <div class="kpi-val negative">-63.7K</div>
+    <div class="kpi-wow">
+      <span class="wow positive">&#9650;&nbsp;+4.4K</span>
+      <span class="wow-lbl">&nbsp;WoW</span>
+    </div>
+  </div>
+
+  <div class="kpi hl">
+    <div class="kpi-lbl">Net Position</div>
+    <div class="kpi-grp">MANAGED MONEY</div>
+    <div class="kpi-val negative">-18.5K</div>
+    <div class="kpi-wow">
+      <span class="wow negative">&#9660;&nbsp;-9.5K</span>
+      <span class="wow-lbl">&nbsp;WoW</span>
+    </div>
+  </div>
+
+  <div class="kpi hl">
+    <div class="kpi-lbl">COT Index (52W)</div>
+    <div class="kpi-grp">PRODUCER/MERCHANT</div>
+    <div class="kpi-val" style="color:#ff4d4d">9</div>
+    <div class="idx-wrap">
+      <div class="idx-bar" style="width:9%;background:#ff4d4d;box-shadow:0 0 10px rgba(255,77,77,0.4);"></div>
+    </div>
+    <div class="idx-zones">
+      <span>0 Bearish</span>
+      <span style="color:#ff4d4d;font-weight:700">Bearish</span>
+      <span>Bullish 100</span>
+    </div>
+  </div>
+
+  <div class="kpi hl">
+    <div class="kpi-lbl">Open Interest</div>
+    <div class="kpi-grp">TOTAL</div>
+    <div class="kpi-val neutral">447K</div>
+    <div class="kpi-wow">
+      <span class="wow positive">&#9650;&nbsp;13K</span>
+      <span class="wow-lbl">&nbsp;WoW</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="sec">Historical Positioning (52 Weeks)</div>
+<div style="margin-bottom:14px;display:grid;gap:14px">
+  <div class="card full">
+    <div class="card-title">Net Positioning &ndash; Producer/Merchant</div>
+    <div class="card-sub">Contracts (Long minus Short) &middot; weekly &middot; last 52 weeks</div>
+    <div class="legend">
+      <div class="leg-item"><div class="leg-dot" style="background:#39ff14;box-shadow:0 0 5px #39ff14aa"></div>Producer/Merchant</div>
+      <div class="leg-item"><span style="display:inline-block;width:18px;height:2px;background:repeating-linear-gradient(90deg,rgba(57,255,20,.45) 0 3px,transparent 3px 6px)"></span>&nbsp;Producer/Merchant Ø 52W</div>
+    </div>
+    <div class="chart-wrap h220"><canvas id="prodChart"></canvas></div>
+  </div>
+  <div class="card full">
+    <div class="card-title">Net Positioning &ndash; Managed Money</div>
+    <div class="card-sub">Contracts (Long minus Short) &middot; weekly &middot; last 52 weeks</div>
+    <div class="legend">
+      <div class="leg-item"><span style="display:inline-block;width:18px;height:2px;background:repeating-linear-gradient(90deg,#7a8899 0 5px,transparent 5px 8px)"></span>&nbsp;Managed Money</div>
+      <div class="leg-item"><span style="display:inline-block;width:18px;height:2px;background:repeating-linear-gradient(90deg,rgba(122,136,153,.45) 0 3px,transparent 3px 6px)"></span>&nbsp;Managed Money Ø 52W</div>
+    </div>
+    <div class="chart-wrap h220"><canvas id="mmChart"></canvas></div>
+  </div>
+</div>
+
+<div class="chart-grid">
+  <div class="card">
+    <div class="card-title">COT Index &ndash; Producer/Merchant (52W)</div>
+    <div class="card-sub">Normalized 0&ndash;100 &middot; &gt;70 = Bullish &middot; &lt;30 = Bearish</div>
+    <div class="chart-wrap h220"><canvas id="idxChart"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Open Interest</div>
+    <div class="card-sub">Total open contracts &middot; weekly &middot; last 52 weeks</div>
+    <div class="chart-wrap h220"><canvas id="oiChart"></canvas></div>
+  </div>
+</div>
+
+<div class="sec">Quick Overview</div>
+<div class="insight-grid">
+
+  <div class="insight">
+    <div class="ins-lbl">Sentiment</div>
+    <div class="ins-val" style="color:#ff4d4d">Bearish</div>
+    <div class="ins-desc">COT Index at 9/100 – Producer/Merchant near historical high short exposure. Heavy hedging signals supply-side pressure – bearish for Wheat prices.</div>
+  </div>
+
+  <div class="insight">
+    <div class="ins-lbl">Producer/Merchant vs. MM</div>
+    <div class="ins-val" style="color:#f0c040">Mixed</div>
+    <div class="ins-desc">Producer/Merchant reducing short exposure but Managed Money trimming longs. Conflicting signals – monitor for resolution.</div>
+  </div>
+
+  <div class="insight">
+    <div class="ins-lbl">Open Interest</div>
+    <div class="ins-val" style="color:#39ff14">Rising</div>
+    <div class="ins-desc">OI rose by 13K contracts – new capital entering the market.</div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="footer-left">
+    <strong style="color:var(--white)">Data Source:</strong> CFTC &ndash; Commitments of Traders (Disaggregated Report, Futures Only)<br>
+    Wheat &middot; CBOT &middot; As of: 12.05.2026
+  </div>
+  <div>
+    <div class="footer-brand"><span class="lae">LAE</span> Market Services</div>
+    <div class="footer-claim">Learn. Analyze. Execute.</div>
+  </div>
+</footer>
+
+<script>
+Chart.defaults.color='#7a8899';
+Chart.defaults.borderColor='rgba(255,255,255,.05)';
+Chart.defaults.font.family="'JetBrains Mono',monospace";
+Chart.defaults.font.size=10;
+
+const labels=["20.05.2025", "27.05.2025", "03.06.2025", "10.06.2025", "17.06.2025", "24.06.2025", "01.07.2025", "08.07.2025", "15.07.2025", "22.07.2025", "29.07.2025", "05.08.2025", "12.08.2025", "19.08.2025", "26.08.2025", "02.09.2025", "09.09.2025", "16.09.2025", "23.09.2025", "30.09.2025", "07.10.2025", "14.10.2025", "21.10.2025", "28.10.2025", "04.11.2025", "10.11.2025", "18.11.2025", "25.11.2025", "02.12.2025", "09.12.2025", "16.12.2025", "23.12.2025", "30.12.2025", "06.01.2026", "13.01.2026", "20.01.2026", "27.01.2026", "03.02.2026", "10.02.2026", "17.02.2026", "24.02.2026", "03.03.2026", "10.03.2026", "17.03.2026", "24.03.2026", "31.03.2026", "07.04.2026", "14.04.2026", "21.04.2026", "28.04.2026", "05.05.2026", "12.05.2026"];
+const prodData=[34533, 31793, 34565, 33341, 23384, 15049, 9090, 2507, 2644, -5472, 5361, 13494, 20169, 23731, 16004, 12433, 19983, 11732, 18511, 14632, 11575, 21160, 19437, 1573, 7874, -3349, -9171, -8399, -23172, -19060, -9142, 9022, 9594, 20665, 11071, 13671, 7985, 816, -836, -12158, -54046, -46379, -45730, -49804, -51471, -64955, -55679, -55112, -50806, -73375, -68187, -63739];
+const mmData=[-100541, -93855, -94543, -87669, -74256, -63868, -63414, -57593, -63034, -53989, -66880, -82957, -91874, -100166, -82859, -83276, -93287, -85799, -97295, -96239, -95400, -110883, -107377, -73331, -68740, -57911, -48099, -56406, -46642, -49035, -72079, -98174, -97196, -109483, -108247, -113560, -94047, -81543, -85832, -69567, -17758, -25089, -21246, -11874, -994, 7781, -4382, -5550, -8384, 11725, -9033, -18484];
+const oiData=[478028, 475725, 471829, 441963, 419798, 373204, 382143, 391310, 413231, 435642, 445847, 494130, 487569, 492954, 451551, 425549, 451108, 458420, 464988, 472182, 494791, 540599, 539975, 513537, 504049, 455733, 419415, 400363, 405251, 423535, 465597, 486727, 488488, 500768, 513710, 519231, 536028, 543432, 521824, 472320, 456155, 446488, 464435, 478449, 484568, 488618, 502479, 465537, 452052, 423571, 433831, 446762];
+const idxData=[50, 0, 100, 56, 0, 0, 0, 0, 0, 0, 27, 47, 64, 73, 54, 45, 64, 43, 60, 50, 43, 67, 62, 18, 33, 5, 0, 2, 0, 7, 24, 56, 57, 76, 59, 64, 54, 42, 39, 19, 0, 9, 9, 5, 3, 0, 9, 10, 14, 0, 5, 9];
+const prodAvg=-5628;
+const mmAvg=-65004;
+
+const tt={backgroundColor:'#0d111a',borderColor:'rgba(57,255,20,.25)',borderWidth:1,titleColor:'#39ff14',bodyColor:'#f0f4f8',padding:10};
+
+const zeroLine={
+  id:'zeroLine',
+  afterDraw(c){
+    const{ctx,scales,chartArea}=c;
+    if(!scales.y)return;
+    const y0=scales.y.getPixelForValue(0);
+    if(y0<chartArea.top||y0>chartArea.bottom)return;
+    ctx.save();ctx.beginPath();
+    ctx.moveTo(chartArea.left,y0);ctx.lineTo(chartArea.right,y0);
+    ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1;ctx.setLineDash([5,4]);
+    ctx.stroke();ctx.restore();
+  }
+};
+
+const netTip={...tt,callbacks:{
+  label:ctx=>ctx.dataset.pointHoverRadius===0
+    ?` ${ctx.dataset.label}: ${(ctx.parsed.y/1000).toFixed(0)}K (avg)`
+    :` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString('en-US')} Contracts`
+}};
+
+const axTick=v=>Math.abs(v)>=1e6?(v/1e6).toFixed(1)+'M':Math.abs(v)>=1e3?(v/1e3).toFixed(0)+'K':v;
+
+new Chart(document.getElementById('prodChart'),{
+  type:'line',plugins:[zeroLine],
+  data:{labels,datasets:[
+    {
+      label:'Producer/Merchant',data:prodData,
+      borderColor:'#39ff14',
+      backgroundColor:(ctx)=>{const g=ctx.chart.ctx.createLinearGradient(0,0,0,220);g.addColorStop(0,'rgba(57,255,20,.12)');g.addColorStop(1,'rgba(57,255,20,.01)');return g;},
+      borderWidth:2,pointRadius:0,pointHoverRadius:5,
+      pointHoverBackgroundColor:'#39ff14',pointHoverBorderColor:'#090c11',pointHoverBorderWidth:2,
+      tension:.38,fill:true
+    },
+    {
+      label:'Producer/Merchant Ø 52W',data:Array(labels.length).fill(prodAvg),
+      borderColor:'rgba(57,255,20,.35)',backgroundColor:'transparent',
+      borderWidth:1,borderDash:[3,5],pointRadius:0,pointHoverRadius:0,tension:0,fill:false
+    }
+  ]},
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{display:false},tooltip:{...netTip}},
+    scales:{
+      x:{grid:{display:false},ticks:{maxTicksLimit:10,maxRotation:0}},
+      y:{min:-75000,max:50000,grid:{color:'rgba(255,255,255,.04)'},ticks:{callback:axTick}}
+    }
+  }
+});
+
+new Chart(document.getElementById('mmChart'),{
+  type:'line',plugins:[zeroLine],
+  data:{labels,datasets:[
+    {
+      label:'Managed Money',data:mmData,
+      borderColor:'#7a8899',backgroundColor:'transparent',
+      borderWidth:1.5,borderDash:[5,4],pointRadius:0,pointHoverRadius:4,
+      pointHoverBackgroundColor:'#7a8899',tension:.38,fill:false
+    },
+    {
+      label:'Managed Money Ø 52W',data:Array(labels.length).fill(mmAvg),
+      borderColor:'rgba(122,136,153,.35)',backgroundColor:'transparent',
+      borderWidth:1,borderDash:[3,5],pointRadius:0,pointHoverRadius:0,tension:0,fill:false
+    }
+  ]},
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{display:false},tooltip:{...netTip}},
+    scales:{
+      x:{grid:{display:false},ticks:{maxTicksLimit:10,maxRotation:0}},
+      y:{min:-150000,max:50000,grid:{color:'rgba(255,255,255,.04)'},ticks:{callback:axTick}}
+    }
+  }
+});
+
+new Chart(document.getElementById('idxChart'),{
+  type:'line',
+  data:{labels,datasets:[{
+    data:idxData,borderColor:'#39ff14',
+    backgroundColor:(ctx)=>{const g=ctx.chart.ctx.createLinearGradient(0,0,0,220);g.addColorStop(0,'rgba(57,255,20,.2)');g.addColorStop(1,'rgba(57,255,20,0)');return g;},
+    borderWidth:2,pointRadius:0,pointHoverRadius:4,
+    pointHoverBackgroundColor:'#39ff14',tension:.42,fill:true,clip:false
+  }]},
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    layout:{padding:{top:8,left:4,right:4}},
+    plugins:{legend:{display:false},tooltip:{...tt,callbacks:{label:ctx=>` COT Index: ${ctx.parsed.y}`}}},
+    scales:{
+      x:{grid:{display:false},ticks:{maxTicksLimit:6,maxRotation:0}},
+      y:{min:0,max:100,grid:{color:'rgba(255,255,255,.04)'},ticks:{stepSize:25},
+        afterDraw(c){
+          const{ctx,chartArea}=c.chart;
+          [[70,'rgba(57,255,20,.12)'],[30,'rgba(255,77,77,.12)']].forEach(([v,col])=>{
+            const y=c.getPixelForValue(v);
+            ctx.save();ctx.fillStyle=col;
+            ctx.fillRect(chartArea.left,v>=50?chartArea.top:y,chartArea.right-chartArea.left,v>=50?y-chartArea.top:chartArea.bottom-y);
+            ctx.restore();
+          });
+        }
+      }
+    }
+  }
+});
+
+const oiMin=Math.min(...oiData),oiMax=Math.max(...oiData);
+const oiMinIdx=oiData.lastIndexOf(oiMin),oiMaxIdx=oiData.lastIndexOf(oiMax),oiLastIdx=oiData.length-1;
+function oiBg(i){
+  if(i===oiLastIdx)return'rgba(57,255,20,.55)';
+  if(i===oiMaxIdx) return'rgba(240,192,64,.45)';
+  if(i===oiMinIdx) return'rgba(255,77,77,.45)';
+  return'rgba(122,136,153,.2)';
+}
+function oiBorder(i){
+  if(i===oiLastIdx)return'#39ff14';
+  if(i===oiMaxIdx) return'#f0c040';
+  if(i===oiMinIdx) return'#ff4d4d';
+  return'transparent';
+}
+new Chart(document.getElementById('oiChart'),{
+  type:'bar',
+  data:{labels,datasets:[{
+    data:oiData,
+    backgroundColor:oiData.map((_,i)=>oiBg(i)),
+    borderColor:oiData.map((_,i)=>oiBorder(i)),
+    borderWidth:1,borderRadius:2,
+    hoverBackgroundColor:oiData.map((_,i)=>oiBg(i))
+  }]},
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{display:false},tooltip:{...tt,callbacks:{label:ctx=>` OI: ${ctx.parsed.y.toLocaleString('en-US')}`}}},
+    scales:{
+      x:{grid:{display:false},ticks:{maxTicksLimit:6,maxRotation:0}},
+      y:{min:350000,max:550000,grid:{color:'rgba(255,255,255,.04)'},ticks:{callback:axTick}}
+    }
+  }
+});
+
+function sendHeight(){
+  var ftr=document.querySelector('.footer');
+  var h=ftr?Math.ceil(ftr.getBoundingClientRect().bottom+window.scrollY)
+           :(document.documentElement.scrollHeight||document.body.scrollHeight);
+  window.parent.postMessage({frameHeight:h},'*');
+}
+window.addEventListener('load',function(){sendHeight();setTimeout(sendHeight,500);setTimeout(sendHeight,1500);});
+</script>
+</body>
+</html>
