@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daily Note – Thursday, May 21, 2026 – LAE Market Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #090c11;
+      color: #f0f4f8;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 28px 24px 48px;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .header-logo { display: flex; align-items: center; gap: 10px; }
+    .header-title { font-size: 0.65rem; font-weight: 700; color: #7a8899; text-transform: uppercase; letter-spacing: 0.1em; }
+    .header-date  { font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 700; color: #f0f4f8; }
+    .header-spacer { flex: 1; }
+    .header-tag {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em;
+      color: #39ff14; background: rgba(57,255,20,0.1); border: 1px solid rgba(57,255,20,0.25);
+      padding: 4px 10px; border-radius: 4px; text-transform: uppercase;
+    }
+
+    /* ── Signal cards row ── */
+    .signals {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .signal-card {
+      background: #0d111a;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 18px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+    .signal-card:hover {
+      border-color: rgba(57,255,20,0.2);
+      box-shadow: 0 0 20px rgba(57,255,20,0.07);
+    }
+    .signal-label {
+      font-size: 0.65rem; font-weight: 700; color: #7a8899;
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;
+    }
+    .gauge-svg { width: 160px; height: 90px; }
+    .signal-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.7rem; font-weight: 700; color: #f0f4f8;
+      margin-top: 4px; line-height: 1;
+    }
+    .signal-zone {
+      font-size: 0.72rem; font-weight: 600; color: #7a8899;
+      margin-top: 6px; letter-spacing: 0.03em;
+    }
+
+    /* ── Expected Move card ── */
+    .em-card { justify-content: flex-start; align-items: flex-start; padding: 20px 22px; }
+    .em-body { width: 100%; margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+    .em-spx { font-size: 0.72rem; color: #7a8899; }
+    .em-spx-val { font-family: 'JetBrains Mono', monospace; color: #f0f4f8; font-weight: 700; }
+    .em-pts {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.7rem; font-weight: 700; color: #39ff14; line-height: 1;
+    }
+    .em-pct { font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: #7a8899; }
+    .em-range-label { font-size: 0.62rem; font-weight: 700; color: #7a8899; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 6px; }
+    .em-range { font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #f0f4f8; font-weight: 700; }
+
+    /* ── Narrative ── */
+    .narrative {
+      background: #0d111a;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 24px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .narrative-header {
+      font-size: 0.65rem; font-weight: 700; color: #7a8899;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 4px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .narrative-section { display: flex; flex-direction: column; gap: 5px; }
+    .narrative-title {
+      font-size: 0.72rem; font-weight: 700; color: #39ff14;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .narrative-text {
+      font-size: 0.92rem; color: #c8d0db; line-height: 1.65;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; color: #7a8899;
+    }
+    .footer-brand span { color: #39ff14; font-weight: 700; }
+    .footer-note { font-size: 0.65rem; color: rgba(122,136,153,0.5); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-logo">
+      <svg width="26" height="26" viewBox="0 0 60 60" fill="none">
+        <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+        <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <div class="header-title">LAE Market Services</div>
+        <div class="header-date">Thursday, May 21, 2026</div>
+      </div>
+    </div>
+    <div class="header-spacer"></div>
+    <div class="header-tag">Pre-Market · Daily Note</div>
+  </div>
+
+  <!-- Signal Indicators -->
+  <div class="signals">
+    
+    <div class="signal-card" title="CBOE Volatility Index · <15 Low  15–25 Elevated  >25 High">
+      <div class="signal-label">VIX</div>
+      <svg viewBox="0 0 200 108" class="gauge-svg">
+        <path d="M 28.0,96.0 A 72,72 0 1,1 172.0,96.0" fill="none" stroke="#111820" stroke-width="14" stroke-linecap="round"/>
+        <path d="M 28.0,96.0 A 72,72 0 0,1 72.4,29.5" fill="none" stroke="#39ff14" stroke-width="14" stroke-linecap="round" opacity="0.5"/><path d="M 72.4,29.5 A 72,72 0 0,1 127.6,29.5" fill="none" stroke="#f59e0b" stroke-width="14" stroke-linecap="round" opacity="0.5"/><path d="M 127.6,29.5 A 72,72 0 0,1 172.0,96.0" fill="none" stroke="#ef4444" stroke-width="14" stroke-linecap="round" opacity="0.5"/>
+        <line x1="100" y1="96" x2="32.0" y2="96.0" stroke="#f0f4f8" stroke-width="2.5" stroke-linecap="round"/><circle cx="100" cy="96" r="4.5" fill="#f0f4f8"/>
+      </svg>
+      <div class="signal-value">–</div>
+      <div class="signal-zone">n/a &nbsp;·&nbsp; n/a</div>
+    </div>
+    
+    <div class="signal-card" title="CNN Fear & Greed Index · 0–25 Extreme Fear  26–45 Fear  46–55 Neutral  56–75 Greed  76–100 Extreme Greed">
+      <div class="signal-label">Fear & Greed</div>
+      <svg viewBox="0 0 200 108" class="gauge-svg">
+        <path d="M 28.0,96.0 A 72,72 0 1,1 172.0,96.0" fill="none" stroke="#111820" stroke-width="14" stroke-linecap="round"/>
+        <path d="M 28.0,96.0 A 72,72 0 0,1 49.1,45.1" fill="none" stroke="#ef4444" stroke-width="14" stroke-linecap="round" opacity="0.5"/><path d="M 49.1,45.1 A 72,72 0 0,1 88.7,24.9" fill="none" stroke="#f97316" stroke-width="14" stroke-linecap="round" opacity="0.5"/><path d="M 88.7,24.9 A 72,72 0 0,1 111.3,24.9" fill="none" stroke="#eab308" stroke-width="14" stroke-linecap="round" opacity="0.5"/><path d="M 111.3,24.9 A 72,72 0 0,1 150.9,45.1" fill="none" stroke="#84cc16" stroke-width="14" stroke-linecap="round" opacity="0.5"/><path d="M 150.9,45.1 A 72,72 0 0,1 172.0,96.0" fill="none" stroke="#39ff14" stroke-width="14" stroke-linecap="round" opacity="0.5"/>
+        <line x1="100" y1="96" x2="32.0" y2="96.0" stroke="#f0f4f8" stroke-width="2.5" stroke-linecap="round"/><circle cx="100" cy="96" r="4.5" fill="#f0f4f8"/>
+      </svg>
+      <div class="signal-value">–</div>
+      <div class="signal-zone">n/a</div>
+    </div>
+    
+    <div class="signal-card em-card" title="1-day Expected Move: SPX × (VIX / 100) / √252 · Based on previous close">
+      <div class="signal-label">Expected Move</div>
+      <div class="em-body">
+        <div class="em-spx">SPX <span class="em-spx-val">–</span></div>
+        <div class="em-pts">–</div>
+        <div class="em-pct">–</div>
+        <div class="em-range-label">Today's Range</div>
+        <div class="em-range">–</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Narrative -->
+  <div class="narrative">
+    <div class="narrative-header">Market Narrative</div>
+    
+      <div class="narrative-section">
+        <div class="narrative-title">▸ Yesterday</div>
+        <div class="narrative-text">–</div>
+      </div>
+      <div class="narrative-section">
+        <div class="narrative-title">▸ Current Sentiment</div>
+        <div class="narrative-text">–</div>
+      </div>
+      <div class="narrative-section">
+        <div class="narrative-title">▸ Today's Outlook</div>
+        <div class="narrative-text">–</div>
+      </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-brand"><span>LAE</span> Market Services · Learn. Analyze. Execute.</div>
+    <div class="footer-note">Based on previous close · Generated 2026-05-21</div>
+  </div>
+
+</body>
+</html>

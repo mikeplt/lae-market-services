@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Note – LAE Market Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <style>
+    .note-frame-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .note-frame-wrap:hover {
+      border-color: rgba(57,255,20,0.3);
+      box-shadow: 0 0 24px rgba(57,255,20,0.07);
+    }
+    .note-frame-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 720px;
+      border: none;
+      background: #090c11;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+  <div class="portal-shell">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon">
+          <svg width="28" height="28" viewBox="0 0 60 60" fill="none">
+            <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+            <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="sidebar-logo-text">
+          <span class="lae">LAE</span><span class="ms"> – Portal</span>
+        </div>
+        <button class="sidebar-toggle" onclick="toggleSidebarCollapse()" title="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">Main Menu</div>
+        <a href="../dashboard.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+          </svg>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        <div class="nav-section-label">Products</div>
+        <a href="market-overview.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+          <span class="nav-text">Market Overview</span>
+        </a>
+        <a href="macro-analysis.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <span class="nav-text">Macro Analysis</span>
+        </a>
+        <a href="daily-note.html" class="nav-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span class="nav-text">Daily Note</span>
+        </a>
+        <a href="weekly-note.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span class="nav-text">Weekly Note</span>
+        </a>
+        <a href="cot-reports.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          <span class="nav-text">COT Reports</span>
+        </a>
+        <a href="technical-analysis.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="2" x2="7" y2="6"/><rect x="4" y="6" width="6" height="8" rx="1"/><line x1="7" y1="14" x2="7" y2="18"/>
+            <line x1="17" y1="5" x2="17" y2="9"/><rect x="14" y="9" width="6" height="7" rx="1"/><line x1="17" y1="16" x2="17" y2="20"/>
+          </svg>
+          <span class="nav-text">Technical Analysis</span>
+        </a>
+        <a href="earnings.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <span class="nav-text">Earnings Reports</span>
+        </a>
+        <div class="nav-section-label">Account</div>
+        <a href="../account.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span class="nav-text">Profile</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="logout()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          <span class="nav-text">Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ── Main ── -->
+    <div class="main-content">
+
+      <div class="topbar">
+        <div class="topbar-logo">
+          <svg width="22" height="22" viewBox="0 0 60 60" fill="none">
+            <path d="M30,4 L54,17 L54,43 L30,56 L6,43 L6,17 Z" fill="rgba(57,255,20,.08)" stroke="#39ff14" stroke-width="1.5"/>
+            <polyline points="16,40 24,28 30,33 40,18" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="40,25 40,18 34,21" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span><span class="lae">LAE</span><span class="ms"> – Portal</span></span>
+        </div>
+        <button class="hamburger" onclick="toggleSidebar()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <div class="page-content">
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+          <a href="../dashboard.html">Dashboard</a>
+          <span class="breadcrumb-sep">/</span>
+          <span class="current">Daily Note</span>
+        </div>
+
+        <!-- Header -->
+        <div class="page-header">
+          <div class="page-header-meta">Daily · Mon–Fri · Pre-Market · 08:30 CEST</div>
+          <h1 class="page-title">Daily Note</h1>
+          <p class="page-subtitle">Pre-market sentiment dashboard – VIX, Fear &amp; Greed, Expected Move and AI-powered market narrative for the trading day ahead.</p>
+        </div>
+
+        <!-- Note iframe – always current -->
+        <div class="note-frame-wrap">
+          <iframe id="note-frame" title="Daily Note" src="../../daily-note/Daily_Note_current.html" scrolling="no"></iframe>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    if (sessionStorage.getItem('lae_auth') !== 'true') {
+      window.location.replace('../index.html');
+    }
+    if (localStorage.getItem('lae-sidebar') === 'collapsed') {
+      document.body.classList.add('sidebar-collapsed');
+    }
+
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.frameHeight) {
+        document.getElementById('note-frame').style.height = (e.data.frameHeight + 6) + 'px';
+      }
+    });
+
+    function toggleSidebarCollapse() {
+      const collapsed = document.body.classList.toggle('sidebar-collapsed');
+      localStorage.setItem('lae-sidebar', collapsed ? 'collapsed' : 'expanded');
+    }
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebar-overlay').classList.toggle('active');
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebar-overlay').classList.remove('active');
+    }
+    function logout() {
+      sessionStorage.removeItem('lae_auth');
+      sessionStorage.removeItem('lae_user');
+      window.location.replace('../index.html');
+    }
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', function() {
+      if (sessionStorage.getItem('lae_auth') !== 'true') {
+        window.location.replace('../index.html');
+      }
+    });
+  </script>
+
+</body>
+</html>

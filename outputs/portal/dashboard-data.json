@@ -1,6 +1,13 @@
 {
   "updates": [
     {
+      "type": "Daily Note",
+      "title": "Daily Note · Thursday, May 21, 2026",
+      "teaser": "Pre-market briefing: VIX None · F&G None (n/a)",
+      "link": "./products/daily-note.html",
+      "date": "2026-05-21"
+    },
+    {
       "type": "COT Report",
       "title": "Commodity Flow · CW 20 · 2026",
       "teaser": "Commodity positioning: Gold, Crude Oil, Natural Gas & Wheat. Producer/Merchant vs. Managed Money flows.",

@@ -11,7 +11,7 @@ import urllib.error
 
 API_KEY = os.environ.get("ALPHAVANTAGE_API_KEY", "")
 DATA_FILE = Path(__file__).parent.parent / "outputs" / "portal" / "dashboard-data.json"
-NEWS_COUNT = 7
+NEWS_COUNT = 6
 FETCH_LIMIT = 50  # Fetch more to have enough after filtering
 
 # Preferred sources in priority order – max 1 article per source
@@ -51,6 +51,9 @@ def fetch_news(api_key: str) -> list[dict]:
     req = urllib.request.Request(url, headers={"User-Agent": "LAE-Dashboard/1.0"})
     with urllib.request.urlopen(req, timeout=15) as resp:
         data = json.loads(resp.read().decode())
+    if "feed" not in data:
+        note = data.get("Note") or data.get("Information") or data.get("message") or str(data)
+        print(f"WARNING: Alpha Vantage returned no feed. API response: {note}", file=sys.stderr)
     return data.get("feed", [])
 
 
@@ -108,8 +111,8 @@ def main():
         sys.exit(1)
 
     if not articles:
-        print("WARNING: No articles returned.", file=sys.stderr)
-        sys.exit(1)
+        print("WARNING: No articles returned – keeping existing news data.", file=sys.stderr)
+        sys.exit(0)
 
     news = select_articles(articles)
     sources = [n["source"] for n in news]
