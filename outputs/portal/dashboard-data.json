@@ -2,6 +2,13 @@
   "updates": [
     {
       "type": "Earnings",
+      "title": "Earnings Analysis · NVDA Q1 FY2027",
+      "teaser": "NVDA Q1 FY2027 reported. Revenue $81.6B (+85% YoY, Beat), Data Center $75.2B (+92% YoY, Beat), EPS adj. $1.87 (Beat). Q2 Guidance $91B – $11B über Konsens. Kursreaktion: +1.4% AH, dann flat.",
+      "link": "./products/earnings-NVDA.html",
+      "date": "2026-05-21"
+    },
+    {
+      "type": "Earnings",
       "title": "Earnings Preview · NVDA Q1 FY2027",
       "teaser": "NVDA reports May 20 After Close. Consensus: Revenue $78.8B (+79% YoY), EPS $1.77 (+127%). Key watch: Data Center vs. $72.9B, Q2 guidance, China/export controls.",
       "link": "./products/earnings-NVDA.html",
