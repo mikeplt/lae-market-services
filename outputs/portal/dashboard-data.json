@@ -85,43 +85,43 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-21T16:41:19",
+  "news_updated": "2026-05-21T20:01:24",
   "news": [
     {
-      "title": "Birkenstock shares jump after $250 million buyback plan",
-      "source": "Reuters",
-      "time_published": "20260521T143915",
-      "url": "https://www.reuters.com/legal/transactional/birkenstock-shares-jump-after-250-million-buyback-plan-2026-05-21/"
+      "title": "Intercontinental Exchange (ICE) To Launch GPU Compute Futures Contracts Suite To Bring Transparency To GPU Costs",
+      "source": "Yahoo Finance",
+      "time_published": "20260521T174546",
+      "url": "https://finance.yahoo.com/markets/options/articles/intercontinental-exchange-ice-launch-gpu-174555640.html"
     },
     {
-      "title": "Zacks.com featured highlights include NVIDIA and Micron Technology",
-      "source": "Yahoo Finance Singapore",
-      "time_published": "20260521T150810",
-      "url": "https://sg.finance.yahoo.com/news/zacks-com-featured-highlights-nvidia-144900336.html"
-    },
-    {
-      "title": "TJX Analysts Raise Their Forecasts Following Better-Than-Expected Q1 Results",
+      "title": "Varde Partners Joins Growing List Of Firms Launching Private Credit Funds In Asia",
       "source": "Benzinga",
-      "time_published": "20260521T150629",
-      "url": "https://www.benzinga.com/analyst-stock-ratings/price-target/26/05/52721248/tjx-analysts-raise-their-forecasts-following-better-than-expected-q1-results"
+      "time_published": "20260521T192254",
+      "url": "https://www.benzinga.com/markets/private-markets/26/05/52730527/varde-partners-joins-growing-list-of-firms-launching-private-credit-funds-in-asia"
     },
     {
-      "title": "Verizon: A Bright Future With Growing Dividends (NYSE:VZ)",
+      "title": "Microsoft slips despite reported talks with Anthropic about using its AI chips (MSFT:NASDAQ)",
       "source": "Seeking Alpha",
-      "time_published": "20260521T145341",
-      "url": "https://seekingalpha.com/article/4907561-verizon-a-bright-future-with-growing-dividends?source=feed_tag_dividend_ideas"
+      "time_published": "20260521T183808",
+      "url": "https://seekingalpha.com/news/4595789-microsoft-shares-rise-amid-talks-with-anthropic-about-using-its-ai-chips"
     },
     {
-      "title": "Post Holdings Co. Ltd. Japan Sells 50,000 Shares of Aflac (NYSE:AFL) Stock",
-      "source": "MarketBeat",
-      "time_published": "20260521T152801",
-      "url": "https://www.marketbeat.com/instant-alerts/post-holdings-co-ltd-japan-sells-50000-shares-of-aflac-nyseafl-stock-2026-05-21/"
-    },
-    {
-      "title": "UBS (AMUB) sells capped 14‑month notes with 200% upside, $1,157 cap",
+      "title": "Director Mark Welsh awarded 349 Northrop Grumman (NYSE: NOC) stock units",
       "source": "Stock Titan",
-      "time_published": "20260521T154100",
-      "url": "https://www.stocktitan.net/sec-filings/AMUB/424b2-ubs-ag-prospectus-supplement-3aad11882558.html"
+      "time_published": "20260521T192912",
+      "url": "https://www.stocktitan.net/sec-filings/NOC/form-4-northrop-grumman-corp-de-insider-trading-activity-c234bbec997b.html"
+    },
+    {
+      "title": "INVESTOR ALERT: Pomerantz Law Firm Investigates Claims On Behalf of Investors of Norwegian Cruise Line Holdings Ltd. - NCLH",
+      "source": "PR Newswire",
+      "time_published": "20260521T193307",
+      "url": "https://www.prnewswire.com/news-releases/investor-alert-pomerantz-law-firm-investigates-claims-on-behalf-of-investors-of-norwegian-cruise-line-holdings-ltd---nclh-302779446.html"
+    },
+    {
+      "title": "Assessing Sempra (SRE) Valuation After New Equity Offerings And Expanded Shelf Registrations",
+      "source": "Simply Wall Street",
+      "time_published": "20260521T193126",
+      "url": "https://simplywall.st/stocks/us/utilities/nyse-sre/sempra/news/assessing-sempra-sre-valuation-after-new-equity-offerings-an"
     }
   ],
   "macro_score": 61,
