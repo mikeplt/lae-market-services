@@ -298,21 +298,6 @@ def build_html(d: dict) -> str:
       font-size: 0.92rem; color: #c8d0db; line-height: 1.65;
     }}
 
-    /* ── Footer ── */
-    .footer {{
-      margin-top: 28px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }}
-    .footer-brand {{
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem; color: #7a8899;
-    }}
-    .footer-brand span {{ color: #39ff14; font-weight: 700; }}
-    .footer-note {{ font-size: 0.65rem; color: rgba(122,136,153,0.5); }}
   </style>
 </head>
 <body>
@@ -346,11 +331,6 @@ def build_html(d: dict) -> str:
     {narrative_html}
   </div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <div class="footer-brand"><span>LAE</span> Market Services · Learn. Analyze. Execute.</div>
-    <div class="footer-note">Based on previous close · Generated {d['date_iso']}</div>
-  </div>
 
 </body>
 </html>"""
