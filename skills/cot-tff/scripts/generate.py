@@ -646,7 +646,7 @@ def main():
     yr        = L["date"].year
     new_entry = {
         "type": "COT Report",
-        "title": f"COT Report · CW {kw} · {yr}",
+        "title": f"Smart Money Insights · CW {kw} · {yr}",
         "teaser": "Latest Commitments of Traders data for S&P 500 E-Mini futures. Net positioning, commercial vs. non-commercial flows.",
         "link": "./products/cot-tff.html",
         "date": pub_date,

@@ -2,8 +2,8 @@
   "updates": [
     {
       "type": "COT Report",
-      "title": "COT Disaggregated · CW 20 · 2026",
-      "teaser": "Commodity positioning: Gold, Crude Oil, Natural Gas & Wheat. Producers vs. Managed Money flows.",
+      "title": "Commodity Flow · CW 20 · 2026",
+      "teaser": "Commodity positioning: Gold, Crude Oil, Natural Gas & Wheat. Producer/Merchant vs. Managed Money flows.",
       "link": "./products/cot-disaggregated.html",
       "date": "2026-05-21"
     },
@@ -51,8 +51,8 @@
     },
     {
       "type": "COT Report",
-      "title": "COT Report · CW 20 · 2026",
-      "teaser": "Latest Commitments of Traders data for S&P 500 E-Mini futures. Net positioning, commercial vs. non-commercial flows.",
+      "title": "Smart Money Insights · CW 20 · 2026",
+      "teaser": "S&P 500 E-Mini futures positioning. Asset Manager vs. Leveraged Funds flows.",
       "link": "./products/cot-tff.html",
       "date": "2026-05-15"
     },

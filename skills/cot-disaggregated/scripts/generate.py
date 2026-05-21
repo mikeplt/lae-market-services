@@ -662,8 +662,8 @@ def main():
         pub_date  = datetime.today().strftime("%Y-%m-%d")
         new_entry = {
             "type":   "COT Report",
-            "title":  f"COT Disaggregated · CW {kw} · {yr}",
-            "teaser": "Commodity positioning: Gold, Crude Oil, Natural Gas & Wheat. Producers vs. Managed Money flows.",
+            "title":  f"Commodity Flow · CW {kw} · {yr}",
+            "teaser": "Commodity positioning: Gold, Crude Oil, Natural Gas & Wheat. Producer/Merchant vs. Managed Money flows.",
             "link":   "./products/cot-disaggregated.html",
             "date":   pub_date,
         }
