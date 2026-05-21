@@ -5,12 +5,13 @@ const path = require('path');
 const SCREENSHOT =
   path.join(__dirname, 'Tradingview Screenshots', 'NVDA_2026-05-18_14-57-30.png');
 
-const ASSET     = 'NVDA · Nvidia Corporation';
-const TIMEFRAME = 'Daily (1D)';
-const EXCHANGE  = 'NASDAQ';
-const DATE      = 'May 18, 2026';
-const DATE_ISO  = '2026-05-18';
-const OUTPUT    =
+const ASSET      = 'NVDA · Nvidia Corporation';
+const ASSET_SLUG = 'NVDA';   // Portal-Dateiname: technical-analysis-{ASSET_SLUG}.html
+const TIMEFRAME  = 'Daily (1D)';
+const EXCHANGE   = 'NASDAQ';
+const DATE       = 'May 18, 2026';
+const DATE_ISO   = '2026-05-18';
+const OUTPUT     =
   path.join(__dirname, '../../outputs/technical-analysis/lae-ta-NVDA-2026-05-18.html');
 
 const TEASER = 'NVDA Daily – Bullish bias. Price +21.2% above SMA 200 ($185.97), all three Long AVWAPs reclaimed. Approaching resistance at $235.83 with two Gap Up zones providing structural support below.';
@@ -295,7 +296,7 @@ const newEntry = {
   type:   'Technical Analysis',
   title:  `Technical Analysis · ${ASSET}`,
   teaser: TEASER,
-  link:   './products/technical-analysis.html',
+  link:   `./products/technical-analysis-${ASSET_SLUG}.html`,
   date:   DATE_ISO,
 };
 dash.updates = [newEntry, ...(dash.updates || []).filter(u => !(u.type === 'Technical Analysis' && u.title === newEntry.title))];

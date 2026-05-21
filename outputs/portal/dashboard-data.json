@@ -18,7 +18,7 @@
       "type": "Technical Analysis",
       "title": "Technical Analysis · NVDA · Nvidia Corporation",
       "teaser": "NVDA Daily – Bullish bias. Price +21.2% above SMA 200 ($185.97), all three Long AVWAPs reclaimed. Approaching resistance at $235.83 with two Gap Up zones providing structural support below.",
-      "link": "./products/technical-analysis.html",
+      "link": "./products/technical-analysis-NVDA.html",
       "date": "2026-05-18"
     },
     {
@@ -39,7 +39,7 @@
       "type": "Technical Analysis",
       "title": "Technical Analysis · TSLA · Tesla, Inc.",
       "teaser": "TSLA Daily – Bullish bias. Price reclaimed SMA 200 ($407.40) and Short AVWAP ($407.77) simultaneously. Two Gap Down zones overhead act as near-term resistance.",
-      "link": "./products/technical-analysis.html",
+      "link": "./products/technical-analysis-TSLA.html",
       "date": "2026-05-17"
     },
     {
@@ -53,14 +53,14 @@
       "type": "Technical Analysis",
       "title": "Technical Analysis · CL1! · Crude Oil Future · May 15, 2026",
       "teaser": "Crude Oil Daily – Neutral bias. Price at 100.29, pressing resistance at 102.13. Bounced from 84 lows; clean break needed to turn bullish.",
-      "link": "./products/technical-analysis.html",
+      "link": "./products/technical-analysis-CL1.html",
       "date": "2026-05-15"
     },
     {
       "type": "Technical Analysis",
       "title": "Technical Analysis · ES1! · S&P 500 E-Mini · May 14, 2026",
       "teaser": "S&P 500 E-Mini Daily – Bullish bias. Price +8.8% above SMA 200, pressing upper Bollinger Band. Key support at 7,421.",
-      "link": "./products/technical-analysis.html",
+      "link": "./products/technical-analysis-ES1.html",
       "date": "2026-05-14"
     },
     {

@@ -140,12 +140,13 @@ const path = require('path');
 const SCREENSHOT = /* FILL IN: path to screenshot */
   path.join(__dirname, 'Tradingview Screenshots', 'ASSET_YYYY-MM-DD_HH-MM-SS.png');
 
-const ASSET     = /* FILL IN: e.g. */ 'ES1! · S&P 500 E-Mini';
-const TIMEFRAME = /* FILL IN: e.g. */ 'Daily (1D)';
-const EXCHANGE  = /* FILL IN: e.g. */ 'CME';
-const DATE      = /* FILL IN: e.g. */ 'May 14, 2026';
-const DATE_ISO  = /* FILL IN: derived from DATE */ '2026-05-14';
-const OUTPUT    = /* FILL IN: */
+const ASSET      = /* FILL IN: e.g. */ 'ES1! · S&P 500 E-Mini';
+const ASSET_SLUG = /* FILL IN: Portal-Slug, z.B. */ 'ES1';  // → technical-analysis-ES1.html
+const TIMEFRAME  = /* FILL IN: e.g. */ 'Daily (1D)';
+const EXCHANGE   = /* FILL IN: e.g. */ 'CME';
+const DATE       = /* FILL IN: e.g. */ 'May 14, 2026';
+const DATE_ISO   = /* FILL IN: derived from DATE */ '2026-05-14';
+const OUTPUT     = /* FILL IN: */
   path.join(__dirname, '../../outputs/technical-analysis/lae-ta-ASSET-YYYY-MM-DD.html');
 
 // One-liner for dashboard — plain text, no HTML, ~150 chars
@@ -414,7 +415,7 @@ const newEntry = {
   type:   'Technical Analysis',
   title:  `Technical Analysis · ${ASSET}`,
   teaser: TEASER,
-  link:   './products/technical-analysis.html',
+  link:   `./products/technical-analysis-${ASSET_SLUG}.html`,
   date:   DATE_ISO,
 };
 dash.updates = [newEntry, ...(dash.updates || []).filter(u => !(u.type === 'Technical Analysis' && u.title === newEntry.title))];
