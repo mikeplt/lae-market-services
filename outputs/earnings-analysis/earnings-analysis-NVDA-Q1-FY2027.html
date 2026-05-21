@@ -230,9 +230,10 @@
 
   .scenario-result-reaction {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 40px;
+    font-size: 20px;
     font-weight: 700;
-    line-height: 1;
+    line-height: 1.2;
+    white-space: nowrap;
   }
   .bull .scenario-result-reaction { color: var(--green); }
   .base .scenario-result-reaction { color: var(--yellow); }
@@ -279,7 +280,7 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 8px;
     font-weight: 700;
-    min-width: 64px;
+    width: 82px;
     height: 24px;
     border-radius: 5px;
     display: flex;
@@ -292,9 +293,10 @@
     white-space: nowrap;
     padding: 0 8px;
   }
-  .catalyst-badge.triggered { background: rgba(57,255,20,0.15);  color: var(--green); border: 1px solid rgba(57,255,20,0.3); }
-  .catalyst-badge.missed    { background: rgba(224,82,82,0.15);  color: var(--red);   border: 1px solid rgba(224,82,82,0.3); }
-  .catalyst-badge.partial   { background: rgba(245,166,35,0.12); color: var(--yellow);border: 1px solid rgba(245,166,35,0.3); }
+  .catalyst-badge.triggered { background: rgba(57,255,20,0.15);  color: var(--green);  border: 1px solid rgba(57,255,20,0.3); }
+  .catalyst-badge.missed    { background: rgba(224,82,82,0.15);  color: var(--red);    border: 1px solid rgba(224,82,82,0.3); }
+  .catalyst-badge.partial   { background: rgba(245,166,35,0.12); color: var(--yellow); border: 1px solid rgba(245,166,35,0.3); }
+  .catalyst-badge.in-line   { background: rgba(122,136,153,0.12); color: var(--gray);  border: 1px solid rgba(122,136,153,0.3); }
   .catalyst-review-text { display: flex; flex-direction: column; gap: 3px; flex: 1; }
   .catalyst-review-text strong { font-size: 13px; color: var(--white); font-weight: 600; }
   .catalyst-review-text span   { font-size: 12px; color: var(--gray); line-height: 1.5; }
@@ -518,7 +520,7 @@
       <div class="catalyst-review-item"><div class="catalyst-badge triggered">01 Triggered</div><div class="catalyst-review-text"><strong>Data Center Revenue vs. $72.9B</strong><span>Data Center revenue hit a record $75.2B, up 92% year-over-year, beating the $72.9B consensus by $2.3B. Compute alone reached $60.4B (+77% YoY), with Networking adding $14.8B (+199% YoY). Blackwell GPU shipments to hyperscalers drove the entire outperformance – demand remains fully unbound.</span></div></div>
 <div class="catalyst-review-item"><div class="catalyst-badge triggered">02 Triggered</div><div class="catalyst-review-text"><strong>Q2 FY2027 Revenue Guidance</strong><span>NVIDIA guided Q2 revenue to $91.0B (±2%) – a jaw-dropping $11B above the $80B Street consensus and far beyond the bull-case threshold of $82B. This is the most aggressive quarterly guidance beat in NVIDIA's history and confirms the Blackwell demand cycle is accelerating, not plateauing.</span></div></div>
 <div class="catalyst-review-item"><div class="catalyst-badge partial">03 Partial</div><div class="catalyst-review-text"><strong>China / Export Controls Update</strong><span>The Q2 guidance of $91B explicitly assumes zero data center compute revenue from China, as H20 exports remain banned. No policy relief, no alternative products for China announced. The headwind is fully baked in – no escalation, but no resolution either. This capped the stock's upside reaction.</span></div></div>
-<div class="catalyst-review-item"><div class="catalyst-badge in-line">04 in-line</div><div class="catalyst-review-text"><strong>Q2 Gross Margin Guidance</strong><span>Q2 non-GAAP gross margin guided at ~75.0% (±50 bps) – exactly in line with Q1 actuals and consensus. Blackwell manufacturing yields are stabilizing rather than rapidly improving. No margin expansion catalyst for the near term; the margin story remains a watch item for H2 FY2027.</span></div></div>
+<div class="catalyst-review-item"><div class="catalyst-badge in-line">04 In-Line</div><div class="catalyst-review-text"><strong>Q2 Gross Margin Guidance</strong><span>Q2 non-GAAP gross margin guided at ~75.0% (±50 bps) – exactly in line with Q1 actuals and consensus. Blackwell manufacturing yields are stabilizing rather than rapidly improving. No margin expansion catalyst for the near term; the margin story remains a watch item for H2 FY2027.</span></div></div>
 <div class="catalyst-review-item"><div class="catalyst-badge triggered">05 Triggered</div><div class="catalyst-review-text"><strong>Blackwell Demand & Supply Commentary</strong><span>Jensen Huang confirmed Blackwell demand is 'insane' with customer order backlogs extending well into H2 2026. Supply is ramping on schedule with new GB200 NVLink configurations driving higher ASPs. Professional Visualization surpassed $1B for the first time ($1.3B, +159% YoY), signaling Blackwell penetration beyond hyperscalers into enterprise AI workloads.</span></div></div>
     </div>
   </div>

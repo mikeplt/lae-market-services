@@ -132,6 +132,7 @@ _CATALYST_LABELS = {
     "triggered": "Triggered",
     "missed":    "Missed",
     "partial":   "Partial",
+    "in-line":   "In-Line",
 }
 
 _GUIDANCE_ARROWS = {
