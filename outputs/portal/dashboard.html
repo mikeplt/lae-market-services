@@ -215,9 +215,9 @@
         <div id="bottom-row" style="display:flex;gap:20px;align-items:stretch;margin-bottom:0;">
 
           <!-- LAE Updates -->
-          <div id="lae-highlight" style="flex:1;min-width:0;display:none;">
+          <div id="lae-highlight" style="flex:1;min-width:0;display:none;flex-direction:column;">
             <h2 style="margin-bottom:16px;font-size:0.7rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;">Updates</h2>
-            <div id="updates-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+            <div id="updates-list" style="display:flex;flex-direction:column;gap:10px;flex:1;"></div>
           </div>
 
           <!-- Latest News -->
@@ -325,7 +325,7 @@
           </div>
         </a>`;
       }).join('');
-      document.getElementById('lae-highlight').style.display = 'block';
+      document.getElementById('lae-highlight').style.display = 'flex';
     }
 
     function renderNews(d) {
