@@ -128,17 +128,33 @@ python generate.py
 → Output: `outputs/earnings-analysis/earnings-analysis-{TICKER}-{QUARTER}.html`
 
 ### Schritt 4 – Portal aktualisieren
-In `outputs/portal/products/earnings.html` einen neuen Eintrag hinzufügen (unter den Previews, im „Reports"-Bereich):
+In `outputs/portal/products/earnings-TICKER.html` den neuen Analysis-Eintrag **oberhalb** des zugehörigen Previews einfügen (zwischen `<!-- REPORTS-START -->` und `<!-- REPORTS-END -->`):
 ```html
-<div class="archive-item" onclick="openPreview('../../earnings-analysis/earnings-analysis-TICKER-QUARTER.html', this)" ...>
-  <span ...>TICKER</span>
-  <div class="archive-item-title">Earnings Analysis – [Unternehmen] [Quarter]</div>
-  <div class="archive-item-date">[Datum] · Analysis · Reported: [Datum] [Time]</div>
+<div class="report-row" onclick="openPreview('../../earnings-analysis/earnings-analysis-TICKER-QUARTER.html', this)">
+  <div class="report-row-left">
+    <div class="report-row-meta">
+      <span class="type-badge analysis">Analysis</span>
+      <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--green);">QUARTER</span>
+    </div>
+    <span class="report-row-date">[Analysedatum] · Reported: [Berichtsdatum] · [Time]</span>
+  </div>
+  <span class="report-row-arrow">→</span>
 </div>
 ```
-Entry-Count im Header anpassen (+1).
 
-### Schritt 5 – GitHub pushen
+### Schritt 5 – Dashboard aktualisieren
+In `outputs/portal/dashboard-data.json` einen neuen Eintrag **ganz oben** in `"updates"` einfügen:
+```json
+{
+  "type": "Earnings",
+  "title": "Earnings Analysis · TICKER QUARTER",
+  "teaser": "TICKER QUARTER reported. Revenue $X.XB (Beat/Missed), Data Center $X.XB, EPS adj. $X.XX. Q2 Guidance $X.XB. Kursreaktion: [Reaktion].",
+  "link": "./products/earnings-TICKER.html",
+  "date": "YYYY-MM-DD"
+}
+```
+
+### Schritt 6 – GitHub pushen
 ```bash
 git add .
 git commit -m "Earnings Analysis: TICKER QUARTER"
