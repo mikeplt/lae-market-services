@@ -71,49 +71,49 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-20T20:25:07",
+  "news_updated": "2026-05-21T09:53:48",
   "news": [
     {
-      "title": "Nvidia earnings live updates: The key numbers to watch for in the report",
-      "source": "CNBC",
-      "time_published": "20260520T181100",
-      "url": "https://www.cnbc.com/2026/05/20/nvidia-nvda-earnings-report-q1-2027.html"
-    },
-    {
-      "title": "Regeneron backed Parabilis seeks U.S. IPO (PBLS:Pending)",
-      "source": "Seeking Alpha",
-      "time_published": "20260520T181320",
-      "url": "https://seekingalpha.com/news/4595451-regeneron-backed-parabilis-seeks-us-ipo"
-    },
-    {
-      "title": "Daniel Krueger Sells 4,665 Shares of WEC Energy Group (NYSE:WEC) Stock",
+      "title": "Verizon Communications Inc. $VZ Shares Sold by Envestnet Portfolio Solutions Inc.",
       "source": "MarketBeat",
-      "time_published": "20260520T192542",
-      "url": "https://www.marketbeat.com/instant-alerts/daniel-krueger-sells-4665-shares-of-wec-energy-group-nysewec-stock-2026-05-20/"
+      "time_published": "20260521T090804",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-verizon-communications-inc-vz-shares-sold-by-envestnet-portfolio-solutions-inc-2026-05-21/"
     },
     {
-      "title": "ITRI (NASDAQ: ITRI) files Form 144 to sell 57 vested shares",
-      "source": "Stock Titan",
-      "time_published": "20260520T193126",
-      "url": "https://www.stocktitan.net/sec-filings/ITRI/144-itron-inc-sec-filing-72a58ef35df1.html"
-    },
-    {
-      "title": "ITRI (NASDAQ) insider sales total 3,189 shares; 277 restricted shares vested",
-      "source": "Stock Titan",
-      "time_published": "20260520T192926",
-      "url": "https://www.stocktitan.net/sec-filings/ITRI/144-itron-inc-sec-filing-6bf4d7bdf666.html"
-    },
-    {
-      "title": "[424B2] BARCLAYS BANK PLC Prospectus Supplement",
-      "source": "Stock Titan",
-      "time_published": "20260520T192714",
-      "url": "https://www.stocktitan.net/sec-filings/DJP/424b2-barclays-bank-plc-prospectus-supplement-cd01c03660ca.html"
-    },
-    {
-      "title": "Entergy stock (US29364G1031): Edison Electric Institute notes strong load growth backdrop",
+      "title": "Molina Healthcare Inc stock (US6093511094): earnings beat keeps Medicaid specialist in focus",
       "source": "AD HOC NEWS",
-      "time_published": "20260520T192658",
-      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/entergy-stock-us29364g1031-edison-electric-institute-notes-strong-load/69384752"
+      "time_published": "20260521T090816",
+      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/molina-healthcare-inc-stock-us6093511094-earnings-beat-keeps-medicaid/69389284"
+    },
+    {
+      "title": "ProShare Advisors LLC Boosts Stake in Waste Management, Inc. $WM",
+      "source": "MarketBeat",
+      "time_published": "20260521T090803",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-proshare-advisors-llc-boosts-stake-in-waste-management-inc-wm-2026-05-21/"
+    },
+    {
+      "title": "ProShare Advisors LLC Purchases 15,819 Shares of The TJX Companies, Inc. $TJX",
+      "source": "MarketBeat",
+      "time_published": "20260521T090801",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-proshare-advisors-llc-purchases-15819-shares-of-the-tjx-companies-inc-tjx-2026-05-21/"
+    },
+    {
+      "title": "ProShare Advisors LLC Buys 4,790 Shares of The PNC Financial Services Group, Inc $PNC",
+      "source": "MarketBeat",
+      "time_published": "20260521T090756",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-proshare-advisors-llc-buys-4790-shares-of-the-pnc-financial-services-group-inc-pnc-2026-05-21/"
+    },
+    {
+      "title": "ProShare Advisors LLC Purchases 28,740 Shares of Williams Companies, Inc. (The) $WMB",
+      "source": "MarketBeat",
+      "time_published": "20260521T090753",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-proshare-advisors-llc-purchases-28740-shares-of-williams-companies-inc-the-wmb-2026-05-21/"
+    },
+    {
+      "title": "Northrop Grumman Corporation $NOC Shares Purchased by ProShare Advisors LLC",
+      "source": "MarketBeat",
+      "time_published": "20260521T090753",
+      "url": "https://www.marketbeat.com/instant-alerts/filing-northrop-grumman-corporation-noc-shares-purchased-by-proshare-advisors-llc-2026-05-21/"
     }
   ],
   "macro_score": 61,
