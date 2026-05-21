@@ -139,7 +139,7 @@ def make_narrative(narrative: dict) -> str:
     for title, text in sections:
         rows += f"""
       <div class="narrative-section">
-        <div class="narrative-title">▸ {title}</div>
+        <div class="narrative-title">{title}</div>
         <div class="narrative-text">{text}</div>
       </div>"""
     return rows
@@ -327,11 +327,10 @@ def build_html(d: dict) -> str:
       </svg>
       <div>
         <div class="header-title">LAE Market Services</div>
-        <div class="header-date">{d['datum']}</div>
       </div>
     </div>
     <div class="header-spacer"></div>
-    <div class="header-tag">Pre-Market · Daily Note</div>
+    <div class="header-tag">{d['datum']}</div>
   </div>
 
   <!-- Signal Indicators -->
