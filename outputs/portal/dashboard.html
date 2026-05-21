@@ -349,13 +349,18 @@
 
     function syncColumnHeights() {
       const updatesCol = document.getElementById('lae-highlight');
-      const newsCol = document.querySelector('#bottom-row > div:last-child');
-      if (!updatesCol || !newsCol) return;
+      const newsList = document.getElementById('news-list');
+      if (!updatesCol || !newsList) return;
       requestAnimationFrame(() => {
-        const h = updatesCol.offsetHeight;
-        if (h > 0) {
-          newsCol.style.maxHeight = h + 'px';
-          newsCol.style.overflow = 'hidden';
+        const updatesH = updatesCol.offsetHeight;
+        if (updatesH <= 0) return;
+        const newsCol = document.querySelector('#bottom-row > div:last-child');
+        const h2 = newsCol ? newsCol.querySelector('h2') : null;
+        const h2H = h2 ? h2.offsetHeight + 16 : 32; // 16 = margin-bottom
+        const listMaxH = updatesH - h2H - 24 - 24; // card padding top + bottom
+        if (listMaxH > 0) {
+          newsList.style.maxHeight = listMaxH + 'px';
+          newsList.style.overflow = 'hidden';
         }
       });
     }
