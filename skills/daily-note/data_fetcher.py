@@ -7,21 +7,12 @@ import os
 import math
 import json
 import requests
+import yfinance as yf
 from datetime import datetime, date, timedelta
 from google import genai
 
 
 FINNHUB_BASE = "https://finnhub.io/api/v1"
-
-
-# ── Finnhub helper ─────────────────────────────────────────────────────────────
-
-def _finnhub(endpoint: str, params: dict) -> dict:
-    api_key = os.environ.get("FINNHUB_API_KEY", "")
-    params["token"] = api_key
-    resp = requests.get(f"{FINNHUB_BASE}/{endpoint}", params=params, timeout=20)
-    resp.raise_for_status()
-    return resp.json()
 
 
 # ── VIX ────────────────────────────────────────────────────────────────────────
@@ -37,19 +28,19 @@ def _vix_zone(v: float) -> str:
 
 def get_vix() -> dict:
     try:
-        data = _finnhub("quote", {"symbol": "^VIX"})
-        current = data.get("c")
-        prev = data.get("pc")
-        if current and prev:
-            delta = current - prev
-            sign = "+" if delta >= 0 else ""
+        hist = yf.Ticker("^VIX").history(period="5d")
+        if len(hist) >= 2:
+            current = float(hist["Close"].iloc[-1])
+            prev    = float(hist["Close"].iloc[-2])
+            delta   = current - prev
+            sign    = "+" if delta >= 0 else ""
             return {
-                "value": round(current, 2),
-                "prev": round(prev, 2),
-                "delta": round(delta, 2),
+                "value":     round(current, 2),
+                "prev":      round(prev, 2),
+                "delta":     round(delta, 2),
                 "delta_str": f"{sign}{delta:.2f}",
-                "zone": _vix_zone(current),
-                "up": current >= prev,
+                "zone":      _vix_zone(current),
+                "up":        current >= prev,
             }
     except Exception as e:
         print(f"  Warning [VIX]: {e}")
@@ -60,10 +51,10 @@ def get_vix() -> dict:
 
 def get_spx() -> dict:
     try:
-        data = _finnhub("quote", {"symbol": "^GSPC"})
-        current = data.get("c")
-        prev = data.get("pc")
-        if current and prev:
+        hist = yf.Ticker("^GSPC").history(period="5d")
+        if len(hist) >= 2:
+            current = float(hist["Close"].iloc[-1])
+            prev    = float(hist["Close"].iloc[-2])
             return {"value": round(current, 2), "prev": round(prev, 2)}
     except Exception as e:
         print(f"  Warning [SPX]: {e}")
@@ -105,7 +96,12 @@ def get_fear_greed() -> dict:
     try:
         resp = requests.get(
             "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
-            headers={"User-Agent": "Mozilla/5.0"},
+            headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "Referer": "https://edition.cnn.com/markets/fear-and-greed",
+                "Origin": "https://edition.cnn.com",
+            },
             timeout=15,
         )
         resp.raise_for_status()
