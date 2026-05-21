@@ -16,7 +16,7 @@ import urllib.request
 # ── Konfiguration ─────────────────────────────────────────────────────────────
 MARKET_NAME   = "E-MINI S&P 500 - CHICAGO MERCANTILE EXCHANGE"
 URL_FUT       = "https://www.cftc.gov/files/dea/history/fut_fin_txt_{year}.zip"
-OUTPUT_DIR    = Path(__file__).parents[3] / "outputs" / "cot-report"
+OUTPUT_DIR    = Path(__file__).parents[3] / "outputs" / "cot-tff"
 REFERENCE_DIR = Path(__file__).parents[3] / "reference"
 WEEKS         = 52
 
@@ -608,7 +608,7 @@ def main():
         sys.exit("Fehler: Keine verwertbaren Daten.")
 
     L = series[-1]
-    fname  = f"lae-cot-report-{L['date'].strftime('%Y-%m-%d')}.html"
+    fname  = f"lae-cot-tff-{L['date'].strftime('%Y-%m-%d')}.html"
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     out = OUTPUT_DIR / fname
     out.write_text(build_html(series), encoding="utf-8")
@@ -626,7 +626,7 @@ def main():
     portal_path = Path(__file__).parents[3] / "outputs" / "portal" / "products" / "cot-tff.html"
     if portal_path.exists():
         portal_html = portal_path.read_text(encoding="utf-8")
-        rel_src  = f"../../cot-report/{fname}"
+        rel_src  = f"../../cot-tff/{fname}"
         kw       = L["date"].isocalendar()[1]
         yr       = L["date"].year
         label    = f"CW {kw} · {yr}"
