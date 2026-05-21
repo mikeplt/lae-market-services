@@ -85,49 +85,43 @@
       "date": "2026-05-08"
     }
   ],
-  "news_updated": "2026-05-21T12:48:55",
+  "news_updated": "2026-05-21T16:41:19",
   "news": [
     {
-      "title": "S&P 500 Futures Fall in Premarket Trading; D-Wave Quantum, Rigetti Computing Lead",
-      "source": "Barron's",
-      "time_published": "20260521T113021",
-      "url": "https://www.barrons.com/articles/s-p-500-futures-fall-in-premarket-trading-d-wave-quantum-rigetti-computing-lead-500331e2"
+      "title": "Birkenstock shares jump after $250 million buyback plan",
+      "source": "Reuters",
+      "time_published": "20260521T143915",
+      "url": "https://www.reuters.com/legal/transactional/birkenstock-shares-jump-after-250-million-buyback-plan-2026-05-21/"
     },
     {
-      "title": "IBM, D-Wave, Rigetti, GlobalFoundries confirm proposed U.S. quantum funding awards (IBM:NYSE)",
+      "title": "Zacks.com featured highlights include NVIDIA and Micron Technology",
+      "source": "Yahoo Finance Singapore",
+      "time_published": "20260521T150810",
+      "url": "https://sg.finance.yahoo.com/news/zacks-com-featured-highlights-nvidia-144900336.html"
+    },
+    {
+      "title": "TJX Analysts Raise Their Forecasts Following Better-Than-Expected Q1 Results",
+      "source": "Benzinga",
+      "time_published": "20260521T150629",
+      "url": "https://www.benzinga.com/analyst-stock-ratings/price-target/26/05/52721248/tjx-analysts-raise-their-forecasts-following-better-than-expected-q1-results"
+    },
+    {
+      "title": "Verizon: A Bright Future With Growing Dividends (NYSE:VZ)",
       "source": "Seeking Alpha",
-      "time_published": "20260521T112821",
-      "url": "https://seekingalpha.com/news/4595700-ibm-d-wave-rigetti-globalfoundries-confirm-proposed-us-quantum-funding-awards"
+      "time_published": "20260521T145341",
+      "url": "https://seekingalpha.com/article/4907561-verizon-a-bright-future-with-growing-dividends?source=feed_tag_dividend_ideas"
     },
     {
-      "title": "Philip Morris International Inc. $PM Stock Position Boosted by Global Retirement Partners LLC",
+      "title": "Post Holdings Co. Ltd. Japan Sells 50,000 Shares of Aflac (NYSE:AFL) Stock",
       "source": "MarketBeat",
-      "time_published": "20260521T120541",
-      "url": "https://www.marketbeat.com/instant-alerts/filing-philip-morris-international-inc-pm-stock-position-boosted-by-global-retirement-partners-llc-2026-05-21/"
+      "time_published": "20260521T152801",
+      "url": "https://www.marketbeat.com/instant-alerts/post-holdings-co-ltd-japan-sells-50000-shares-of-aflac-nyseafl-stock-2026-05-21/"
     },
     {
-      "title": "Rate hedging boom: ICE hits record 128M open interest, expands global futures",
+      "title": "UBS (AMUB) sells capped 14‑month notes with 200% upside, $1,157 cap",
       "source": "Stock Titan",
-      "time_published": "20260521T120003",
-      "url": "https://www.stocktitan.net/news/ICE/ice-financials-complex-helps-drive-record-all-contract-open-interest-lc2fcxsd3bc5.html"
-    },
-    {
-      "title": "FourThought Financial Partners LLC Sells 11,292 Shares of NXP Semiconductors N.V. $NXPI",
-      "source": "MarketBeat",
-      "time_published": "20260521T120531",
-      "url": "https://www.marketbeat.com/instant-alerts/filing-fourthought-financial-partners-llc-sells-11292-shares-of-nxp-semiconductors-nv-nxpi-2026-05-21/"
-    },
-    {
-      "title": "Global Retirement Partners LLC Has $12.78 Million Holdings in Caterpillar Inc. $CAT",
-      "source": "MarketBeat",
-      "time_published": "20260521T120523",
-      "url": "https://www.marketbeat.com/instant-alerts/filing-global-retirement-partners-llc-has-1278-million-holdings-in-caterpillar-inc-cat-2026-05-21/"
-    },
-    {
-      "title": "WTI Crude Rally Tests a Fragile Resistance Zone",
-      "source": "StoneX",
-      "time_published": "20260521T120446",
-      "url": "https://www.stonex.com/en-us/insights/wti-crude-rally-tests-a-fragile-resistance-zone/"
+      "time_published": "20260521T154100",
+      "url": "https://www.stocktitan.net/sec-filings/AMUB/424b2-ubs-ag-prospectus-supplement-3aad11882558.html"
     }
   ],
   "macro_score": 61,
