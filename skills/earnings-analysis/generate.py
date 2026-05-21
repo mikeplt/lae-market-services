@@ -7,21 +7,21 @@ from pathlib import Path
 
 # ── HEADER ────────────────────────────────────────────────────────────────────
 DATA = {
-    "DATUM":           "May 8, 2026",
-    "TICKER":          "AMD",
-    "COMPANY_NAME":    "Advanced Micro Devices, Inc.",
-    "QUARTER":         "Q1 FY2026",
-    "REPORT_DATE":     "May 5, 2026",
+    "DATUM":           "May 21, 2026",
+    "TICKER":          "NVDA",
+    "COMPANY_NAME":    "NVIDIA Corporation",
+    "QUARTER":         "Q1 FY2027",
+    "REPORT_DATE":     "May 20, 2026",
     "REPORT_TIME":     "After Close",
-    "STOCK_PREV_DATE": "May 5",        # Schlusskurs am Tag der Earnings (vor AH)
-    "STOCK_PREV":      "$ 363.00",     # Kurs vor Earnings
-    "STOCK_POST_DATE": "May 6",        # Erster Handelstag nach Earnings
-    "STOCK_AFTER":     "$ 421.39",     # Schlusskurs nach Earnings
-    "STOCK_REACT":     "▲ +16.1%",    # Tatsächliche Kursreaktion
+    "STOCK_PREV_DATE": "May 20",       # Schlusskurs am Tag der Earnings (vor AH)
+    "STOCK_PREV":      "$ 220.60",     # Kurs vor Earnings
+    "STOCK_POST_DATE": "May 21",       # Erster Handelstag nach Earnings
+    "STOCK_AFTER":     "$ 220.66",     # Schlusskurs nach Earnings
+    "STOCK_REACT":     "▲ +0.0%",     # Tatsächliche Kursreaktion (AH +1.4%, dann Fading)
     "REACT_CLASS":     "green",        # "green" oder "red"
     "TV_IFRAME_SRC": (
         "https://www.tradingview.com/embed-widget/mini-symbol-overview/"
-        "?symbol=NASDAQ%3AAMD&locale=en&dateRange=12M&colorTheme=dark"
+        "?symbol=NASDAQ%3ANVDA&locale=en&dateRange=12M&colorTheme=dark"
         "&trendLineColor=%2339ff14&underLineColor=rgba(57%2C255%2C20%2C0.15)"
         "&underLineBottomColor=rgba(57%2C255%2C20%2C0)&isTransparent=true&autosize=true"
     ),
@@ -32,10 +32,11 @@ DATA = {
 # vs_class: "pos" (grün) | "neg" (rot) | "neutral" (gelb)
 # status:   "beat" | "missed" | "in-line"
 RESULTS = [
-    ("Revenue (total)",          "$ 9.84B",   "$ 10.25B",  "▲ +$0.41B",  "pos", "beat"),
-    ("Data Center Revenue",      "~ $ 5.3B",  "$ 5.8B",    "▲ +$0.5B",   "pos", "beat"),
-    ("EPS (non-GAAP adj.)",      "$ 1.25",    "$ 1.37",    "▲ +$0.12",   "pos", "beat"),
-    ("Non-GAAP Gross Margin",    "~ 54.5%",   "55.0%",     "▲ +0.5 pp",  "pos", "beat"),
+    ("Revenue (total)",       "$ 78.8B",   "$ 81.6B",  "▲ +$2.8B",    "pos",     "beat"),
+    ("Data Center Revenue",   "$ 72.9B",   "$ 75.2B",  "▲ +$2.3B",    "pos",     "beat"),
+    ("Gaming Revenue",        "$ 3.6B",    "$ 3.7B",   "▲ +$0.1B",    "pos",     "beat"),
+    ("EPS (non-GAAP adj.)",   "$ 1.77",    "$ 1.87",   "▲ +$0.10",    "pos",     "beat"),
+    ("Gross Margin (adj.)",   "~ 75.0%",   "75.0%",    "—",           "neutral", "in-line"),
 ]
 
 # ── SCENARIO RESULT ────────────────────────────────────────────────────────────
@@ -43,17 +44,18 @@ RESULTS = [
 SCENARIO_RESULT = {
     "played_out": "bull",
     "tag":        "Bull",
-    "reaction":   "▲ +16.1%",
-    "driver":     "Data Center Beat + Full EPS Beat + Strong Q2 Guidance",
-    "revenue":    "$ 10.25B",
-    "eps":        "$ 1.37",
+    "reaction":   "▲ +1.4% AH / flat",
+    "driver":     "Data Center Beat + Q2 Guidance $91B vs. $80B Consensus",
+    "revenue":    "$ 81.6B",
+    "eps":        "$ 1.87",
     "summary":    (
-        "AMD delivered its best post-earnings session in seven years – the stock surged +16.1% "
-        "on May 6, 2026, closing at $421.39. Revenue of $10.25B crushed the $9.84B consensus by $0.41B, "
-        "up 38% year-over-year. The Data Center segment led the way at $5.8B (+57% YoY), driven by "
-        "explosive demand for EPYC server CPUs and Instinct AI GPUs. A blockbuster Meta partnership "
-        "announcement – up to 6 GW of Instinct GPU deployments – supercharged the bull narrative. "
-        "Q2 guidance of $11.2B topped the ~$10.9B estimate, cementing AMD's AI infrastructure momentum."
+        "NVIDIA delivered a textbook bull quarter – but the market barely moved. Revenue of $81.6B "
+        "beat the $78.8B consensus by $2.8B, up 85% year-over-year. Data Center hit $75.2B (+92% YoY), "
+        "driven entirely by Blackwell GPU shipments to hyperscalers. The true market-mover was Q2 "
+        "guidance of $91B – a staggering $11B above the $80B Street consensus and well above even the "
+        "bull-case threshold of $82B. Despite these blockbuster numbers, the stock rose just +1.4% in "
+        "after-hours trading and closed flat the next day at $220.66 – suggesting the beat was already "
+        "priced in and investors focused on the China headwind (zero H20 revenue in Q2 guidance)."
     ),
 }
 
@@ -61,58 +63,62 @@ SCENARIO_RESULT = {
 # Format: (Nr, Title, status, Beschreibung was tatsächlich passiert ist)
 # status: "triggered" | "missed" | "partial"
 CATALYST_RESULTS = [
-    ("01", "Data Center Revenue Surge", "triggered",
-     "Data Center segment revenue hit $5.8B, up 57% year-over-year, crushing the ~$5.3B estimate. "
-     "Both EPYC server CPUs and Instinct AI GPUs contributed to the outperformance. "
-     "AMD's Data Center segment is now the clear growth engine of the company."),
-    ("02", "Meta Partnership – Instinct GPU Deployment", "triggered",
-     "AMD and Meta announced plans to deploy up to 6 GW of AMD Instinct GPUs, "
-     "with the first 1-GW tranche powered by a custom MI450-based GPU. "
-     "This is one of the largest single AI infrastructure commitments ever announced – a major demand signal."),
-    ("03", "Q2 FY2026 Revenue Guidance Beat", "triggered",
-     "AMD guided Q2 revenue to approximately $11.2B (±$300M), well above the ~$10.9B Street estimate. "
-     "This represents ~46% year-over-year growth and confirms AI infrastructure demand acceleration "
-     "heading into the second half of 2026."),
-    ("04", "Non-GAAP EPS Beat", "triggered",
-     "Non-GAAP diluted EPS of $1.37 beat the $1.25 consensus by $0.12, or +9.6%. "
-     "On a year-over-year basis, EPS grew 43%, reflecting strong operating leverage as "
-     "Data Center scale benefits flow through to the bottom line."),
-    ("05", "Server CPU Market Share Momentum", "triggered",
-     "Lisa Su confirmed server CPU market growth exceeding 35% and a CPU-to-GPU ratio target of 1:1. "
-     "Server CPU revenue is expected to grow more than 70% year-over-year in Q2 FY2026, "
-     "signaling sustained EPYC share gains versus Intel in the data center."),
+    ("01", "Data Center Revenue vs. $72.9B", "triggered",
+     "Data Center revenue hit a record $75.2B, up 92% year-over-year, beating the $72.9B consensus "
+     "by $2.3B. Compute alone reached $60.4B (+77% YoY), with Networking adding $14.8B (+199% YoY). "
+     "Blackwell GPU shipments to hyperscalers drove the entire outperformance – demand remains fully unbound."),
+    ("02", "Q2 FY2027 Revenue Guidance", "triggered",
+     "NVIDIA guided Q2 revenue to $91.0B (±2%) – a jaw-dropping $11B above the $80B Street consensus "
+     "and far beyond the bull-case threshold of $82B. This is the most aggressive quarterly guidance "
+     "beat in NVIDIA's history and confirms the Blackwell demand cycle is accelerating, not plateauing."),
+    ("03", "China / Export Controls Update", "partial",
+     "The Q2 guidance of $91B explicitly assumes zero data center compute revenue from China, as H20 "
+     "exports remain banned. No policy relief, no alternative products for China announced. The headwind "
+     "is fully baked in – no escalation, but no resolution either. This capped the stock's upside reaction."),
+    ("04", "Q2 Gross Margin Guidance", "in-line",
+     "Q2 non-GAAP gross margin guided at ~75.0% (±50 bps) – exactly in line with Q1 actuals and consensus. "
+     "Blackwell manufacturing yields are stabilizing rather than rapidly improving. No margin expansion "
+     "catalyst for the near term; the margin story remains a watch item for H2 FY2027."),
+    ("05", "Blackwell Demand & Supply Commentary", "triggered",
+     "Jensen Huang confirmed Blackwell demand is 'insane' with customer order backlogs extending well into "
+     "H2 2026. Supply is ramping on schedule with new GB200 NVLink configurations driving higher ASPs. "
+     "Professional Visualization surpassed $1B for the first time ($1.3B, +159% YoY), signaling Blackwell "
+     "penetration beyond hyperscalers into enterprise AI workloads."),
 ]
 
 # ── FORWARD GUIDANCE ───────────────────────────────────────────────────────────
 # Format: (Metric, Alte Guidance, Neue Guidance, change_class)
 # change_class: "pos" | "neg" | "neutral"
 GUIDANCE = [
-    ("Q2 FY2026 Revenue",              "~ $10.9B (consensus)",  "$11.2B (±$300M)",  "pos"),
-    ("Q2 Non-GAAP Gross Margin",       "~ 54.5%",               "~ 56%",            "pos"),
-    ("Q2 Non-GAAP Operating Expenses", "~ $3.2B",               "~ $3.3B",          "neg"),
-    ("Server CPU Revenue Growth Q2",   "~ +50% YoY",            "> +70% YoY",       "pos"),
+    ("Q2 FY2027 Revenue",              "~ $80.0B (consensus)",  "$91.0B (±2%)",    "pos"),
+    ("Q2 Non-GAAP Gross Margin",       "~ 75.0%",               "~ 75.0% (±50 bps)", "neutral"),
+    ("Q2 Non-GAAP Operating Expenses", "—",                     "~ $8.3B",         "neutral"),
+    ("Q2 GAAP Operating Expenses",     "—",                     "~ $8.5B",         "neutral"),
 ]
 
 # ── OUTLOOK ────────────────────────────────────────────────────────────────────
 # Format: (Nr, Title, Text) – 3–4 Ausblickspunkte
 OUTLOOK = [
-    ("01", "AI Infrastructure Demand Cycle",
-     "The Meta partnership – up to 6 GW of Instinct GPU deployments – is a multi-year demand signal. "
-     "As hyperscalers ramp AI workloads, AMD's Instinct GPU lineup directly competes with Nvidia's H-series. "
-     "The key question for H2 2026: can AMD maintain supply to meet accelerating hyperscaler demand?"),
-    ("02", "Server CPU Market Share vs. Intel",
-     "AMD's EPYC is firmly in share-gain mode with server CPU revenue expected to grow >70% YoY in Q2. "
-     "Lisa Su's 1:1 CPU-to-GPU ratio target signals how deeply AMD is embedding itself "
-     "in AI data center infrastructure – a strategic moat that compounds over time."),
-    ("03", "Embedded & Gaming Recovery Pace",
-     "Embedded revenue of $873M (+6% YoY) is recovering but remains sluggish vs. the Data Center. "
-     "Gaming ($720M, +11% YoY) showed resilience driven by Radeon GPU demand. "
-     "Neither segment is a near-term growth catalyst – the Data Center dominates the story."),
-    ("04", "Valuation & Price Target",
-     "AMD closed at $421.39 post-earnings – up +16.1% on its best post-earnings day in seven years. "
-     "At these levels, the premium reflects strong AI execution and hyperscaler partnerships. "
-     "Key support at $390–400, resistance at $430–440. Continued Data Center outperformance "
-     "is required to justify the elevated multiple."),
+    ("01", "Q2 Guidance Shock – $91B vs. $80B",
+     "A guidance beat of $11B above consensus is nearly unprecedented at NVIDIA's scale. The Q2 guide "
+     "implies sequential revenue growth of ~11% from Q1's $81.6B, driven entirely by continued Blackwell "
+     "shipment acceleration. The key risk: this guidance explicitly excludes China. If export policy "
+     "shifts even modestly, $91B could prove conservative – the upside optionality is significant."),
+    ("02", "China Headwind – Priced In, Not Resolved",
+     "Zero H20 revenue is already baked into Q2 guidance. The China market – historically ~20% of NVIDIA's "
+     "data center business – remains closed for high-end compute. Management offered no timeline for "
+     "resolution or alternative product launches. This single variable caps the bull narrative and "
+     "explains the muted stock reaction despite a historic guidance beat."),
+    ("03", "Shareholder Returns – Dividend 25x Raise",
+     "NVIDIA raised its quarterly cash dividend from $0.01 to $0.25 per share – a 25x increase – and "
+     "returned a record ~$20B to shareholders via buybacks and dividends in Q1. Free cash flow of $49B "
+     "annualizes to ~$196B, one of the highest FCF yields of any company in history. Capital return "
+     "capacity is no longer a question; the question is where to direct it."),
+    ("04", "Market Reaction – 'Sell the News' Dynamics",
+     "The stock rose just +1.4% AH and closed flat at $220.66 the next day – well below the implied "
+     "move of ±8.0%. This pattern reflects 'buy the rumor, sell the news': NVDA's AI momentum was "
+     "already embedded at $225.32 (preview price). Key support at $210–215, resistance at $230–235. "
+     "A sustained move above $235 requires either China policy relief or another guidance acceleration in Q2."),
 ]
 
 # ── HTML BUILD ────────────────────────────────────────────────────────────────
